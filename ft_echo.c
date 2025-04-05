@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/01 17:29:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:30:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unistd.h"
+#include "function.h"
 
 void	print_echo(char **av, int start, int nl_flag)
 {
