@@ -6,28 +6,39 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:04:37 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/04/08 13:49:55 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:31:16 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
+/// @brief 
+/// @param str 
+/// @return 
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 int	ft_pwd(void)
 {
-	char *pwd ;
-	
+	char	*pwd;
+
 	pwd = NULL;
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
 		perror("getcwd");
-		return 1;
+		return (42);
 	}
-	write(1, pwd, sizeof(pwd));
+	write(1, pwd, ft_strlen(pwd));
 	free(pwd);
 	return (0);
 }

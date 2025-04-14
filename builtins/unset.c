@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:51:21 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/04/10 23:56:02 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:32:48 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ int	ft_unset(char **variables, char **env, char **set)
 {
     if (variables == NULL || variables[0] == NULL)
 		return (1);
-	ft_delete_var(env, variables);
-	ft_delete_var(set, variables);
+	if (env != NULL)
+		ft_delete_var(env, variables);
+	if (set != NULL)
+		ft_delete_var(set, variables);
 	
 	return (0);
 }
