@@ -6,11 +6,11 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:51:21 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/04/14 17:32:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:57:54 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/includes/libft.h"
+#include "libft.h"
 
 /// @brief it is the message of error's unset
 /// @param

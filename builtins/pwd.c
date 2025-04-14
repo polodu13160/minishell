@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:04:37 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/04/14 17:31:16 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:57:27 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-/// @brief 
-/// @param str 
-/// @return 
-int	ft_strlen(char *str)
+
+static int	ft_strlen(char *str)
 {
 	int	i;
 
@@ -27,6 +25,8 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+/// @brief print pwd in standard output 
+/// @return 
 int	ft_pwd(void)
 {
 	char	*pwd;
@@ -36,7 +36,7 @@ int	ft_pwd(void)
 	if (pwd == NULL)
 	{
 		perror("getcwd");
-		return (42);
+		return (0);
 	}
 	write(1, pwd, ft_strlen(pwd));
 	free(pwd);
