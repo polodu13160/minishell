@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:47:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:26:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 # define T_APPEND 5
 # define T_HEREDOC 6
 # define T_SEMICOLON 7
-# define T_DOUBLE_QUOTE 8
-# define T_SINGLE_QUOTE 9
-# define T_ENV 10
-# define T_AND 11
+# define T_ENV 8
+# define T_AND 9
 
 typedef struct s_token
 {

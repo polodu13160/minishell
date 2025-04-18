@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 15:30:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:26:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 int	double_quote(char *str, int *i, int *token_index, t_token *token)
 {
 	int	start;
-	int	count;
 
-	count = 1;
 	start = *i;
 	(*i)++;
 	while (str[*i] && str[*i] != '"')
 		(*i)++;
 	if (str[*i] == '"')
-	{
 		(*i)++;
-	}
 	token[*token_index].value = ft_substr(str, start, *i - start);
 	if (!token[*token_index].value)
 		return (1);
-	token[*token_index].type = T_DOUBLE_QUOTE;
+	token[*token_index].type = T_WORD;
+	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
+		|| token[*token_index - 1].type == T_AND || token[*token_index
+		- 1].type == T_SEMICOLON)
+		token[*token_index].type = T_FUNC;
 	(*token_index)++;
 	return (0);
 }
@@ -43,13 +43,15 @@ int	single_quote(char *str, int *i, int *token_index, t_token *token)
 	while (str[*i] && str[*i] != '\'')
 		(*i)++;
 	if (str[*i] == '\'')
-	{
 		(*i)++;
-	}
 	token[*token_index].value = ft_substr(str, start, *i - start);
 	if (!token[*token_index].value)
 		return (1);
-	token[*token_index].type = T_SINGLE_QUOTE;
+	token[*token_index].type = T_WORD;
+	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
+		|| token[*token_index - 1].type == T_AND || token[*token_index
+		- 1].type == T_SEMICOLON)
+		token[*token_index].type = T_FUNC;
 	(*token_index)++;
 	return (0);
 }

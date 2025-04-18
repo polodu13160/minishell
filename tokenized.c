@@ -6,34 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:49:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 19:42:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdio.h"
 #include "token.h"
-
-int	is_special(char *str, int *i, int *token_index, t_token *token)
-{
-	int	error;
-
-	error = 0;
-	if (str[*i] == '$')
-		error += is_dollar(str, i, token_index, token);
-	else if (str[*i] == ';')
-		error += is_semicolon(str, i, token_index, token);
-	else if (str[*i] == '&' && str[*i + 1] == '&')
-		error += is_and(str, i, token_index, token);
-	else if (str[*i] == '<')
-		error += is_redirect_in(str, i, token_index, token);
-	else if (str[*i] == '>')
-		error += is_redirect_out(str, i, token_index, token);
-	else if (str[*i] == '|')
-		error += is_pipe(str, i, token_index, token);
-	if (error)
-		return (1);
-	return (0);
-}
 
 int	is_word(char *str, int *i, int *token_index, t_token *token)
 {
@@ -51,7 +29,7 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 	}
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
 		|| token[*token_index - 1].type == T_AND || token[*token_index
-			- 1].type == T_SEMICOLON)
+		- 1].type == T_SEMICOLON)
 		token[*token_index].type = T_FUNC;
 	else
 		token[*token_index].type = T_WORD;
@@ -59,28 +37,77 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 	return (0);
 }
 
+int	is_special_char(char *str, int *i, int *token_index, t_token *token)
+{
+	if (str[*i] == '|')
+		return (is_pipe(str, i, token_index, token));
+	else if (str[*i] == '<')
+		return (is_redirect_in(str, i, token_index, token));
+	else if (str[*i] == '>')
+		return (is_redirect_out(str, i, token_index, token));
+	else if (str[*i] == ';')
+		return (is_semicolon(str, i, token_index, token));
+	else if (str[*i] == '&' && str[*i + 1] == '&')
+		return (is_and(str, i, token_index, token));
+	return (is_word(str, i, token_index, token));
+}
+
 void	check_args(char *str, t_token *token, int count, int *error)
 {
 	int	i;
 	int	token_index;
+	int	in_dquote;
+	int	in_squote;
+	int	start;
 
 	i = 0;
 	token_index = 0;
+	in_dquote = 0;
+	in_squote = 0;
 	while (str[i] && token_index < count)
 	{
-		while (str[i] && ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13)))
+		if (str[i] == ' ' || str[i] == '\t')
+		{
 			i++;
-		if (!str[i])
-			break ;
-		if (str[i] == '"')
-			*error += double_quote(str, &i, &token_index, token);
-		else if (str[i] == '\'')
-			*error += single_quote(str, &i, &token_index, token);
-		else if (str[i] == '$' || str[i] == ';' || str[i] == '&'
-			|| str[i] == '<' || str[i] == '>' || str[i] == '|')
-			*error += is_special(str, &i, &token_index, token);
+			continue ;
+		}
+		start = i;
+		if (!in_dquote && !in_squote && (str[i] == '|' || str[i] == '<'
+				|| str[i] == '>' || str[i] == ';' || str[i] == '&'))
+		{
+			*error += is_special_char(str, &i, &token_index, token);
+		}
 		else
-			*error += is_word(str, &i, &token_index, token);
+		{
+			while (str[i] && ((in_dquote || in_squote) || (str[i] != ' '
+						&& str[i] != '\t' && str[i] != '|' && str[i] != '<'
+						&& str[i] != '>' && str[i] != ';' && str[i] != '&')))
+			{
+				if (str[i] == '"' && !in_squote)
+					in_dquote = !in_dquote;
+				else if (str[i] == '\'' && !in_dquote)
+					in_squote = !in_squote;
+				i++;
+			}
+			if (in_dquote || in_squote)
+			{
+				*error = 1;
+				return ;
+			}
+			token[token_index].value = ft_substr(str, start, i - start);
+			if (!token[token_index].value)
+			{
+				*error = 1;
+				return ;
+			}
+			if (token_index == 0 || token[token_index - 1].type == T_PIPE
+				|| token[token_index - 1].type == T_AND || token[token_index
+				- 1].type == T_SEMICOLON)
+				token[token_index].type = T_FUNC;
+			else
+				token[token_index].type = T_WORD;
+			token_index++;
+		}
 	}
 }
 

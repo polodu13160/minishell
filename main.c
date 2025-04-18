@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:50:06 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:47:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	check_token(t_token *token, char **env)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	buffer[2048];
 	char	*cwd;
 	t_token	*token;
 
@@ -55,7 +54,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	while (1)
 	{
-		cwd = ft_strjoin(getcwd(buffer, sizeof(buffer)), "$>");
+		cwd = ft_strjoin(getcwd(NULL, 0), "$>");
 		line = readline(cwd);
 		if (line == NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/16 17:38:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:35:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,18 @@ static int	is_whitespace(char c)
 	return (0);
 }
 
-static void	check_quote(char *str, int *j, int *count)
-{
-	if (str[*j] == '"')
-	{
-		(*count)++;
-		(*j)++;
-		while (str[*j] && str[*j] != '"')
-			(*j)++;
-		if (str[*j] == '"')
-			(*j)++;
-	}
-	else if (str[*j] == '\'')
-	{
-		(*count)++;
-		(*j)++;
-		while (str[*j] && str[*j] != '\'')
-			(*j)++;
-		if (str[*j] == '\'')
-			(*j)++;
-	}
-}
-
 static void	process_token(char *str, int *j, int *count)
 {
-	if (str[*j] == '"' || str[*j] == '\'')
-		check_quote(str, j, count);
-	else if (is_special_char(str[*j]))
+	int	in_dquote;
+	int	in_squote;
+
+	in_dquote = 0;
+	in_squote = 0;
+	if (is_special_char(str[*j]) && !in_dquote && !in_squote)
 	{
 		(*count)++;
 		if ((str[*j] == '>' && str[*j + 1] == '>') || (str[*j] == '<' && str[*j
-					+ 1] == '<'))
+				+ 1] == '<') || (str[*j] == '&' && str[*j + 1] == '&'))
 			(*j) += 2;
 		else
 			(*j)++;
@@ -64,11 +45,16 @@ static void	process_token(char *str, int *j, int *count)
 	else
 	{
 		(*count)++;
-		while (str[*j] && !is_whitespace(str[*j]) && !is_special_char(str[*j])
-			&& str[*j] != '"' && str[*j] != '\'')
+		while (str[*j] && ((in_dquote || in_squote) || (!is_whitespace(str[*j])
+					&& !is_special_char(str[*j]))))
+		{
+			if (str[*j] == '"' && !in_squote)
+				in_dquote = !in_dquote;
+			else if (str[*j] == '\'' && !in_dquote)
+				in_squote = !in_squote;
 			(*j)++;
+		}
 	}
-	return ;
 }
 
 int	count_tokens(char *str)
@@ -87,5 +73,6 @@ int	count_tokens(char *str)
 		}
 		process_token(str, &i, &token_count);
 	}
+	printf("token_count = %d\n", token_count);
 	return (token_count);
 }
