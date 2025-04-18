@@ -1,10 +1,12 @@
 .PHONY= all clean re fclean
 
 CC = cc 
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Wall -Wextra
 NAME = minishell
 SRCS = main.c \
 		tokenized.c \
+		tokenized_more.c \
+		tokenized_more2.c \
 		count_tokens.c \
 		ft_echo.c \
 		cd.c

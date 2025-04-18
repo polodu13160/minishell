@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/15 18:35:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:38:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,27 @@
 
 void	check_token(t_token *token, char **env)
 {
-	int		i;
-	// char	**envp;
-	// char	cwd[1024];
-	(void)env;
+	int	i;
 
+	(void)env;
 	i = 0;
-	while (token[i].value)
+	if (!token)
 	{
-		printf("Token: %s, Type: %d\n", token[i].value, token[i].type);
+		printf("Error: Tokenization failed\n");
+		return ;
+	}
+	while(token[i].value)
+	{
+		printf("Token %d: %s, Type: %d\n", i, token[i].value, token[i].type);
 		i++;
 	}
-	while (token[i].value)
+	int j = 0;
+	while (token[j].value)
 	{
-		free(token[i].value);
-		i++;
+		free(token[j].value);
+		j++;
 	}
 	free(token);
-	// if (!prompt)
-	// 	return ;
-	// if (!ft_strncmp(prompt[0], "echo", 4))
-	// 	ft_echo(ft_aclen(prompt), prompt);
-	// else if (!ft_strncmp(prompt[0], "cd", 2))
-	// 	cd(prompt);
-	// else if (!ft_strncmp(prompt[0], "exit", 4))
-	// 	exit(0);
-	// else if (!ft_strncmp(prompt[0], "pwd", 3))
-	// {
-	// 	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	// 		printf("%s\n", cwd);
-	// }
-	// else if (!ft_strncmp(prompt[0], "env", 3))
-	// {
-	// 	envp = env;
-	// 	while (*envp)
-	// 		printf("%s\n", *envp++);
-	// }
 	return ;
 }
 
@@ -74,7 +59,7 @@ int	main(int ac, char **av, char **env)
 		if (line == NULL)
 		{
 			printf("Error: readline failed\n");
-			return (1);
+			continue ;
 		}
 		add_history(line);
 		if (!*line)
