@@ -6,18 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:40:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:49:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdio.h"
 #include "token.h"
-
-void	skip_space(char *str, int *i)
-{
-	while (str[*i] && ((str[*i] == ' ') || (str[*i] >= 9 && str[*i] <= 13)))
-		(*i)++;
-}
 
 int	is_special(char *str, int *i, int *token_index, t_token *token)
 {
@@ -55,8 +49,9 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 		free(token);
 		return (1);
 	}
-	if (start == 0 || token[*token_index - 1].type == T_PIPE || token[*token_index
-		- 1].type == T_AND || token[*token_index - 1].type == T_SEMICOLON)
+	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
+		|| token[*token_index - 1].type == T_AND || token[*token_index
+			- 1].type == T_SEMICOLON)
 		token[*token_index].type = T_FUNC;
 	else
 		token[*token_index].type = T_WORD;
@@ -73,7 +68,8 @@ void	check_args(char *str, t_token *token, int count, int *error)
 	token_index = 0;
 	while (str[i] && token_index < count)
 	{
-		skip_space(str, &i);
+		while (str[i] && ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13)))
+			i++;
 		if (!str[i])
 			break ;
 		if (str[i] == '"')

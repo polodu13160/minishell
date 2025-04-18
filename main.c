@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:38:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:50:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 void	check_token(t_token *token, char **env)
 {
 	int	i;
+	int	j;
 
 	(void)env;
 	i = 0;
@@ -28,12 +29,12 @@ void	check_token(t_token *token, char **env)
 		printf("Error: Tokenization failed\n");
 		return ;
 	}
-	while(token[i].value)
+	while (token[i].value)
 	{
 		printf("Token %d: %s, Type: %d\n", i, token[i].value, token[i].type);
 		i++;
 	}
-	int j = 0;
+	j = 0;
 	while (token[j].value)
 	{
 		free(token[j].value);
@@ -46,7 +47,7 @@ void	check_token(t_token *token, char **env)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	buffer[1024];
+	char	buffer[2048];
 	char	*cwd;
 	t_token	*token;
 

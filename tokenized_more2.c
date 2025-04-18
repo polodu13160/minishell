@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/17 18:57:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:49:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_and(char *str, int *i, int *token_index, t_token *token)
 	(void)str;
 	token[*token_index].value = ft_strdup("&&");
 	if (!token[*token_index].value)
-			return (1);
+		return (1);
 	token[*token_index].type = T_AND;
 	(*token_index)++;
 	(*i) += 2;
