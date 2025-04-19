@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 18:26:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:04:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ typedef struct s_token
 	int		type;
 }			t_token;
 
+typedef struct s_parse_data
+{
+	int		in_dquote;
+	int		in_squote;
+	int		*error;
+	int		token_index;
+	int		start;
+	int		i;
+}			t_parse_data;
+
 int			count_tokens(char *str);
 t_token		*tokenize(char *str);
 
@@ -46,6 +56,9 @@ int			is_and(char *str, int *i, int *token_index, t_token *token);
 int			is_redirect_in(char *str, int *i, int *token_index, t_token *token);
 int			is_redirect_out(char *str, int *i, int *token_index,
 				t_token *token);
+int			is_special_token(char *str, int *i, int *token_index,
+				t_token *token);
+int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*******************tokenized**********************/
 
 #endif

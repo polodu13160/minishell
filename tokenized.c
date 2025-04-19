@@ -6,108 +6,73 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 19:42:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:16:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdio.h"
 #include "token.h"
 
-int	is_word(char *str, int *i, int *token_index, t_token *token)
+int	process_token(char *str, t_token *token, t_parse_data *data)
 {
-	int	start;
-
-	start = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && str[*i] != '|'
-		&& str[*i] != '<' && str[*i] != '>')
-		(*i)++;
-	token[*token_index].value = ft_substr(str, start, *i - start);
-	if (!token[*token_index].value)
+	while (str[data->i] && ((data->in_dquote || data->in_squote)
+			|| (str[data->i] != ' ' && str[data->i] != '\t'
+				&& str[data->i] != '|' && str[data->i] != '<'
+				&& str[data->i] != '>' && str[data->i] != ';'
+				&& str[data->i] != '&')))
 	{
-		free(token);
-		return (1);
+		if (str[data->i] == '"' && !data->in_squote)
+			data->in_dquote = !data->in_dquote;
+		else if (str[data->i] == '\'' && !data->in_dquote)
+			data->in_squote = !data->in_squote;
+		data->i++;
 	}
-	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_AND || token[*token_index
-		- 1].type == T_SEMICOLON)
-		token[*token_index].type = T_FUNC;
+	if (data->in_dquote || data->in_squote)
+		return (1);
+	token[data->token_index].value = ft_substr(str, data->start, data->i
+			- data->start);
+	if (!token[data->token_index].value)
+		return (1);
+	if (data->token_index == 0 || token[data->token_index - 1].type == T_PIPE
+		|| token[data->token_index - 1].type == T_AND || token[data->token_index
+			- 1].type == T_SEMICOLON)
+		token[data->token_index++].type = T_FUNC;
 	else
-		token[*token_index].type = T_WORD;
-	(*token_index)++;
+		token[data->token_index++].type = T_WORD;
 	return (0);
 }
 
-int	is_special_char(char *str, int *i, int *token_index, t_token *token)
+void	init_data(t_parse_data *data, int *error)
 {
-	if (str[*i] == '|')
-		return (is_pipe(str, i, token_index, token));
-	else if (str[*i] == '<')
-		return (is_redirect_in(str, i, token_index, token));
-	else if (str[*i] == '>')
-		return (is_redirect_out(str, i, token_index, token));
-	else if (str[*i] == ';')
-		return (is_semicolon(str, i, token_index, token));
-	else if (str[*i] == '&' && str[*i + 1] == '&')
-		return (is_and(str, i, token_index, token));
-	return (is_word(str, i, token_index, token));
+	data->in_dquote = 0;
+	data->in_squote = 0;
+	data->error = error;
+	data->token_index = 0;
+	data->start = 0;
+	data->i = 0;
 }
 
 void	check_args(char *str, t_token *token, int count, int *error)
 {
-	int	i;
-	int	token_index;
-	int	in_dquote;
-	int	in_squote;
-	int	start;
+	t_parse_data	data;
 
-	i = 0;
-	token_index = 0;
-	in_dquote = 0;
-	in_squote = 0;
-	while (str[i] && token_index < count)
+	init_data(&data, error);
+	while (str[data.i] && data.token_index < count)
 	{
-		if (str[i] == ' ' || str[i] == '\t')
+		if (str[data.i] == ' ' || str[data.i] == '\t')
 		{
-			i++;
+			data.i++;
 			continue ;
 		}
-		start = i;
-		if (!in_dquote && !in_squote && (str[i] == '|' || str[i] == '<'
-				|| str[i] == '>' || str[i] == ';' || str[i] == '&'))
+		data.start = data.i;
+		if (!data.in_dquote && !data.in_squote && (str[data.i] == '|'
+				|| str[data.i] == '<' || str[data.i] == '>'
+				|| str[data.i] == ';' || str[data.i] == '&'))
 		{
-			*error += is_special_char(str, &i, &token_index, token);
+			*error += is_special_token(str, &data.i, &data.token_index, token);
 		}
 		else
-		{
-			while (str[i] && ((in_dquote || in_squote) || (str[i] != ' '
-						&& str[i] != '\t' && str[i] != '|' && str[i] != '<'
-						&& str[i] != '>' && str[i] != ';' && str[i] != '&')))
-			{
-				if (str[i] == '"' && !in_squote)
-					in_dquote = !in_dquote;
-				else if (str[i] == '\'' && !in_dquote)
-					in_squote = !in_squote;
-				i++;
-			}
-			if (in_dquote || in_squote)
-			{
-				*error = 1;
-				return ;
-			}
-			token[token_index].value = ft_substr(str, start, i - start);
-			if (!token[token_index].value)
-			{
-				*error = 1;
-				return ;
-			}
-			if (token_index == 0 || token[token_index - 1].type == T_PIPE
-				|| token[token_index - 1].type == T_AND || token[token_index
-				- 1].type == T_SEMICOLON)
-				token[token_index].type = T_FUNC;
-			else
-				token[token_index].type = T_WORD;
-			token_index++;
-		}
+			*error += process_token(str, token, &data);
 	}
 }
 

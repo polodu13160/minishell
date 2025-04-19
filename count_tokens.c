@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 18:35:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:37:03 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ static int	is_whitespace(char c)
 	return (0);
 }
 
+static void	process_count(char *str, int *j, int *count)
+{
+	(*count)++;
+	if ((str[*j] == '>' && str[*j + 1] == '>') || (str[*j] == '<' && str[*j
+				+ 1] == '<') || (str[*j] == '&' && str[*j + 1] == '&'))
+		(*j) += 2;
+	else
+		(*j)++;
+}
+
 static void	process_token(char *str, int *j, int *count)
 {
 	int	in_dquote;
@@ -34,14 +44,7 @@ static void	process_token(char *str, int *j, int *count)
 	in_dquote = 0;
 	in_squote = 0;
 	if (is_special_char(str[*j]) && !in_dquote && !in_squote)
-	{
-		(*count)++;
-		if ((str[*j] == '>' && str[*j + 1] == '>') || (str[*j] == '<' && str[*j
-				+ 1] == '<') || (str[*j] == '&' && str[*j + 1] == '&'))
-			(*j) += 2;
-		else
-			(*j)++;
-	}
+		process_count(str, j, count);
 	else
 	{
 		(*count)++;

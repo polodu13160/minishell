@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:49:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:46:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,43 @@ int	is_redirect_out(char *str, int *i, int *token_index, t_token *token)
 		(*i)++;
 	}
 	return (0);
+}
+
+int	is_word(char *str, int *i, int *token_index, t_token *token)
+{
+	int	start;
+
+	start = *i;
+	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && str[*i] != '|'
+		&& str[*i] != '<' && str[*i] != '>')
+		(*i)++;
+	token[*token_index].value = ft_substr(str, start, *i - start);
+	if (!token[*token_index].value)
+	{
+		free(token);
+		return (1);
+	}
+	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
+		|| token[*token_index - 1].type == T_AND || token[*token_index
+			- 1].type == T_SEMICOLON)
+		token[*token_index].type = T_FUNC;
+	else
+		token[*token_index].type = T_WORD;
+	(*token_index)++;
+	return (0);
+}
+
+int	is_special_token(char *str, int *i, int *token_index, t_token *token)
+{
+	if (str[*i] == '|')
+		return (is_pipe(str, i, token_index, token));
+	else if (str[*i] == '<')
+		return (is_redirect_in(str, i, token_index, token));
+	else if (str[*i] == '>')
+		return (is_redirect_out(str, i, token_index, token));
+	else if (str[*i] == ';')
+		return (is_semicolon(str, i, token_index, token));
+	else if (str[*i] == '&' && str[*i + 1] == '&')
+		return (is_and(str, i, token_index, token));
+	return (is_word(str, i, token_index, token));
 }
