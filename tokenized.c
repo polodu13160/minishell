@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/19 16:16:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:09:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	process_token(char *str, t_token *token, t_parse_data *data)
 	if (!token[data->token_index].value)
 		return (1);
 	if (data->token_index == 0 || token[data->token_index - 1].type == T_PIPE
-		|| token[data->token_index - 1].type == T_AND || token[data->token_index
+		|| token[data->token_index - 1].type == T_FORBID || token[data->token_index
 			- 1].type == T_SEMICOLON)
 		token[data->token_index++].type = T_FUNC;
 	else
@@ -67,7 +67,8 @@ void	check_args(char *str, t_token *token, int count, int *error)
 		data.start = data.i;
 		if (!data.in_dquote && !data.in_squote && (str[data.i] == '|'
 				|| str[data.i] == '<' || str[data.i] == '>'
-				|| str[data.i] == ';' || str[data.i] == '&'))
+				|| str[data.i] == ';' || str[data.i] == '&'
+			|| str[data.i] == '$' || str[data.i] == '(' || str[data.i] == ')'))
 		{
 			*error += is_special_token(str, &data.i, &data.token_index, token);
 		}

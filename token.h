@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/19 16:04:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:53:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define T_HEREDOC 6
 # define T_SEMICOLON 7
 # define T_ENV 8
-# define T_AND 9
+# define T_FORBID 9
 
 typedef struct s_token
 {
@@ -52,7 +52,7 @@ int			is_dollar(char *str, int *i, int *token_index, t_token *token);
 int			is_pipe(char *str, int *i, int *token_index, t_token *token);
 int			single_quote(char *str, int *i, int *token_index, t_token *token);
 int			double_quote(char *str, int *i, int *token_index, t_token *token);
-int			is_and(char *str, int *i, int *token_index, t_token *token);
+int			is_forbid(char *str, int *i, int *token_index, t_token *token);
 int			is_redirect_in(char *str, int *i, int *token_index, t_token *token);
 int			is_redirect_out(char *str, int *i, int *token_index,
 				t_token *token);

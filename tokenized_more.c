@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/19 15:34:39 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:54:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	double_quote(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_WORD;
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_AND || token[*token_index
+		|| token[*token_index - 1].type == T_FORBID || token[*token_index
 			- 1].type == T_SEMICOLON)
 		token[*token_index].type = T_FUNC;
 	(*token_index)++;
@@ -49,7 +49,7 @@ int	single_quote(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_WORD;
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_AND || token[*token_index
+		|| token[*token_index - 1].type == T_FORBID || token[*token_index
 			- 1].type == T_SEMICOLON)
 		token[*token_index].type = T_FUNC;
 	(*token_index)++;

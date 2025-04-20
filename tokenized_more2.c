@@ -6,19 +6,30 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/19 15:46:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:08:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
 
-int	is_and(char *str, int *i, int *token_index, t_token *token)
+int	is_forbid(char *str, int *i, int *token_index, t_token *token)
 {
 	(void)str;
-	token[*token_index].value = ft_strdup("&&");
-	if (!token[*token_index].value)
-		return (1);
-	token[*token_index].type = T_AND;
+	if (str[*i] == '(')
+	{
+		token[*token_index].value = ft_strdup("(");
+		(*i)--;
+	}
+	else if (str[*i] == ')')
+	{
+		token[*token_index].value = ft_strdup(")");
+		(*i)--;
+	}
+	else if (str[*i] == '&' && str[*i + 1] == '&')
+		token[*token_index].value = ft_strdup("&&");
+	else if (str[*i] == '|' && str[*i + 1] == '|')
+		token[*token_index].value = ft_strdup("||");
+	token[*token_index].type = T_FORBID;
 	(*token_index)++;
 	(*i) += 2;
 	return (0);
@@ -85,7 +96,7 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	}
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_AND || token[*token_index
+		|| token[*token_index - 1].type == T_FORBID || token[*token_index
 			- 1].type == T_SEMICOLON)
 		token[*token_index].type = T_FUNC;
 	else
@@ -96,7 +107,7 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 
 int	is_special_token(char *str, int *i, int *token_index, t_token *token)
 {
-	if (str[*i] == '|')
+	if (str[*i] == '|' && str[*i + 1] != '|')
 		return (is_pipe(str, i, token_index, token));
 	else if (str[*i] == '<')
 		return (is_redirect_in(str, i, token_index, token));
@@ -104,7 +115,9 @@ int	is_special_token(char *str, int *i, int *token_index, t_token *token)
 		return (is_redirect_out(str, i, token_index, token));
 	else if (str[*i] == ';')
 		return (is_semicolon(str, i, token_index, token));
-	else if (str[*i] == '&' && str[*i + 1] == '&')
-		return (is_and(str, i, token_index, token));
+		else if ((str[*i] == '&' && str[*i + 1] == '&') || str[*i] == '(' || str[*i] == ')' || (str[*i] == '|' && str[*i + 1] == '|'))
+		return (is_forbid(str, i, token_index, token));
+	else if (str[*i] == '$')
+	    return (is_dollar(str, i, token_index, token));
 	return (is_word(str, i, token_index, token));
 }
