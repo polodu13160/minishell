@@ -1,18 +1,18 @@
 .PHONY= all clean re fclean
 
 CC = cc 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -MMD -MP -I$(LIBFT_DIR)/includes -Iincludes
 NAME = minishell
-SRCS = main.c \
-		tokenized.c \
-		tokenized_more.c \
-		tokenized_more2.c \
-		count_tokens.c \
-		ft_echo.c \
-		cd.c
+SRCS = main \
+		tokenized \
+		tokenized_more \
+		tokenized_more2 \
+		count_tokens \
+		ft_echo \
+		cd
 
 OBJ_DIR = objects/
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS)))
 
 LIBFT_DIR = new_libft/
 LIBFT = $(LIBFT_DIR)libft.a
@@ -33,6 +33,7 @@ $(OBJ_DIR)%.o: %.c $(HEADERS)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
+-include $(DEPS)
 
 clean:
 	rm -rf $(OBJ_DIR)
