@@ -738,7 +738,7 @@ int close(int fd);
 ```
 
 **Description:**  
-Ferme un descripteur de fichier, libérant ainsi les ressources associées.
+Ferme un descripteur de fichier, libérant ainsi les includess associées.
 
 **Exemple:**
 ```c
@@ -1005,8 +1005,8 @@ pid_t wait4(pid_t pid, int *wstatus, int options, struct rusage *rusage);
 **Description:**  
 - `wait`: Attend qu'un processus enfant se termine
 - `waitpid`: Attend qu'un processus enfant spécifique se termine
-- `wait3`: Comme wait, mais récupère aussi les informations d'utilisation des ressources
-- `wait4`: Comme waitpid, mais récupère aussi les informations d'utilisation des ressources
+- `wait3`: Comme wait, mais récupère aussi les informations d'utilisation des includess
+- `wait4`: Comme waitpid, mais récupère aussi les informations d'utilisation des includess
 
 **Exemple:**
 ```c

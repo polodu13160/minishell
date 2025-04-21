@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 12:40:20 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:30:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 22:04:02 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../ressource/libft.h"
+#include "./../includes/libft.h"
 #include <limits.h>
 
 int	ft_atoi(const char *str, int *error)

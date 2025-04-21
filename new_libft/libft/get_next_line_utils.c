@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:15:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/14 14:58:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ressource/libft.h"
+#include "../includes/libft.h"
 #include "stdlib.h"
 
 size_t	ft_strlen_gnl(const char *str)

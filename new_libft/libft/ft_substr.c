@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:01:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 15:32:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../ressource/libft.h"
+#include "./../includes/libft.h"
 #include <stdlib.h>
 
 char	*ft_substr(const char *str, unsigned int start, size_t len)

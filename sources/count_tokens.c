@@ -3,12 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 15:01:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:55:33 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+#include "token.h"
+
+
+
+
 
 static int	is_special_char(char c)
 {

@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 10:29:21 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
+/*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
+/*   Updated: 2025/04/21 22:13:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/libft.h"
+#ifndef FUNCTION_H
+# define FUNCTION_H
+# include "libft.h"
+# include "token.h"
+# include <stdlib.h>
+# include <unistd.h>
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	new->next = *lst;
-	*lst = new;
-}
+
+
+int		ft_echo(int ac, char **av);
+int		cd(char **args);
+#endif
