@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 14:41:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:27:18 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	double_quote(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_WORD;
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_FORBID || token[*token_index
-			- 1].type == T_SEMICOLON)
+		|| token[*token_index - 1].type == T_FORBID)
 		token[*token_index].type = T_FUNC;
 	(*token_index)++;
 	return (0);
@@ -49,8 +48,7 @@ int	single_quote(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_WORD;
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_FORBID || token[*token_index
-			- 1].type == T_SEMICOLON)
+		|| token[*token_index - 1].type == T_FORBID)
 		token[*token_index].type = T_FUNC;
 	(*token_index)++;
 	return (0);
@@ -82,17 +80,5 @@ int	is_dollar(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_ENV;
 	(*token_index)++;
-	return (0);
-}
-
-int	is_semicolon(char *str, int *i, int *token_index, t_token *token)
-{
-	(void)str;
-	token[*token_index].value = ft_strdup(";");
-	if (!token[*token_index].value)
-		return (1);
-	token[*token_index].type = T_SEMICOLON;
-	(*token_index)++;
-	(*i)++;
 	return (0);
 }
