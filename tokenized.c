@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 15:27:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:36:37 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,31 +77,24 @@ void	check_args(char *str, t_token *token, int count, int *error)
 	}
 }
 
-int	count_quote(char *str, int count_bracket)
+int	count_quote(char *str)
 {
 	int	i;
 	int	count_d;
 	int	count_s;
-	int	count_b;
 
 	i = 0;
 	count_d = 0;
 	count_s = 0;
-	count_b = 0;
 	while (str[i])
 	{
 		if (str[i] == '"')
 			count_d++;
 		else if (str[i] == '\'')
 			count_s++;
-		else if (str[i] == '(')
-			count_b++;
-		else if (str[i] == ')')
-			count_bracket++;
 		i++;
 	}
-	if (count_d % 2 != 0 || count_s % 2 != 0 || count_b % 2 != 0
-		|| count_bracket % 2 != 0)
+	if (count_d % 2 != 0 || count_s % 2 != 0)
 		return (1);
 	return (0);
 }
@@ -111,15 +104,13 @@ t_token	*tokenize(char *str)
 	t_token	*tokens;
 	int		count;
 	int		error;
-	int		count_bracket;
 
-	count_bracket = 0;
 	error = 0;
 	count = count_tokens(str);
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
 		return (NULL);
-	if (count_quote(str, count_bracket))
+	if (count_quote(str))
 	{
 		free(tokens);
 		return (NULL);
