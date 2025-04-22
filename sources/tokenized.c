@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 18:03:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:29:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,9 @@ int	check_args(char *str, t_token *token, int count)
 				|| str[data.i] == ')' || str[data.i] == '\\'))
 		{
 			if (is_special_token(str, &data.i, &data.token_index, token))
-			return (1);
+				return (1);
 		}
-		else
-			if (process_token(str, token, &data))
+		else if (process_token(str, token, &data))
 			return (1);
 	}
 	return (0);
