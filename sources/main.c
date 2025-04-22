@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 22:53:36 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:08:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "libft.h"
 #include "readline/history.h"
 #include "stdbool.h"
+#include "token.h"
 #include <readline/readline.h>
 #include <stdio.h>
 
 void	check_token(t_token *token, char **env)
 {
 	int	i;
-	int	j;
 
 	(void)env;
 	i = 0;
@@ -34,64 +34,82 @@ void	check_token(t_token *token, char **env)
 		printf("Token %d: %s, Type: %d\n", i, token[i].value, token[i].type);
 		i++;
 	}
-	j = 0;
-	while (token[j].value)
-	{
-		free(token[j].value);
-		j++;
-	}
-	free(token);
 	return ;
 }
 
-int free_and_finish(char *malloc, )
+int	free_error(t_token *token, t_minishell structure)
 {
-	
+	int	i;
+
+	perror("Malloc error ");
+	i = 0;
+	if (structure.line)
+	{
+		while (i < (count_tokens(structure.line) - 1) && token[i].value)
+		{
+			free(token[i++].value);
+		}
+		free(token);
+		free(structure.line);
+	}
+	if (structure.cwd)
+		free(structure.cwd);
+	if (structure.cwd_join)
+		free(structure.cwd_join);
+	exit(1);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char	*line;
-	char	*cwd;
-	t_token	*token;
-	char	*cwd_join;
-	int		i;
+	t_token		*token;
+	t_minishell	minishell;
+	int			i;
+	int			j;
 
 	(void)ac;
 	(void)av;
 	i = 0;
-	while (1 && i != 3)
+	while (i < 5)
 	{
-		cwd = getcwd(NULL, 0);
-		if (cwd == NULL)
-			create_env();
-		cwd_join = ft_strjoin(cwd, "$>");
-		if (cwd_join == NULL)
+		minishell.cwd = getcwd(NULL, 0);
+		// if (cwd == NULL)
+		// 	create_env();
+		minishell.cwd_join = ft_strjoin(minishell.cwd, "$>");
+		if (minishell.cwd_join == NULL)
 		{
-			free(cwd);
+			free(minishell.cwd);
 			perror("cwd error");
-			break ;
+			exit(1);
 		}
-		line = readline(cwd_join);
-		if (line == NULL)
+		minishell.line = readline(minishell.cwd_join);
+		if (minishell.line == NULL)
 		{
 			perror("readline error");
-			free(cwd);
-			free(cwd_join);
-			break ;
+			free(minishell.cwd);
+			free(minishell.cwd_join);
+			exit(1);
+		}
+		add_history(minishell.line);
+		token = tokenize(minishell.line, minishell);
+		if (token)
+		{
+			check_token(token, env);
+			j = 0;
+			while (token[j].value)
+			{
+				free(token[j].value);
+				j++;
+			}
+			free(token);
 		}
 		else
 		{
-			if (!*line)
-				free(line);
-			add_history(line);
-			token = tokenize(line);
-			check_token(token, env);
+			free_error(token, minishell);
 		}
-		free(cwd);
-		free(cwd_join);
+		free(minishell.cwd);
+		free(minishell.cwd_join);
+		free(minishell.line);
 		i++;
 	}
-	free(line);
 	return (0);
 }

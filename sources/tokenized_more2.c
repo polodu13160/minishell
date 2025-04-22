@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 15:27:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:59:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_forbid(char *str, int *i, int *token_index, t_token *token)
 {
 	(void)str;
 	token[*token_index].value = ft_strdup("forbid");
+	if (!token[*token_index].value)
+		return (1);
 	if (str[*i] == '(')
 		(*i)++;
 	if (str[*i] == '\\')

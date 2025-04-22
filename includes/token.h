@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 20:53:09 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:55:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # define T_ENV 7
 # define T_FORBID 8
 
+typedef struct s_minishell 
+{
+	char *cwd;
+	char *cwd_join; 
+	char *line; 
+}	t_minishell;
+
 typedef struct s_token
 {
 	char	*value;
@@ -43,7 +50,7 @@ typedef struct s_parse_data
 }			t_parse_data;
 
 int			count_tokens(char *str);
-t_token		*tokenize(char *str);
+t_token		*tokenize(char *str, t_minishell minishell);
 
 /*******************tokenized**********************/
 int			is_dollar(char *str, int *i, int *token_index, t_token *token);
@@ -58,5 +65,6 @@ int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
 int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*******************tokenized**********************/
+int	free_error(t_token *token, t_minishell structure);
 
 #endif

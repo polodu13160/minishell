@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 17:58:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:03:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,26 @@ int	process_token(char *str, t_token *token, t_parse_data *data)
 	return (0);
 }
 
-void	init_data(t_parse_data *data, int *error)
+void	init_data(t_parse_data *data)
 {
 	data->in_dquote = 0;
 	data->in_squote = 0;
-	data->error = error;
 	data->token_index = 0;
 	data->start = 0;
 	data->i = 0;
 }
 
-void	check_args(char *str, t_token *token, int count, int *error)
+int	check_args(char *str, t_token *token, int count)
 {
 	t_parse_data	data;
 
-	init_data(&data, error);
+	init_data(&data);
 	while (str[data.i] && data.token_index < count)
 	{
 		if (str[data.i] == '#')
-			return ;
+			return (0);
 		if (str[data.i] == ' ' || str[data.i] == '\t')
-		{
 			data.i++;
-			continue ;
-		}
 		data.start = data.i;
 		if (!data.in_dquote && !data.in_squote && (str[data.i] == '|'
 				|| str[data.i] == '<' || str[data.i] == '>'
@@ -72,11 +68,14 @@ void	check_args(char *str, t_token *token, int count, int *error)
 				|| str[data.i] == '$' || str[data.i] == '('
 				|| str[data.i] == ')' || str[data.i] == '\\'))
 		{
-			*error += is_special_token(str, &data.i, &data.token_index, token);
+			if (is_special_token(str, &data.i, &data.token_index, token))
+			return (1);
 		}
 		else
-			*error += process_token(str, token, &data);
+			if (process_token(str, token, &data))
+			return (1);
 	}
+	return (0);
 }
 
 int	count_quote(char *str)
@@ -101,7 +100,7 @@ int	count_quote(char *str)
 	return (0);
 }
 
-t_token	*tokenize(char *str)
+t_token	*tokenize(char *str, t_minishell minishell)
 {
 	t_token	*tokens;
 	int		count;
@@ -117,9 +116,8 @@ t_token	*tokenize(char *str)
 		free(tokens);
 		return (NULL);
 	}
-	check_args(str, tokens, count, &error);
-	if (error > 0)
-		return (NULL);
+	if (check_args(str, tokens, count))
+		free_error(tokens, minishell);
 	tokens[count].value = NULL;
 	return (tokens);
 }
