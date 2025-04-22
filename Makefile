@@ -1,38 +1,43 @@
-.PHONY= all clean re fclean
+.PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -MMD -MP -I$(LIBFT_DIR)includes -Iincludes
+
 NAME = minishell
-SRCS = main.c \
-		tokenized.c \
-		tokenized_more.c \
-		tokenized_more2.c \
-		count_tokens.c \
-		ft_echo.c \
-		cd.c
+FILES = main \
+		tokenized \
+		tokenized_more \
+		tokenized_more2 \
+		count_tokens \
+		ft_echo \
+		cd
 
 OBJ_DIR = objects/
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+SRC_DIR = sources/
+SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
+OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
+DEPS = $(addprefix $(OBJ_DIR), $(addsuffix .d, $(FILES)))
 
 LIBFT_DIR = new_libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
-HEADERS = token.h function.h
 
 all: $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(LIBFT):
+$(LIBFT):  FORCE
 	$(MAKE) -C $(LIBFT_DIR)
+FORCE:
 
-$(OBJ_DIR)%.o: %.c $(HEADERS)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME) 
+-include $(DEPS)
 
 clean:
 	rm -rf $(OBJ_DIR)

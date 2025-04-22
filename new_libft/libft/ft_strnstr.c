@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:21:56 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 15:45:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../ressource/libft.h"
+#include "./../includes/libft.h"
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printspecifier.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:08:08 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 15:45:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../ressource/libft.h"
+#include "./../includes/libft.h"
 #include <stdlib.h>
 
 int	ft_printdecimal(long int n)

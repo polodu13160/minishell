@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 18:47:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/21 22:53:36 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
-#include "new_libft/ressource/libft.h"
+#include "libft.h"
 #include "readline/history.h"
 #include "stdbool.h"
 #include <readline/readline.h>
@@ -44,31 +44,54 @@ void	check_token(t_token *token, char **env)
 	return ;
 }
 
+int free_and_finish(char *malloc, )
+{
+	
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	*cwd;
 	t_token	*token;
+	char	*cwd_join;
+	int		i;
 
 	(void)ac;
 	(void)av;
-	while (1)
+	i = 0;
+	while (1 && i != 3)
 	{
-		cwd = ft_strjoin(getcwd(NULL, 0), "$>");
-		line = readline(cwd);
+		cwd = getcwd(NULL, 0);
+		if (cwd == NULL)
+			create_env();
+		cwd_join = ft_strjoin(cwd, "$>");
+		if (cwd_join == NULL)
+		{
+			free(cwd);
+			perror("cwd error");
+			break ;
+		}
+		line = readline(cwd_join);
 		if (line == NULL)
 		{
-			printf("Error: readline failed\n");
-			continue ;
+			perror("readline error");
+			free(cwd);
+			free(cwd_join);
+			break ;
 		}
-		add_history(line);
-		if (!*line)
+		else
 		{
-			free(line);
-			continue ;
+			if (!*line)
+				free(line);
+			add_history(line);
+			token = tokenize(line);
+			check_token(token, env);
 		}
-		token = tokenize(line);
-		check_token(token, env);
+		free(cwd);
+		free(cwd_join);
+		i++;
 	}
+	free(line);
 	return (0);
 }
