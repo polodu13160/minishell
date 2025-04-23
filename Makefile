@@ -10,6 +10,7 @@ FILES = main \
 		tokenized_more2 \
 		count_tokens \
 		ft_echo \
+		pre_parsing \
 		cd
 
 OBJ_DIR = objects/

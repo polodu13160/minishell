@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 18:30:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:40:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ int	count_tokens(char *str)
 		}
 		process_token(str, &i, &token_count);
 	}
-	printf("Token count: %d\n", token_count);
 	return (token_count);
 }

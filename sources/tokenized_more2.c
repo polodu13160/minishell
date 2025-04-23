@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 17:59:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:21:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	is_forbid(char *str, int *i, int *token_index, t_token *token)
 	else if (str[*i] == ')')
 		(*i)++;
 	else if (str[*i] == ';')
+		(*i)++;
+	else if (str[*i] == '&')
 		(*i)++;
 	else if (str[*i] == '&' && str[*i + 1] == '&')
 		(*i) += 2;
@@ -113,9 +115,9 @@ int	is_special_token(char *str, int *i, int *token_index, t_token *token)
 		return (is_redirect_in(str, i, token_index, token));
 	else if (str[*i] == '>')
 		return (is_redirect_out(str, i, token_index, token));
-	else if ((str[*i] == '&' && str[*i + 1] == '&') || str[*i] == '('
-		|| str[*i] == ')' || (str[*i] == '|' && str[*i + 1] == '|')
-		|| str[*i] == ';' || str[*i] == '\\')
+	else if (str[*i] == '&' || (str[*i] == '&' && str[*i + 1] == '&')
+		|| str[*i] == '(' || str[*i] == ')' || (str[*i] == '|' && str[*i
+				+ 1] == '|') || str[*i] == ';' || str[*i] == '\\')
 		return (is_forbid(str, i, token_index, token));
 	else if (str[*i] == '$')
 		return (is_dollar(str, i, token_index, token));

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 18:29:35 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:23:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,6 @@ int	check_args(char *str, t_token *token, int count)
 	return (0);
 }
 
-int	count_quote(char *str)
-{
-	int	i;
-	int	count_d;
-	int	count_s;
-
-	i = 0;
-	count_d = 0;
-	count_s = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			count_d++;
-		else if (str[i] == '\'')
-			count_s++;
-		i++;
-	}
-	if (count_d % 2 != 0 || count_s % 2 != 0)
-		return (1);
-	return (0);
-}
-
 t_token	*tokenize(char *str, t_minishell minishell)
 {
 	t_token	*tokens;
@@ -116,7 +94,7 @@ t_token	*tokenize(char *str, t_minishell minishell)
 		return (NULL);
 	}
 	if (check_args(str, tokens, count))
-		free_error(tokens, minishell);
+		free_error(tokens, minishell, 0);
 	tokens[count].value = NULL;
 	return (tokens);
 }
