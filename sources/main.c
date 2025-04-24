@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 20:26:51 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/24 21:07:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,18 @@ int	check_parsing(t_token *token, t_minishell minishell)
 	(void)minishell;
 	while (token[i].value)
 	{
-		printf("value : %s type %d\n", token[i].value, token[i].type);
 		if (token[i].type == T_FORBID)
 		{
 			ft_putstr_fd("forbidden preprocessor\
 , || or && or ; or () or \\ \n", 2);
 			return (1);
+		}
+		else if (token[i].type == T_FUNC)
+		{	
+			token[i].value = check_quote_command(token[i].value);
+			if (!token[i].value)
+				free_error(token, minishell, 0);
+			printf("%s\n", token[i].value);
 		}
 		i++;
 	}

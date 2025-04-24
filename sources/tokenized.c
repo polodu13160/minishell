@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 20:23:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/24 21:07:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ t_token	*tokenize(char *str, t_minishell minishell)
 {
 	t_token	*tokens;
 	int		count;
-	int		error;
 
-	error = 0;
 	count = count_tokens(str);
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
