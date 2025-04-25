@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 17:55:35 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/24 22:33:33 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,28 @@
 # define T_HEREDOC 6
 # define T_ENV 7
 # define T_FORBID 8
-
-typedef struct s_minishell 
-{
-	char *cwd;
-	char *cwd_join; 
-	char *line; 
-}	t_minishell;
+# define T_DEL 9
 
 typedef struct s_token
 {
 	char	*value;
 	int		type;
+	char	**option;
 }			t_token;
+
+typedef struct s_minishell
+{
+	char	*cwd;
+	char	*cwd_join;
+	char	*line;
+	int		count_tokens;
+	int		nb_pipe;
+	int		nb_here_doc;
+	int		nb_redirect_in;
+	int		nb_redirect_out;
+	int		nb_append;
+	t_token	**pipex_cmd;
+}			t_minishell;
 
 typedef struct s_parse_data
 {
@@ -50,7 +59,7 @@ typedef struct s_parse_data
 }			t_parse_data;
 
 int			count_tokens(char *str);
-t_token		*tokenize(char *str, t_minishell minishell);
+t_token		*tokenize(char *str, t_minishell *minishell);
 
 /*******************tokenized**********************/
 int			is_dollar(char *str, int *i, int *token_index, t_token *token);
@@ -65,6 +74,6 @@ int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
 int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*******************tokenized**********************/
-int	free_error(t_token *token, t_minishell structure);
+int			free_error(t_token *token, t_minishell *structure);
 
 #endif

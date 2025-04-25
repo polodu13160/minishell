@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 18:03:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:09:31 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,31 @@ int	count_quote(char *str)
 	return (0);
 }
 
-t_token	*tokenize(char *str, t_minishell minishell)
+t_token	*tokenize(char *str, t_minishell *minishell)
 {
 	t_token	*tokens;
 	int		count;
-	int		error;
+	int		i;
 
-	error = 0;
+	i = 0;
 	count = count_tokens(str);
+	minishell->count_tokens = count;
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
 		return (NULL);
+	while (i < count)
+		tokens[i++].option = NULL;
 	if (count_quote(str))
 	{
 		free(tokens);
 		return (NULL);
 	}
-	if (check_args(str, tokens, count))
+	if (check_args(str, tokens, minishell->count_tokens))
+	{
+		perror("Malloc error ");
 		free_error(tokens, minishell);
+	}
+		
 	tokens[count].value = NULL;
 	return (tokens);
 }

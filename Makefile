@@ -10,7 +10,8 @@ FILES = main \
 		tokenized_more2 \
 		count_tokens \
 		ft_echo \
-		cd
+		cd \
+		ast
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
