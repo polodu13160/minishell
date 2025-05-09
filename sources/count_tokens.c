@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 15:40:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:23:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	count_tokens(char *str)
 	while (str[i])
 	{
 		if (str[i] == '#')
-			break ;
+			return (token_count);
 		if (is_whitespace(str[i]))
 		{
 			i++;

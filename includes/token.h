@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 20:25:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:35:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_minishell
 	char	*cwd;
 	char	*cwd_join;
 	char	*line;
+	char	**env;
+	int		code_error;
 }			t_minishell;
 
 typedef struct s_token
@@ -50,7 +52,7 @@ typedef struct s_parse_data
 	int		i;
 }			t_parse_data;
 
-/****************pre parsing**************************/
+/****************pre parsing***********************/
 
 int			count_tokens(char *str);
 t_token		*tokenize(char *str, t_minishell minishell);
@@ -70,7 +72,14 @@ int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
 int			is_word(char *str, int *i, int *token_index, t_token *token);
 
-/*******************tokenized**********************/
+/********************parsing************************/
+
+char		*return_env(t_token *token, int i, t_minishell minishell);
+char		*expand_env_vars(int *type, char *str, t_minishell minishell);
+char		*check_quote_command(char *str);
+int			check_parsing(t_token *token, t_minishell minishell);
+
+/*******************tokenized***********************/
 
 int			free_error(t_token *token, t_minishell structure, int end);
 

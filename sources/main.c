@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 20:26:51 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:38:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,7 @@ int	free_error(t_token *token, t_minishell structure, int end)
 	return (0);
 }
 
-int	check_parsing(t_token *token, t_minishell minishell)
-{
-	int	i;
-
-	i = 0;
-	(void)minishell;
-	while (token[i].value)
-	{
-		printf("value : %s type %d\n", token[i].value, token[i].type);
-		if (token[i].type == T_FORBID)
-		{
-			ft_putstr_fd("forbidden preprocessor\
-, || or && or ; or () or \\ \n", 2);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	t_token		*token;
 	t_minishell	minishell;
@@ -71,6 +51,10 @@ int	main(void)
 	int			j;
 
 	i = 0;
+	(void)ac;
+	(void)av;	
+	minishell.code_error = 0;
+	minishell.env = env;
 	while (1)
 	{
 		minishell.cwd = getcwd(NULL, 0);

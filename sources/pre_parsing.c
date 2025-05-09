@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 20:24:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:23:32 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	check_is_forbid(char *str, int i)
 {
-	if (str[i] == '\\' && str[i + 1] == '\\')
+	if ((str[i] == '\\' && str[i + 1] == '\\') || str[i] == ';'
+		|| (str[i] == '|' && str[i + 1] == '|'))
 	{
 		ft_putstr_fd("forbidden preprocessor : || or && or ; or () or \\\n", 2);
 		return (1);
