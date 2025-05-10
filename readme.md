@@ -966,26 +966,23 @@ Crée un nouveau processus en dupliquant le processus appelant. Le nouveau proce
 
 int main() {
     pid_t pid = fork();
-    
+
     if (pid == -1) {
         perror("fork");
         exit(EXIT_FAILURE);
     }
-    
+
     if (pid == 0) {
-        // Code exécuté par le processus enfant
-        printf("Je suis le processus enfant (PID: %d, Parent: %d)\n", 
-               getpid(), getppid());
+        printf("Je suis le processus enfant (PID: %d, Parent: %d)
+", getpid(), getppid());
     } else {
-        // Code exécuté par le processus parent
-        printf("Je suis le processus parent (PID: %d, Enfant: %d)\n", 
-               getpid(), pid);
-        
-        // Attendre que l'enfant se termine
+        printf("Je suis le processus parent (PID: %d, Enfant: %d)
+", getpid(), pid);
         wait(NULL);
-        printf("Le processus enfant s'est terminé\n");
+        printf("Le processus enfant s'est terminé
+");
     }
-    
+
     return 0;
 }
 ```
@@ -994,52 +991,403 @@ int main() {
 
 **Include:** `<sys/wait.h>`
 
-**Prototypes:**
+**Prototype:**
 ```c
 pid_t wait(int *wstatus);
 pid_t waitpid(pid_t pid, int *wstatus, int options);
-pid_t wait3(int *wstatus, int options, struct rusage *rusage);
-pid_t wait4(pid_t pid, int *wstatus, int options, struct rusage *rusage);
 ```
 
 **Description:**  
-- `wait`: Attend qu'un processus enfant se termine
-- `waitpid`: Attend qu'un processus enfant spécifique se termine
-- `wait3`: Comme wait, mais récupère aussi les informations d'utilisation des ressources
-- `wait4`: Comme waitpid, mais récupère aussi les informations d'utilisation des ressources
+`wait` attend la fin d'un processus enfant. `waitpid` permet plus de contrôle (par exemple, attendre un PID spécifique).
 
 **Exemple:**
 ```c
-#include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-    pid_t pid1, pid2;
-    int status;
-    
-    // Créer le premier processus enfant
-    pid1 = fork();
-    if (pid1 == 0) {
-        // Premier enfant
-        printf("Premier enfant (PID: %d) s'exécute\n", getpid());
-        sleep(2);
-        exit(42);  // Sortir avec un code de sortie spécifique
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        printf("Enfant (PID: %d)
+", getpid());
+        exit(42);
+    } else {
+        int status;
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status))
+            printf("L'enfant s'est terminé avec le code %d
+", WEXITSTATUS(status));
     }
-    
-    // Créer le deuxième processus enfant
-    pid2 = fork();
-    if (pid2 == 0) {
-        // Deuxième enfant
-        printf("Deuxième enfant (PID: %d) s'exécute\n", getpid());
-        sleep(1);
-        exit(0);
+    return 0;
+}
+```
+
+### execve
+
+**Include:** `<unistd.h>`
+
+**Prototype:**
+```c
+int execve(const char *pathname, char *const argv[], char *const envp[]);
+```
+
+**Description:**  
+Remplace le processus courant par un nouveau programme.
+
+**Exemple:**
+```c
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+    char *argv[] = {"/bin/ls", "-l", NULL};
+    execve("/bin/ls", argv, NULL);
+    perror("execve");
+    return 1;
+}
+```
+
+### exit
+
+**Include:** `<stdlib.h>`
+
+**Prototype:**
+```c
+void exit(int status);
+```
+
+**Description:**  
+Termine le processus courant avec un code de retour.
+
+**Exemple:**
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() {
+    printf("Fin du programme
+");
+    exit(0);
+}
+```
+
+### pipe
+
+**Include:** `<unistd.h>`
+
+**Prototype:**
+```c
+int pipe(int pipefd[2]);
+```
+
+**Description:**  
+Crée un canal de communication unidirectionnel entre deux processus.
+
+**Exemple:**
+```c
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int fd[2];
+    char buffer[20];
+    if (pipe(fd) == -1) {
+        perror("pipe");
+        exit(EXIT_FAILURE);
     }
-    
-    // Code du parent
-    printf("Parent attend la fin du premier enfant (PID: %d)\n", pid1);
-    
-    // Attendre spécifiquement le premier enfant
-    waitpid(pid1, &status, 0
+    write(fd[1], "hello", 6);
+    read(fd[0], buffer, sizeof(buffer));
+    printf("Message: %s
+", buffer);
+    return 0;
+}
+```
+
+### dup, dup2
+
+**Include:** `<unistd.h>`
+
+**Prototype:**
+```c
+int dup(int oldfd);
+int dup2(int oldfd, int newfd);
+```
+
+**Description:**  
+Duplique un descripteur de fichier. `dup2` permet de spécifier le descripteur de destination.
+
+**Exemple:**
+```c
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+
+int main() {
+    int fd = open("test.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    dup2(fd, 1); // Redirige stdout vers le fichier
+    printf("Ce message va dans le fichier
+");
+    close(fd);
+    return 0;
+}
+```
+
+## Gestion des répertoires
+
+### opendir
+
+**Include:** `<dirent.h>`
+
+**Prototype:**
+```c
+DIR *opendir(const char *name);
+```
+
+**Description:**  
+Ouvre un répertoire pour la lecture.
+
+### readdir
+
+**Include:** `<dirent.h>`
+
+**Prototype:**
+```c
+struct dirent *readdir(DIR *dirp);
+```
+
+**Description:**  
+Lit une entrée du répertoire ouvert.
+
+### closedir
+
+**Include:** `<dirent.h>`
+
+**Prototype:**
+```c
+int closedir(DIR *dirp);
+```
+
+**Description:**  
+Ferme un répertoire précédemment ouvert.
+
+**Exemple pour les trois:**
+```c
+#include <dirent.h>
+#include <stdio.h>
+
+int main() {
+    DIR *dir = opendir(".");
+    if (dir) {
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != NULL) {
+            printf("%s
+", entry->d_name);
+        }
+        closedir(dir);
+    }
+    return 0;
+}
+```
+
+## Gestion des signaux
+
+### signal
+
+**Include:** `<signal.h>`
+
+**Prototype:**
+```c
+void (*signal(int sig, void (*handler)(int)))(int);
+```
+
+**Description:**  
+Définit un gestionnaire pour un signal.
+
+**Exemple:**
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+void handler(int sig) {
+    printf("Signal %d reçu
+", sig);
+}
+
+int main() {
+    signal(SIGINT, handler);
+    while (1) pause();
+    return 0;
+}
+```
+
+### sigaction
+
+**Include:** `<signal.h>`
+
+**Prototype:**
+```c
+int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+```
+
+**Description:**  
+Permet une gestion avancée des signaux.
+
+**Exemple:**
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+void handler(int sig) {
+    printf("Signal %d capturé
+", sig);
+}
+
+int main() {
+    struct sigaction sa;
+    sa.sa_handler = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+
+    sigaction(SIGUSR1, &sa, NULL);
+    kill(getpid(), SIGUSR1);
+
+    return 0;
+}
+```
+
+### sigemptyset / sigaddset
+
+**Include:** `<signal.h>`
+
+**Prototype:**
+```c
+int sigemptyset(sigset_t *set);
+int sigaddset(sigset_t *set, int signum);
+```
+
+**Description:**  
+Initialise un ensemble vide de signaux et y ajoute des signaux.
+
+**Exemple:**
+```c
+#include <signal.h>
+#include <stdio.h>
+
+int main() {
+    sigset_t set;
+    sigemptyset(&set);
+    sigaddset(&set, SIGINT);
+    printf("SIGINT ajouté au set
+");
+    return 0;
+}
+```
+
+### kill
+
+**Include:** `<signal.h>`
+
+**Prototype:**
+```c
+int kill(pid_t pid, int sig);
+```
+
+**Description:**  
+Envoie un signal à un processus.
+
+**Exemple:**
+```c
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h>
+
+void handler(int sig) {
+    printf("Signal %d reçu
+", sig);
+}
+
+int main() {
+    signal(SIGUSR1, handler);
+    kill(getpid(), SIGUSR1);
+    return 0;
+}
+```
+
+## Gestion des erreurs
+
+### strerror
+
+**Include:** `<string.h>`
+
+**Prototype:**
+```c
+char *strerror(int errnum);
+```
+
+**Description:**  
+Retourne un message d'erreur correspondant à un code d'erreur.
+
+### perror
+
+**Include:** `<stdio.h>`
+
+**Prototype:**
+```c
+void perror(const char *s);
+```
+
+**Description:**  
+Affiche un message d'erreur avec la description liée à errno.
+
+**Exemple pour les deux:**
+```c
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+
+int main() {
+    FILE *f = fopen("inexistant.txt", "r");
+    if (!f) {
+        perror("fopen");
+        printf("strerror: %s
+", strerror(errno));
+    }
+    return 0;
+}
+```
+
+## Variables d'environnement
+
+### getenv
+
+**Include:** `<stdlib.h>`
+
+**Prototype:**
+```c
+char *getenv(const char *name);
+```
+
+**Description:**  
+Retourne la valeur d'une variable d'environnement.
+
+**Exemple:**
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() {
+    char *home = getenv("HOME");
+    if (home) {
+        printf("HOME = %s
+", home);
+    }
+    return 0;
+}
+```
