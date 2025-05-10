@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/10 16:28:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:37:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	check_parsing(t_token *token, t_minishell minishell)
 		else if (token[i].type == T_FORBID)
 		{
 			ft_putstr_fd("forbidden preprocessor\
-		, || or && or ; or () or \\ \n",
-							2);
+		, || or && or ; or () or \\ \n", 2);
 			return (1);
 		}
 		else if (token[i].type == T_WORD)
