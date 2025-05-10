@@ -1,7 +1,8 @@
 .PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra -MMD -MP -I$(LIBFT_DIR)includes -Iincludes
+CFLAGS = -Wall -Wextra -MMD -MP -I$(LIBFT_DIR)includes -Iincludes -g3
+CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
 NAME = minishell
 FILES = main \
@@ -37,7 +38,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) $(CFLAGS_AFTER)
 -include $(DEPS)
 
 clean:

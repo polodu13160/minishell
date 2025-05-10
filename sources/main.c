@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/25 14:08:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:46:18 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	check_token(t_token *tokens, char **env)
 int	free_error(t_token *tokens, t_minishell *structure)
 {
 	int	i;
+	int	j;
 
-	
 	i = 0;
 	if (structure->line)
 	{
@@ -57,6 +57,15 @@ int	free_error(t_token *tokens, t_minishell *structure)
 		free(structure->cwd);
 	if (structure->cwd_join)
 		free(structure->cwd_join);
+	i = 0;
+	while (structure->pipex_cmd != NULL && structure->pipex_cmd[i] != NULL)
+	{
+		j = 0;
+		free(structure->pipex_cmd[i]);
+		i++;
+	}
+	if (structure->pipex_cmd != NULL)
+		free(structure->pipex_cmd);
 	exit(1);
 }
 
@@ -103,7 +112,8 @@ int	main(int ac, char **av, char **env)
 		}
 		// printf("\n%d\n", minishell.count_tokens);
 		// printf("%s", tokens[minishell.count_tokens - 2].value);
-		ft_ast_token(tokens, &minishell);
+		if (ft_ast_token(tokens, &minishell) == 1)
+			free_error(tokens, &minishell);
 		j = 0;
 		while (tokens[j].value)
 		{
