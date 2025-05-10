@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/09 18:35:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:28:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 
 /********************parsing************************/
 
-char		*return_env(t_token *token, int i, t_minishell minishell);
-char		*expand_env_vars(int *type, char *str, t_minishell minishell);
+char		*return_env(char *str, t_minishell minishell);
 char		*check_quote_command(char *str);
 int			check_parsing(t_token *token, t_minishell minishell);
 
