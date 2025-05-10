@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/10 16:28:52 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:34:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define T_HEREDOC 6
 # define T_ENV 7
 # define T_FORBID 8
-# define T_NONE 9
+# define T_NULL 9
 
 typedef struct s_minishell
 {
@@ -71,6 +71,10 @@ int			is_redirect_out(char *str, int *i, int *token_index,
 int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
 int			is_word(char *str, int *i, int *token_index, t_token *token);
+
+/*********************parsing***********************/
+
+char		*check_quote_command(char *str);
 
 /********************parsing************************/
 
