@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/10 16:28:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:11:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*check_quote_command(char *str)
 	copy = malloc(sizeof(char *) * (ft_strlen_quote(str) + 1));
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '"')
+		if ((!ft_strncmp(str, "\"", ft_strlen(str)) && str[i] == '\'')
+				|| str[i] == '"')
 			i++;
 		else
 			copy[j++] = str[i++];

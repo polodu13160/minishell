@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/09 15:23:32 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:00:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,24 @@
 
 int	check_is_forbid(char *str, int i)
 {
-	if ((str[i] == '\\' && str[i + 1] == '\\') || str[i] == ';'
-		|| (str[i] == '|' && str[i + 1] == '|'))
+	if (!ft_strncmp(str, "\"", ft_strlen(str)))
 	{
-		ft_putstr_fd("forbidden preprocessor : || or && or ; or () or \\\n", 2);
-		return (1);
+		if ((str[i] == '\\' && str[i + 1] == '\\') || str[0] == ';'
+			|| (str[i] == '|' && str[i + 1] == '|') || (str[i] == ')' && str[i
+				+ 1] == ')') || (str[i] == '(' && str[i + 1] == ')'))
+		{
+			ft_putstr_fd("forbidden preprocessor : || or && or ; or () or \\\n",
+				2);
+			return (1);
+		}
+		else if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>'))
+		{
+			ft_putstr_fd("make sur to not use more than 2 >> or <<\n", 2);
+			return (1);
+		}
 	}
-	else if ((str[i] == ')' && str[i + 1] == ')') || (str[i] == '(' && str[i
-				+ 1] == ')'))
-	{
-		ft_putstr_fd("forbidden preprocessor : || or && or ; or () or \\\n", 2);
-		return (1);
-	}
-	else if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-	{
-		ft_putstr_fd("make sur to not use more than 2 >> or <<\n", 2);
-		return (1);
-	}
-	else if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
-	{
-		ft_putstr_fd("make sur to not use more than 2 >> or <<\n", 2);
-		return (1);
-	}
-	else
-		return (0);
+	return (0);
 }
 
 int	count_quote(char *str)
@@ -55,7 +49,7 @@ int	count_quote(char *str)
 			return (1);
 		if (str[i] == '"')
 			count_d++;
-		else if (str[i] == '\'')
+		else if (!ft_strncmp(str, "\"", ft_strlen(str)) && str[i] == '\'')
 			count_s++;
 		i++;
 	}
