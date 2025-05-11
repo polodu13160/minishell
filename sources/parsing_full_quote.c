@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 18:26:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:36:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static char	*init_quote_parsing(char *str, t_index *index, t_quote_state *state)
 	index->j = 0;
 	state->in_dquote = 0;
 	state->in_squote = 0;
-	result = malloc(sizeof(char) * (ft_strlen(str) * 2));
+	result = malloc(sizeof(char) * (ft_strlen(str) * 4 + 1));
+	if (!result)
+        return (NULL);
 	return (result);
 }
 
