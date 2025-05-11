@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul <paul@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/07 13:46:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:09:37 by paul             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	main(int ac, char **av, char **env)
 		}
 		// printf("\n%d\n", minishell.count_tokens);
 		// printf("%s", tokens[minishell.count_tokens - 2].value);
-		if (ft_ast_token(tokens, &minishell) == 1)
+		if (ft_check_here_doc(tokens, &minishell) == 1)
 			free_error(tokens, &minishell);
 		j = 0;
 		while (tokens[j].value)
