@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/10 16:36:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:16:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "readline/history.h"
 #include "stdbool.h"
 #include "token.h"
+#include "parsing.h"
 #include <readline/readline.h>
 #include <stdio.h>
 

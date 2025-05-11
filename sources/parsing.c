@@ -6,85 +6,100 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 16:15:03 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:28:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parsing.h"
 #include "token.h"
 
-char	*parsing_quote(char *str)
+static int	process_env_tokens(t_token *token, t_minishell minishell)
 {
-	int		i;
-	int		j;
-	char	*copy;
+	char	*temp;
 
-	i = 0;
-	j = 0;
-	if (str[i] == '"' || str[i] == '\'')
-		i++;
-	if (str[i] == '$')
-		while (str[i + j] != '"')
-			j++;
-	copy = malloc(sizeof(char) * j);
-	if (!copy)
-		return (NULL);
-	j = 0;
-	while(str[i] != '"')
+	if (token->value[1] == '"')
 	{
-		copy[j] = str[i];
-		i++;
-		j++;
+		token->type = T_WORD;
+		token->value = handle_double_quotes_env(token->value);
 	}
-	copy[j] = '\0';
-	free(str);
-	return (copy);
+	else if (token->value[1] == '\'')
+	{
+		token->type = T_WORD;
+		token->value = handle_single_quotes_env(token->value);
+	}
+	else if (token->value[1] == '\'' || ft_strchr(token->value, '"')
+		|| ft_strchr(token->value, '\''))
+	{
+		token->type = T_WORD;
+		token->value = parse_quotes(token->value, minishell, 0);
+	}
+	else
+	{
+		temp = return_env(token->value, minishell);
+		free(token->value);
+		token->value = temp;
+	}
+	return (0);
+}
+
+static int	process_quotes_tokens(t_token *token, t_minishell minishell,
+		int *type)
+{
+	if (token->value[0] == '"' || token->value[0] == '\'')
+		token->value = parse_quotes(token->value, minishell, type);
+	else if (token->type == T_FUNC)
+		token->value = check_quote_command(token->value);
+	return (0);
+}
+
+static int	process_word_tokens(t_token *token, t_minishell minishell)
+{
+	char	*temp;
+
+	if (token->value[1] == '$' && token->value[0] == '"')
+	{
+		token->value = check_quote_command(token->value);
+		token->type = T_ENV;
+		temp = return_env(token->value, minishell);
+		free(token->value);
+		token->value = temp;
+	}
+	else if (token->value[0] == '"')
+		token->value = check_quote_command(token->value);
+	else if (token->value[0] == '\'')
+		token->value = parse_single_quotes(token->value);
+	return (0);
+}
+
+static int	process_special_tokens(t_token *token)
+{
+	if (token->type == T_FORBID)
+	{
+		ft_putstr_fd("forbidden preprocessor, || or && or ; or () or \\ \n", 2);
+		return (1);
+	}
+	return (0);
 }
 
 int	check_parsing(t_token *token, t_minishell minishell)
 {
-	int		i;
-	char	*temp;
+	int	i;
+	int	ret;
 
 	i = 0;
-	(void)minishell;
 	while (token[i].value)
 	{
-		if (token[i].type == T_FUNC)
-			token[i].value = check_quote_command(token[i].value);
+		if (token[i].value[0] == '"' || token[i].value[0] == '\''
+			|| token[i].type == T_FUNC)
+			ret = process_quotes_tokens(&token[i], minishell, &token[i].type);
 		else if (token[i].type == T_ENV)
-		{
-			if (token[i].value[1] == '"' || token[i].value[1] == '\'')
-			{
-				token[i].type = T_WORD;	
-				token[i].value = check_quote_command(token[i].value);
-			}
-			else
-			{
-				temp = return_env(token[i].value, minishell);
-				free(token[i].value);
-				token[i].value = temp;
-				temp = NULL;
-			}
-		}
+			ret = process_env_tokens(&token[i], minishell);
 		else if (token[i].type == T_FORBID)
-		{
-			ft_putstr_fd("forbidden preprocessor\
-		, || or && or ; or () or \\ \n", 2);
-			return (1);
-		}
+			ret = process_special_tokens(&token[i]);
 		else if (token[i].type == T_WORD)
-		{
-			if (token[i].value[1] == '$')
-			{
-				token[i].value = check_quote_command(token[i].value);
-				temp = return_env(token[i].value, minishell);
-				free(token[i].value);
-				token[i].value = temp;
-				temp = NULL;
-			}
-			else if (token[i].value[0] == '"')
-				token[i].value = check_quote_command(token[i].value);
-		}
+			ret = process_word_tokens(&token[i], minishell);
+		if (ret)
+			return (ret);
 		ft_printf("value : %s type : %d\n", token[i].value, token[i].type);
 		i++;
 	}

@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_quote.c                                      :+:      :+:    :+:   */
+/*   parsing_get_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 16:11:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:45:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
-
-int	ft_strlen_quote(char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			if (str[i] == '\'' || str[i] == '"')
-				j++;
-			i++;
-		}
-	}
-	return (i - j);
-}
-
-char	*check_quote_command(char *str)
-{
-	int		i;
-	int		j;
-	char	*copy;
-
-	i = 0;
-	j = 0;
-	if (str[0] == '$')
-		str = ft_strtrim(str, "$");
-	copy = malloc(sizeof(char *) * (ft_strlen_quote(str) + 1));
-	while (str[i])
-	{
-		if ((!ft_strncmp(str, "\"", ft_strlen(str)) && str[i] == '\'')
-				|| str[i] == '"')
-			i++;
-		else
-			copy[j++] = str[i++];
-	}
-	copy[j] = '\0';
-	free(str);
-	return (copy);
-}
 
 char	*get_env_value(char *var_name, char **env)
 {
@@ -90,4 +47,56 @@ char	*return_env(char *str, t_minishell minishell)
 	if (ft_strncmp(var_name, "?", ft_strlen(var_name)) == 0)
 		return (ft_itoa(minishell.code_error));
 	return (get_env_value(var_name, minishell.env));
+}
+
+char	*handle_single_quotes_env(char *str)
+{
+	int		i;
+	int		j;
+	char	*result;
+
+	i = 1;
+	j = 0;
+	result = malloc(sizeof(char) * ft_strlen(str));
+	if (!result)
+		return (NULL);
+	if (str[i] == '\'')
+		i++;
+	while (str[i] && str[i] != '\'')
+		result[j++] = str[i++];
+	if (str[i] == '\'' && str[i + 1] != '\0')
+	{
+		i++;
+		while (str[i])
+			result[j++] = str[i++];
+	}
+	result[j] = '\0';
+	free(str);
+	return (result);
+}
+
+char	*handle_double_quotes_env(char *str)
+{
+	int		i;
+	int		j;
+	char	*result;
+
+	i = 1;
+	j = 0;
+	result = malloc(sizeof(char) * ft_strlen(str));
+	if (!result)
+		return (NULL);
+	if (str[i] == '"')
+		i++;
+	while (str[i] && str[i] != '"')
+		result[j++] = str[i++];
+	if (str[i] == '"' && str[i + 1] != '\0')
+	{
+		i++;
+		while (str[i])
+			result[j++] = str[i++];
+	}
+	result[j] = '\0';
+	free(str);
+	return (result);
 }

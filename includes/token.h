@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/10 16:35:47 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:14:58 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,6 @@ int			is_redirect_out(char *str, int *i, int *token_index,
 int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
 int			is_word(char *str, int *i, int *token_index, t_token *token);
-
-/*********************parsing***********************/
-
-char		*check_quote_command(char *str);
-
-/********************parsing************************/
-
-char		*return_env(char *str, t_minishell minishell);
-char		*check_quote_command(char *str);
-int			check_parsing(t_token *token, t_minishell minishell);
 
 /*******************tokenized***********************/
 

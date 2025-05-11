@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 16:00:28 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:51:22 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_is_forbid(char *str, int i)
 	{
 		if ((str[i] == '\\' && str[i + 1] == '\\') || str[0] == ';'
 			|| (str[i] == '|' && str[i + 1] == '|') || (str[i] == ')' && str[i
-				+ 1] == ')') || (str[i] == '(' && str[i + 1] == ')'))
+					+ 1] == ')') || (str[i] == '(' && str[i + 1] == ')'))
 		{
 			ft_putstr_fd("forbidden preprocessor : || or && or ; or () or \\\n",
 				2);
@@ -47,15 +47,15 @@ int	count_quote(char *str)
 	{
 		if (check_is_forbid(str, i))
 			return (1);
-		if (str[i] == '"')
+		if (!ft_strchr(str, '\'') && str[i] == '"')
 			count_d++;
-		else if (!ft_strncmp(str, "\"", ft_strlen(str)) && str[i] == '\'')
+		else if (!ft_strchr(str, '"') && str[i] == '\'')
 			count_s++;
 		i++;
 	}
 	if (count_d % 2 != 0 || count_s % 2 != 0)
 	{
-		ft_putstr_fd("make sur to have quote in pairs\n", 2);
+		ft_putstr_fd("make sur to have quote in pairs\n", 1);
 		return (1);
 	}
 	return (0);

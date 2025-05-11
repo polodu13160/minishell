@@ -11,8 +11,10 @@ FILES = main \
 		count_tokens \
 		ft_echo \
 		pre_parsing \
-		check_quote \
+		parsing_quote \
 		parsing \
+		parsing_get_env \
+		parsing_full_quote \
 		cd
 
 OBJ_DIR = objects/
