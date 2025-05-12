@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 18:36:34 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:07:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*init_quote_parsing(char *str, t_index *index, t_quote_state *state)
 	state->in_squote = 0;
 	result = malloc(sizeof(char) * (ft_strlen(str) * 4 + 1));
 	if (!result)
-        return (NULL);
+		return (NULL);
 	return (result);
 }
 
@@ -78,7 +78,7 @@ static void	process_env_var(char *str, char *result, t_index *index,
 	index->i += var_len;
 }
 
-char	*parse_quotes(char *str, t_minishell minishell, int *type)
+char	*parse_quotes(char *str, t_minishell minishell)
 {
 	t_index			index;
 	t_quote_state	state;
@@ -92,10 +92,7 @@ char	*parse_quotes(char *str, t_minishell minishell, int *type)
 		if (str[index.i] == '"' || str[index.i] == '\'')
 			handle_quotes(str, &index, &state, result);
 		else if (str[index.i] == '$' && !state.in_squote)
-		{
-			*type = T_ENV;
 			process_env_var(str, result, &index, minishell);
-		}
 		else
 			result[index.j++] = str[index.i++];
 	}
