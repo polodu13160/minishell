@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:07:46 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:49:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char			*str;
 
 	i = ft_strlen(s1);
-	j = ft_strlen(s2);
+	if (s2 != NULL)
+		j = ft_strlen(s2);
+	else 
+		j = 0;
 	str = ft_calloc(i + j + 1, sizeof(char));
 	if (str == NULL)
 		return (NULL);
@@ -31,7 +34,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		str[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 	{
 		str[i] = s2[j];
 		i++;

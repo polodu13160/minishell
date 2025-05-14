@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul <paul@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 21:42:31 by paul             ###   ########.fr       */
+/*   Updated: 2025/05/14 11:26:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,9 @@ int			is_special_token(char *str, int *i, int *token_index,
 int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*******************tokenized**********************/
 int			free_error(t_token *token, t_minishell *structure);
+
+//rajouter par paul 
+int	ft_check(t_token *tokens, int type);
+int ft_check_here_doc(t_token *tokens, int i);
 
 #endif

@@ -12,7 +12,9 @@ FILES = main \
 		count_tokens \
 		ft_echo \
 		cd \
-		ast
+		ast \
+		check_here_doc \
+		check_fd
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

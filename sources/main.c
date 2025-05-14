@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul <paul@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 21:09:37 by paul             ###   ########.fr       */
+/*   Updated: 2025/05/14 13:35:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,18 @@ int	free_error(t_token *tokens, t_minishell *structure)
 	if (structure->cwd_join)
 		free(structure->cwd_join);
 	i = 0;
+	
 	while (structure->pipex_cmd != NULL && structure->pipex_cmd[i] != NULL)
 	{
+		printf("tt\n");
 		j = 0;
 		free(structure->pipex_cmd[i]);
 		i++;
 	}
+	exit(1);
 	if (structure->pipex_cmd != NULL)
 		free(structure->pipex_cmd);
-	exit(1);
+	
 }
 
 int	main(int ac, char **av, char **env)
@@ -78,6 +81,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	minishell.pipex_cmd = NULL;
 	i = 0;
 	while (i < 5)
 	{
@@ -112,8 +116,9 @@ int	main(int ac, char **av, char **env)
 		}
 		// printf("\n%d\n", minishell.count_tokens);
 		// printf("%s", tokens[minishell.count_tokens - 2].value);
-		if (ft_check_here_doc(tokens, &minishell) == 1)
-			free_error(tokens, &minishell);
+		// if (check_command())
+		if (ft_check(tokens, T_HEREDOC) == 1 )
+			return free_error(tokens, &minishell);
 		j = 0;
 		while (tokens[j].value)
 		{
