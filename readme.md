@@ -738,7 +738,7 @@ int close(int fd);
 ```
 
 **Description:**  
-Ferme un descripteur de fichier, libérant ainsi les ressources associées.
+Ferme un descripteur de fichier, libérant ainsi les includess associées.
 
 **Exemple:**
 ```c
@@ -998,7 +998,10 @@ pid_t waitpid(pid_t pid, int *wstatus, int options);
 ```
 
 **Description:**  
-`wait` attend la fin d'un processus enfant. `waitpid` permet plus de contrôle (par exemple, attendre un PID spécifique).
+- `wait`: Attend qu'un processus enfant se termine
+- `waitpid`: Attend qu'un processus enfant spécifique se termine
+- `wait3`: Comme wait, mais récupère aussi les informations d'utilisation des includess
+- `wait4`: Comme waitpid, mais récupère aussi les informations d'utilisation des includess
 
 **Exemple:**
 ```c
