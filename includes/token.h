@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 17:40:56 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:00:41 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,7 @@ typedef struct s_token
 	void	*new_value;
 }			t_token;
 
-typedef struct s_minishell
-{
-	char	*cwd;
-	char	*cwd_join;
-	char	*line;
-	int		count_tokens;
-	int		nb_pipe;
-	int		nb_here_doc;
-	int		nb_redirect_in;
-	int		nb_redirect_out;
-	int		nb_append;
-	t_token	**pipex_cmd;
-}			t_minishell;
+
 
 typedef struct s_parse_data
 {
@@ -71,7 +59,7 @@ typedef struct s_parse_data
 /****************pre parsing***********************/
 
 int			count_tokens(char *str);
-t_token		*tokenize(char *str, t_minishell minishell);
+t_token		*tokenize(char *str, t_minishell *minishell);
 int			count_quote(char *str);
 int			check_is_forbid(char *str, int i);
 

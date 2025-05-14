@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 17:46:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:17:24 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <readline/readline.h>
 #include <stdio.h>
 
-int	free_error(t_token *token, t_minishell structure, int end)
+int	free_error(t_token *token, t_minishell *structure, int end)
 {
 	int	i;
 
@@ -35,11 +35,11 @@ int	free_error(t_token *token, t_minishell structure, int end)
 	}
 	if (end)
 	{
-		free(structure.line);
-		if (structure.cwd)
-			free(structure.cwd);
-		if (structure.cwd_join)
-			free(structure.cwd_join);
+		free(structure->line);
+		if (structure->cwd)
+			free(structure->cwd);
+		if (structure->cwd_join)
+			free(structure->cwd_join);
 		exit(1);
 	}
 	return (0);
@@ -50,15 +50,15 @@ int	main(int ac, char **av, char **env)
 	t_token		*tokens;
 	t_minishell	minishell;
 	int			i;
+	i = 0;
 	int			j;
 
 	i = 0;
 	(void)ac;
 	(void)av;
-	minishell.pipex_cmd = NULL;
 	minishell.code_error = 0;
 	minishell.env = env;
-	while (1)
+	while (1 && i != 5)
 	{
 		minishell.cwd = getcwd(NULL, 0);
 		minishell.cwd_join = ft_strjoin(minishell.cwd, "$>");
@@ -84,13 +84,13 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 		{
-			free_error(token, minishell, 0);
+			free_error(tokens, &minishell, 0);
 		}
 		// printf("\n%d\n", minishell.count_tokens);
 		// printf("%s", tokens[minishell.count_tokens - 2].value);
 		// if (check_command())
 		if (ft_check(tokens, T_HEREDOC) == 1 )
-			return free_error(tokens, &minishell);
+			free_error(tokens, &minishell, 0);
 		j = 0;
 		while (tokens[j].value)
 		{

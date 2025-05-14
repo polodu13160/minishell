@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 17:55:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:08:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	check_args(char *str, t_token *token, int count)
 		{
 			if (is_special_token(str, &data.i, &data.token_index, token))
 				return (1);
-				return (1);
 		}
 		else if (process_token(str, token, &data))
 			return (1);
@@ -78,7 +77,7 @@ int	check_args(char *str, t_token *token, int count)
 	return (0);
 }
 
-t_token	*tokenize(char *str, t_minishell minishell)
+t_token	*tokenize(char *str, t_minishell *minishell)
 {
 	t_token	*tokens;
 	int		count;
@@ -91,11 +90,11 @@ t_token	*tokenize(char *str, t_minishell minishell)
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
 		return (NULL);
-	while (i <= count)
-		tokens[i++].value = NULL;
+
 	// rajouter dans tokens ici
-	while (i < count)
+	while (i <= count)
 	{
+		tokens[i].value = NULL;
 		tokens[i].new_value = NULL;
 		tokens[i++].option = NULL;
 	}
@@ -109,6 +108,5 @@ t_token	*tokenize(char *str, t_minishell minishell)
 		free_error(tokens, minishell, 0);
 		return (NULL);
 	}
-	tokens[count].value = NULL;
 	return (tokens);
 }

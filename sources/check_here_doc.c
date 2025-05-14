@@ -75,8 +75,11 @@ int	ft_check(t_token *tokens, int type)
 	int	error;
 
 	i = 0;
+	printf("toto \n");
+
 	while (tokens[i].value)
 	{
+		
 		if (tokens[i].type == type)
 		{
 			error = ft_check_here_doc(tokens, i);
