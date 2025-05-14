@@ -6,17 +6,11 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/07 13:45:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:43:02 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "token.h"
-
-
-
-
 
 static int	is_special_char(char c)
 {
@@ -89,7 +83,7 @@ int	count_tokens(char *str)
 	while (str[i])
 	{
 		if (str[i] == '#')
-			break;
+			return (token_count);
 		if (is_whitespace(str[i]))
 		{
 			i++;
@@ -97,6 +91,5 @@ int	count_tokens(char *str)
 		}
 		process_token(str, &i, &token_count);
 	}
-	// printf("Token count: %d\n", token_count);
 	return (token_count);
 }

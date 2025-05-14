@@ -11,6 +11,11 @@ FILES = main \
 		tokenized_more2 \
 		count_tokens \
 		ft_echo \
+		pre_parsing \
+		parsing_quote \
+		parsing \
+		parsing_get_env \
+		parsing_full_quote \
 		cd \
 		ast \
 		check_here_doc \

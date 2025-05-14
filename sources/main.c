@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 13:35:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:46:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,60 +16,33 @@
 #include "readline/history.h"
 #include "stdbool.h"
 #include "token.h"
+#include "parsing.h"
 #include <readline/readline.h>
 #include <stdio.h>
 
-void	check_token(t_token *tokens, char **env)
+int	free_error(t_token *token, t_minishell structure, int end)
 {
 	int	i;
 
-	(void)env;
+	if (end)
+		perror("Malloc error ");
 	i = 0;
-	if (!tokens)
+	if (token)
 	{
-		printf("Error: Tokenization failed\n");
-		return ;
+		while (token[i].value)
+			free(token[i++].value);
+		free(token);
 	}
-	while (tokens[i].value)
+	if (end)
 	{
-		printf("Token %d: %s, Type: %d\n", i, tokens[i].value, tokens[i].type);
-		i++;
+		free(structure.line);
+		if (structure.cwd)
+			free(structure.cwd);
+		if (structure.cwd_join)
+			free(structure.cwd_join);
+		exit(1);
 	}
-	return ;
-}
-
-int	free_error(t_token *tokens, t_minishell *structure)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (structure->line)
-	{
-		while (i < (count_tokens(structure->line) - 1) && tokens[i].value)
-		{
-			free(tokens[i++].value);
-		}
-		free(tokens);
-		free(structure->line);
-	}
-	if (structure->cwd)
-		free(structure->cwd);
-	if (structure->cwd_join)
-		free(structure->cwd_join);
-	i = 0;
-	
-	while (structure->pipex_cmd != NULL && structure->pipex_cmd[i] != NULL)
-	{
-		printf("tt\n");
-		j = 0;
-		free(structure->pipex_cmd[i]);
-		i++;
-	}
-	exit(1);
-	if (structure->pipex_cmd != NULL)
-		free(structure->pipex_cmd);
-	
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -79,15 +52,15 @@ int	main(int ac, char **av, char **env)
 	int			i;
 	int			j;
 
+	i = 0;
 	(void)ac;
 	(void)av;
 	minishell.pipex_cmd = NULL;
-	i = 0;
-	while (i < 5)
+	minishell.code_error = 0;
+	minishell.env = env;
+	while (1)
 	{
 		minishell.cwd = getcwd(NULL, 0);
-		// if (cwd == NULL)
-		// 	create_env();
 		minishell.cwd_join = ft_strjoin(minishell.cwd, "$>");
 		if (minishell.cwd_join == NULL)
 		{
@@ -107,12 +80,11 @@ int	main(int ac, char **av, char **env)
 		tokens = tokenize(minishell.line, &minishell);
 		if (tokens)
 		{
-			check_token(tokens, env);
+			check_parsing(tokens, minishell);
 		}
 		else
 		{
-			perror("Malloc error ");
-			free_error(tokens, &minishell);
+			free_error(token, minishell, 0);
 		}
 		// printf("\n%d\n", minishell.count_tokens);
 		// printf("%s", tokens[minishell.count_tokens - 2].value);
