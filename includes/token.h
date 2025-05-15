@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 18:00:41 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/15 22:19:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 int					free_error(t_token *token, t_minishell *structure, int end);
 
 //rajouter par paul 
-int	ft_check(t_token *tokens, int type);
+int	ft_check(t_token *tokens, int recurs);
 int ft_check_here_doc(t_token *tokens, int i);
 
 #endif

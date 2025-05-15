@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 18:17:24 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:31:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,11 @@ int	main(int ac, char **av, char **env)
 		// printf("\n%d\n", minishell.count_tokens);
 		// printf("%s", tokens[minishell.count_tokens - 2].value);
 		// if (check_command())
-		if (ft_check(tokens, T_HEREDOC) == 1 )
-			free_error(tokens, &minishell, 0);
+		if (ft_check(tokens, 0) == 0)
+		{
+			ft_prepare_to_pipex(tokens, minishell);
+		}
+		
 		j = 0;
 		while (tokens[j].value)
 		{
