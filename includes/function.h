@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/22 18:21:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:58:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int	ft_echo(int ac, char **av);
+void	ft_echo(t_token *token, int i);
 int	cd(char **args);
 #endif

@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/12 18:41:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:47:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "token.h"
+#include "function.h"
 
 static int	process_env_tokens(t_token *token, t_minishell minishell, int *type)
 {
@@ -100,7 +101,8 @@ int	check_parsing(t_token *token, t_minishell minishell)
 			ret = process_word_tokens(&token[i], minishell);
 		if (ret)
 			return (ret);
-		ft_printf("value : %s type : %d\n", token[i].value, token[i].type);
+		if (ft_strncmp(token[i].value, "echo", 5) == 0)
+			ft_echo(token, i);
 		i++;
 	}
 	return (0);

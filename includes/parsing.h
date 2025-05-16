@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/12 15:07:47 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:47:21 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*parse_quotes(char *str, t_minishell minishell);
 char	*handle_double_quotes_env(char *str);
 char	*handle_single_quotes_env(char *str);
 
-/*********************************************************/
+/**********************************************************/
+
 
 #endif

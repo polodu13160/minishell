@@ -6,51 +6,61 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/18 16:47:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:11:20 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
 #include "unistd.h"
 
-void	print_echo(char **av, int start, int nl_flag)
+int	check_arg(char *str)
 {
 	int	i;
-	int	j;
 
-	i = start;
-	while (av[i])
+	i = 0;
+	if(!str)
+		return (1);
+	if (str[0] == '-' && str[1] == 'n')
 	{
-		j = 0;
-		while (av[i][j])
+		if (str[2] == 'n')
 		{
-			write(1, &av[i][j], 1);
-			j++;
+			i = 2;
+			while (str[i])
+			{
+				if (str[i] == 'n')
+					i++;
+				else
+					return (1);
+			}
 		}
-		if (av[i + 1])
-			write(1, " ", 1);
-		i++;
 	}
-	if (nl_flag)
-		write(1, "\n", 1);
+	else
+		return (1);
+	return (0);
 }
 
-int	ft_echo(int ac, char **av)
+void	ft_echo(t_token *token, int start_idx)
 {
-	int	flag;
+	int	i;
+	int	no_newline;
 
-	if (ac == 1)
+	i = start_idx;
+	no_newline = 0;
+	if (token[i + 1].value && !check_arg(token[i + 1].value))
 	{
-		write(1, "\n", 1);
-		return (0);
+		no_newline = 1;
+		i++;
+		while (!check_arg(token[i + 1].value))
+			i++;
 	}
-	flag = 1;
-	if (av[1][0] == '-' && av[1][1] == 'n')
+	i++;
+	while (token[i].value && token[i].type != T_PIPE)
 	{
-		flag = 2;
-		if (ac == 2)
-			return (0);
+		ft_putstr_fd(token[i].value, 1);
+		if (token[i + 1].value && token[i + 1].type != T_PIPE)
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
-	print_echo(av, flag, (flag == 1));
-	return (0);
+	if (!no_newline)
+		ft_putchar_fd('\n', 1);
 }
