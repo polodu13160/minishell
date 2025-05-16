@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/15 22:19:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:16:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_token
 	void	*new_value;
 }			t_token;
 
-
-
 typedef struct s_parse_data
 {
 	int		in_dquote;
@@ -78,10 +76,10 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 
 /*******************tokenized***********************/
 
-int					free_error(t_token *token, t_minishell *structure, int end);
+int			free_error(t_token *token, t_minishell *structure, int end);
 
-//rajouter par paul 
-int	ft_check(t_token *tokens, int recurs);
-int ft_check_here_doc(t_token *tokens, int i);
+// rajouter par paul
+int			ft_check(t_token *tokens, int recurs);
+int			ft_check_here_doc(t_token *tokens, int i);
 
 #endif
