@@ -6,59 +6,78 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:23:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:22:25 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "function.h"
+#include "libft.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h> 
-#include <unistd.h>  
+#include <sys/stat.h>
+#include <unistd.h>
 
-int	ft_setenv(const char *name, const char *value, int overwrite)
+char	*get_cd_path(t_token *token, int i)
 {
-	char	*existing;
-	char	*env_var;
-	int		i;
-	int		j;
+	char	*path;
 
-	existing = getenv(name);
-	if (!overwrite && existing)
-		return (0);
-	env_var = malloc(ft_strlen(name) + ft_strlen(value) + 2);
-	if (!env_var)
-		return (-1);
-	i = 0;
-	j = 0;
-	while (name[j])
-		env_var[i++] = name[j++];
-	env_var[i++] = '=';
-	j = 0;
-	while (value[j])
-		env_var[i++] = value[j++];
-	env_var[i] = '\0';
-	if (putenv(env_var) != 0)
-		return (free(env_var), -1);
+	if (!token[i + 1].value || !ft_strncmp(token[i + 1].value, "~", 1))
+	{
+		path = getenv("HOME");
+		if (!path)
+		{
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			return (NULL);
+		}
+	}
+	else
+		path = token[i + 1].value;
+	return (path);
+}
+
+int	handle_cd_error(char *path)
+{
+	if (access(path, F_OK) == -1)
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+	else if (access(path, X_OK) == -1)
+		ft_putstr_fd("cd: permission denied: ", 2);
+	else
+		ft_putstr_fd("cd: not a directory: ", 2);
+	ft_putendl_fd(path, 2);
+	return (1);
+}
+
+int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
+{
+	char	new_pwd[4096];
+
+	if (!getcwd(new_pwd, 4096))
+	{
+		perror("cd: error retrieving current directory");
+		return (1);
+	}
+	setenv("OLDPWD", old_pwd, 1);
+	setenv("PWD", new_pwd, 1);
+	if (minishell->cwd)
+		free(minishell->cwd);
+	minishell->cwd = ft_strdup(new_pwd);
 	return (0);
 }
 
-int	ft_cd(t_token *token, int i)
+int	ft_cd(t_token *token, int i, t_minishell *minishell)
 {
-	char	old_cwd[1024];
-	char	new_cwd[1024];
+	char	*path;
+	char	old_pwd[4096];
 
-	if (!token[i + 1].value)
-		return (1);
-	if (getcwd(old_cwd, sizeof(old_cwd)) == NULL)
-		return (1);
-	if (chdir(token[i + 1].value) != 0)
-		return (1);
-	if (getcwd(new_cwd, sizeof(new_cwd)) != NULL)
+	if (!getcwd(old_pwd, 4096))
 	{
-		ft_setenv("OLDPWD", old_cwd, 1);
-		ft_setenv("PWD", new_cwd, 1);
+		perror("cd: error retrieving current directory");
+		return (1);
 	}
-	return (0);
+	path = get_cd_path(token, i);
+	if (!path)
+		return (1);
+	if (chdir(path) != 0)
+		return (handle_cd_error(path));
+	return (update_pwd_vars(old_pwd, minishell));
 }

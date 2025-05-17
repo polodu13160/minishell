@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:21:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:19:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,31 @@ int	check_args(char *str, t_token *token, int count)
 	return (0);
 }
 
+void	init_data_null(t_token *token, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i <= count)
+	{
+		token[i].value = NULL;
+		token[i].new_value = NULL;
+		token[i++].option = NULL;
+	}
+}
+
 t_token	*tokenize(char *str, t_minishell *minishell)
 {
 	t_token	*tokens;
 	int		count;
-	int		i;
 
-	i = 0;
 	count = count_tokens(str);
 	if (count == 0)
 		return (NULL);
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
 		return (NULL);
-	while (i <= count)
-	{
-		tokens[i].value = NULL;
-		tokens[i].new_value = NULL;
-		tokens[i++].option = NULL;
-	}
+	init_data_null(tokens, count);
 	if (count_quote(str))
 	{
 		free(tokens);

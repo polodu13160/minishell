@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 17:45:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:53:16 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char	*get_env_value(char *var_name, char **env)
 	return (ft_strdup(""));
 }
 
-char	*return_env(char *str, t_minishell minishell)
+char	*return_env(char *str, t_minishell *minishell)
 {
 	char	*var_name;
 
 	var_name = str + 1;
 	if (ft_strncmp(var_name, "?", ft_strlen(var_name)) == 0)
-		return (ft_itoa(minishell.code_error));
-	return (get_env_value(var_name, minishell.env));
+		return (ft_itoa(minishell->code_error));
+	return (get_env_value(var_name, minishell->env));
 }
 
 char	*handle_single_quotes_env(char *str)

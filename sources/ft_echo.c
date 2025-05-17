@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:16:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:16:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_arg(char *str)
 	int	i;
 
 	i = 0;
-	if(!str)
+	if (!str)
 		return (1);
 	if (str[0] == '-' && str[1] == 'n')
 	{

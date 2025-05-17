@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/16 16:24:03 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/17 17:19:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "parsing.h"
 #include "token.h"
 
-static int	process_env_tokens(t_token *token, t_minishell minishell, int *type)
+static int	process_env_tokens(t_token *token, t_minishell *minishell,
+		int *type)
 {
 	char	*temp;
 
@@ -43,7 +44,7 @@ static int	process_env_tokens(t_token *token, t_minishell minishell, int *type)
 	return (0);
 }
 
-static int	process_quotes_tokens(t_token *token, t_minishell minishell)
+static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
 {
 	if (token->value[0] == '"' || token->value[0] == '\''
 		|| ft_strchr(token->value, '$'))
@@ -53,7 +54,7 @@ static int	process_quotes_tokens(t_token *token, t_minishell minishell)
 	return (0);
 }
 
-static int	process_word_tokens(t_token *token, t_minishell minishell)
+static int	process_word_tokens(t_token *token, t_minishell *minishell)
 {
 	char	*temp;
 
@@ -82,17 +83,7 @@ static int	process_forbid_tokens(t_token *token)
 	return (0);
 }
 
-int	check_builtins(t_token *token, int i)
-{
-	int ret = 0;
-	if (ft_strncmp(token[i].value, "echo", 5) == 0)
-		ft_echo(token, i);
-	else if (ft_strncmp(token[i].value, "cd", 3) == 0)
-	ret += ft_cd(token, i);
-	return (ret);
-}
-
-int	check_parsing(t_token *token, t_minishell minishell)
+int	check_parsing(t_token *token, t_minishell *minishell)
 {
 	int	i;
 	int	ret;
@@ -109,7 +100,6 @@ int	check_parsing(t_token *token, t_minishell minishell)
 			ret = process_forbid_tokens(&token[i]);
 		else if (token[i].type == T_WORD)
 			ret = process_word_tokens(&token[i], minishell);
-		ret += check_builtins(token, i);
 		if (ret)
 			return (ret);
 		i++;

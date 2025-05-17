@@ -17,9 +17,8 @@ FILES = main \
 		parsing_get_env \
 		parsing_full_quote \
 		cd \
-		ast \
 		check_here_doc \
-		check_fd
+		cd2 \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

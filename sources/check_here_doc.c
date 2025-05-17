@@ -105,13 +105,13 @@ int	ft_check_here_doc(t_token *tokens, int i)
 		if (pipe(save_text) == -1)
 			return (2);
 		while (j == 0 || ft_strncmp(gnl, tokens[i + 1].value, ft_strlen(tokens[i
-					+ 1].value)))
+						+ 1].value)))
 		{
 			ft_putstr_fd(">", 1);
 			if (j != 0)
 			{
 				if (write(save_text[1], tokens[i + 1].value, ft_strlen(tokens[i
-							+ 1].value)) == -1)
+								+ 1].value)) == -1)
 					return (4);
 				free(gnl);
 			}
