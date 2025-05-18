@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/17 19:22:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:25:21 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,34 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-char	*get_cd_path(t_token *token, int i)
+int	ft_putenv(const char *name, const char *value, int overwrite,
+		t_minishell *minishell)
 {
-	char	*path;
+	char	*new_var;
+	char	**new_env;
+	int		name_len;
+	int		error;
 
-	if (!token[i + 1].value || !ft_strncmp(token[i + 1].value, "~", 1))
+	new_env = NULL;
+	error = 0;
+	if (!name || !value || !minishell || !minishell->env)
+		return (-1);
+	name_len = 0;
+	while (name[name_len] && name[name_len] != '=')
+		name_len++;
+	if (check_var_exist(minishell, name, name_len) && !overwrite)
+		return (0);
+	new_var = malloc(ft_strlen(name) + ft_strlen(value) + 2);
+	if (!new_var)
+		return (-1);
+	new_var = ft_strjoin3(name, "=", value);
+	if (check_var_exist(minishell, name, name_len))
 	{
-		path = getenv("HOME");
-		if (!path)
-		{
-			ft_putstr_fd("cd: HOME not set\n", 2);
-			return (NULL);
-		}
+		minishell->env[check_var_exist(minishell, name, name_len)] = new_var;
+		return (0);
 	}
-	else
-		path = token[i + 1].value;
-	return (path);
+	error += copy_new_env(minishell, new_env, new_var);
+	return (error);
 }
 
 int	handle_cd_error(char *path)
@@ -56,20 +68,43 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 		perror("cd: error retrieving current directory");
 		return (1);
 	}
-	setenv("OLDPWD", old_pwd, 1);
-	setenv("PWD", new_pwd, 1);
+	if (!ft_putenv("OLDPWD", old_pwd, 1, minishell))
+		return (-1);
+	if (!ft_putenv("PWD", new_pwd, 1, minishell))
+		return (-1);
 	if (minishell->cwd)
 		free(minishell->cwd);
 	minishell->cwd = ft_strdup(new_pwd);
 	return (0);
 }
 
+char	*get_cd_path(t_token *token, int i)
+{
+	char	*path;
+
+	if (!token[i + 1].value || !ft_strncmp(token[i + 1].value, "~", 1))
+	{
+		path = getenv("HOME");
+		if (!path)
+		{
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			return (NULL);
+		}
+	}
+	else
+		path = token[i + 1].value;
+	return (path);
+}
+
 int	ft_cd(t_token *token, int i, t_minishell *minishell)
 {
 	char	*path;
 	char	old_pwd[4096];
+	int		error;
 
-	if (!getcwd(old_pwd, 4096))
+	error = 0;
+	if (!getcwd(old_pwd, 4096) || (token[i].value && token[i + 1].value
+			&& token[i + 2].value && token[i + 2].type != T_PIPE))
 	{
 		perror("cd: error retrieving current directory");
 		return (1);
@@ -78,6 +113,10 @@ int	ft_cd(t_token *token, int i, t_minishell *minishell)
 	if (!path)
 		return (1);
 	if (chdir(path) != 0)
-		return (handle_cd_error(path));
-	return (update_pwd_vars(old_pwd, minishell));
+	{
+		error += handle_cd_error(path);
+		return (error);
+	}
+	error += update_pwd_vars(old_pwd, minishell);
+	return (error);
 }

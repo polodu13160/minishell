@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/17 17:19:34 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:28:32 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	check_parsing(t_token *token, t_minishell *minishell)
 	int	i;
 	int	ret;
 
+	ret = 0;
 	i = 0;
 	while (token[i].value)
 	{
