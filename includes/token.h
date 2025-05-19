@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/15 22:19:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/19 12:50:17 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 typedef struct s_minishell
 {
+	int nb_here_doc;
 	char	*cwd;
 	char	*cwd_join;
 	char	*line;
@@ -41,7 +42,7 @@ typedef struct s_token
 	char	*value;
 	int		type;
 	char	**option;
-	void	*new_value;
+	char	*new_value;
 }			t_token;
 
 
@@ -81,7 +82,7 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 int					free_error(t_token *token, t_minishell *structure, int end);
 
 //rajouter par paul 
-int	ft_check(t_token *tokens, int recurs);
-int ft_check_here_doc(t_token *tokens, int i);
+int	ft_check(t_token *tokens, int recurs, t_minishell *minishell);
+int ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);
 
 #endif
