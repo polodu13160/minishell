@@ -37,6 +37,7 @@ SRCS = $(addprefix $(LIBFT_DIR), \
        ft_calloc.c \
        ft_isalnum.c \
        ft_itoa.c \
+       ft_atoll.c \
        ft_strtrim.c \
        ft_putnbr_fd.c \
        ft_putchar_fd.c \

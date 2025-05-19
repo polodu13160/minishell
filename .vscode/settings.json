@@ -3,6 +3,7 @@
         "token.h": "c",
         "stat.h": "c",
         "stdio.h": "c",
-        "function.h": "c"
+        "function.h": "c",
+        "climits": "c"
     }
 }

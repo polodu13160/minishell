@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/17 18:16:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:00:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_arg(char *str)
 	return (0);
 }
 
-void	ft_echo(t_token *token, int start)
+int	ft_echo(t_token *token, int start)
 {
 	int	i;
 	int	no_newline;
@@ -63,4 +63,5 @@ void	ft_echo(t_token *token, int start)
 	}
 	if (!no_newline)
 		ft_putchar_fd('\n', 1);
+	return (0);
 }

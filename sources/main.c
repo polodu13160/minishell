@@ -6,17 +6,18 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/17 18:55:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:29:32 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 #include "function.h"
 #include "libft.h"
+#include "limits.h"
+#include "parsing.h"
 #include "readline/history.h"
 #include "stdbool.h"
 #include "token.h"
-#include "parsing.h"
 #include <readline/readline.h>
 #include <stdio.h>
 
@@ -24,7 +25,7 @@ int	free_error(t_token *token, t_minishell *structure, int end)
 {
 	int	i;
 
-	if (end)
+	if (end == 2)
 		perror("Malloc error ");
 	i = 0;
 	if (token)
@@ -45,6 +46,28 @@ int	free_error(t_token *token, t_minishell *structure, int end)
 	return (0);
 }
 
+int	ft_env(t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	if (minishell->env)
+	{
+		while (minishell->env[i])
+		{
+			printf("%s\n", minishell->env[i]);
+			i++;
+		}
+	}
+	else
+		return (1);
+	return (0);
+}
+
+int	ft_exit(t_token *token, t_minishell *minishell, int i)
+{
+}
+
 void	check_builtins(t_token *token, int i, t_minishell *minishell)
 {
 	while (token[i].value)
@@ -52,11 +75,15 @@ void	check_builtins(t_token *token, int i, t_minishell *minishell)
 		if (token[i].type == T_FUNC)
 		{
 			if (ft_strncmp(token[i].value, "echo", 5) == 0)
-				ft_echo(token, i);
+				minishell->code_error = ft_echo(token, i);
 			else if (ft_strncmp(token[i].value, "cd", 3) == 0)
-				ft_cd(token, i, minishell);
+				minishell->code_error = ft_cd(token, i, minishell);
 			else if (ft_strncmp(token[i].value, "exit", 5) == 0)
-				free_error(token, minishell, 1);
+				minishell->code_error = ft_exit(token, minishell, i);
+			else if (ft_strncmp(token[i].value, "env", 4) == 0)
+				minishell->code_error = ft_env(minishell);
+			else if (ft_strncmp(token[i].value, "pwd", 4) == 0)
+				printf("%s\n", getcwd(NULL, 0));
 		}
 		i++;
 	}
