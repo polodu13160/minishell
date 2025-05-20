@@ -6,14 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:08:08 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 18:07:37 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:23:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/libft.h"
 #include <stdlib.h>
 
-int	ft_printdecimal(long int n)
+int	ft_printdecimal(int fd, long int n)
 {
 	char	*str;
 	int		count;
@@ -21,19 +21,19 @@ int	ft_printdecimal(long int n)
 	count = 0;
 	str = "0123456789";
 	if (n == -2147483648)
-		return (write(1, "-2147483648", 11));
+		return (write(fd, "-2147483648", 11));
 	if (n < 0)
 	{
-		count += write(1, "-", 1);
+		count += write(fd, "-", 1);
 		n = -n;
 	}
 	if (n < 10)
-		return (count + write(1, &str[n], 1));
+		return (count + write(fd, &str[n], 1));
 	else
-		return (count + ft_printdecimal(n / 10) + ft_printdecimal(n % 10));
+		return (count + ft_printdecimal(fd ,n / 10) + ft_printdecimal(fd, n % 10));
 }
 
-int	ft_printhexa(unsigned long int n, char hex)
+int	ft_printhexa(int fd, unsigned long int n, char hex)
 {
 	char	*str;
 
@@ -42,16 +42,16 @@ int	ft_printhexa(unsigned long int n, char hex)
 	else
 		str = HEXA_CAPS;
 	if (n < 16)
-		return (write(1, &str[n], 1));
+		return (write(fd, &str[n], 1));
 	else
 	{
-		return (ft_printhexa(n / 16, hex) + ft_printhexa(n % 16, hex));
+		return (ft_printhexa(fd, n / 16, hex) + ft_printhexa(fd, n % 16, hex));
 	}
 }
 
-int	ft_printpointer(void *s)
+int	ft_printpointer(int fd, void *s)
 {
 	if (!s)
-		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_printhexa((unsigned long int)s, 'x'));
+		return (write(fd, "(nil)", 5));
+	return (write(fd, "0x", 2) + ft_printhexa(fd, (unsigned long int)s, 'x'));
 }

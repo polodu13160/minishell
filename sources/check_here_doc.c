@@ -19,7 +19,6 @@ int	ft_print_error(t_token *tokens, int i, int error)
 {
 	char	*malloc_string;
 	int		j;
-	int		*fds;
 
 	j = -1;
 	malloc_string = NULL;
@@ -29,21 +28,14 @@ int	ft_print_error(t_token *tokens, int i, int error)
 			perror("not create tmp file");
 		if (error == 3)
 		{
-			perror("get_next_line error");
 			if (tokens[i].new_value != NULL)
-			{
-				fds = (int *)(tokens[i].new_value);
-			}
-			tokens[i].new_value = NULL;
+				tokens[i].new_value = NULL;
 			perror("get_next_line error");
 		}
 		if (error == 4)
 		{
 			if (tokens[i].new_value != NULL)
-			{
-				fds = (int *)(tokens[i].new_value);
 				tokens[i].new_value = NULL;
-			}
 			perror("write error");
 		}
 		if (error == 5)
@@ -58,7 +50,7 @@ int	ft_print_error(t_token *tokens, int i, int error)
 				return (ft_print_error(tokens, i, 5));
 			while (tokens[i + 1].value[++j] != 0 && j <= 2)
 				malloc_string[j] = tokens[i + 1].value[j];
-			printf("syntax error near unexpected token `%s'\n", malloc_string);
+			ft_printf_fd(2, "syntax error near unexpected token `%s'\n", malloc_string);
 			free(malloc_string);
 		}
 		return (1);
@@ -128,33 +120,24 @@ int	ft_strcmp(char *s1, char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-static char	*create_name_here_doc(void)
+static char	*create_name_here_doc(int i)
 {
 	char	*join_text1;
-	char	*join_text2;
-	char	*random[5];
-	int		random_file;
+	char	*itoa_char;
 
-	random[4] = 0;
-	random_file = open("/dev/random", O_RDONLY);
-	if (random_file < 0)
+	itoa_char = ft_itoa(i);
+	if (itoa_char == NULL)
 		return (NULL);
-	if (read(random_file, random, 4) <= 0)
-	{
-		close(random_file);
-		return (NULL);
-	}
-	join_text1 = ft_strjoin(".", (char *)random);
+	join_text1 = ft_strjoin(".", itoa_char);
+	free(itoa_char);
 	if (join_text1 == NULL)
-	{
-		close(random_file);
 		return (NULL);
-	}
-	join_text2 = ft_strjoin(join_text1, ".tmp");
-	if (join_text2 == NULL)
+	if (access(join_text1, F_OK) == 0)
+	{
 		free(join_text1);
-	close(random_file);	
-	return (join_text2);
+		return (create_name_here_doc(++i));
+	}
+	return (join_text1);
 }
 
 int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
@@ -171,38 +154,14 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 	{
 		if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_FUNC)
 			return (1);
-		name_here_doc = create_name_here_doc();
+		name_here_doc = create_name_here_doc(0);
 		if (name_here_doc == NULL)
 			return (5);
-		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 444);
+		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 446);
 		if (save_text == -1)
 		{
 			free(name_here_doc);
 			return (2);
-		}
-		tokens[i].new_value = name_here_doc;
-		while (j == 0 || ft_strcmp(gnl, tokens[i + 1].value))
-		{
-			ft_putstr_fd(">", 1);
-			if (j != 0 && (gnl != NULL && gnl[0] != 0))
-			{
-				if (write(save_text, gnl, ft_strlen(tokens[i + 1].value)) == -1)
-				{
-					free(name_here_doc);
-					close(save_text);
-					return (4);
-				}
-				free(gnl);
-			}
-			j++;
-			gnl = get_next_line(0);
-			printf("gnl value = %s", gnl);
-			if (gnl == NULL)
-			{
-				free(name_here_doc);
-				close(save_text);
-				return (3);
-			}
 		}
 		close(save_text);
 		free(gnl);

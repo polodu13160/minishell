@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:33:25 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 17:42:07 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:10:29 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	
 	while (*s)
 	{
 		ft_putchar_fd(*s, fd);

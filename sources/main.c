@@ -6,17 +6,17 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/19 10:32:22 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:35:23 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 #include "function.h"
 #include "libft.h"
+#include "parsing.h"
 #include "readline/history.h"
 #include "stdbool.h"
 #include "token.h"
-#include "parsing.h"
 #include <readline/readline.h>
 #include <stdio.h>
 
@@ -50,15 +50,16 @@ int	main(int ac, char **av, char **env)
 	t_token		*tokens;
 	t_minishell	minishell;
 	int			i;
-	i = 0;
 	int			j;
 
 	i = 0;
+	i = 0;
 	(void)ac;
 	(void)av;
+	ft_printf_fd(2, "dkjvdkjvkdjv `%s'\n", "tututu");
 	minishell.code_error = 0;
 	minishell.env = env;
-	while (1 && i != 5)
+	while (1 && i != 1)
 	{
 		minishell.cwd = getcwd(NULL, 0);
 		minishell.cwd_join = ft_strjoin(minishell.cwd, "$>");
@@ -93,7 +94,6 @@ int	main(int ac, char **av, char **env)
 		{
 			// ft_prepare_to_pipex(tokens, minishell);
 		}
-		
 		j = 0;
 		while (tokens[j].value)
 		{

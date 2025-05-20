@@ -1,7 +1,7 @@
 .PHONY: all clean fclean re bonus
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 NAME = libft.a
 
@@ -9,6 +9,7 @@ LIBFT_DIR = libft/
 
 SRCS = $(addprefix $(LIBFT_DIR), \
        ft_isalpha.c \
+       ft_printf_fd.c \
        ft_isdigit.c \
        ft_isascii.c \
        ft_isprint.c \
@@ -46,18 +47,19 @@ SRCS = $(addprefix $(LIBFT_DIR), \
        ft_striteri.c \
        ft_printspecifier.c \
        ft_printf.c \
-       ft_checksign.c \
+       ft_print_hexa.c \
+       ft_printf_format.c \
        get_next_line.c \
        get_next_line_utils.c \
-	   ft_lstadd_back_bonus.c \
-	   ft_lstadd_front_bonus.c \
-	   ft_lstclear_bonus.c \
-	   ft_lstdelone_bonus.c \
-	   ft_lstiter_bonus.c \
-	   ft_lstlast_bonus.c \
-	   ft_lstnew_bonus.c \
-	   ft_lstsize_bonus.c \
-	   ft_lstmap_bonus.c)
+       ft_lstadd_back_bonus.c \
+       ft_lstadd_front_bonus.c \
+       ft_lstclear_bonus.c \
+       ft_lstdelone_bonus.c \
+       ft_lstiter_bonus.c \
+       ft_lstlast_bonus.c \
+       ft_lstnew_bonus.c \
+       ft_lstsize_bonus.c \
+       ft_lstmap_bonus.c)
 
 OBJ_DIR = obj/
 OBJS = $(addprefix $(OBJ_DIR), $(notdir $(SRCS:.c=.o)))

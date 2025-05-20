@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/12 18:41:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:13:22 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	process_env_tokens(t_token *token, t_minishell minishell, int *type)
 {
-		char *temp;
+	char	*temp;
 
 	if (token->value[1] == '"')
 	{

@@ -19,7 +19,6 @@ FILES = main \
 		cd \
 		ast \
 		check_here_doc \
-		check_fd
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
