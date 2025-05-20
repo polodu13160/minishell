@@ -19,6 +19,7 @@ FILES = main \
 		cd \
 		check_here_doc \
 		cd2 \
+		ft_exit \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

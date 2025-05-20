@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 19:12:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/19 19:30:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:44:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/libft.h"
 #include "limits.h"
 
-long long	while_atoll(const char *str, int sign, int i)
+long long	while_atoll(const char *str, int sign, int i, int *error)
 {
 	long long	result;
 
@@ -23,6 +23,7 @@ long long	while_atoll(const char *str, int sign, int i)
 		if (result > LLONG_MAX / 10 || (result == LLONG_MAX / 10 && (str[i]
 					- '0') > LLONG_MAX % 10))
 		{
+			*error = 1;
 			if (sign == 1)
 				return (LLONG_MAX);
 			return (LLONG_MIN);
@@ -33,7 +34,7 @@ long long	while_atoll(const char *str, int sign, int i)
 	return (result * sign);
 }
 
-long long	ft_atoll(const char *str)
+long long	ft_atoll(const char *str, int *error)
 {
 	long long	result;
 	int			sign;
@@ -50,6 +51,6 @@ long long	ft_atoll(const char *str)
 			sign = -1;
 		i++;
 	}
-	result = while_atoll(str, sign, i);
+	result = while_atoll(str, sign, i, error);
 	return (result * sign);
 }

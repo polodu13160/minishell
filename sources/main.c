@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/19 19:29:32 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:47:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int	free_error(t_token *token, t_minishell *structure, int end)
 	return (0);
 }
 
+// difference ;
+// env print pas quand pas de =
+
+// export , trie de a a w et 
+// "declare -x"
+
 int	ft_env(t_minishell *minishell)
 {
 	int	i;
@@ -55,17 +61,14 @@ int	ft_env(t_minishell *minishell)
 	{
 		while (minishell->env[i])
 		{
-			printf("%s\n", minishell->env[i]);
+			if (ft_strcmp(minishell->env[i], '=') == 0)
+				printf("%s\n", minishell->env[i]);
 			i++;
 		}
 	}
 	else
 		return (1);
 	return (0);
-}
-
-int	ft_exit(t_token *token, t_minishell *minishell, int i)
-{
 }
 
 void	check_builtins(t_token *token, int i, t_minishell *minishell)

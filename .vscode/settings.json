@@ -4,6 +4,7 @@
         "stat.h": "c",
         "stdio.h": "c",
         "function.h": "c",
-        "climits": "c"
+        "climits": "c",
+        "type_traits": "c"
     }
 }
