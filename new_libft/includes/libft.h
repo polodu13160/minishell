@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:25:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/09 17:04:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:31:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+#  define HEXACAPS "0123456789ABCDEF"
+#  define HEXAMIN "0123456789abcdef"
+
 # endif
 
 typedef struct s_list
@@ -30,11 +33,12 @@ typedef struct s_list
 
 /**************************************************************/
 
+int					ft_printhexa(int fd, unsigned long int n, char hex);
 int					ft_printf(const char *format, ...);
-int					ft_specifier(char specifier, va_list ap);
-int					ft_printdecimal(long int n);
-int					ft_printhexa(unsigned long int n, char hex);
-int					ft_printpointer(void *s);
+int					ft_printf_fd(int fd, const char *format, ...);
+int					ft_printf_format(int fd, char format, va_list arg);
+int					ft_printdecimal(int fd, long int n);
+int					ft_printpointer(int fd, void *s);
 
 /***************************************************************/
 
@@ -74,7 +78,7 @@ char				*ft_itoa(int n);
 /*******************************************************************/
 
 int					ft_putstr_fd(char *s, int fd);
-void				ft_putnbr_fd(int n, int fd);
+int					ft_putnbr_fd(long int n, int fd);
 int					ft_putchar_fd(char c, int fd);
 char				*ft_strtrim(const char *s1, const char *set);
 void				ft_putendl_fd(char *s, int fd);

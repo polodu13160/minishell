@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_full_quote.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/12 15:07:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:38:08 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	handle_quotes(char *str, t_index *index, t_quote_state *state,
 	}
 }
 
-static char	*extract_var_name(char *str, int *i, int *var_len)
+char	*extract_var_name(char *str, int *i, int *var_len)
 {
 	char	*var_name;
 

@@ -19,6 +19,7 @@ FILES = main \
 		cd \
 		ast \
 		check_here_doc \
+		ft_pipex \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

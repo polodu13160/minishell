@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/19 12:50:17 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/22 21:11:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@
 # define T_FORBID 8
 # define T_NULL 9
 
-typedef struct s_minishell
-{
-	int nb_here_doc;
-	char	*cwd;
-	char	*cwd_join;
-	char	*line;
-	char	**env;
-	int		code_error;
-}			t_minishell;
-
 typedef struct s_token
 {
 	char	*value;
@@ -45,7 +35,24 @@ typedef struct s_token
 	char	*new_value;
 }			t_token;
 
+typedef struct s_pipex
+{
+	t_token	*infiles;
+	t_token	*outfiles;
+	t_token	cmd;
+}			t_pipex;
 
+typedef struct s_minishell
+{
+	int		nb_here_doc;
+	char	*cwd;
+
+	char	*cwd_join;
+	char	*line;
+	char	**env;
+	int		code_error;
+	t_pipex	*pipex;
+}			t_minishell;
 
 typedef struct s_parse_data
 {
@@ -79,10 +86,11 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 
 /*******************tokenized***********************/
 
-int					free_error(t_token *token, t_minishell *structure, int end);
-
-//rajouter par paul 
-int	ft_check(t_token *tokens, int recurs, t_minishell *minishell);
-int ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);
+int			free_error(t_token *token, t_minishell *structure, int end);
+char		*get_env_value(char *var_name, char **env);
+// rajouter par paul
+int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
+int			ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);
+int			ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens);
 
 #endif
