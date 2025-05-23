@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/18 20:25:21 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:09:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,28 @@
 int	ft_putenv(const char *name, const char *value, int overwrite,
 		t_minishell *minishell)
 {
-	char	*new_var;
-	char	**new_env;
-	int		name_len;
-	int		error;
+	t_cd	cd;
 
-	new_env = NULL;
-	error = 0;
 	if (!name || !value || !minishell || !minishell->env)
 		return (-1);
-	name_len = 0;
-	while (name[name_len] && name[name_len] != '=')
-		name_len++;
-	if (check_var_exist(minishell, name, name_len) && !overwrite)
+	declare_putenv(&cd, name);
+	if (check_var_exist(minishell, name, cd.name_len) && !overwrite)
 		return (0);
-	new_var = malloc(ft_strlen(name) + ft_strlen(value) + 2);
-	if (!new_var)
+	cd.new_var = ft_strjoin3(name, "=", value);
+	if (!cd.new_var)
 		return (-1);
-	new_var = ft_strjoin3(name, "=", value);
-	if (check_var_exist(minishell, name, name_len))
+	cd.var_index = check_var_exist(minishell, name, cd.name_len);
+	if (cd.var_index)
+		return (replace_existing_var(minishell, cd.new_var, cd.var_index));
+	cd.error = copy_new_env(minishell, cd.new_env, cd.new_var);
+	if (cd.error)
 	{
-		minishell->env[check_var_exist(minishell, name, name_len)] = new_var;
-		return (0);
+		if (minishell->env_copied)
+			free(minishell->env);
+		free(cd.new_var);
 	}
-	error += copy_new_env(minishell, new_env, new_var);
-	return (error);
+	minishell->env_copied = 1;
+	return (cd.error);
 }
 
 int	handle_cd_error(char *path)

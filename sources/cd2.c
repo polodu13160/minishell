@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:34:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/18 20:14:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:10:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ int	copy_new_env(t_minishell *minishell, char **new_env, char *new_var)
 	}
 	new_env[i] = new_var;
 	new_env[i + 1] = NULL;
+	if (minishell->env_copied)
+		free(minishell->env);
 	minishell->env = new_env;
+	minishell->env_copied = 1;
+	free(new_var);
 	return (0);
 }
 
@@ -73,4 +77,23 @@ int	check_var_exist(t_minishell *minishell, const char *name, int name_len)
 		i++;
 	}
 	return (0);
+}
+
+int	replace_existing_var(t_minishell *minishell, char *new_var, int var_index)
+{
+	if (minishell->env_copied)
+		free(minishell->env[var_index]);
+	minishell->env[var_index] = new_var;
+	minishell->env_copied = 1;
+	return (0);
+}
+
+void	declare_putenv(t_cd *cd, const char *name)
+{
+	cd->new_env = NULL;
+	cd->name_len = 0;
+	cd->error = 0;
+	cd->var_index = 0;
+	while (name[cd->name_len] && name[cd->name_len] != '=')
+		cd->name_len++;
 }

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/20 19:03:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:11:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_minishell
 	char	*line;
 	char	**env;
 	int		code_error;
+	int		env_copied;
 }			t_minishell;
 
 typedef struct s_token
