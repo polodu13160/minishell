@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 17:28:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:30:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_exit_numeric(t_token *token, int i, int *sign)
 	return (0);
 }
 
-int	ft_exit(t_token *token, t_minishell *minishell, int i)
+void	ft_exit(t_token *token, t_minishell *minishell, int i)
 {
 	int			error;
 	int			sign;
@@ -60,7 +60,7 @@ int	ft_exit(t_token *token, t_minishell *minishell, int i)
 
 	error = 0;
 	if (check_arg_exit(token, minishell, i) == 1)
-		return (0);
+		return ;
 	if (check_exit_numeric(token, i, &sign) == 2)
 	{
 		minishell->code_error = 2;

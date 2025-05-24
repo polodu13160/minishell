@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 16:15:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:38:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@ typedef struct s_cd
 	int		var_index;
 }			t_cd;
 
+/*****************************export****************************************/
+
 int			ft_export(t_token *token, t_minishell *minishell, int i);
 
+/*******************************echo****************************************/
+
 int			ft_echo(t_token *token, int i);
+
+/********************************cd*****************************************/
+
 int			ft_cd(t_token *token, int i, t_minishell *minishell);
 char		*ft_strjoin3(const char *s1, const char *s2, const char *s3);
 int			copy_new_env(t_minishell *minishell, char **new_env, char *new_var);
@@ -37,6 +44,11 @@ int			check_var_exist(t_minishell *minishell, const char *name,
 int			replace_existing_var(t_minishell *minishell, char *new_var,
 				int var_index);
 void		declare_putenv(t_cd *cd, const char *name);
-int			ft_exit(t_token *token, t_minishell *minishell, int i);
+
+/*********************************exit***************************************/
+
+void		ft_exit(t_token *token, t_minishell *minishell, int i);
+
+/****************************************************************************/
 
 #endif
