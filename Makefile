@@ -20,6 +20,7 @@ FILES = main \
 		check_here_doc \
 		cd2 \
 		ft_exit \
+		ft_export \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

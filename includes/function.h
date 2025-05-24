@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/23 18:11:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:15:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_cd
 	int		error;
 	int		var_index;
 }			t_cd;
+
+int			ft_export(t_token *token, t_minishell *minishell, int i);
 
 int			ft_echo(t_token *token, int i);
 int			ft_cd(t_token *token, int i, t_minishell *minishell);

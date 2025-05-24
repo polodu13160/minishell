@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/17 18:19:52 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:45:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	init_data_null(t_token *token, int count)
 		token[i].new_value = NULL;
 		token[i++].option = NULL;
 	}
+	
 }
 
 t_token	*tokenize(char *str, t_minishell *minishell)
@@ -112,5 +113,6 @@ t_token	*tokenize(char *str, t_minishell *minishell)
 		free_error(tokens, minishell, 0);
 		return (NULL);
 	}
+	tokens[count].type = T_NULL;
 	return (tokens);
 }

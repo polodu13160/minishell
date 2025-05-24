@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/20 18:18:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:59:15 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	check_arg_exit(t_token *token, t_minishell *minishell, int i)
 {
-	if (!token[i + 1].value)
+	if (!token[i + 1].value || token[i + 1].type == T_NULL)
 	{
-		free_error(token, minishell, 0);
-		exit(0);
+		minishell->code_error = 0;
+		free_error(token, minishell, 1);
 	}
 	if (token[i + 2].value)
 	{
@@ -63,15 +63,15 @@ int	ft_exit(t_token *token, t_minishell *minishell, int i)
 		return (0);
 	if (check_exit_numeric(token, i, &sign) == 2)
 	{
-		free_error(token, minishell, 0);
-		exit(2);
+		minishell->code_error = 2;
+		free_error(token, minishell, 2);
 	}
 	value = ft_atoll(token[i + 1].value, &error);
 	if (error)
 	{
 		ft_putendl_fd("exit: numeric argument required", 2);
-		free_error(token, minishell, 0);
-		exit(2);
+		minishell->code_error = 2;
+		free_error(token, minishell, 2);
 	}
 	if (sign)
 		value = 256 - value;

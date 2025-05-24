@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/23 18:09:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 15:47:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ int	ft_putenv(const char *name, const char *value, int overwrite,
 	cd.error = copy_new_env(minishell, cd.new_env, cd.new_var);
 	if (cd.error)
 	{
-		if (minishell->env_copied)
-			free(minishell->env);
+		free(minishell->env);
 		free(cd.new_var);
 	}
-	minishell->env_copied = 1;
 	return (cd.error);
 }
 
