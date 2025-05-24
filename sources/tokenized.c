@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 16:45:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:03:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	check_args(char *str, t_token *token, int count)
 	init_data(&data);
 	while (str[data.i] && data.token_index < count)
 	{
-		if (str[data.i] == '#')
-			return (0);
 		while (str[data.i] == ' ' || str[data.i] == '\t')
 			data.i++;
 		data.start = data.i;

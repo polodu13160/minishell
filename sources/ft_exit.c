@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 16:59:15 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:28:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	check_arg_exit(t_token *token, t_minishell *minishell, int i)
 {
-	if (!token[i + 1].value || token[i + 1].type == T_NULL)
+	if (!token[i].value)
 	{
 		minishell->code_error = 0;
 		free_error(token, minishell, 1);
 	}
-	if (token[i + 2].value)
+	if (token[i].value && token[i + 1].value)
 	{
-		ft_putendl_fd("exit: too many arguments", 2);
+		ft_putendl_fd("exit: too many arguments\n", 2);
 		return (1);
 	}
 	return (0);
@@ -33,11 +33,11 @@ int	check_exit_numeric(t_token *token, int i, int *sign)
 
 	x = 0;
 	*sign = 0;
-	while (token[i + 1].value[x])
+	while (token[i].value[x])
 	{
-		if (token[i + 1].value[x] == '-')
+		if (token[i].value[x] == '-')
 			(*sign)++;
-		else if (token[i + 1].value[x] < '0' || token[i + 1].value[x] > '9')
+		else if (token[i].value[x] < '0' || token[i].value[x] > '9')
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
 			return (2);
@@ -64,9 +64,9 @@ int	ft_exit(t_token *token, t_minishell *minishell, int i)
 	if (check_exit_numeric(token, i, &sign) == 2)
 	{
 		minishell->code_error = 2;
-		free_error(token, minishell, 2);
+		free_error(token, minishell, 1);
 	}
-	value = ft_atoll(token[i + 1].value, &error);
+	value = ft_atoll(token[i].value, &error);
 	if (error)
 	{
 		ft_putendl_fd("exit: numeric argument required", 2);
@@ -77,6 +77,6 @@ int	ft_exit(t_token *token, t_minishell *minishell, int i)
 		value = 256 - value;
 	else if (value > 255)
 		value = value % 256;
-	free_error(token, minishell, 0);
-	exit(value);
+	minishell->code_error = value;
+	free_error(token, minishell, 1);
 }
