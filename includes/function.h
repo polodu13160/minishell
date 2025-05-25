@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 17:38:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:39:25 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cd
 /*****************************export****************************************/
 
 int			ft_export(t_token *token, t_minishell *minishell, int i);
+int			ft_unset(t_token *token, t_minishell *minishell, int i);
 
 /*******************************echo****************************************/
 

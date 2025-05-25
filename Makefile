@@ -21,6 +21,7 @@ FILES = main \
 		cd2 \
 		ft_exit \
 		ft_export \
+		ft_unset \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

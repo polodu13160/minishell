@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 17:31:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:35:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	check_builtins(t_token *token, int i, t_minishell *minishell)
 				printf("%s\n", getcwd(NULL, 0));
 			else if (ft_strncmp(token[i].value, "export", 7) == 0)
 				ft_export(token, minishell, i);
+			else if (ft_strncmp(token[i].value, "unset", 6) == 0)
+				ft_unset(token, minishell, i);
 		}
 		i++;
 	}

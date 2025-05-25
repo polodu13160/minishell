@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 16:17:22 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:44:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,18 @@ int	ft_export(t_token *token, t_minishell *minishell, int i)
 
 	if (!token[i + 1].value)
 		return (print_export(minishell));
-	var_name = token[i + 1].value;
-	name_len = 0;
-	while (var_name[name_len] && var_name[name_len] != '=')
-		name_len++;
-	exists = -1;
-	if (check_double(token, minishell, var_name, i))
-		return (check_double(token, minishell, var_name, i) - 1);
-	minishell->env = copy_env(minishell, token, i);
+	while (token[i + 1].type != T_PIPE && token[i + 1].type != T_NULL && token[i
+			+ 1].value != NULL)
+	{
+		var_name = token[i + 1].value;
+		name_len = 0;
+		while (var_name[name_len] && var_name[name_len] != '=')
+			name_len++;
+		exists = -1;
+		if (check_double(token, minishell, var_name, i))
+			return (check_double(token, minishell, var_name, i) - 1);
+		minishell->env = copy_env(minishell, token, i);
+		i++;
+	}
 	return (0);
 }
