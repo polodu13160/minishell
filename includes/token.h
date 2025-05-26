@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pauldepetrini <pauldepetrini@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/22 21:11:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/26 10:11:47 by pauldepetri      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,32 @@
 # include "libft.h"
 # include <stdlib.h>
 
-# define T_FUNC 0
-# define T_WORD 1
-# define T_PIPE 2
-# define T_REDIRECT_IN 3
-# define T_REDIRECT_OUT 4
-# define T_APPEND 5
-# define T_HEREDOC 6
-# define T_ENV 7
-# define T_FORBID 8
-# define T_NULL 9
+// # define T_FUNC 0
+// # define T_WORD 1
+// # define T_PIPE 2
+// # define T_REDIRECT_IN 3
+// # define T_REDIRECT_OUT 4
+// # define T_APPEND 5
+// # define T_HEREDOC 6
+// # define T_ENV 7
+// # define T_FORBID 8
+// # define T_NULL 9
+// # define T_WORD_FOR_REDIRECT 10
+
+typedef enum e_token_type
+{
+	T_FUNC,
+	T_WORD,
+	T_PIPE,
+	T_REDIRECT_IN,
+	T_REDIRECT_OUT,
+	T_APPEND,
+	T_HEREDOC,
+	T_ENV,
+	T_FORBID,
+	T_NULL,
+	T_WORD_FOR_REDIRECT
+} t_token_type;
 
 typedef struct s_token
 {
@@ -37,9 +53,10 @@ typedef struct s_token
 
 typedef struct s_pipex
 {
+	int init;
 	t_token	*infiles;
 	t_token	*outfiles;
-	t_token	cmd;
+	char	**cmd;
 }			t_pipex;
 
 typedef struct s_minishell

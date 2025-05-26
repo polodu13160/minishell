@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pauldepetrini <pauldepetrini@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/22 21:11:02 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:16:58 by pauldepetri      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ int	main(int ac, char **av, char **env)
 			}
 			if (ft_check(tokens, 0, &minishell) == 0)
 			{
-				free_error(tokens, &minishell, 0);
-				if (ft_prepare_to_pipex(&minishell, tokens))
+				
+				
+				if (ft_prepare_to_pipex(&minishell, tokens)== 0)
 				{
-					
+					// ft_printf(" tttttttt");
 				}
-				
-				
+				// free_error(tokens, &minishell, 0);
 			}
 			else
 			{
