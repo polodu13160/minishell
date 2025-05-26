@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/17 16:53:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:27:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ char	*return_env(char *str, t_minishell *minishell)
 	return (get_env_value(var_name, minishell->env));
 }
 
+void	copy_single(char *str, char *result, int *i, int *j)
+{
+	while (str[(*i)] && str[(*i)] != '\'')
+	{
+		if (str[(*i)] == '\\')
+		{
+			if (str[(*i) + 1] == 't')
+			{
+				result[(*j)++] = '\t';
+				(*i) += 2;
+			}
+			else if (str[(*i) + 1] == 'n')
+			{
+				result[(*j)++] = '\n';
+				(*i) += 2;
+			}
+		}
+		result[(*j)++] = str[(*i)++];
+	}
+}
+
 char	*handle_single_quotes_env(char *str)
 {
 	int		i;
@@ -62,13 +83,14 @@ char	*handle_single_quotes_env(char *str)
 		return (NULL);
 	if (str[i] == '\'')
 		i++;
-	while (str[i] && str[i] != '\'')
-		result[j++] = str[i++];
+	copy_single(str, result, &i, &j);
 	if (str[i] == '\'' && str[i + 1] != '\0')
 	{
 		i++;
 		while (str[i])
+		{
 			result[j++] = str[i++];
+		}
 	}
 	result[j] = '\0';
 	free(str);
@@ -94,7 +116,9 @@ char	*handle_double_quotes_env(char *str)
 	{
 		i++;
 		while (str[i])
+		{
 			result[j++] = str[i++];
+		}
 	}
 	result[j] = '\0';
 	free(str);
