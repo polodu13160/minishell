@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/25 16:35:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:12:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,19 @@ char	**copy_original_env(char **env)
 {
 	int		i;
 	char	**copy_env;
+	int shlvl_value = 0;
 
 	i = 0;
+	if (!env || !env[0])
+    {
+        copy_env = malloc(sizeof(char *) * 3);
+        if (!copy_env)
+            return (NULL);
+        copy_env[0] = ft_strjoin("PWD=", getcwd(NULL, 0));
+        copy_env[1] = ft_strdup("SHLVL=1");
+        copy_env[2] = NULL;
+        return (copy_env);
+    }
 	while (env[i])
 		i++;
 	copy_env = malloc(sizeof(char *) * (i + 1));
@@ -122,7 +133,12 @@ char	**copy_original_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		copy_env[i] = ft_strdup(env[i]);
+		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
+        {
+            shlvl_value = ft_atoi(env[i] + 6, 0) + 1;
+            copy_env[i] = ft_strjoin("SHLVL=", ft_itoa(shlvl_value));
+        }
+		else copy_env[i] = ft_strdup(env[i]);
 		if (!copy_env[i])
 		{
 			while (i > 0)
@@ -174,8 +190,9 @@ int	main(int ac, char **av, char **env)
 		check_builtins(tokens, 0, &minishell);
 		while (tokens[j].value)
 		{
+			
 			free(tokens[j].value);
-			j++;
+			j++;\
 		}
 		free(tokens);
 		free(minishell.cwd);
