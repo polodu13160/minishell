@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/25 16:39:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:19:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ typedef struct s_cd
 	int		error;
 	int		var_index;
 }			t_cd;
+
+void		check_builtins(t_token *token, int i, t_minishell *minishell);
+
+char		**copy_original_env(char **env);
 
 /*****************************export****************************************/
 
@@ -51,5 +55,7 @@ void		declare_putenv(t_cd *cd, const char *name);
 void		ft_exit(t_token *token, t_minishell *minishell, int i);
 
 /****************************************************************************/
+
+int			free_error(t_token *token, t_minishell *minishell, int end);
 
 #endif

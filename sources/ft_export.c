@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 16:29:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:30:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_export(t_token *token, t_minishell *minishell, int i)
 	char	*var_name;
 	int		name_len;
 	int		exists;
-	char **temp_env;
+	char	**temp_env;
 
 	if (!token[i + 1].value)
 		return (print_export(minishell));

@@ -22,6 +22,8 @@ FILES = main \
 		ft_exit \
 		ft_export \
 		ft_unset \
+		builtins_env \
+		free_error \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
