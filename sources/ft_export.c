@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/25 15:44:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:29:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ char	**copy_env(t_minishell *minishell, t_token *token, int i)
 	new_env[j] = ft_strdup(token[i + 1].value);
 	if (!new_env[j])
 	{
-		while (i > 0)
-			free(new_env[--j]);
 		free(new_env);
+		return (NULL);
 	}
 	new_env[j + 1] = NULL;
 	free(minishell->env);
@@ -99,6 +98,7 @@ int	ft_export(t_token *token, t_minishell *minishell, int i)
 	char	*var_name;
 	int		name_len;
 	int		exists;
+	char **temp_env;
 
 	if (!token[i + 1].value)
 		return (print_export(minishell));
@@ -112,7 +112,10 @@ int	ft_export(t_token *token, t_minishell *minishell, int i)
 		exists = -1;
 		if (check_double(token, minishell, var_name, i))
 			return (check_double(token, minishell, var_name, i) - 1);
-		minishell->env = copy_env(minishell, token, i);
+		temp_env = copy_env(minishell, token, i);
+		if (!temp_env)
+			return (1);
+		minishell->env = temp_env;
 		i++;
 	}
 	return (0);

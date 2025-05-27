@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/26 18:27:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:22:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*return_env(char *str, t_minishell *minishell)
 	char	*var_name;
 
 	var_name = str + 1;
-	if (ft_strncmp(var_name, "?", ft_strlen(var_name)) == 0)
+	if (ft_strncmp(var_name, "?", 2) == 0)
 		return (ft_itoa(minishell->code_error));
 	return (get_env_value(var_name, minishell->env));
 }
@@ -63,6 +63,11 @@ void	copy_single(char *str, char *result, int *i, int *j)
 			else if (str[(*i) + 1] == 'n')
 			{
 				result[(*j)++] = '\n';
+				(*i) += 2;
+			}
+			else if (str[(*i) + 1] == '0')
+			{
+				result[(*j)++] = '\0';
 				(*i) += 2;
 			}
 		}

@@ -5,6 +5,7 @@
         "stdio.h": "c",
         "function.h": "c",
         "climits": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "readline.h": "c"
     }
 }

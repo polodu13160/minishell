@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/26 18:27:45 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:43:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include "parsing.h"
 #include "token.h"
 
-int static	process_dollar(t_token *token, t_minishell *minishell, int type)
+static int	process_dollar(t_token *token, t_minishell *minishell, int type)
 {
 	int		i;
 	char	*temp;
 
 	i = 1;
 	temp = malloc(sizeof(char) * ft_strlen(token->value));
+	if (!temp)
+		return (1);
 	while (token->value[i])
 	{
 		temp[i - 1] = token->value[i];
@@ -51,7 +53,10 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell,
 	if (token->value[1] == '"')
 	{
 		if (token->value[2] == '$')
-			process_dollar(token, minishell, 0);
+		{
+			if (process_dollar(token, minishell, 0))
+				return (1);
+		}
 		else
 			token->value = handle_double_quotes_env(token->value);
 	}
