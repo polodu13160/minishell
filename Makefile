@@ -20,6 +20,7 @@ FILES = main \
 		ast \
 		check_here_doc \
 		ft_pipex \
+		func_pipex \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pauldepetrini <pauldepetrini@student.42    +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/26 10:11:47 by pauldepetri      ###   ########.fr       */
+/*   Updated: 2025/05/29 23:45:03 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ typedef enum e_token_type
 	T_FORBID,
 	T_NULL,
 	T_WORD_FOR_REDIRECT
-} t_token_type;
+}			t_token_type;
 
 typedef struct s_token
 {
 	char	*value;
 	int		type;
 	char	**option;
-	char	*new_value;
+	int		fd[2];
 }			t_token;
 
 typedef struct s_pipex
 {
-	int init;
+	int		init;
 	t_token	*infiles;
 	t_token	*outfiles;
 	char	**cmd;
@@ -68,6 +68,7 @@ typedef struct s_minishell
 	char	*line;
 	char	**env;
 	int		code_error;
+	int count_pipe;
 	t_pipex	*pipex;
 }			t_minishell;
 
@@ -109,5 +110,7 @@ char		*get_env_value(char *var_name, char **env);
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
 int			ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);
 int			ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens);
+
+int			ft_pipex(t_minishell *minishell);
 
 #endif

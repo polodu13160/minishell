@@ -32,14 +32,11 @@ int	ft_print_error(t_token *tokens, int i, int error)
 			perror("not create tmp file");
 		if (error == 3)
 		{
-			if (tokens[i].new_value != NULL)
-				tokens[i].new_value = NULL;
+			
 			perror("get_next_line error");
 		}
 		if (error == 4)
 		{
-			if (tokens[i].new_value != NULL)
-				tokens[i].new_value = NULL;
 			perror("write error");
 		}
 		if (error == 5)
@@ -65,7 +62,6 @@ int	ft_print_error(t_token *tokens, int i, int error)
 
 int	check_command(t_token *tokens, int i)
 {
-	tokens->new_value = NULL;
 	if (tokens[i].type == T_PIPE)
 	{
 		if (tokens[i + 1].value == NULL || tokens[i + 1].type == T_PIPE)
@@ -238,7 +234,8 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 				return (3);
 			}
 		}
-		tokens[i].new_value = name_here_doc;
+		free(tokens[i].value);
+		tokens[i].value = name_here_doc;
 		close(save_text);
 		free(read_like_gnl);
 	}

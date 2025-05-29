@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/20 22:13:29 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/29 23:51:57 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_token	*tokenize(char *str, t_minishell *minishell)
 	while (i <= count)
 	{
 		tokens[i].value = NULL;
-		tokens[i].new_value = NULL;
 		tokens[i++].option = NULL;
 	}
 	if (count_quote(str))
