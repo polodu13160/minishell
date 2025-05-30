@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 19:18:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:17:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	declare_minishell(t_minishell *minishell, int ac, char **av, char **env)
 
 void	readline_declare(t_token *tokens, t_minishell *minishell)
 {
+	int	i;
+
+	i = 0;
 	minishell->cwd = getcwd(NULL, 0);
 	if (!minishell->cwd)
 		free_error(tokens, minishell, 1);
@@ -45,7 +48,7 @@ void	readline_declare(t_token *tokens, t_minishell *minishell)
 		free_error(tokens, minishell, 1);
 	minishell->line = readline(minishell->cwd_join);
 	if (!minishell->line)
-		free_error(tokens, minishell, 1);
+		free_error(tokens, minishell, 2);
 }
 
 void	check_token(t_token *token, t_minishell *minishell)
@@ -67,6 +70,18 @@ void	check_token(t_token *token, t_minishell *minishell)
 	free(token);
 }
 
+void	shift_token(t_token *token, int i)
+{
+	free(token[i].value);
+	while (token[i + 1].value != NULL)
+	{
+		token[i] = token[i + 1];
+		i++;
+	}
+	token[i].value = NULL;
+	token[i].type = T_NULL;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_token		*tokens;
@@ -80,7 +95,10 @@ int	main(int ac, char **av, char **env)
 		add_history(minishell.line);
 		tokens = tokenize(minishell.line, &minishell);
 		if (tokens)
+		{
 			check_token(tokens, &minishell);
+			tokens = NULL;
+		}
 		free(minishell.cwd);
 		free(minishell.cwd_join);
 		free(minishell.line);

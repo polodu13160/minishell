@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 16:22:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:39:03 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_env_value(char *var_name, char **env)
 	size_t	name_len;
 
 	if (!var_name || !env)
-		return (ft_strdup(""));
+		return (ft_strdup(" "));
 	name_len = ft_strlen(var_name);
 	if (name_len == 0)
 		return (ft_strdup("$"));
@@ -36,7 +36,7 @@ char	*get_env_value(char *var_name, char **env)
 		}
 		i++;
 	}
-	return (ft_strdup(""));
+	return (ft_strdup(" "));
 }
 
 char	*return_env(char *str, t_minishell *minishell)

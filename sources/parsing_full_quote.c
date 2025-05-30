@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 16:07:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:18:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,9 @@ char	*parse_quotes(char *str, t_minishell *minishell)
 	while (str[index.i])
 	{
 		if (str[index.i] == '"' || str[index.i] == '\'')
-		{
 			handle_quotes(str, &index, &state, result);
-		}
 		else if (str[index.i] == '$' && !state.in_squote)
-		{
 			process_env_var(str, result, &index, minishell);
-		}
 		else
 			result[index.j++] = str[index.i++];
 	}

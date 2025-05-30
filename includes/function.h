@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 19:19:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:45:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cd
 void		check_builtins(t_token *token, int i, t_minishell *minishell);
 
 char		**copy_original_env(char **env);
+void		shift_token(t_token *token, int i);
 
 /*****************************export****************************************/
 

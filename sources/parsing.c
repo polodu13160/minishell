@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 16:43:51 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:17:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,11 @@ int	check_parsing(t_token *token, t_minishell *minishell)
 			|| token[i].type == T_FUNC)
 			ret = process_quotes_tokens(&token[i], minishell);
 		else if (token[i].type == T_ENV)
+		{
 			ret = process_env_tokens(&token[i], minishell, &token[i].type);
+			if (ft_strncmp(token[i].value, " ", 2) == 0)
+				shift_token(token, i);
+		}
 		else if (token[i].type == T_FORBID)
 			ret = process_dollar(token, minishell, 1);
 		else if (token[i].type == T_WORD)
