@@ -6,13 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/05/30 00:31:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/30 23:22:02 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "token.h"
 #include <stdio.h>
+#include <sys/wait.h>
 
 void	*ft_error_free_tab(t_token *tab)
 {
@@ -29,7 +30,6 @@ t_token	*ft_check_outfiles(t_token *tokens, int var_count_pipe)
 	int		count_outfiles;
 	int		j;
 	t_token	*malloc_outfiles;
-
 
 	count_pipe = 0;
 	i = 0;
@@ -217,7 +217,7 @@ int	ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens)
 	var_count_pipe = 0;
 	minishell->count_pipe = count_pipe(tokens);
 	minishell->pipex = ft_calloc(minishell->count_pipe + 2, sizeof(t_pipex));
-	while (var_count_pipe == 0 || var_count_pipe < count_pipe(tokens))
+	while (var_count_pipe <= count_pipe(tokens))
 	{
 		minishell->pipex[var_count_pipe].infiles = ft_check_infiles(tokens,
 				var_count_pipe);
@@ -285,30 +285,125 @@ void	init_exec(t_pip *exec, char **env)
 	exec->fd_infile.value = NULL;
 	exec->fd_outfile.value = NULL;
 }
+
+int	message_error(char *first_message, char *last_message)
+{
+	last_message = ft_strjoin(last_message, "\n");
+	if (last_message == NULL)
+	{
+		perror("malloc error");
+		return (1);
+	}
+	first_message = ft_strjoin(first_message, last_message);
+	if (first_message == NULL)
+	{
+		free(last_message);
+		perror("malloc error");
+		return (1);
+	}
+	ft_putstr_fd(first_message, 2);
+	free(last_message);
+	free(first_message);
+	return (0);
+}
+
+void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
+{
+	int	i;
+
+	i = 0;
+	while (pidvalue != minishell->pids[i])
+		i++;
+	if (WEXITSTATUS(statuetemp) != 0)
+	{
+		if (WEXITSTATUS(statuetemp) == 10)
+			message_error("Error malloc", "in child");
+		else if (WEXITSTATUS(statuetemp) == 126)
+			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
+		else if (WEXITSTATUS(statuetemp) == 127)
+		{
+			if (minishell->pipex[i].cmd[0] == NULL)
+				message_error("", ": Command not found");
+			else
+				message_error(minishell->pipex[i].cmd[0], ": Command not found");
+		}
+	}
+}
+
+static int	ft_wait_child(t_minishell *minishell)
+{
+	int		statuetemp;
+	pid_t	pidvalue;
+	int		status;
+	int		pid;
+
+	status = 0;
+	pid = minishell->pids[minishell->count_pipe];
+	pidvalue = wait(&statuetemp);
+	while (pidvalue > 0)
+	{
+		message_output(statuetemp, minishell, pidvalue);
+		if (pidvalue == pid)
+			status = statuetemp;
+		pidvalue = wait(&statuetemp);
+	}
+	return (status);
+}
+
+
+
+
+void finish(t_pip exec, t_minishell *minishell, int full)
+{
+	int i;
+	i = 0;
+	if (exec.path_args != NULL)
+	{
+		while (exec.path_args[i])
+			free(exec.path_args[i++]);
+		free(exec.path_args);
+	}
+	if (full == 1)
+		free_error(minishell->tokens,minishell,0);
+	
+}
+
+
 int	ft_pipex(t_minishell *minishell)
 {
 	t_pip exec;
 	init_exec(&exec, minishell->env);
 	int i;
+	int status;
 	i = 0;
-	exec.pids = ft_calloc(minishell->count_pipe, sizeof(pid_t));
-	if (exec.pids == NULL)
+	minishell->pids = ft_calloc(minishell->count_pipe + 1, sizeof(pid_t));
+
+	if (minishell->pids == NULL)
 	{
 		// finish(&exec);
+		// free_error(minishell->tokens, minishell, 0);
 		ft_putstr_fd("Error Malloc", 2);
 		return (1);
 	}
+	if (ft_set_path_env(&exec,minishell->env) == 1)
+		return 1;
 	
 
-	while (i < minishell->count_pipe)
+	while (i <= minishell->count_pipe)
 	{
-		exec.args = minishell->pipex[i].cmd;
-		if ((ft_check_perm(&exec, minishell, i) == 1 || ft_set_path_env(&exec, minishell->env) == 1
-				|| ft_exec(&exec, i) == 1 || 1 == 1))
+		if ((ft_check_perm(&exec, minishell, i) == 0 &&  ft_exec(minishell, &exec, i) == 0))
 		{
-			// return (finish(&exec));
+			// return (free_error(minishell->tokens,minishell, 0));
 		}
+		printf("DEBUG: Final return_command = %s\n", "u");
+
 		i++;
 	}
-	return (1);
+	status = WEXITSTATUS(ft_wait_child(minishell));
+	minishell->return_command = status; 
+	printf("DEBUG: Final return_command = %d\n", minishell->return_command);  
+	
+	finish(exec, minishell, 0);
+	// free_error(minishell->tokens,minishell, 0);
+	return (0);
 }

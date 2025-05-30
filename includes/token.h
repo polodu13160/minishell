@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/29 23:45:03 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/30 22:12:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ typedef struct s_minishell
 {
 	int		nb_here_doc;
 	char	*cwd;
-
+	pid_t	*pids;
+	t_token *tokens;
 	char	*cwd_join;
 	char	*line;
 	char	**env;
 	int		code_error;
 	int count_pipe;
 	t_pipex	*pipex;
+	int		return_command;
 }			t_minishell;
 
 typedef struct s_parse_data
