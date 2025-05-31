@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/30 22:12:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:55:07 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_token
 	char	*value;
 	int		type;
 	char	**option;
-	int		fd[2];
+	int		fd;
 }			t_token;
 
 typedef struct s_pipex

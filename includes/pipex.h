@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/05/30 22:23:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:27:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_pip
 {
 	t_token	fd_infile;
 	t_token	fd_outfile;
+	int		pipe[2];
 	char	**path_args;
 	char	*path_absolut_exec;
 	int		error;
@@ -32,12 +33,12 @@ void		ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i,
 void		message_output(int statuetemp, t_minishell *minishell,
 				pid_t pidvalue);
 int			message_error(char *first_message, char *last_message);
-int			ft_execve_first(int *fd, t_pip *exec);
+int			ft_execve_first(t_minishell *minishell, t_pip *exec);
 int			ft_execve_last(int *fd, t_pip *exec);
 void		free_tab_three_dim(char ***tab);
 void		free_tab_two_dim(char **tab);
 
-void			finish(t_pip exec, t_minishell *minishell, int full);
+void		finish(t_pip exec, t_minishell *minishell, int full);
 int			ft_add_slash_to_env(t_pip *exec);
 int			ft_set_path_env(t_pip *exec, char **env);
 int			message_error(char *first_message, char *last_message);

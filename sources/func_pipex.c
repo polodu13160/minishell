@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/05/30 23:24:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/01 00:19:03 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,15 @@ int	ft_check_perm(t_pip *exec, t_minishell *minishell, int i)
 	{
 		exec->fd_infile = minishell->pipex[i].infiles[--j];
 		if (minishell->pipex[i].infiles[j].type != T_PIPE)
-			exec->fd_infile.fd[0] = open(minishell->pipex[i].infiles[j].value,
-					O_RDONLY);
-		if (exec->fd_infile.fd[0] == -1)
 		{
-			perror(minishell->pipex[i].infiles->value);
-			exec->error = 1;
-			return (1);
+			exec->fd_infile.fd = open(minishell->pipex[i].infiles[j].value,
+					O_RDONLY);
+			if (exec->fd_infile.fd == -1)
+			{
+				perror(minishell->pipex[i].infiles->value);
+				exec->error = 1;
+				return (1);
+			}
 		}
 	}
 	j = 0;
@@ -106,63 +108,61 @@ int	ft_check_perm(t_pip *exec, t_minishell *minishell, int i)
 		}
 		exec->fd_outfile = minishell->pipex[i].outfiles[--j];
 		if (minishell->pipex[i].outfiles[j].type == T_APPEND)
-			exec->fd_outfile.fd[1] = open(minishell->pipex[i].outfiles[j].value,
+			exec->fd_outfile.fd = open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else if (minishell->pipex[i].outfiles[j].type != T_PIPE)
 		{
-			exec->fd_outfile.fd[1] = open(minishell->pipex[i].outfiles[j].value,
+			exec->fd_outfile.fd = open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		}
-		if (exec->fd_outfile.fd[1] == -1)
-		{
-			perror(minishell->pipex[i].outfiles[j].value);
-			exec->error = 1;
-			return (1);
+			if (exec->fd_outfile.fd == -1)
+			{
+				perror(minishell->pipex[i].outfiles[j].value);
+				exec->error = 1;
+				return (1);
+			}
 		}
 	}
 	return (0);
 }
 
-void	ft_check_no_pipe(t_minishell *minishell, t_pip *exec)
-{
-	if (exec->fd_infile.value == NULL)
-		exec->fd_infile.fd[0] = 0;
-	else if (exec->fd_infile.type == T_PIPE)
-		close(exec->fd_infile.fd[1]);
-	if (exec->fd_outfile.value == NULL)
-	{
-		
-		exec->fd_outfile.fd[1] = 1;
-	}
-		
-	else if (exec->fd_outfile.type == T_PIPE)
-		close(exec->fd_outfile.fd[0]);
-	if (dup2(exec->fd_infile.fd[0], 0) == -1 || dup2(exec->fd_outfile.fd[1],
-			1) == -1)
-	{
-		if (exec->fd_infile.type == T_PIPE)
-		{
-			close(exec->fd_infile.fd[0]);
-			close(exec->fd_infile.fd[1]);
-		}
-		else
-			close(exec->fd_infile.fd[0]);
-		if (exec->fd_outfile.type == T_PIPE)
-		{
-			close(exec->fd_outfile.fd[0]);
-			close(exec->fd_outfile.fd[1]);
-		}
-		else
-			close(exec->fd_outfile.fd[1]);
-		perror("Error dup");
-		free_error(minishell->tokens, minishell, 0);
-		exit(1);
-	}
-	if (exec->fd_infile.fd[0] != 0)
-		close(exec->fd_infile.fd[0]);
-	if (exec->fd_outfile.fd[1] != 1)
-		close(exec->fd_outfile.fd[1]);
-}
+// void	ft_check_no_pipe(t_minishell *minishell, t_pip *exec)
+// {
+// 	if (exec->fd_infile.value == NULL)
+// 		exec->fd_infile.fd = 0;
+// 	else if (exec->fd_infile.type == T_PIPE)
+// 		close(exec->fd_infile.fd);
+// 	if (exec->fd_outfile.value == NULL)
+// 	{
+// 		exec->fd_outfile.fd[1] = 1;
+// 	}
+// 	else if (exec->fd_outfile.type == T_PIPE)
+// 		close(exec->fd_outfile.fd[0]);
+// 	if (dup2(exec->fd_infile.fd[0], 0) == -1 || dup2(exec->fd_outfile.fd[1],
+// 			1) == -1)
+// 	{
+// 		if (exec->fd_infile.type == T_PIPE)
+// 		{
+// 			close(exec->fd_infile.fd[0]);
+// 			close(exec->fd_infile.fd[1]);
+// 		}
+// 		else
+// 			close(exec->fd_infile.fd[0]);
+// 		if (exec->fd_outfile.type == T_PIPE)
+// 		{
+// 			close(exec->fd_outfile.fd[0]);
+// 			close(exec->fd_outfile.fd[1]);
+// 		}
+// 		else
+// 			close(exec->fd_outfile.fd[1]);
+// 		perror("Error dup");
+// 		free_error(minishell->tokens, minishell, 0);
+// 		exit(1);
+// 	}
+// 	if (exec->fd_infile.fd[0] != 0)
+// 		close(exec->fd_infile.fd[0]);
+// 	if (exec->fd_outfile.fd[1] != 1)
+// 		close(exec->fd_outfile.fd[1]);
+// }
 
 void	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
@@ -191,82 +191,81 @@ void	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 	}
 }
 
-static void	ft_execve_first_child(t_minishell *minishell, t_pip *exec, int i)
+static int	ft_check_no_pipe(t_pip *exec)
+{
+	if (exec->fd_infile.value == NULL)
+	{
+		exec->fd_infile.fd = 0;
+	}
+	if (exec->fd_outfile.value == NULL)
+	{
+		exec->fd_outfile.fd = 1;
+	}
+	if (exec->fd_outfile.type == T_PIPE)
+		exec->fd_outfile.fd = exec->pipe[1];
+	if (dup2(exec->fd_infile.fd, 0) == -1) 
+	{
+		perror("Error dup");
+		return (8);
+	}
+	if (dup2(exec->fd_outfile.fd, 1) == -1)
+	{
+		perror("Error ttdup");
+		return (8);
+	}
+	return (0);
+}
+
+static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 {
 	int	test_acces;
 
-	// close(fd[0]);
-	ft_check_no_pipe(minishell, exec);
-	if (minishell->pipex[i].cmd[0] != NULL)
+	// close(exec->pipe[0]);
+	if (ft_check_no_pipe(exec) == 8)
+		return (8);
+	// if (exec->fd_infile.fd != -1)
+	// 	close(exec->fd_outfile.fd);
+	// close(exec->fd_infile.fd);
+	// if (exec->fd_outfile.fd != -1)
+	// 	close(exec->fd_outfile.fd);
+	// close(exec->pipe[1]);
+	if (minishell->pipex[0].cmd[0] != NULL)
 	{
-		test_acces = access(minishell->pipex[i].cmd[0], F_OK);
-		if (test_acces == 0 && ft_strchr(minishell->pipex[i].cmd[0], '/') != 0)
+		test_acces = access(minishell->pipex[0].cmd[0], F_OK);
+		if (test_acces == 0 && ft_strchr(minishell->pipex[0].cmd[0], '/') != 0)
 		{
-			execve(minishell->pipex[i].cmd[0], minishell->pipex[i].cmd,
+			execve(minishell->pipex[0].cmd[0], minishell->pipex[0].cmd,
 				exec->env);
-			exit(126);
+			return (126);
 		}
 		else
-			ft_exec_to_env(minishell, exec, 0, i);
+			ft_exec_to_env(minishell, exec, 0, 0);
 	}
-	free_error(minishell->tokens, minishell, 0);
-	exit(127);
+	return (127);
 }
 
-int	ft_exec(t_minishell *minishell, t_pip *exec, int i)
+int	ft_execve_first(t_minishell *minishell, t_pip *exec)
 {
 	pid_t	pid;
+	int		return_exec;
 
 	pid = fork();
-	if (pid == -1)
-		return (1);
-	minishell->pids[i] = pid;
+	return_exec = 1;
+	minishell->pids[0] = pid;
 	if (pid == 0)
 	{
-		if (exec->error != 1)
+		if (exec->error == 0)
+			return_exec = ft_execve_first_child(minishell, exec);
+		if (exec->fd_infile.value == NULL)
+			close(exec->fd_infile.fd);
+		if (exec->fd_outfile.value == NULL)
 		{
-			if (pid == 0)
-			{
-				ft_execve_first_child(minishell, exec, i);
-				if (exec->fd_infile.type == T_PIPE)
-				{
-					close(exec->fd_infile.fd[0]);
-					close(exec->fd_infile.fd[1]);
-				}
-				else
-					close(exec->fd_infile.fd[0]);
-				if (exec->fd_outfile.type == T_PIPE)
-				{
-					close(exec->fd_outfile.fd[0]);
-					close(exec->fd_outfile.fd[1]);
-				}
-				else
-					close(exec->fd_outfile.fd[1]);
-				free_error(minishell->tokens, minishell, 0);
-				exit(126);
-			}
+			close(exec->pipe[0]);
+			close(exec->pipe[1]);
+			if (exec->fd_outfile.type != T_PIPE)
+				close(exec->fd_outfile.fd);
 		}
-		else
-		{
-			if (exec->fd_infile.type == T_PIPE)
-			{
-				close(exec->fd_infile.fd[0]);
-				close(exec->fd_infile.fd[1]);
-			}
-			else
-				close(exec->fd_infile.fd[0]);
-			if (exec->fd_outfile.type == T_PIPE)
-			{
-				close(exec->fd_outfile.fd[0]);
-				close(exec->fd_outfile.fd[1]);
-			}
-			else
-				close(exec->fd_outfile.fd[1]);
-			free_error(minishell->tokens, minishell, 0);
-			exit(1);
-		}
+		exit(return_exec);
 	}
-	close(exec->fd_infile.fd[0]);
-	close(exec->fd_outfile.fd[1]);
-	return (0);
+	return (return_exec);
 }

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/05/30 23:22:02 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:38:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,7 @@ t_token	*ft_check_outfiles(t_token *tokens, int var_count_pipe)
 		{
 			count_pipe++;
 			if (count_pipe == var_count_pipe + 1)
-			{
-				if (pipe(tokens[i].fd) == -1)
-					return (ft_error_free_tab(malloc_outfiles));
 				malloc_outfiles[j++] = tokens[i];
-			}
 		}
 		else if (count_pipe > var_count_pipe)
 			break ;
@@ -98,6 +94,7 @@ t_token	*ft_check_infiles(t_token *tokens, int var_count_pipe)
 	malloc_infiles = NULL;
 	while (tokens[i].value)
 	{
+		tokens[i].fd = -1;
 		if (tokens[i].type == T_PIPE)
 		{
 			count_pipe++;
@@ -123,11 +120,7 @@ t_token	*ft_check_infiles(t_token *tokens, int var_count_pipe)
 		{
 			count_pipe++;
 			if (count_pipe == var_count_pipe)
-			{
-				if (pipe(tokens[i].fd) == -1)
-					return (ft_error_free_tab(malloc_infiles));
 				malloc_infiles[j++] = tokens[i];
-			}
 		}
 		else if (count_pipe > var_count_pipe)
 			break ;
@@ -280,6 +273,8 @@ void	init_exec(t_pip *exec, char **env)
 {
 	exec->path_absolut_exec = NULL;
 	exec->error = 0;
+	exec->pipe[0] = 0;
+	exec->pipe[1] = 1;
 	exec->path_args = NULL;
 	exec->env = env;
 	exec->fd_infile.value = NULL;
@@ -325,7 +320,8 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 			if (minishell->pipex[i].cmd[0] == NULL)
 				message_error("", ": Command not found");
 			else
-				message_error(minishell->pipex[i].cmd[0], ": Command not found");
+				message_error(minishell->pipex[i].cmd[0],
+					": Command not found");
 		}
 	}
 }
@@ -350,12 +346,10 @@ static int	ft_wait_child(t_minishell *minishell)
 	return (status);
 }
 
-
-
-
-void finish(t_pip exec, t_minishell *minishell, int full)
+void	finish(t_pip exec, t_minishell *minishell, int full)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	if (exec.path_args != NULL)
 	{
@@ -364,10 +358,8 @@ void finish(t_pip exec, t_minishell *minishell, int full)
 		free(exec.path_args);
 	}
 	if (full == 1)
-		free_error(minishell->tokens,minishell,0);
-	
+		free_error(minishell->tokens, minishell, 0);
 }
-
 
 int	ft_pipex(t_minishell *minishell)
 {
@@ -385,24 +377,30 @@ int	ft_pipex(t_minishell *minishell)
 		ft_putstr_fd("Error Malloc", 2);
 		return (1);
 	}
-	if (ft_set_path_env(&exec,minishell->env) == 1)
-		return 1;
-	
-
+	if (ft_set_path_env(&exec, minishell->env) == 1)
+		return (1);
+	if (pipe(exec.pipe) == -1)
+		return (1);
 	while (i <= minishell->count_pipe)
 	{
-		if ((ft_check_perm(&exec, minishell, i) == 0 &&  ft_exec(minishell, &exec, i) == 0))
+		
+		if (ft_check_perm(&exec, minishell, i) == 0)
 		{
-			// return (free_error(minishell->tokens,minishell, 0));
+			if (i == 0)
+			{
+				ft_execve_first(minishell, &exec);
+				
+			}
+			
+			if (i > 0)
+				break;
 		}
-		printf("DEBUG: Final return_command = %s\n", "u");
-
 		i++;
 	}
 	status = WEXITSTATUS(ft_wait_child(minishell));
-	minishell->return_command = status; 
-	printf("DEBUG: Final return_command = %d\n", minishell->return_command);  
-	
+	minishell->return_command = status;
+	printf("DEBUG: Final return_command = %d\n", minishell->return_command);
+
 	finish(exec, minishell, 0);
 	// free_error(minishell->tokens,minishell, 0);
 	return (0);
