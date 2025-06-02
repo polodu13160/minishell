@@ -24,6 +24,7 @@ FILES = main \
 		ft_unset \
 		builtins_env \
 		free_error \
+		ctrl \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
