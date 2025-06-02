@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/05/31 17:38:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:04:48 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,13 @@ t_token	*ft_check_infiles(t_token *tokens, int var_count_pipe)
 		else if (count_pipe == var_count_pipe)
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 			{
-				free(tokens[i].value);
+				
 				if (tokens[i].type == T_REDIRECT_IN)
+				{
+					free(tokens[i].value);
 					tokens[i].value = ft_strdup(tokens[i + 1].value);
+				}
+					
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_infiles[j++] = tokens[i];
 			}

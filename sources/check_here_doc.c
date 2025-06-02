@@ -16,8 +16,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-
-extern char **environ;
+extern char	**environ;
 
 int	ft_print_error(t_token *tokens, int i, int error)
 {
@@ -32,7 +31,6 @@ int	ft_print_error(t_token *tokens, int i, int error)
 			perror("not create tmp file");
 		if (error == 3)
 		{
-			
 			perror("get_next_line error");
 		}
 		if (error == 4)
@@ -172,12 +170,9 @@ static char	*create_name_here_doc(int i)
 // 		if (value_strenv== NULL || value_env == NULL)
 // 		{
 // 			free(value_strenv);
-// 			return 5;
+// 			return (5);
 // 		}
-		
 
-
-			
 // 		// free(var_name);
 // 		// k = 0;
 // 		// while (value && value[k])
@@ -213,11 +208,11 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 		while (j == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
 				tokens[i + 1].value))
 		{
-			ft_putstr_fd(">", 1);
 			if (j != 0)
 			{
-				if ((read_like_gnl != NULL && read_like_gnl[0] != 0) && write(save_text,
-						read_like_gnl, ft_strlen(read_like_gnl)) == -1)
+				if ((read_like_gnl != NULL) && (write(save_text, read_like_gnl,
+						ft_strlen(read_like_gnl)) == -1 || write(save_text, "\n",
+							1) == -1))
 				{
 					free(name_here_doc);
 					close(save_text);
@@ -226,7 +221,7 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 				free(read_like_gnl);
 			}
 			j++;
-			read_like_gnl = readline(0);
+			read_like_gnl = readline(">");
 			if (read_like_gnl == NULL)
 			{
 				free(name_here_doc);
