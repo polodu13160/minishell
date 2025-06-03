@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/31 13:26:55 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/03 01:55:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,11 @@ int	free_error(t_token *token, t_minishell *structure, int end)
 			free(structure->pipex[i].infiles);
 			free(structure->pipex[i].outfiles);
 			i++;
-			
 		}
 		free(structure->pipex);
 	}
-	if (structure->pids != NULL) 
-			free(structure->pids);
+	if (structure->pids != NULL)
+		free(structure->pids);
 	if (end > 0)
 	{
 		exit(1);
@@ -64,7 +63,7 @@ int	free_error(t_token *token, t_minishell *structure, int end)
 	return (0);
 }
 
-void init_minishell(t_minishell *minishell,char **env)
+void	init_minishell(t_minishell *minishell, char **env)
 {
 	minishell->code_error = 0;
 	minishell->tokens = NULL;
@@ -78,6 +77,23 @@ void init_minishell(t_minishell *minishell,char **env)
 	minishell->pipex = NULL;
 }
 
+void	unlink_here_doc(t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	while (minishell->tokens[i].value)
+	{
+		if (minishell->tokens[i].type == T_HEREDOC)
+		{
+			if (ft_strncmp("/tmp", minishell->tokens[i].value, 4) == 0)
+				unlink(minishell->tokens[i].value);
+			
+		}
+		i++;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	minishell;
@@ -87,10 +103,9 @@ int	main(int ac, char **av, char **env)
 	i = 0;
 	(void)ac;
 	(void)av;
-	
 	while (1 && i != 1)
 	{
-		init_minishell(&minishell,env);
+		init_minishell(&minishell, env);
 		minishell.cwd = getcwd(NULL, 0);
 		minishell.cwd_join = ft_strjoin(minishell.cwd, "$>");
 		if (minishell.cwd_join == NULL)
@@ -121,15 +136,14 @@ int	main(int ac, char **av, char **env)
 			}
 			if (ft_check(minishell.tokens, 0, &minishell) == 0)
 			{
-				
-				
-				if (ft_prepare_to_pipex(&minishell, minishell.tokens)== 0)
+				if (ft_prepare_to_pipex(&minishell, minishell.tokens) == 0)
 				{
-					
 					ft_pipex(&minishell);
 					// free_error(minishell.tokens, &minishell, 0);
 				}
+				unlink_here_doc(&minishell);
 				free_error(minishell.tokens, &minishell, 0);
+				dprintf(2,"\nddd\n");
 			}
 			else
 			{
