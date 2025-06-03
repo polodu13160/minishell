@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/02 17:04:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/03 01:59:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include "token.h"
 #include <stdio.h>
 #include <sys/wait.h>
+
+int	ft_close(int *fd)
+{
+	if (*fd != -1)
+	{
+		if (close(*fd) == -1)
+		{
+			ft_printf_fd(2, "Error closing");
+			return (-1);
+		}
+		*fd = -1;
+	}
+	return (0);
+}
 
 void	*ft_error_free_tab(t_token *tab)
 {
@@ -127,13 +141,11 @@ t_token	*ft_check_infiles(t_token *tokens, int var_count_pipe)
 		else if (count_pipe == var_count_pipe)
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 			{
-				
 				if (tokens[i].type == T_REDIRECT_IN)
 				{
 					free(tokens[i].value);
 					tokens[i].value = ft_strdup(tokens[i + 1].value);
 				}
-					
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_infiles[j++] = tokens[i];
 			}
@@ -350,16 +362,16 @@ static int	ft_wait_child(t_minishell *minishell)
 	return (status);
 }
 
-void	finish(t_pip exec, t_minishell *minishell, int full)
+void	finish(t_pip *exec, t_minishell *minishell, int full)
 {
 	int	i;
 
 	i = 0;
-	if (exec.path_args != NULL)
+	if (exec->path_args != NULL)
 	{
-		while (exec.path_args[i])
-			free(exec.path_args[i++]);
-		free(exec.path_args);
+		while (exec->path_args[i])
+			free(exec->path_args[i++]);
+		free(exec->path_args);
 	}
 	if (full == 1)
 		free_error(minishell->tokens, minishell, 0);
@@ -387,25 +399,31 @@ int	ft_pipex(t_minishell *minishell)
 		return (1);
 	while (i <= minishell->count_pipe)
 	{
-		
+		if (i != 0 && exec.fd_infile.fd != -1 && exec.fd_infile.value != NULL && exec.fd_infile.type != T_PIPE)
+			ft_close(&exec.fd_infile.fd);
 		if (ft_check_perm(&exec, minishell, i) == 0)
 		{
+			dprintf(2, "infile %i= %s\n", i, exec.fd_infile.value);
+			dprintf(2, "outfile %i= %s\n", i, exec.fd_outfile.value);
 			if (i == 0)
-			{
 				ft_execve_first(minishell, &exec);
-				
-			}
-			
 			if (i > 0)
-				break;
+			{
+				ft_execve_next(minishell, &exec, i);
+			}
 		}
 		i++;
 	}
+	ft_close(&exec.pipe[0]);
+	ft_close(&exec.pipe[1]);
+	if (exec.fd_infile.type != T_PIPE && exec.fd_infile.value != NULL)
+		ft_close(&exec.fd_infile.fd);
+	if (exec.fd_outfile.type != T_PIPE && exec.fd_outfile.value != NULL)
+		ft_close(&exec.fd_outfile.fd);
 	status = WEXITSTATUS(ft_wait_child(minishell));
 	minishell->return_command = status;
 	printf("DEBUG: Final return_command = %d\n", minishell->return_command);
-
-	finish(exec, minishell, 0);
+	finish(&exec, minishell, 0);
 	// free_error(minishell->tokens,minishell, 0);
 	return (0);
 }

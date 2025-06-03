@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "token.h"
+#include "pipex.h"
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <stdio.h>
@@ -215,7 +216,7 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 							1) == -1))
 				{
 					free(name_here_doc);
-					close(save_text);
+					ft_close(&save_text);
 					return (4);
 				}
 				free(read_like_gnl);
@@ -225,13 +226,13 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 			if (read_like_gnl == NULL)
 			{
 				free(name_here_doc);
-				close(save_text);
+				ft_close(&save_text);
 				return (3);
 			}
 		}
 		free(tokens[i].value);
 		tokens[i].value = name_here_doc;
-		close(save_text);
+		ft_close(&save_text);
 		free(read_like_gnl);
 	}
 	return (0);
