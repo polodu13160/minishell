@@ -50,6 +50,7 @@ SRCS = $(addprefix $(LIBFT_DIR), \
        ft_print_hexa.c \
        ft_printf_format.c \
        get_next_line.c \
+       ft_strcmp.c \
        get_next_line_utils.c \
        ft_lstadd_back_bonus.c \
        ft_lstadd_front_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:51:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/20 22:35:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 06:44:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_null_pointer(int fd, void *pointer)
 			'x'));
 }
 
-static int	check_null_string(int fd,char *str)
+static int	check_null_string(int fd, char *str)
 {
 	if (!str)
 		return (write(fd, "(null)", 6));

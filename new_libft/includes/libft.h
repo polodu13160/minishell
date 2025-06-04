@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:25:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/20 22:31:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 04:53:13 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ char				*ft_strdup_gnl(const char *src);
 char				*ft_strjoin_gnl(char *dest, const char *src);
 size_t				ft_strlen_gnl(const char *str);
 char				*get_next_line(int fd);
+int					ft_strcmp(char *s1, char *s2);
 
 #endif

@@ -19,31 +19,6 @@
 
 extern char	**environ;
 
-int	ft_print_error(t_token *tokens, int i, int error)
-{
-	char	*malloc_string;
-	int		j;
-
-	j = -1;
-	malloc_string = NULL;
-	if (error == 2)
-		perror("not create tmp file");
-	if (error == 3)
-		perror("get_next_line error");
-	if (error == 4)
-		perror("write error");
-	if (error == 5)
-		perror("malloc error");
-	else if (tokens[i + 1].value == NULL)
-		printf("syntax error near unexpected token `newline'\n");
-	else
-	{
-		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i
-			+ 1].value);
-	}
-	return (1);
-}
-
 int	check_command(t_token *tokens, int i)
 {
 	if (tokens[i].type == T_PIPE)
@@ -88,24 +63,6 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 	return (0);
 }
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	if (s1 == NULL && s2 == NULL)
-		return (0);
-	if (s1 == NULL || s2 == NULL)
-		return (-1);
-	if (s1[ft_strlen(s1) - 1] == '\n')
-		s1[ft_strlen(s1) - 1] = '\0';
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (-1);
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
 static char	*create_name_here_doc(int i)
 {
 	char	*join_text1;
@@ -124,15 +81,6 @@ static char	*create_name_here_doc(int i)
 		return (create_name_here_doc(++i));
 	}
 	return (join_text1);
-}
-
-int	free_and_close(char *value1, char *value, int *save_text, int return_error)
-{
-	if (value1 != NULL)
-		free(value1);
-	free(value);
-	ft_close(save_text);
-	return return_error;
 }
 
 int	write_here_doc(int i, int j, t_token *tokens, int save_text)

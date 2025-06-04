@@ -17,10 +17,18 @@ FILES = main \
 		parsing_get_env \
 		parsing_full_quote \
 		cd \
-		ast \
 		check_here_doc \
 		ft_pipex \
 		func_pipex \
+		error_and_free \
+		messages \
+		cmds \
+		fd_childs \
+		fd_infiles \
+		fd_outfiles \
+		fd \
+		ft_prepare_to_pipex \
+		pipex_env \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
