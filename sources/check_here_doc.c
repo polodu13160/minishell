@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
 #include "pipex.h"
+#include "token.h"
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <stdio.h>
@@ -26,35 +26,20 @@ int	ft_print_error(t_token *tokens, int i, int error)
 
 	j = -1;
 	malloc_string = NULL;
-	if (error > 1)
+	if (error == 2)
+		perror("not create tmp file");
+	if (error == 3)
+		perror("get_next_line error");
+	if (error == 4)
+		perror("write error");
+	if (error == 5)
+		perror("malloc error");
+	else if (tokens[i + 1].value == NULL)
+		printf("syntax error near unexpected token `newline'\n");
+	else
 	{
-		if (error == 2)
-			perror("not create tmp file");
-		if (error == 3)
-		{
-			perror("get_next_line error");
-		}
-		if (error == 4)
-		{
-			perror("write error");
-		}
-		if (error == 5)
-			perror("malloc error");
-		return (1);
-		if (tokens[i + 1].value == NULL)
-			printf("syntax error near unexpected token `newline'\n");
-		else
-		{
-			malloc_string = ft_calloc(4, sizeof(char));
-			if (malloc_string == NULL)
-				return (ft_print_error(tokens, i, 5));
-			while (tokens[i + 1].value[++j] != 0 && j <= 2)
-				malloc_string[j] = tokens[i + 1].value[j];
-			ft_printf_fd(2, "syntax error near unexpected token `%s'\n",
-				malloc_string);
-			free(malloc_string);
-		}
-		return (1);
+		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i
+			+ 1].value);
 	}
 	return (1);
 }
@@ -141,58 +126,48 @@ static char	*create_name_here_doc(int i)
 	return (join_text1);
 }
 
-// int	check_env(char *read_like_gnl)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*value_strenv;
-// 	char *value_env;
+int	free_and_close(char *value1, char *value, int *save_text, int return_error)
+{
+	if (value1 != NULL)
+		free(value1);
+	free(value);
+	ft_close(save_text);
+	return return_error;
+}
 
-// 	i = 0;
-// 	j = 0;
-// 	while (read_like_gnl[i])
-// 	{
-// 		if (read_like_gnl[i] == '$' && (ft_isalpha(read_like_gnl[i]) == 0
-// 				|| ft_isalnum(read_like_gnl[i]) == 0
-// 				|| read_like_gnl[i] == '_'))
-// 		{
-// 			j = i++;
-// 			while (ft_isalpha(read_like_gnl[j]) == 0
-// 				|| ft_isalnum(read_like_gnl[j]) == 0 || read_like_gnl[j] == '_')
-// 				j++;
-// 			break ;
-// 		}
-// 		i++;
-// 	}
-// 	if (j > 0)
-// 	{
-// 		value_strenv = ft_substr(read_like_gnl, i, j);
-// 		value_env = get_env_value(value_env, environ);
-// 		if (value_strenv== NULL || value_env == NULL)
-// 		{
-// 			free(value_strenv);
-// 			return (5);
-// 		}
+int	write_here_doc(int i, int j, t_token *tokens, int save_text)
+{
+	char	*read_like_gnl;
 
-// 		// free(var_name);
-// 		// k = 0;
-// 		// while (value && value[k])
-// 		// 	result[(index->j)++] = value[k++];
-// 		// free(value);
-// 		// index->i += var_len;
-// 	}
-// }
+	read_like_gnl = NULL;
+	while (j++ == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
+			tokens[i + 1].value))
+	{
+		if (j != 0)
+		{
+			if ((read_like_gnl != NULL) && (write(save_text, read_like_gnl,
+						ft_strlen(read_like_gnl)) == -1 || write(save_text,
+						"\n", 1) == -1))
+				return (free_and_close(read_like_gnl, tokens[i].value,
+						&save_text, 4));
+			free(read_like_gnl);
+		}
+		read_like_gnl = readline(">");
+		if (read_like_gnl == NULL)
+			return (free_and_close(read_like_gnl, tokens[i].value, &save_text,
+					3));
+	}
+	ft_close(&save_text);
+	free(read_like_gnl);
+	return (0);
+}
 
 int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 {
-	char	*read_like_gnl;
 	int		save_text;
 	char	*name_here_doc;
-	int		j;
 
-	j = 0;
 	minishell->nb_here_doc++;
-	read_like_gnl = NULL;
 	if (tokens[i].type == T_HEREDOC)
 	{
 		if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_FUNC)
@@ -206,34 +181,9 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 			free(name_here_doc);
 			return (2);
 		}
-		while (j == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
-				tokens[i + 1].value))
-		{
-			if (j != 0)
-			{
-				if ((read_like_gnl != NULL) && (write(save_text, read_like_gnl,
-						ft_strlen(read_like_gnl)) == -1 || write(save_text, "\n",
-							1) == -1))
-				{
-					free(name_here_doc);
-					ft_close(&save_text);
-					return (4);
-				}
-				free(read_like_gnl);
-			}
-			j++;
-			read_like_gnl = readline(">");
-			if (read_like_gnl == NULL)
-			{
-				free(name_here_doc);
-				ft_close(&save_text);
-				return (3);
-			}
-		}
 		free(tokens[i].value);
 		tokens[i].value = name_here_doc;
-		ft_close(&save_text);
-		free(read_like_gnl);
+		return (write_here_doc(i, 0, tokens, save_text));
 	}
 	return (0);
 }
