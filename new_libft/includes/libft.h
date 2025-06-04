@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:25:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 04:53:13 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:50:34 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 size_t				ft_strlcpy(char *src, const char *dst, size_t n);
 size_t				ft_strlcat(char *src, const char *dest, size_t n);
+char				*ft_strcat(char *dest, const char *src);
+char				*ft_strcpy(char *dest, const char *src);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strchr(const char *s, int c);
@@ -74,6 +76,7 @@ char				*ft_substr(const char *str, unsigned int start, size_t len);
 char				*ft_strjoin(const char *s1, const char *s2);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_itoa(int n);
+long long			ft_atoll(const char *str, int *error);
 
 /*******************************************************************/
 

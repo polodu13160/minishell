@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/22 14:38:08 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:54:13 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*extract_var_name(char *str, int *i, int *var_len)
 }
 
 static void	process_env_var(char *str, char *result, t_index *index,
-		t_minishell minishell)
+		t_minishell *minishell)
 {
 	char	*var_name;
 	char	*value;
@@ -69,7 +69,7 @@ static void	process_env_var(char *str, char *result, t_index *index,
 	int		k;
 
 	var_name = extract_var_name(str, &(index->i), &var_len);
-	value = get_env_value(var_name, minishell.env);
+	value = get_env_value(var_name, minishell->env);
 	free(var_name);
 	k = 0;
 	while (value && value[k])
@@ -78,7 +78,7 @@ static void	process_env_var(char *str, char *result, t_index *index,
 	index->i += var_len;
 }
 
-char	*parse_quotes(char *str, t_minishell minishell)
+char	*parse_quotes(char *str, t_minishell *minishell)
 {
 	t_index			index;
 	t_quote_state	state;

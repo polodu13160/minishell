@@ -6,30 +6,40 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 06:05:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:53:41 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
 #include "function.h"
 #include "libft.h"
 #include "parsing.h"
 #include "readline/history.h"
-#include "stdbool.h"
+#include "signal.h"
 #include "token.h"
 #include "pipex.h"
 #include <readline/readline.h>
 #include <stdio.h>
 
-extern char	**environ;
+volatile sig_atomic_t	g_sig = 0;
 
+void	declare_minishell(t_minishell *minishell, int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	minishell->env = NULL;
+	minishell->cwd = NULL;
+	minishell->cwd_join = NULL;
+	minishell->line = NULL;
+	minishell->code_error = 0;
+	minishell->env = copy_original_env(env);
+	if (!minishell->env)
+	{
+		perror("failed to set environment");
+		exit(1);
+	}
+}
 
-
-
-
-
-
-void	init_minishell(t_minishell *minishell, char **env)
+void	readline_declare(t_token *tokens, t_minishell *minishell)
 {
 	minishell->code_error = 0;
 	minishell->tokens = NULL;
@@ -86,6 +96,32 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 			free_error(minishell.tokens, &minishell, 0);
+
+	i = 0;
+	tokens = NULL;
+	declare_minishell(&minishell, ac, av, env);
+	setup_signals();
+	while (1)
+	{
+		g_sig = 0;
+		readline_declare(tokens, &minishell);
+		if (g_sig == SIGINT)
+			minishell.code_error = 130;
+		if (minishell.line && *minishell.line)
+		{
+			add_history(minishell.line);
+			tokens = tokenize(minishell.line, &minishell);
+			if (tokens)
+			{
+				setup_signals_child();
+				check_token(tokens, &minishell);
+				setup_signals();
+				tokens = NULL;
+			}
+		}
+		free(minishell.cwd);
+		free(minishell.cwd_join);
+		free(minishell.line);
 	}
 	return (0);
 }

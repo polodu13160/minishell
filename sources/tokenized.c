@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/29 23:51:57 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:51:32 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	check_args(char *str, t_token *token, int count)
 	init_data(&data);
 	while (str[data.i] && data.token_index < count)
 	{
-		if (str[data.i] == '#')
-			return (0);
 		while (str[data.i] == ' ' || str[data.i] == '\t')
 			data.i++;
 		data.start = data.i;
@@ -77,25 +75,31 @@ int	check_args(char *str, t_token *token, int count)
 	return (0);
 }
 
+void	init_data_null(t_token *token, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i <= count)
+	{
+		token[i].value = NULL;
+		token[i].new_value = NULL;
+		token[i++].option = NULL;
+	}
+}
+
 t_token	*tokenize(char *str, t_minishell *minishell)
 {
 	t_token	*tokens;
 	int		count;
-	int		i;
 
-	i = 0;
 	count = count_tokens(str);
 	if (count == 0)
 		return (NULL);
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
 		return (NULL);
-	// rajouter dans tokens ici
-	while (i <= count)
-	{
-		tokens[i].value = NULL;
-		tokens[i++].option = NULL;
-	}
+	init_data_null(tokens, count);
 	if (count_quote(str))
 	{
 		free(tokens);
@@ -106,5 +110,6 @@ t_token	*tokenize(char *str, t_minishell *minishell)
 		free_error(tokens, minishell, 0);
 		return (NULL);
 	}
+	tokens[count].type = T_NULL;
 	return (tokens);
 }

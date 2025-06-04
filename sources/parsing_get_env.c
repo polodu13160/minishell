@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/22 16:56:15 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:54:43 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,43 @@ char	*get_env_value(char *var_name, char **env)
 		}
 		i++;
 	}
-	return (ft_strdup(""));
+	return (ft_strdup(" "));
 }
 
-char	*return_env(char *str, t_minishell minishell)
+char	*return_env(char *str, t_minishell *minishell)
 {
 	char	*var_name;
 
 	var_name = str + 1;
-	if (ft_strncmp(var_name, "?", ft_strlen(var_name)) == 0)
-		return (ft_itoa(minishell.code_error));
-	return (get_env_value(var_name, minishell.env));
+	if (ft_strncmp(var_name, "?", 2) == 0)
+		return (ft_itoa(minishell->code_error));
+	return (get_env_value(var_name, minishell->env));
+}
+
+void	copy_single(char *str, char *result, int *i, int *j)
+{
+	while (str[(*i)] && str[(*i)] != '\'')
+	{
+		if (str[(*i)] == '\\')
+		{
+			if (str[(*i) + 1] == 't')
+			{
+				result[(*j)++] = '\t';
+				(*i) += 2;
+			}
+			else if (str[(*i) + 1] == 'n')
+			{
+				result[(*j)++] = '\n';
+				(*i) += 2;
+			}
+			else if (str[(*i) + 1] == '0')
+			{
+				result[(*j)++] = '\0';
+				(*i) += 2;
+			}
+		}
+		result[(*j)++] = str[(*i)++];
+	}
 }
 
 char	*handle_single_quotes_env(char *str)
@@ -64,13 +90,14 @@ char	*handle_single_quotes_env(char *str)
 		return (NULL);
 	if (str[i] == '\'')
 		i++;
-	while (str[i] && str[i] != '\'')
-		result[j++] = str[i++];
+	copy_single(str, result, &i, &j);
 	if (str[i] == '\'' && str[i + 1] != '\0')
 	{
 		i++;
 		while (str[i])
+		{
 			result[j++] = str[i++];
+		}
 	}
 	result[j] = '\0';
 	free(str);
@@ -96,7 +123,9 @@ char	*handle_double_quotes_env(char *str)
 	{
 		i++;
 		while (str[i])
+		{
 			result[j++] = str[i++];
+		}
 	}
 	result[j] = '\0';
 	free(str);

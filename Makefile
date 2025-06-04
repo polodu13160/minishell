@@ -29,6 +29,13 @@ FILES = main \
 		fd \
 		ft_prepare_to_pipex \
 		pipex_env \
+		cd2 \
+		ft_exit \
+		ft_export \
+		ft_unset \
+		builtins_env \
+		free_error \
+		ctrl \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

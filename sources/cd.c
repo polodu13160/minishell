@@ -3,61 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/21 17:52:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/24 15:47:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "function.h"
 #include "libft.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h> // mkdir
-#include <unistd.h>   // chdir
+#include <sys/stat.h>
+#include <unistd.h>
 
-int	ft_setenv(const char *name, const char *value, int overwrite)
+int	ft_putenv(const char *name, const char *value, int overwrite,
+		t_minishell *minishell)
 {
-	char	*existing;
-	char	*env_var;
-	int		i;
-	int		j;
+	t_cd	cd;
 
-	existing = getenv(name);
-	if (!overwrite && existing)
-		return (0);
-	env_var = malloc(ft_strlen(name) + ft_strlen(value) + 2);
-	if (!env_var)
+	if (!name || !value || !minishell || !minishell->env)
 		return (-1);
-	i = 0;
-	j = 0;
-	while (name[j])
-		env_var[i++] = name[j++];
-	env_var[i++] = '=';
-	j = 0;
-	while (value[j])
-		env_var[i++] = value[j++];
-	env_var[i] = '\0';
-	if (putenv(env_var) != 0)
-		return (free(env_var), -1);
+	declare_putenv(&cd, name);
+	if (check_var_exist(minishell, name, cd.name_len) && !overwrite)
+		return (0);
+	cd.new_var = ft_strjoin3(name, "=", value);
+	if (!cd.new_var)
+		return (-1);
+	cd.var_index = check_var_exist(minishell, name, cd.name_len);
+	if (cd.var_index)
+		return (replace_existing_var(minishell, cd.new_var, cd.var_index));
+	cd.error = copy_new_env(minishell, cd.new_env, cd.new_var);
+	if (cd.error)
+	{
+		free(minishell->env);
+		free(cd.new_var);
+	}
+	return (cd.error);
+}
+
+int	handle_cd_error(char *path)
+{
+	if (access(path, F_OK) == -1)
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+	else if (access(path, X_OK) == -1)
+		ft_putstr_fd("cd: permission denied: ", 2);
+	else
+		ft_putstr_fd("cd: not a directory: ", 2);
+	ft_putendl_fd(path, 2);
+	return (1);
+}
+
+int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
+{
+	char	new_pwd[4096];
+
+	if (!getcwd(new_pwd, 4096))
+	{
+		perror("cd: error retrieving current directory");
+		return (1);
+	}
+	if (!ft_putenv("OLDPWD", old_pwd, 1, minishell))
+		return (-1);
+	if (!ft_putenv("PWD", new_pwd, 1, minishell))
+		return (-1);
+	if (minishell->cwd)
+		free(minishell->cwd);
+	minishell->cwd = ft_strdup(new_pwd);
 	return (0);
 }
 
-int	cd(char **args)
+char	*get_cd_path(t_token *token, int i)
 {
-	char	old_cwd[1024];
-	char	new_cwd[1024];
+	char	*path;
 
-	if (!args[1])
-		return (1);
-	if (getcwd(old_cwd, sizeof(old_cwd)) == NULL)
-		return (1);
-	if (chdir(args[1]) != 0)
-		return (1);
-	if (getcwd(new_cwd, sizeof(new_cwd)) != NULL)
+	if (!token[i + 1].value || !ft_strncmp(token[i + 1].value, "~", 1))
 	{
-		ft_setenv("OLDPWD", old_cwd, 1);
-		ft_setenv("PWD", new_cwd, 1);
+		path = getenv("HOME");
+		if (!path)
+		{
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			return (NULL);
+		}
 	}
-	return (0);
+	else
+		path = token[i + 1].value;
+	return (path);
+}
+
+int	ft_cd(t_token *token, int i, t_minishell *minishell)
+{
+	char	*path;
+	char	old_pwd[4096];
+	int		error;
+
+	error = 0;
+	if (!getcwd(old_pwd, 4096) || (token[i].value && token[i + 1].value
+			&& token[i + 2].value && token[i + 2].type != T_PIPE))
+	{
+		perror("cd: error retrieving current directory");
+		return (1);
+	}
+	path = get_cd_path(token, i);
+	if (!path)
+		return (1);
+	if (chdir(path) != 0)
+	{
+		error += handle_cd_error(path);
+		return (error);
+	}
+	error += update_pwd_vars(old_pwd, minishell);
+	return (error);
 }

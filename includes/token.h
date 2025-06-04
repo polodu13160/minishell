@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 06:11:17 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:50:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ typedef struct s_parse_data
 	int		i;
 }			t_parse_data;
 
-/****************pre parsing***********************/
+/*****************************pre parsing**************************************/
 
 int			count_tokens(char *str);
 t_token		*tokenize(char *str, t_minishell *minishell);
 int			count_quote(char *str);
 int			check_is_forbid(char *str, int i);
 
-/*******************tokenized**********************/
+/********************************lexing**************************************/
 int			is_dollar(char *str, int *i, int *token_index, t_token *token);
 int			is_pipe(char *str, int *i, int *token_index, t_token *token);
 int			single_quote(char *str, int *i, int *token_index, t_token *token);
@@ -104,7 +104,9 @@ int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
 int			is_word(char *str, int *i, int *token_index, t_token *token);
 
-/*******************tokenized***********************/
+/*************************************************************************/
+
+int			free_error(t_token *token, t_minishell *structure, int end);
 
 int			free_error(t_token *token, t_minishell *structure, int end);
 char		*get_env_value(char *var_name, char **env);

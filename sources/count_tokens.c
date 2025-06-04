@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/14 17:43:02 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/05/24 17:04:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ int	count_tokens(char *str)
 	token_count = 0;
 	while (str[i])
 	{
-		if (str[i] == '#')
-			return (token_count);
 		if (is_whitespace(str[i]))
 		{
 			i++;
