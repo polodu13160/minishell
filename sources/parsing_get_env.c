@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/22 16:56:15 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 03:40:08 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*get_env_value(char *var_name, char **env)
 	int		i;
 	char	*env_value;
 	size_t	name_len;
-	
+
 	if (!var_name)
-		return NULL;
+		return (NULL);
 	if (!env)
 		return (ft_strdup(""));
 	name_len = ft_strlen(var_name);

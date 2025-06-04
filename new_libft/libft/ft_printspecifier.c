@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:08:08 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/20 22:23:37 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 03:32:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_printdecimal(int fd, long int n)
 	if (n < 10)
 		return (count + write(fd, &str[n], 1));
 	else
-		return (count + ft_printdecimal(fd ,n / 10) + ft_printdecimal(fd, n % 10));
+		return (count + ft_printdecimal(fd, n / 10) + ft_printdecimal(fd, n
+				% 10));
 }
 
 int	ft_printhexa(int fd, unsigned long int n, char hex)

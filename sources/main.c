@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 00:38:02 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 04:31:15 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,66 +17,12 @@
 #include "readline/history.h"
 #include "stdbool.h"
 #include "token.h"
+#include "pipex.h"
 #include <readline/readline.h>
 #include <stdio.h>
 
 extern char	**environ;
 
-void	free_pipex(t_minishell *structure, int end)
-{
-	int	i;
-
-	i = 0;
-	if (structure->pipex)
-	{
-		while (structure->pipex[i].init != 1)
-		{
-			if (structure->pipex[i].cmd != NULL)
-				free(structure->pipex[i].cmd);
-			if (structure->pipex[i].infiles != NULL)
-				free(structure->pipex[i].infiles);
-			if (structure->pipex[i].outfiles != NULL)
-				free(structure->pipex[i].outfiles);
-			i++;
-		}
-		free(structure->pipex);
-	}
-	if (structure->pids != NULL)
-		free(structure->pids);
-	if (end > 0)
-		exit(1);
-}
-
-int	free_error(t_token *token, t_minishell *structure, int end)
-{
-	int	i;
-
-	if (end == 2)
-		perror("Malloc error ");
-	i = 0;
-	if (token)
-	{
-		while (token[i].value)
-			free(token[i++].value);
-		free(token);
-	}
-	free(structure->line);
-	if (structure->cwd)
-		free(structure->cwd);
-	if (structure->cwd_join)
-		free(structure->cwd_join);
-	free_pipex(structure, end);
-	return (0);
-}
-
-void	ft_free_error(void *value, char *text, bool perrorornot, bool exitornot)
-{
-	free(value);
-	if (perrorornot == 1)
-		perror(text);
-	if (exitornot == 1)
-		exit(1);
-}
 
 void	init_minishell(t_minishell *minishell, char **env)
 {
@@ -102,22 +48,6 @@ void	init_minishell(t_minishell *minishell, char **env)
 	}
 }
 
-void	unlink_here_doc(t_minishell *minishell)
-{
-	int	i;
-
-	i = 0;
-	while (minishell->tokens[i].value)
-	{
-		if (minishell->tokens[i].type == T_HEREDOC)
-		{
-			if (ft_strncmp("/tmp", minishell->tokens[i].value, 4) == 0)
-				unlink(minishell->tokens[i].value);
-		}
-		i++;
-	}
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	minishell;
@@ -139,10 +69,17 @@ int	main(int ac, char **av, char **env)
 				free_error(minishell.tokens, &minishell, 1);
 			if (ft_check(minishell.tokens, 0, &minishell) == 0)
 			{
+				
 				if (ft_prepare_to_pipex(&minishell, minishell.tokens) == 0)
+				{
+					dprintf(2,"toto\n");
 					ft_pipex(&minishell);
+				}
+				dprintf(2,"toto1\n");
 				unlink_here_doc(&minishell);
+				dprintf(2,"toto2\n");
 				free_error(minishell.tokens, &minishell, 0);
+				dprintf(2,"toto3\n");
 			}
 			else
 				free_error(minishell.tokens, &minishell, 0);
