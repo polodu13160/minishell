@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 16:51:32 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:22:21 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	init_data_null(t_token *token, int count)
 	while (i <= count)
 	{
 		token[i].value = NULL;
-		token[i].new_value = NULL;
 		token[i++].option = NULL;
 	}
 }

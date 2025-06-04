@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 16:50:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:16:23 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*************************************************************************/
 
 int			free_error(t_token *token, t_minishell *structure, int end);
-
-int			free_error(t_token *token, t_minishell *structure, int end);
 char		*get_env_value(char *var_name, char **env);
 // rajouter par paul
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
@@ -146,5 +144,5 @@ void		unlink_here_doc(t_minishell *minishell);
 /**********pipe********** */
 int			count_pipe(t_token *tokens);
 
-int	init_pipex(t_minishell *minishell, int count_pipe);
+int			init_pipex(t_minishell *minishell, int count_pipe);
 #endif

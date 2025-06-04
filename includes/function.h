@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/02 18:17:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:20:18 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FUNCTION_H
 # define FUNCTION_H
 # include "libft.h"
+# include "pipex.h"
 # include "signal.h"
 # include "token.h"
 # include <stdlib.h>
@@ -22,52 +23,58 @@ extern volatile sig_atomic_t	g_sig;
 
 typedef struct s_cd
 {
-	char				*new_var;
-	char				**new_env;
-	int					name_len;
-	int					error;
-	int					var_index;
-}						t_cd;
+	char						*new_var;
+	char						**new_env;
+	int							name_len;
+	int							error;
+	int							var_index;
+}								t_cd;
 
-void					setup_signals(void);
-void					setup_signals_child(void);
+void							setup_signals(void);
+void							setup_signals_child(void);
 
-void					check_builtins(t_token *token, int i,
-							t_minishell *minishell);
+void							apply_builtins(t_token *token, int i,
+									t_minishell *minishell, t_pip *exec);
+int								check_builtins(t_token *token, int i);
 
-char					**copy_original_env(char **env);
-void					shift_token(t_token *token, int i);
+char							**copy_original_env(char **env);
+void							shift_token(t_token *token, int i);
 
 /*****************************export****************************************/
 
-int						ft_export(t_token *token, t_minishell *minishell,
-							int i);
-int						ft_unset(t_token *token, t_minishell *minishell, int i);
+int								ft_export(t_token *token,
+									t_minishell *minishell, int i);
+int								ft_unset(t_token *token, t_minishell *minishell,
+									int i);
 
 /*******************************echo****************************************/
 
-int						ft_echo(t_token *token, int i);
+int								ft_echo(t_token *token, int i);
 
 /********************************cd*****************************************/
 
-int						ft_cd(t_token *token, int i, t_minishell *minishell);
-char					*ft_strjoin3(const char *s1, const char *s2,
-							const char *s3);
-int						copy_new_env(t_minishell *minishell, char **new_env,
-							char *new_var);
-int						check_var_exist(t_minishell *minishell,
-							const char *name, int name_len);
-int						replace_existing_var(t_minishell *minishell,
-							char *new_var, int var_index);
-void					declare_putenv(t_cd *cd, const char *name);
+int								ft_cd(t_token *token, int i,
+									t_minishell *minishell);
+char							*ft_strjoin3(const char *s1, const char *s2,
+									const char *s3);
+int								copy_new_env(t_minishell *minishell,
+									char **new_env, char *new_var);
+int								check_var_exist(t_minishell *minishell,
+									const char *name, int name_len);
+int								replace_existing_var(t_minishell *minishell,
+									char *new_var, int var_index);
+void							declare_putenv(t_cd *cd, const char *name);
 
 /*********************************exit***************************************/
 
-void					ft_exit(t_token *token, t_minishell *minishell, int i);
+void							ft_exit(t_token *token, t_minishell *minishell,
+									int i, t_pip *exec);
+void							free_exit(t_token *token,
+									t_minishell *minishell, t_pip *exit);
 
 /****************************************************************************/
 
-int						free_error(t_token *token, t_minishell *minishell,
-							int end);
+int								free_error(t_token *token,
+									t_minishell *minishell, int end);
 
 #endif

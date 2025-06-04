@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/27 19:29:32 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:22:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
+#include "pipex.h"
 #include "stdio.h"
 
 char	**declare_env(void)
@@ -111,7 +112,34 @@ int	ft_env(t_minishell *minishell, int pwd)
 	return (0);
 }
 
-void	check_builtins(t_token *token, int i, t_minishell *minishell)
+int	check_builtins(t_token *token, int i)
+{
+	while (token[i].value)
+	{
+		if (token[i].type == T_FUNC)
+		{
+			if (ft_strncmp(token[i].value, "echo", 5) == 0)
+				return (1);
+			else if (ft_strncmp(token[i].value, "cd", 3) == 0)
+				return (1);
+			else if (ft_strncmp(token[i].value, "exit", 5) == 0)
+				return (1);
+			else if (ft_strncmp(token[i].value, "env", 4) == 0)
+				return (1);
+			else if (ft_strncmp(token[i].value, "pwd", 4) == 0)
+				return (1);
+			else if (ft_strncmp(token[i].value, "export", 7) == 0)
+				return (1);
+			else if (ft_strncmp(token[i].value, "unset", 6) == 0)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	apply_builtins(t_token *token, int i, t_minishell *minishell,
+		t_pip *exec)
 {
 	while (token[i].value)
 	{
@@ -122,16 +150,17 @@ void	check_builtins(t_token *token, int i, t_minishell *minishell)
 			else if (ft_strncmp(token[i].value, "cd", 3) == 0)
 				minishell->code_error = ft_cd(token, i, minishell);
 			else if (ft_strncmp(token[i].value, "exit", 5) == 0)
-				ft_exit(token, minishell, 1);
+				ft_exit(token, minishell, i, exec);
 			else if (ft_strncmp(token[i].value, "env", 4) == 0)
 				minishell->code_error = ft_env(minishell, 0);
 			else if (ft_strncmp(token[i].value, "pwd", 4) == 0)
 				minishell->code_error = ft_env(minishell, 1);
 			else if (ft_strncmp(token[i].value, "export", 7) == 0)
-				ft_export(token, minishell, i);
+				minishell->code_error = ft_export(token, minishell, i);
 			else if (ft_strncmp(token[i].value, "unset", 6) == 0)
-				ft_unset(token, minishell, i);
+				minishell->code_error = ft_unset(token, minishell, i);
 		}
 		i++;
 	}
+	finish(exec, minishell, 0);
 }

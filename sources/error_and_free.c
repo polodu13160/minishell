@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 04:56:12 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 05:16:29 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:12:26 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,6 @@ void	*ft_error_free_tab(t_token *tab)
 	i = 0;
 	free(tab);
 	return (NULL);
-}
-
-void	free_pipex(t_minishell *structure, int end)
-{
-	int	i;
-
-	i = 0;
-	if (structure->pipex)
-	{
-		while (structure->pipex[i].init != 1)
-		{
-			if (structure->pipex[i].cmd != NULL)
-				free(structure->pipex[i].cmd);
-			if (structure->pipex[i].infiles != NULL)
-				free(structure->pipex[i].infiles);
-			if (structure->pipex[i].outfiles != NULL)
-				free(structure->pipex[i].outfiles);
-			i++;
-		}
-		free(structure->pipex);
-	}
-	if (structure->pids != NULL)
-		free(structure->pids);
-	if (end > 0)
-		exit(1);
-}
-
-int	free_error(t_token *token, t_minishell *structure, int end)
-{
-	int	i;
-
-	if (end == 2)
-		perror("Malloc error ");
-	i = 0;
-	if (token)
-	{
-		while (token[i].value)
-			free(token[i++].value);
-		free(token);
-	}
-	free(structure->line);
-	if (structure->cwd)
-		free(structure->cwd);
-	if (structure->cwd_join)
-		free(structure->cwd_join);
-	free_pipex(structure, end);
-	return (0);
 }
 
 void	ft_free_error(void *value, char *text, int perrorornot, int exitornot)
