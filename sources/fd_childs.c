@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 06:40:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:18:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ int	ft_check_perm(t_pip *exec, t_minishell *minishell, int i)
 	if (check_perm_infiles(minishell, i, j, exec) == -1)
 		return (1);
 	while (minishell->pipex[i].outfiles[++j].value != NULL)
-	{
-		dprintf(2, "pipe %d outfile = %s", i,
-			minishell->pipex[i].infiles[j].value);
-	}
+		;
 	if (check_perm_outfiles(minishell, i, j, exec) == 1)
 		return (1);
 	return (0);

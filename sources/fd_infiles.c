@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 06:39:28 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:17:34 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 	j = 0;
 	while (tokens[++i].value)
 	{
+		
 		if (tokens[i].type == T_PIPE)
 		{
 			if ((++count_pipe) == limit_pipe)
@@ -69,6 +70,7 @@ int	ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 			{
 				ft_join_tab_infiles_ext(tokens, i);
+				
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_infiles[j++] = tokens[i];
 			}
@@ -79,9 +81,9 @@ int	ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 
 t_token	*ft_store_infiles(t_token *tokens, int limit_pipe)
 {
-	int				count_infiles;
-	int				last_index_malloc_infiles;
-	t_token			*malloc_infiles;
+	int		count_infiles;
+	int		last_index_malloc_infiles;
+	t_token	*malloc_infiles;
 
 	count_infiles = ft_count_infiles(tokens, limit_pipe);
 	malloc_infiles = ft_calloc(count_infiles + 1, sizeof(t_token));

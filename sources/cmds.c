@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:10:03 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 06:41:06 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:50:56 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 	j = 0;
 	while (tokens[++i].value)
 	{
+	
 		if (tokens[i].type == T_PIPE)
 			count_pipe++;
 		else if (count_pipe > limit_pipe)
