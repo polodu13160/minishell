@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 21:20:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:20:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,26 @@ typedef struct s_cd
 void							setup_signals(void);
 void							setup_signals_child(void);
 
-void							apply_builtins(t_token *token, int i,
-									t_minishell *minishell, t_pip *exec);
-int								check_builtins(t_token *token, int i);
+void							apply_builtins(t_minishell *minishell, int i, t_pip *exec);
+int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);
 void							shift_token(t_token *token, int i);
 
 /*****************************export****************************************/
 
-int								ft_export(t_token *token,
+int								ft_export(char **str,
 									t_minishell *minishell, int i);
-int								ft_unset(t_token *token, t_minishell *minishell,
+int								ft_unset(char **str, t_minishell *minishell,
 									int i);
 
 /*******************************echo****************************************/
 
-int								ft_echo(t_token *token, int i);
+int								ft_echo(char **str, int i);
 
 /********************************cd*****************************************/
 
-int								ft_cd(t_token *token, int i,
+int								ft_cd(char **str, int i,
 									t_minishell *minishell);
 char							*ft_strjoin3(const char *s1, const char *s2,
 									const char *s3);
@@ -67,7 +66,7 @@ void							declare_putenv(t_cd *cd, const char *name);
 
 /*********************************exit***************************************/
 
-void							ft_exit(t_token *token, t_minishell *minishell,
+void							ft_exit(char **str, t_minishell *minishell,
 									int i, t_pip *exec);
 void							free_exit(t_token *token,
 									t_minishell *minishell, t_pip *exit);

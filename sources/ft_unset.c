@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:35:07 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/25 16:40:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:21:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,16 @@ static char	**copy_env_without_var(t_minishell *minishell, char *var_to_remove)
 	return (new_env);
 }
 
-int	ft_unset(t_token *token, t_minishell *minishell, int i)
+int	ft_unset(char **str, t_minishell *minishell, int i)
 {
 	char	*var_to_remove;
 	char	**new_env;
 
-	if (!token[i + 1].value || token[i + 1].type == T_NULL || token[i
-			+ 1].type == T_PIPE)
+	if (!str[i + 1])
 		return (0);
-	while (token[i + 1].value != NULL && token[i + 1].type != T_NULL && token[i
-			+ 1].type != T_PIPE)
+	while (str[i + 1])
 	{
-		var_to_remove = token[i + 1].value;
+		var_to_remove = str[i + 1];
 		if (ft_strchr(var_to_remove, '='))
 		{
 			printf("minishell: unset: '%s': not a valid identifier",

@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:09:53 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 21:11:57 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:23:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
 #include "stdio.h"
-
 
 void	free_pipex(t_minishell *structure, int end)
 {
@@ -94,8 +93,7 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
 {
 	free_loop(token, minishell);
 	if (exec)
-	finish(exec, minishell, 2);
-	// free_pipex(minishell, 0);
+		finish(exec, minishell, 2);
 	if (minishell->cwd)
 		free(minishell->cwd);
 	if (minishell->cwd_join)

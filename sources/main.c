@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 21:07:39 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:23:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ volatile sig_atomic_t	g_sig = 0;
 
 void	declare_readline(t_minishell *minishell)
 {
-
 	minishell->cwd = getcwd(NULL, 0);
 	if (!minishell->cwd)
 		ft_free_error(minishell->cwd, "cwd error", 1, 1);
@@ -33,10 +32,7 @@ void	declare_readline(t_minishell *minishell)
 		ft_free_error(minishell->cwd, "cwd error", 1, 1);
 	minishell->line = readline(minishell->cwd_join);
 	if (minishell->line == NULL)
-	{
-		// free_error(minishell->tokens, minishell, 0);
 		free_exit(minishell->tokens, minishell, NULL);
-	}
 }
 
 void	init_minishell(t_minishell *minishell)
@@ -117,7 +113,6 @@ int	main(int ac, char **av, char **env)
 					if (ft_prepare_to_pipex(&minishell, minishell.tokens) == 0)
 						ft_pipex(&minishell);
 					unlink_here_doc(&minishell);
-					// free_error(minishell.tokens, &minishell, 0);
 				}
 			}
 		}

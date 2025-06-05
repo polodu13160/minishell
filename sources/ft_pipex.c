@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 21:22:36 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:22:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ int	ft_pipex(t_minishell *minishell)
 	}
 	if (ft_set_path_env(&exec, minishell->env) == 1)
 		return (1);
-	if (minishell->count_pipe == 0 && check_builtins(minishell->tokens, 0) )
+	if (check_builtins(minishell, 0))
 	{
-		apply_builtins(minishell->tokens, 0, minishell, &exec);
+		apply_builtins(minishell, 0, &exec);
 		return (0);
 	}
 	if (pipe(exec.pipe) == -1)

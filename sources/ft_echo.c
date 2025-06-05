@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/19 19:00:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:30:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ int	check_arg(char *str)
 	return (0);
 }
 
-int	ft_echo(t_token *token, int start)
+int	ft_echo(char **str, int start)
 {
 	int	i;
 	int	no_newline;
 
 	i = start;
 	no_newline = 0;
-	if (token[i + 1].value && !check_arg(token[i + 1].value))
+	if (str[1] && !check_arg(str[1]))
 	{
 		no_newline = 1;
 		i++;
-		while (!check_arg(token[i + 1].value))
+		while (!check_arg(str[i + 1]))
 			i++;
 	}
 	i++;
-	while (token[i].value && token[i].type != T_PIPE)
+	while (str[i])
 	{
-		ft_putstr_fd(token[i].value, 1);
-		if (token[i + 1].value && token[i + 1].type != T_PIPE)
+		ft_putstr_fd(str[i], 1);
+		if (str[i])
 			ft_putchar_fd(' ', 1);
 		i++;
 	}

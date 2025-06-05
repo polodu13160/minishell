@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 20:14:13 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:19:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	print_export(t_minishell *minishell)
 	return (0);
 }
 
-int	exist_return(t_token *token, int exists, int i, t_minishell *minishell)
+int	exist_return(char **str, int exists, int i, t_minishell *minishell)
 {
 	char	*temp;
 
-	temp = ft_strdup(token[i + 1].value);
+	temp = ft_strdup(str[i + 1]);
 	if (!temp)
 		return (2);
 	free(minishell->env[exists]);
@@ -38,7 +38,7 @@ int	exist_return(t_token *token, int exists, int i, t_minishell *minishell)
 	return (1);
 }
 
-int	check_double(t_token *token, t_minishell *minishell, char *var_name, int i)
+int	check_double(char **str, t_minishell *minishell, char *var_name, int i)
 {
 	int	j;
 	int	exists;
@@ -61,11 +61,11 @@ int	check_double(t_token *token, t_minishell *minishell, char *var_name, int i)
 		j++;
 	}
 	if (exists >= 0)
-		return (exist_return(token, exists, i, minishell));
+		return (exist_return(str, exists, i, minishell));
 	return (0);
 }
 
-char	**copy_env(t_minishell *minishell, t_token *token, int i)
+char	**copy_env(t_minishell *minishell, char **str, int i)
 {
 	char	**new_env;
 	int		j;
@@ -82,7 +82,7 @@ char	**copy_env(t_minishell *minishell, t_token *token, int i)
 		new_env[j] = minishell->env[j];
 		j++;
 	}
-	new_env[j] = ft_strdup(token[i + 1].value);
+	new_env[j] = ft_strdup(str[i + 1]);
 	if (!new_env[j])
 	{
 		free(new_env);
@@ -93,26 +93,25 @@ char	**copy_env(t_minishell *minishell, t_token *token, int i)
 	return (new_env);
 }
 
-int	ft_export(t_token *token, t_minishell *minishell, int i)
+int	ft_export(char **str, t_minishell *minishell, int i)
 {
 	char	*var_name;
 	int		name_len;
 	int		exists;
 	char	**temp_env;
 
-	if (!token[i + 1].value)
+	if (!str[i + 1])
 		return (print_export(minishell));
-	while (token[i + 1].type != T_PIPE && token[i + 1].type != T_NULL && token[i
-			+ 1].value != NULL)
+	while (str[i + 1] != NULL)
 	{
-		var_name = token[i + 1].value;
+		var_name = str[i + 1];
 		name_len = 0;
 		while (var_name[name_len] && var_name[name_len] != '=')
 			name_len++;
 		exists = -1;
-		if (check_double(token, minishell, var_name, i))
-			return (check_double(token, minishell, var_name, i) - 1);
-		temp_env = copy_env(minishell, token, i);
+		if (check_double(str, minishell, var_name, i))
+			return (check_double(str, minishell, var_name, i) - 1);
+		temp_env = copy_env(minishell, str, i);
 		if (!temp_env)
 			return (1);
 		minishell->env = temp_env;

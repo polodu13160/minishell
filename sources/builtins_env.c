@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 21:22:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:23:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,17 @@ int	ft_env(t_minishell *minishell, int pwd)
 	if (!cwd)
 		return (1);
 	if (pwd)
+	{
 		printf("%s\n", cwd);
+		return (0);
+	}
 	free(cwd);
 	if (minishell->env)
 	{
 		while (minishell->env[i])
 		{
 			if (ft_strchr(minishell->env[i], '='))
-				printf("%s\n", minishell->env[i]);
-			i++;
+				printf("%s\n", minishell->env[i++]);
 		}
 	}
 	else
@@ -112,55 +114,51 @@ int	ft_env(t_minishell *minishell, int pwd)
 	return (0);
 }
 
-int	check_builtins(t_token *token, int i)
+int	check_builtins(t_minishell *minishell, int i)
 {
-	while (token[i].value)
+	if (minishell->pipex[i].cmd)
 	{
-		if (token[i].type == T_FUNC)
-		{
-			if (ft_strncmp(token[i].value, "echo", 5) == 0)
-				return (1);
-			else if (ft_strncmp(token[i].value, "cd", 3) == 0)
-				return (1);
-			else if (ft_strncmp(token[i].value, "exit", 5) == 0)
-				return (1);
-			else if (ft_strncmp(token[i].value, "env", 4) == 0)
-				return (1);
-			else if (ft_strncmp(token[i].value, "pwd", 4) == 0)
-				return (1);
-			else if (ft_strncmp(token[i].value, "export", 7) == 0)
-				return (1);
-			else if (ft_strncmp(token[i].value, "unset", 6) == 0)
-				return (1);
-		}
-		i++;
+		if (ft_strncmp(minishell->pipex[i].cmd[0], "echo", 5) == 0)
+			return (1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "cd", 3) == 0)
+			return (1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5) == 0)
+			return (1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "env", 4) == 0)
+			return (1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "pwd", 4) == 0)
+			return (1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "export", 7) == 0)
+			return (1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "unset", 6) == 0)
+			return (1);
 	}
+	i++;
 	return (0);
 }
 
-void	apply_builtins(t_token *token, int i, t_minishell *minishell,
-		t_pip *exec)
+void	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
 {
-	while (token[i].value)
+	if (minishell->pipex[i].cmd)
 	{
-		if (token[i].type == T_FUNC)
-		{
-			if (ft_strncmp(token[i].value, "echo", 5) == 0)
-				minishell->code_error = ft_echo(token, i);
-			else if (ft_strncmp(token[i].value, "cd", 3) == 0)
-				minishell->code_error = ft_cd(token, i, minishell);
-			else if (ft_strncmp(token[i].value, "exit", 5) == 0)
-				ft_exit(token, minishell, i, exec);
-			else if (ft_strncmp(token[i].value, "env", 4) == 0)
-				minishell->code_error = ft_env(minishell, 0);
-			else if (ft_strncmp(token[i].value, "pwd", 4) == 0)
-				minishell->code_error = ft_env(minishell, 1);
-			else if (ft_strncmp(token[i].value, "export", 7) == 0)
-				minishell->code_error = ft_export(token, minishell, i);
-			else if (ft_strncmp(token[i].value, "unset", 6) == 0)
-				minishell->code_error = ft_unset(token, minishell, i);
-		}
-		i++;
+		if (ft_strncmp(minishell->pipex[i].cmd[0], "echo", 5) == 0)
+			minishell->code_error = ft_echo(minishell->pipex[i].cmd, i);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "cd", 3) == 0)
+			minishell->code_error = ft_cd(minishell->pipex[i].cmd, i,
+					minishell);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5) == 0)
+			ft_exit(minishell->pipex[i].cmd, minishell, i, exec);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "env", 4) == 0)
+			minishell->code_error = ft_env(minishell, 0);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "pwd", 4) == 0)
+			minishell->code_error = ft_env(minishell, 1);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "export", 7) == 0)
+			minishell->code_error = ft_export(minishell->pipex[i].cmd,
+					minishell, i);
+		else if (ft_strncmp(minishell->pipex[i].cmd[0], "unset", 6) == 0)
+			minishell->code_error = ft_unset(minishell->pipex[i].cmd, minishell,
+					i);
 	}
+	i++;
 	finish(exec, minishell, 0);
 }

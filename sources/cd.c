@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 20:11:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:08:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 	return (0);
 }
 
-char	*get_cd_path(t_token *token, int i)
+char	*get_cd_path(char **str, int i)
 {
 	char	*path;
 
-	if (!token[i + 1].value || !ft_strncmp(token[i + 1].value, "~", 1))
+	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1))
 	{
 		path = getenv("HOME");
 		if (!path)
@@ -87,24 +87,25 @@ char	*get_cd_path(t_token *token, int i)
 		}
 	}
 	else
-		path = token[i + 1].value;
+		path = str[i + 1];
 	return (path);
 }
 
-int	ft_cd(t_token *token, int i, t_minishell *minishell)
+int	ft_cd(char **str, int i, t_minishell *minishell)
 {
 	char	*path;
 	char	old_pwd[4096];
 	int		error;
+	
 
 	error = 0;
-	if (!getcwd(old_pwd, 4096) || (token[i].value && token[i + 1].value
-			&& token[i + 2].value && token[i + 2].type != T_PIPE))
+	if (!getcwd(old_pwd, 4096) || (str[0] && str[1]
+			&& str[2]))
 	{
 		perror("cd: error retrieving current directory");
 		return (1);
 	}
-	path = get_cd_path(token, i);
+	path = get_cd_path(str, i);
 	if (!path)
 		return (1);
 	if (chdir(path) != 0)
