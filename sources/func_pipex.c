@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 20:33:31 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:40:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 		else
 			ft_exec_to_env(minishell, exec, 0, 0);
 	}
+	else 
+		return 0;
 	return (127);
 }
 
@@ -69,6 +71,8 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		else
 			ft_exec_to_env(minishell, exec, 0, i);
 	}
+	else 
+		return 0;
 	return (127);
 }
 

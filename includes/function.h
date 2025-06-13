@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/05 18:20:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/10 18:10:35 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_cd
 void							setup_signals(void);
 void							setup_signals_child(void);
 
-void							apply_builtins(t_minishell *minishell, int i, t_pip *exec);
+int							apply_builtins(t_minishell *minishell, int i, t_pip *exec);
 int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);

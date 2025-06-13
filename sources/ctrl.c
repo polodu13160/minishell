@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 21:28:43 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:05:15 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	setup_signals(void)
 	act.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
+	g_sig = 0;
+	
 }
 
 void	setup_signals_child(void)

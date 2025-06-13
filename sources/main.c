@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/05 18:23:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:26:16 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,32 @@ void	shift_token(t_token *token, int i)
 	token[i].type = T_NULL;
 }
 
+void	check_expand_no_here_doc(t_token *tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i].value != NULL)
+	{
+		if (tokens[i].type == T_HEREDOC)
+		{
+			if (tokens[i + 1].value != NULL && tokens[i + 1].type == T_ENV)
+				tokens[i + 1].type = T_WORD;
+		}
+		i++;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	minishell;
 
 	minishell_env(&minishell, env, ac, av);
 	setup_signals();
+	
 	while (1)
 	{
 		init_minishell(&minishell);
-		g_sig = 0;
 		if (g_sig == SIGINT)
 			minishell.code_error = 130;
 		if (minishell.line && *minishell.line)
@@ -107,11 +123,14 @@ int	main(int ac, char **av, char **env)
 			{
 				setup_signals_child();
 				setup_signals();
+				check_expand_no_here_doc(minishell.tokens);
 				check_token(minishell.tokens, &minishell);
 				if (ft_check(minishell.tokens, 0, &minishell) == 0)
 				{
+					
 					if (ft_prepare_to_pipex(&minishell, minishell.tokens) == 0)
 						ft_pipex(&minishell);
+				
 					unlink_here_doc(&minishell);
 				}
 			}

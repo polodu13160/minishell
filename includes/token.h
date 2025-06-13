@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 20:16:23 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:19:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ int			ft_pipex(t_minishell *minishell);
 /*********************message************************* */
 int			ft_print_error(t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
-/**********************prepare cmd************** */
-int			ft_count_cmd(t_token *tokens, int limit_pipe);
+int	message_output_builtin_no_child(int statuetemp, t_minishell *minishell);
+	/**********************prepare cmd************** */
+	int ft_count_cmd(t_token *tokens, int limit_pipe);
 int			ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 				int count_pipe);
 char		**ft_store_cmd(t_token *tokens, int limit_pipe);

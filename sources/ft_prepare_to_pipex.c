@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 03:06:18 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/05 18:02:57 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:25:35 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens)
 			|| minishell->pipex[limit_pipe].cmd == NULL)
 			return (1);
 		limit_pipe++;
+		
 	}
 	return (0);
 }

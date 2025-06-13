@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 16:55:12 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:31:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
 		token->value = check_quote_command(token->value);
 	return (0);
 }
-
 static int	process_word_tokens(t_token *token, t_minishell *minishell)
 {
 	char	*temp;
@@ -101,6 +100,24 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 		token->value = parse_single_quotes(token->value);
 	return (0);
 }
+// static int	process_word_tokens(t_token *token, t_minishell *minishell, int i)
+// {
+// 	char	*temp;
+
+// 	if (token[i].value[1] == '$' && token[i].value[0] == '"')
+// 	{
+// 		token[i].value = check_quote_command(token->value);
+// 		token[i].type = T_ENV;
+// 		temp = return_env(token->value, minishell);
+// 		free(token->value);
+// 		token[i].value = temp;
+// 	}
+// 	else if (token[i].value[0] == '"')
+// 		token[i].value = check_quote_command(token[i].value);
+// 	else if (token[i].value[0] == '\'')
+// 		token[i].value = parse_single_quotes(token[i].value);
+// 	return (0);
+// }
 
 int	check_parsing(t_token *token, t_minishell *minishell)
 {

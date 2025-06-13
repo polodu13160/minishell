@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/05 18:23:35 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:46:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int	ft_env(t_minishell *minishell, int pwd)
 
 int	check_builtins(t_minishell *minishell, int i)
 {
-	if (minishell->pipex[i].cmd)
+	
+	if (minishell->pipex[i].cmd && minishell->pipex[i].cmd[0] != NULL)
 	{
 		if (ft_strncmp(minishell->pipex[i].cmd[0], "echo", 5) == 0)
 			return (1);
@@ -137,28 +138,27 @@ int	check_builtins(t_minishell *minishell, int i)
 	return (0);
 }
 
-void	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
+int	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
 {
-	if (minishell->pipex[i].cmd)
+
+	if (minishell->pipex[i].cmd && minishell->pipex[i].cmd[0] != NULL)
 	{
 		if (ft_strncmp(minishell->pipex[i].cmd[0], "echo", 5) == 0)
-			minishell->code_error = ft_echo(minishell->pipex[i].cmd, i);
+			return (ft_echo(minishell->pipex[i].cmd, i));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "cd", 3) == 0)
-			minishell->code_error = ft_cd(minishell->pipex[i].cmd, i,
-					minishell);
+			return (ft_cd(minishell->pipex[i].cmd, i, minishell));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5) == 0)
 			ft_exit(minishell->pipex[i].cmd, minishell, i, exec);
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "env", 4) == 0)
-			minishell->code_error = ft_env(minishell, 0);
+			return (minishell->code_error = ft_env(minishell, 0));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "pwd", 4) == 0)
-			minishell->code_error = ft_env(minishell, 1);
+			return (ft_env(minishell, 1));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "export", 7) == 0)
-			minishell->code_error = ft_export(minishell->pipex[i].cmd,
-					minishell, i);
+			return (ft_export(minishell->pipex[i].cmd, minishell, i));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "unset", 6) == 0)
-			minishell->code_error = ft_unset(minishell->pipex[i].cmd, minishell,
-					i);
+			return (ft_unset(minishell->pipex[i].cmd, minishell, i));
 	}
 	i++;
 	finish(exec, minishell, 0);
+	return (-1);
 }

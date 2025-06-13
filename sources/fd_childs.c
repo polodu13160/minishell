@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/05 18:18:38 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:30:21 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_check_perm(t_pip *exec, t_minishell *minishell, int i)
 
 	init_exec_loop(exec);
 	j = -1;
-	if (check_perm_infiles(minishell, i, j, exec) == -1)
+	if (check_perm_infiles(minishell, i, j, exec) == 1)
 		return (1);
 	while (minishell->pipex[i].outfiles[++j].value != NULL)
 		;
@@ -131,6 +131,7 @@ int	ft_close_and_dup_finish(t_pip *exec, int *new_pipe)
 	if (exec->fd_infile.fd != 0)
 		ft_close(&exec->fd_infile.fd);
 	ft_close(&new_pipe[0]);
+	
 	if (exec->fd_outfile.type != T_PIPE)
 		ft_close(&new_pipe[1]);
 	return (0);

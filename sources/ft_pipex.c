@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/05 17:22:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:41:45 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,14 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
 			ft_close(&exec->fd_infile.fd);
 		if (ft_check_perm(exec, minishell, i) == 0)
 		{
-			if (i == 0)
+			if (check_builtins(minishell, i) == 1)
+			{
+				printf("print i = %d", i);
+				ft_execve_builtin(minishell, exec, i);
+			}
+			else if (i == 0)
 				ft_execve_first(minishell, exec);
-			if (i > 0)
+			else if (i > 0)
 				ft_execve_next(minishell, exec, i);
 			if (exec->fd_infile.type != T_PIPE)
 				ft_close(&exec->fd_infile.fd);
@@ -100,6 +105,48 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
 		}
 		i++;
 	}
+}
+
+int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec)
+{
+	int	dup_redirect_in;
+	int	dup_redirect_out;
+
+	dup_redirect_in = dup(0);
+	dup_redirect_out = dup(1);
+	if (ft_check_perm(exec, minishell, 0) == 0)
+	{
+		if (exec->fd_infile.fd != -1)
+		{
+			if (dup2(exec->fd_infile.fd, 0) == -1)
+			{
+				ft_close(&exec->fd_infile.fd);
+				ft_close(&exec->fd_outfile.fd);
+				return (8);
+			}
+			ft_close(&exec->fd_infile.fd);
+		}
+		if (exec->fd_outfile.fd != -1)
+		{
+			if (dup2(exec->fd_outfile.fd, 1) == -1)
+			{
+				ft_close(&exec->fd_infile.fd);
+				ft_close(&exec->fd_outfile.fd);
+				return (8);
+			}
+			ft_close(&exec->fd_outfile.fd);
+		}
+		apply_builtins(minishell, 0, exec);
+		if ((dup2(dup_redirect_in, 0) == -1) || (dup2(dup_redirect_out, 1) ==
+				-1))
+		{
+			ft_close(&exec->fd_infile.fd);
+			ft_close(&exec->fd_outfile.fd);
+			return (8);
+		}
+		return (0);
+	}
+	return (1);
 }
 
 int	ft_pipex(t_minishell *minishell)
@@ -117,10 +164,12 @@ int	ft_pipex(t_minishell *minishell)
 	}
 	if (ft_set_path_env(&exec, minishell->env) == 1)
 		return (1);
-	if (check_builtins(minishell, 0))
+	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
-		apply_builtins(minishell, 0, &exec);
-		return (0);
+		status = message_output_builtin_no_child(ft_execve_builtin_no_child(minishell,
+					&exec), minishell);
+		finish(&exec, minishell, 0);
+		return (status);
 	}
 	if (pipe(exec.pipe) == -1)
 		return (1);

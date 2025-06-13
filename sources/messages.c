@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 06:41:34 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:19:15 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,33 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 					": Command not found");
 		}
 	}
+}
+
+int	message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	if (statuetemp != 0)
+	{
+		if (statuetemp == 8)
+		{
+			message_error("Error dup2", "in parent");
+		}
+		if (statuetemp == 10)
+			message_error("Error malloc", "in child");
+		else if (statuetemp == 126)
+			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
+		else if (statuetemp == 127)
+		{
+			if (minishell->pipex[i].cmd[0] == NULL)
+				message_error("", ": Command not found");
+			else
+				message_error(minishell->pipex[i].cmd[0],
+					": Command not found");
+		}
+	}
+	return statuetemp;
 }
 
 int	perr_and_rplce_exec_error(char *value, t_pip *exec)
