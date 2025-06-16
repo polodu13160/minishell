@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 15:41:51 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:04:41 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_env_value(char *var_name, char **env)
 	if (!var_name)
 		return (NULL);
 	if (!env)
-		return (ft_strdup(""));
+		return (ft_strdup("\0"));
 	name_len = ft_strlen(var_name);
 	if (name_len == 0)
 		return (ft_strdup("$"));
@@ -38,7 +38,7 @@ char	*get_env_value(char *var_name, char **env)
 		}
 		i++;
 	}
-	return (ft_strdup(" "));
+	return (ft_strdup("\0"));
 }
 
 char	*return_env(char *str, t_minishell *minishell)

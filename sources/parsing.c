@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 15:40:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:03:00 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,15 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
 	return (0);
 }
 
-static int	process_word_tokens(t_token *token, t_minishell *minishell)
+static int    process_word_tokens(t_token *token, t_minishell *minishell)
 {
-	char	*temp;
-
-	if (token->value[1] == '$' && token->value[0] == '"')
-	{
-		token->value = check_quote_command(token->value);
-		token->type = T_ENV;
-		temp = return_env(token->value, minishell);
-		free(token->value);
-		token->value = temp;
-	}
-	else if (token->value[0] == '"')
-		token->value = check_quote_command(token->value);
-	else if (token->value[0] == '\'')
-		token->value = parse_single_quotes(token->value);
-	return (0);
+    if (ft_strchr(token->value, '$'))
+        token->value = parse_env(token->value, minishell);
+    else if (token->value[0] == '"')
+        token->value = check_quote_command(token->value);
+    else if (token->value[0] == '\'')
+        token->value = parse_single_quotes(token->value);
+    return (0);
 }
 
 int	check_parsing(t_token *token, t_minishell *minishell)

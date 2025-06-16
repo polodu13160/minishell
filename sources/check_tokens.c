@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 15:44:20 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:06:26 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,46 @@ void	check_expand_special(t_token *tokens)
 	}
 }
 
-void	check_token(t_token *token, t_minishell *minishell)
+void delete_null_token(t_token *tokens)
+{
+	int i;
+	i = 0;
+	while (tokens[i].value != NULL)
+	{
+		if (tokens[i].value[0] == '\0')
+		{
+			while (tokens[i+1].value != NULL)
+			{
+				free(tokens[i].value);
+				tokens[i] = tokens[i+1];
+				i++;
+			}
+			tokens[i] = tokens[i+1];
+		}
+		i++;
+	}
+}
+
+void	check_token(t_token *tokens, t_minishell *minishell)
 {
 	int	j;
+	int i;
 
 	j = 0;
+	i = 0;
 	check_expand_special(minishell->tokens);
-	if (check_parsing(token, minishell))
+	if (check_parsing(tokens, minishell))
 	{
-		free_error(token, minishell, 0);
+		free_error(tokens, minishell, 0);
 		return ;
+	}
+	delete_null_token(minishell->tokens);
+	while (tokens[i].value != NULL)
+	{
+		printf("\ntoken");
+		printf("\ntype = %d", tokens[i].type);
+		printf("\nvalue =%s",tokens[i].value);
+		i++;
 	}
 }
 
