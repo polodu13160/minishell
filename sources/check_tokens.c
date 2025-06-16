@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 17:06:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:13:06 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,6 @@ void	check_token(t_token *tokens, t_minishell *minishell)
 		return ;
 	}
 	delete_null_token(minishell->tokens);
-	while (tokens[i].value != NULL)
-	{
-		printf("\ntoken");
-		printf("\ntype = %d", tokens[i].type);
-		printf("\nvalue =%s",tokens[i].value);
-		i++;
-	}
 }
 
 void	shift_token(t_token *token, int i)
