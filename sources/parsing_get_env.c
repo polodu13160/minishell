@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 16:54:43 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:41:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*get_env_value(char *var_name, char **env)
 	int		i;
 	char	*env_value;
 	size_t	name_len;
-	
+
 	if (!var_name)
-		return NULL;
+		return (NULL);
 	if (!env)
 		return (ft_strdup(""));
 	name_len = ft_strlen(var_name);
@@ -47,7 +47,7 @@ char	*return_env(char *str, t_minishell *minishell)
 
 	var_name = str + 1;
 	if (ft_strncmp(var_name, "?", 2) == 0)
-		return (ft_itoa(minishell->code_error));
+		return (ft_itoa(minishell->return_command));
 	return (get_env_value(var_name, minishell->env));
 }
 

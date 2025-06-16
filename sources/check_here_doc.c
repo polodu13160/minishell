@@ -42,15 +42,13 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 {
 	int	i;
 	int	error;
-	
+
 	minishell->nb_here_doc = 0;
 	i = 0;
 	while (tokens[i].value)
 	{
-		
 		if (recurs == 1 && tokens[i].type == T_HEREDOC)
 		{
-			
 			error = ft_check_here_doc(tokens, i, minishell);
 			if (error > 0)
 				return (ft_print_error(tokens, i, error));
@@ -60,7 +58,6 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 				return (1);
 		i++;
 	}
-	
 	if (recurs == 0)
 		return (ft_check(tokens, ++recurs, minishell));
 	return (0);

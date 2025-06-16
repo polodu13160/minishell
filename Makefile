@@ -36,6 +36,9 @@ FILES = main \
 		builtins_env \
 		free_error \
 		ctrl \
+		execve_builtins \
+		check_tokens \
+		env_prepare_builtins
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

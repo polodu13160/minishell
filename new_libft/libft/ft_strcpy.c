@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:59:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 16:59:21 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:11:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strcpy(char *dest, const char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i])

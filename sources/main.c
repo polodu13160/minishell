@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/13 18:26:16 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:06:34 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	declare_readline(t_minishell *minishell)
 
 void	init_minishell(t_minishell *minishell)
 {
-	minishell->code_error = 0;
 	minishell->tokens = NULL;
 	minishell->count_pipe = 0;
 	minishell->cwd = NULL;
@@ -47,10 +46,13 @@ void	init_minishell(t_minishell *minishell)
 	minishell->pids = NULL;
 	minishell->nb_here_doc = 0;
 	declare_readline(minishell);
+	if (g_sig == SIGINT)
+		minishell->return_command = 130;
 }
 
 void	minishell_env(t_minishell *minishell, char **env, int ac, char **av)
 {
+	minishell->return_command = 0;
 	minishell->env = NULL;
 	(void)ac;
 	(void)av;
@@ -62,75 +64,26 @@ void	minishell_env(t_minishell *minishell, char **env, int ac, char **av)
 	}
 }
 
-void	check_token(t_token *token, t_minishell *minishell)
-{
-	int	j;
-
-	j = 0;
-	if (check_parsing(token, minishell))
-	{
-		free_error(token, minishell, 0);
-		return ;
-	}
-	// check_builtins(token, 0, minishell);
-}
-
-void	shift_token(t_token *token, int i)
-{
-	free(token[i].value);
-	while (token[i + 1].value != NULL)
-	{
-		token[i] = token[i + 1];
-		i++;
-	}
-	token[i].value = NULL;
-	token[i].type = T_NULL;
-}
-
-void	check_expand_no_here_doc(t_token *tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens[i].value != NULL)
-	{
-		if (tokens[i].type == T_HEREDOC)
-		{
-			if (tokens[i + 1].value != NULL && tokens[i + 1].type == T_ENV)
-				tokens[i + 1].type = T_WORD;
-		}
-		i++;
-	}
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	minishell;
 
 	minishell_env(&minishell, env, ac, av);
-	setup_signals();
-	
 	while (1)
 	{
 		init_minishell(&minishell);
-		if (g_sig == SIGINT)
-			minishell.code_error = 130;
 		if (minishell.line && *minishell.line)
 		{
 			add_history(minishell.line);
-			minishell.tokens = tokenize(minishell.line, &minishell);
-			if (minishell.tokens)
+			if (tokenize(minishell.line, &minishell) == 0)
 			{
 				setup_signals_child();
 				setup_signals();
-				check_expand_no_here_doc(minishell.tokens);
 				check_token(minishell.tokens, &minishell);
 				if (ft_check(minishell.tokens, 0, &minishell) == 0)
 				{
-					
 					if (ft_prepare_to_pipex(&minishell, minishell.tokens) == 0)
 						ft_pipex(&minishell);
-				
 					unlink_here_doc(&minishell);
 				}
 			}

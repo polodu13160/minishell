@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/05 18:17:34 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:21:28 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 	j = 0;
 	while (tokens[++i].value)
 	{
-		
 		if (tokens[i].type == T_PIPE)
 		{
 			if ((++count_pipe) == limit_pipe)
@@ -70,7 +69,6 @@ int	ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 			{
 				ft_join_tab_infiles_ext(tokens, i);
-				
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_infiles[j++] = tokens[i];
 			}

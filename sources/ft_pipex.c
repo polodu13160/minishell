@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/13 19:41:45 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:38:07 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	ft_wait_child(t_minishell *minishell)
 			status = statuetemp;
 		pidvalue = wait(&statuetemp);
 	}
+	minishell->return_command = status;
 	return (status);
 }
 
@@ -81,8 +82,8 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
 {
 	int	i;
 
-	i = 0;
-	while (i <= minishell->count_pipe)
+	i = -1;
+	while (++i <= minishell->count_pipe)
 	{
 		if (i != 0 && exec->fd_infile.fd != -1 && exec->fd_infile.value != NULL
 			&& exec->fd_infile.type != T_PIPE)
@@ -103,50 +104,7 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
 			if (exec->fd_outfile.type != T_PIPE)
 				ft_close(&exec->fd_outfile.fd);
 		}
-		i++;
 	}
-}
-
-int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec)
-{
-	int	dup_redirect_in;
-	int	dup_redirect_out;
-
-	dup_redirect_in = dup(0);
-	dup_redirect_out = dup(1);
-	if (ft_check_perm(exec, minishell, 0) == 0)
-	{
-		if (exec->fd_infile.fd != -1)
-		{
-			if (dup2(exec->fd_infile.fd, 0) == -1)
-			{
-				ft_close(&exec->fd_infile.fd);
-				ft_close(&exec->fd_outfile.fd);
-				return (8);
-			}
-			ft_close(&exec->fd_infile.fd);
-		}
-		if (exec->fd_outfile.fd != -1)
-		{
-			if (dup2(exec->fd_outfile.fd, 1) == -1)
-			{
-				ft_close(&exec->fd_infile.fd);
-				ft_close(&exec->fd_outfile.fd);
-				return (8);
-			}
-			ft_close(&exec->fd_outfile.fd);
-		}
-		apply_builtins(minishell, 0, exec);
-		if ((dup2(dup_redirect_in, 0) == -1) || (dup2(dup_redirect_out, 1) ==
-				-1))
-		{
-			ft_close(&exec->fd_infile.fd);
-			ft_close(&exec->fd_outfile.fd);
-			return (8);
-		}
-		return (0);
-	}
-	return (1);
 }
 
 int	ft_pipex(t_minishell *minishell)
@@ -155,19 +113,16 @@ int	ft_pipex(t_minishell *minishell)
 	int		status;
 
 	init_exec(&exec, minishell->env);
-	status = 0;
 	minishell->pids = ft_calloc(minishell->count_pipe + 1, sizeof(pid_t));
 	if (minishell->pids == NULL)
-	{
-		ft_putstr_fd("Error Malloc", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error Malloc", 2));
 	if (ft_set_path_env(&exec, minishell->env) == 1)
 		return (1);
 	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
-		status = message_output_builtin_no_child(ft_execve_builtin_no_child(minishell,
-					&exec), minishell);
+		status = message_output_builtin_no_child(\
+		ft_execve_builtin_no_child(minishell,
+					&exec, 0, 0), minishell);
 		finish(&exec, minishell, 0);
 		return (status);
 	}
@@ -177,7 +132,6 @@ int	ft_pipex(t_minishell *minishell)
 	ft_close(&exec.pipe[0]);
 	ft_close(&exec.pipe[1]);
 	status = WEXITSTATUS(ft_wait_child(minishell));
-	minishell->return_command = status;
 	finish(&exec, minishell, 0);
 	return (0);
 }

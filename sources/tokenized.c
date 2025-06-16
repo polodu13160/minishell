@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/13 16:50:16 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:00:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,29 @@ void	init_data_null(t_token *token, int count)
 	}
 }
 
-t_token	*tokenize(char *str, t_minishell *minishell)
+int	tokenize(char *str, t_minishell *minishell)
 {
 	t_token	*tokens;
 	int		count;
 
 	count = count_tokens(str);
 	if (count == 0)
-		return (NULL);
+		return (1);
 	tokens = malloc(sizeof(t_token) * (count + 1));
 	if (!tokens)
-		return (NULL);
+		return (1);
 	init_data_null(tokens, count);
 	if (count_quote(str))
 	{
 		free(tokens);
-		return (NULL);
+		return (1);
 	}
 	if (check_args(str, tokens, count))
 	{
 		free_error(tokens, minishell, 0);
-		return (NULL);
+		return (1);
 	}
 	tokens[count].type = T_NULL;
-	return (tokens);
+	minishell->tokens = tokens;
+	return (0);
 }

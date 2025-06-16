@@ -6,13 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/13 18:05:15 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:18:32 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
-#include <readline/readline.h>
 #include <readline/history.h>
+#include <readline/readline.h>
 
 void	handle_sigint(int signal)
 {
@@ -41,7 +41,6 @@ void	setup_signals(void)
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 	g_sig = 0;
-	
 }
 
 void	setup_signals_child(void)

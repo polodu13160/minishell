@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/10 18:10:35 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:16:54 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,24 @@ typedef struct s_cd
 void							setup_signals(void);
 void							setup_signals_child(void);
 
-int							apply_builtins(t_minishell *minishell, int i, t_pip *exec);
+int								apply_builtins(t_minishell *minishell, int i,
+									t_pip *exec);
 int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);
 void							shift_token(t_token *token, int i);
+void							check_token(t_token *token,
+									t_minishell *minishell);
+void							check_expand_special(t_token *tokens);
+int								ft_env(t_minishell *minishell, int pwd);
+char							**copy_original_env(char **env);
+int								env_loop(char **copy_env, char **env, int *i);
+char							**declare_env(void);
 
 /*****************************export****************************************/
 
-int								ft_export(char **str,
-									t_minishell *minishell, int i);
+int								ft_export(char **str, t_minishell *minishell,
+									int i);
 int								ft_unset(char **str, t_minishell *minishell,
 									int i);
 

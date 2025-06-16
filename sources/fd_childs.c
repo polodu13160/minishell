@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/13 19:30:21 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:20:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		if (minishell->pipex[i].infiles[j].type != T_PIPE
 			&& access(minishell->pipex[i].infiles[j].value, R_OK) == -1)
 		{
-			return (perr_and_rplce_exec_error(minishell->pipex[i].\
-				infiles[j].value, exec));
+			return (perr_and_rplce_exec_error(\
+			minishell->pipex[i].infiles[j].value,
+					exec));
 		}
 	}
 	if (j > 0)
@@ -37,8 +38,9 @@ int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 			exec->fd_infile.fd = open(minishell->pipex[i].infiles[j].value,
 					O_RDONLY);
 			if (exec->fd_infile.fd == -1)
-				return (perr_and_rplce_exec_error(minishell->pipex[i].\
-				infiles[j].value, exec));
+				return (perr_and_rplce_exec_error(\
+				minishell->pipex[i].infiles[j].value,
+						exec));
 		}
 	}
 	return (0);
@@ -131,7 +133,6 @@ int	ft_close_and_dup_finish(t_pip *exec, int *new_pipe)
 	if (exec->fd_infile.fd != 0)
 		ft_close(&exec->fd_infile.fd);
 	ft_close(&new_pipe[0]);
-	
 	if (exec->fd_outfile.type != T_PIPE)
 		ft_close(&new_pipe[1]);
 	return (0);

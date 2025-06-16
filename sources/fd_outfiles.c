@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/05 18:00:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:21:42 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ t_token	*ft_store_outfiles(t_token *tokens, int limit_pipe)
 	count_pipe = 0;
 	count_outfiles = ft_count_outfiles(tokens, limit_pipe);
 	malloc_outfiles = ft_calloc(count_outfiles + 1, sizeof(t_token));
-	// printf("element, %d \n", count_outfiles);
 	if (malloc_outfiles == NULL)
 		return (NULL);
 	last_index_malloc_outfiles = ft_join_tab_outfiles(tokens, limit_pipe,

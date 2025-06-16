@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/13 19:19:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:09:18 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_parse_data
 /*****************************pre parsing**************************************/
 
 int			count_tokens(char *str);
-t_token		*tokenize(char *str, t_minishell *minishell);
+int			tokenize(char *str, t_minishell *minishell);
 int			count_quote(char *str);
 int			check_is_forbid(char *str, int i);
 
@@ -117,9 +117,10 @@ int			ft_pipex(t_minishell *minishell);
 /*********************message************************* */
 int			ft_print_error(t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
-int	message_output_builtin_no_child(int statuetemp, t_minishell *minishell);
-	/**********************prepare cmd************** */
-	int ft_count_cmd(t_token *tokens, int limit_pipe);
+int			message_output_builtin_no_child(int statuetemp,
+				t_minishell *minishell);
+/**********************prepare cmd************** */
+int			ft_count_cmd(t_token *tokens, int limit_pipe);
 int			ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 				int count_pipe);
 char		**ft_store_cmd(t_token *tokens, int limit_pipe);

@@ -6,13 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/13 19:19:15 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:12:54 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
 #include "pipex.h"
 #include "stdio.h"
+#include "token.h"
 
 int	ft_print_error(t_token *tokens, int i, int error)
 {
@@ -108,7 +108,7 @@ int	message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
 					": Command not found");
 		}
 	}
-	return statuetemp;
+	return (statuetemp);
 }
 
 int	perr_and_rplce_exec_error(char *value, t_pip *exec)

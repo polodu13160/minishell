@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/10 18:16:12 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:44:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ int			ft_close_and_dup_finish(t_pip *exec, int *new_pipe);
 void		init_exec_loop(t_pip *exec);
 void		ft_close_pip(t_pip *exec, int *new_pipe, int substitue);
 int			ft_execve_builtin(t_minishell *minishell, t_pip *exec, int i);
+int			ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
+				int dup_redirect_in, int dup_redirect_out);
 
 #endif
