@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 15:00:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	tokenize(char *str, t_minishell *minishell)
 	}
 	if (check_args(str, tokens, count))
 	{
-		free_error(tokens, minishell, 0);
+		free_all(tokens, minishell, 0);
 		return (1);
 	}
 	tokens[count].type = T_NULL;

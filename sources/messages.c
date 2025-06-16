@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 15:12:54 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:53:07 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	message_error(char *first_message, char *last_message)
 	return (0);
 }
 
-void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
+void	ft_message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 {
 	int	i;
 
@@ -84,7 +84,7 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	}
 }
 
-int	message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
+int	ft_message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
 {
 	int	i;
 
@@ -111,7 +111,7 @@ int	message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
 	return (statuetemp);
 }
 
-int	perr_and_rplce_exec_error(char *value, t_pip *exec)
+int	ft_perr_and_add_exec_error(char *value, t_pip *exec)
 {
 	perror(value);
 	exec->error = 1;

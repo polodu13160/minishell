@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 04:56:12 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 20:12:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*ft_error_free_tab(t_token *tab)
 	return (NULL);
 }
 
-void	ft_free_error(void *value, char *text, int perrorornot, int exitornot)
+void	ft_free_all(void *value, char *text, int perrorornot, int exitornot)
 {
 	free(value);
 	if (perrorornot == 1)

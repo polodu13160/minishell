@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 15:06:34 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	declare_readline(t_minishell *minishell)
 {
 	minishell->cwd = getcwd(NULL, 0);
 	if (!minishell->cwd)
-		ft_free_error(minishell->cwd, "cwd error", 1, 1);
+		ft_free_all(minishell->cwd, "cwd error", 1, 1);
 	minishell->cwd_join = ft_strjoin(minishell->cwd, "$>");
 	if (minishell->cwd_join == NULL)
-		ft_free_error(minishell->cwd, "cwd error", 1, 1);
+		ft_free_all(minishell->cwd, "cwd error", 1, 1);
 	minishell->line = readline(minishell->cwd_join);
 	if (minishell->line == NULL)
 		free_exit(minishell->tokens, minishell, NULL);
@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **env)
 				}
 			}
 		}
-		free_error(minishell.tokens, &minishell, 0);
+		free_all(minishell.tokens, &minishell, 0);
 	}
 	return (0);
 }

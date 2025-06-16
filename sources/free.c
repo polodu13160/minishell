@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_error.c                                       :+:      :+:    :+:   */
+/*   free_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:09:53 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/05 18:23:06 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:50:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_pipex(t_minishell *structure, int end)
 	}
 }
 
-int	free_error(t_token *token, t_minishell *structure, int end)
+int	free_all(t_token *token, t_minishell *structure, int end)
 {
 	int	i;
 
@@ -93,7 +93,7 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
 {
 	free_loop(token, minishell);
 	if (exec)
-		finish(exec, minishell, 2);
+		ft_finish(exec, minishell, 2, minishell->return_command);
 	if (minishell->cwd)
 		free(minishell->cwd);
 	if (minishell->cwd_join)

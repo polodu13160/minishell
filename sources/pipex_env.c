@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 06:27:24 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 				minishell->pipex[arg_exec].cmd[0]);
 		if (exec->path_absolut_exec == NULL)
 		{
-			free_error(minishell->tokens, minishell, 0);
+			free_all(minishell->tokens, minishell, 0);
 			exit(-1);
 		}
 		test_acces = access(exec->path_absolut_exec, F_OK);
@@ -77,7 +77,7 @@ void	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 		{
 			execve(exec->path_absolut_exec, minishell->pipex[arg_exec].cmd,
 				exec->env);
-			free_error(minishell->tokens, minishell, 0);
+			free_all(minishell->tokens, minishell, 0);
 			exit(126);
 		}
 		free(exec->path_absolut_exec);

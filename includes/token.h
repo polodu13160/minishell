@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 15:09:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 
 /*************************************************************************/
 
-int			free_error(t_token *token, t_minishell *structure, int end);
+int			free_all(t_token *token, t_minishell *structure, int end);
 char		*get_env_value(char *var_name, char **env);
 // rajouter par paul
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
@@ -117,7 +117,7 @@ int			ft_pipex(t_minishell *minishell);
 /*********************message************************* */
 int			ft_print_error(t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
-int			message_output_builtin_no_child(int statuetemp,
+int			ft_message_output_builtin_no_child(int statuetemp,
 				t_minishell *minishell);
 /**********************prepare cmd************** */
 int			ft_count_cmd(t_token *tokens, int limit_pipe);
@@ -138,7 +138,7 @@ t_token		*ft_store_outfiles(t_token *tokens, int limit_pipe);
 int			free_and_close(char *value1, char *value, int *save_text,
 				int return_error);
 void		*ft_error_free_tab(t_token *tab);
-void		ft_free_error(void *value, char *text, int perrorornot,
+void		ft_free_all(void *value, char *text, int perrorornot,
 				int exitornot);
 /*****************close************** */
 int			ft_close(int *fd);

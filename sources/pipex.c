@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex.c                                         :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 15:38:07 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:59:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_wait_child(t_minishell *minishell)
 	pidvalue = wait(&statuetemp);
 	while (pidvalue > 0)
 	{
-		message_output(statuetemp, minishell, pidvalue);
+		ft_message_output(statuetemp, minishell, pidvalue);
 		if (pidvalue == pid)
 			status = statuetemp;
 		pidvalue = wait(&statuetemp);
@@ -49,7 +49,7 @@ static int	ft_wait_child(t_minishell *minishell)
 	return (status);
 }
 
-void	finish(t_pip *exec, t_minishell *minishell, int full)
+void	ft_finish(t_pip *exec, t_minishell *minishell, int full, int status)
 {
 	int	i;
 
@@ -64,18 +64,18 @@ void	finish(t_pip *exec, t_minishell *minishell, int full)
 	{
 		if (full == 2)
 			return (free_pipex(minishell, 0));
-		free_error(minishell->tokens, minishell, 0);
+		free_all(minishell->tokens, minishell, 0);
 		if (full == 5)
 		{
 			if (minishell->env)
 			{
-				i = 0;
-				while (minishell->env[i])
-					free(minishell->env[i++]);
+				while (*(minishell->env))
+					free(*(minishell->env++));
 				free(minishell->env);
 			}
 		}
 	}
+	minishell->return_command = status;
 }
 
 void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
@@ -120,10 +120,10 @@ int	ft_pipex(t_minishell *minishell)
 		return (1);
 	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
-		status = message_output_builtin_no_child(\
+		status = ft_message_output_builtin_no_child(\
 		ft_execve_builtin_no_child(minishell,
 					&exec, 0, 0), minishell);
-		finish(&exec, minishell, 0);
+		ft_finish(&exec, minishell, 0, status);
 		return (status);
 	}
 	if (pipe(exec.pipe) == -1)
@@ -132,6 +132,6 @@ int	ft_pipex(t_minishell *minishell)
 	ft_close(&exec.pipe[0]);
 	ft_close(&exec.pipe[1]);
 	status = WEXITSTATUS(ft_wait_child(minishell));
-	finish(&exec, minishell, 0);
+	ft_finish(&exec, minishell, 0, status);
 	return (0);
 }

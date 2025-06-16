@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 16:38:31 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:03:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ char	*extract_var_name(char *str, int *i, int *var_len)
 	*var_len = 0;
 	(*i)++;
 	while (str[*i + *var_len] && str[*i + *var_len] != ' ' && str[*i
-			+ *var_len] != '"' && str[*i + *var_len] != '\'' && str[*i
-			+ *var_len] != '$' && str[*i + *var_len] != '/')
+		+ *var_len] != '"' && str[*i + *var_len] != '\'' && str[*i
+		+ *var_len] != '$' && str[*i + *var_len] != '/')
 		(*var_len)++;
 	var_name = ft_substr(str, *i, *var_len);
 	return (var_name);
@@ -100,24 +100,24 @@ char	*parse_quotes(char *str, t_minishell *minishell)
 	free(str);
 	return (result);
 }
-char    *parse_env(char *str, t_minishell *minishell)
+char	*parse_env(char *str, t_minishell *minishell)
 {
-    t_index            index;
-    char            *result;
+	t_index	index;
+	char	*result;
 
-    index.i = 0;
-    index.j = 0;
-    result = malloc(sizeof(char) * (ft_strlen(str) * 4 + 1));
-    if (!result)
-        return (NULL);
-    while (str[index.i])
-    {
-        if (str[index.i] == '$')
-            process_env_var(str, result, &index, minishell);
-        else
-            result[index.j++] = str[index.i++];
-    }
-    result[index.j] = '\0';
-    free(str);
-    return (result);
+	index.i = 0;
+	index.j = 0;
+	result = malloc(sizeof(char) * (ft_strlen(str) * 4 + 1));
+	if (!result)
+		return (NULL);
+	while (str[index.i])
+	{
+		if (str[index.i] == '$')
+			process_env_var(str, result, &index, minishell);
+		else
+			result[index.j++] = str[index.i++];
+	}
+	result[index.j] = '\0';
+	free(str);
+	return (result);
 }

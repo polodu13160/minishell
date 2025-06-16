@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 15:44:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:02:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		int i)
 {
-	if (ft_close_and_dup_finish(exec, new_pipe) == 8)
+	if (ft_close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
@@ -81,7 +81,7 @@ int	ft_execve_builtin(t_minishell *minishell, t_pip *exec, int i)
 		ft_close_pip(exec, new_pipe, 0);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		finish(exec, minishell, 5);
+		ft_finish(exec, minishell, 5, return_exec);
 		exit(return_exec);
 	}
 	else
