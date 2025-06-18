@@ -6,10 +6,11 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 04:17:56 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:39:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "free.h"
 #include "function.h"
 #include "pipex.h"
 #include "token.h"
@@ -82,6 +83,18 @@ static int	ft_execve_first_builtin(t_minishell *minishell, t_pip *exec)
 		return (0);
 }
 
+void	error_fork(t_pip *exec, t_minishell *minishell, int *new_pipe)
+{
+	ft_wait_child(minishell);
+	if (exec->fd_infile.value == NULL && exec->fd_infile.type != T_PIPE)
+		ft_close(&exec->fd_infile.fd);
+	if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
+		ft_close(&exec->fd_outfile.fd);
+	ft_close_pip(exec, new_pipe, 0);
+	ft_finish_child(minishell, exec);
+	exit(1);
+}
+
 int	ft_execve_builtin_first(t_minishell *minishell, t_pip *exec)
 {
 	pid_t	pid;
@@ -94,7 +107,7 @@ int	ft_execve_builtin_first(t_minishell *minishell, t_pip *exec)
 	{
 		if (exec->error == 0)
 			return_exec = ft_execve_first_builtin(minishell, exec);
-		if (exec->fd_infile.value == NULL)
+		if (exec->fd_infile.value == NULL && exec->fd_infile.type != T_PIPE)
 			ft_close(&exec->fd_infile.fd);
 		ft_close(&exec->pipe[0]);
 		ft_close(&exec->pipe[1]);
@@ -103,6 +116,8 @@ int	ft_execve_builtin_first(t_minishell *minishell, t_pip *exec)
 		ft_finish_child(minishell, exec);
 		exit(return_exec);
 	}
+	else if (pid == -1)
+		error_fork(exec, minishell, NULL);
 	return (return_exec);
 }
 
@@ -127,9 +142,11 @@ int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i)
 
 	if (pipe(new_pipe) < 0)
 		return (1);
-	pid = -1;
+	pid = fork();
 	return_exec = 1;
 	minishell->pids[i] = pid;
+	if (pid == -1)
+		error_fork(exec, minishell, new_pipe);
 	if (pid == 0)
 	{
 		if (exec->error == 0)

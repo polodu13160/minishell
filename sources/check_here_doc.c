@@ -101,11 +101,11 @@ int	write_here_doc(int i, int j, t_token *tokens, int save_text)
 		}
 		read_like_gnl = readline(">");
 		if (read_like_gnl == NULL)
-			return (free_and_close(read_like_gnl, &save_text,
-					3));
+			return (free_and_close(read_like_gnl, &save_text, 3));
 	}
-	ft_close(&save_text);
 	free(read_like_gnl);
+	if (ft_close(&save_text) == -1)
+		free_and_close(read_like_gnl, &save_text, 4);
 	return (0);
 }
 

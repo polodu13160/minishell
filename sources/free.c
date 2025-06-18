@@ -160,7 +160,7 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
 {
 	free_loop(token, minishell);
 	if (exec)
-		ft_finish(exec, minishell, 2, minishell->return_command);
+		ft_finish(exec, minishell, minishell->return_command);
 	if (minishell->cwd)
 		free(minishell->cwd);
 	if (minishell->cwd_join)

@@ -6,11 +6,12 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 04:39:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:42:32 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "free.h"
 #include "token.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -45,7 +46,7 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 			return (126);
 		}
 		else
-			return ft_exec_to_env(minishell, exec, 0, 0);
+			return (ft_exec_to_env(minishell, exec, 0, 0));
 	}
 	else
 		return (0);
@@ -69,7 +70,7 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 			return (126);
 		}
 		else
-			return ft_exec_to_env(minishell, exec, 0, i);
+			return (ft_exec_to_env(minishell, exec, 0, i));
 	}
 	else
 		return (0);
@@ -87,6 +88,8 @@ int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i)
 	pid = fork();
 	return_exec = 1;
 	minishell->pids[i] = pid;
+	if (pid == -1)
+		error_fork(exec, minishell, NULL);
 	if (pid == 0)
 	{
 		if (exec->error == 0)
@@ -112,6 +115,8 @@ int	ft_execve_first(t_minishell *minishell, t_pip *exec)
 	pid = fork();
 	return_exec = 1;
 	minishell->pids[0] = pid;
+	if (pid == -1)
+		error_fork(exec, minishell, NULL);
 	if (pid == 0)
 	{
 		if (exec->error == 0)

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/18 01:11:27 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:36:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
 			return (ft_unset(minishell->pipex[i].cmd, minishell, 0));
 	}
 	i++;
-	ft_finish(exec, minishell, 0,1);
+	ft_finish(exec, minishell, 1);
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 04:37:08 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:35:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_exec(t_pip *exec, char **env)
 	exec->fd_outfile.value = NULL;
 }
 
-static int	ft_wait_child(t_minishell *minishell)
+int	ft_wait_child(t_minishell *minishell)
 {
 	int		statuetemp;
 	pid_t	pidvalue;
@@ -42,7 +42,6 @@ static int	ft_wait_child(t_minishell *minishell)
 	{
 		minishell->count_pipe--;
 		pid = minishell->pids[minishell->count_pipe];
-		printf("pid = %d\n",pid);
 	}
 	pidvalue = wait(&statuetemp);
 	while (pidvalue > 0)
@@ -56,7 +55,7 @@ static int	ft_wait_child(t_minishell *minishell)
 	return (status);
 }
 
-void	ft_finish(t_pip *exec, t_minishell *minishell, int full, int status)
+void	ft_finish(t_pip *exec, t_minishell *minishell, int status)
 {
 	ft_free_exec(exec);
 	free_pipex(minishell, 0);
@@ -127,7 +126,7 @@ int	ft_pipex(t_minishell *minishell)
 		return (ft_putstr_fd("Error Malloc", 2));
 	if (ft_set_path_env(&exec, minishell->env) == 1)
 	{
-		ft_finish(&exec, minishell, 0, status);
+		ft_finish(&exec, minishell, status);
 		return (1);
 	}
 	if (pipe(exec.pipe) == -1)
@@ -136,6 +135,6 @@ int	ft_pipex(t_minishell *minishell)
 	ft_close(&exec.pipe[0]);
 	ft_close(&exec.pipe[1]);
 	status = WEXITSTATUS(ft_wait_child(minishell));
-	ft_finish(&exec, minishell, 0, status);
+	ft_finish(&exec, minishell, status);
 	return (0);
 }

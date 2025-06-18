@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 04:40:22 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:01:12 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_close_and_dup(t_pip *exec)
 		ft_close(&exec->fd_infile.fd);
 	if (exec->fd_outfile.fd != 1)
 		ft_close(&exec->fd_outfile.fd);
-	return (10);
+	return (0);
 }
 
 int	ft_close_and_dup_last(t_pip *exec, int *new_pipe)

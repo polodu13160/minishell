@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 04:44:55 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:23:12 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_print_error(t_token *tokens, int i, int error)
 	else if (error == 3)
 		perror("get_next_line error");
 	else if (error == 4)
-		perror("write error");
+		perror("write error or close error");
 	else if (error == 5)
 		perror("malloc error");
 	else if (tokens[i + 1].value == NULL)
