@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/10 18:13:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:54:42 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 	}
 	if (sign)
 		value = 256 - value;
+	
 	else if (value > 255)
 		value = value % 256;
 	minishell->code_error = value;

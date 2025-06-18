@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 18:03:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 01:32:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i)
 		ft_close_pip(exec, new_pipe, 0);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish(exec, minishell, 5, 0);
+		ft_finish_child(minishell, exec);
 		exit(return_exec);
 	}
 	else
@@ -122,7 +122,7 @@ int	ft_execve_first(t_minishell *minishell, t_pip *exec)
 		ft_close(&exec->pipe[1]);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish(exec, minishell, 5, 0);
+		ft_finish_child(minishell, exec);
 		exit(return_exec);
 	}
 	return (return_exec);

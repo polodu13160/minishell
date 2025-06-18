@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:00:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/04 06:27:32 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:19:00 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_close(int *fd)
 	{
 		if (close(*fd) == -1)
 		{
-			ft_printf_fd(2, "Error closing\n");
 			return (-1);
 		}
 		*fd = -1;
@@ -35,6 +34,11 @@ void	ft_close_pip(t_pip *exec, int *new_pipe, int substitue)
 	{
 		exec->pipe[0] = new_pipe[0];
 		exec->pipe[1] = new_pipe[1];
+	}
+	else 
+	{
+		ft_close(&new_pipe[0]);
+		ft_close(&new_pipe[1]);
 	}
 }
 

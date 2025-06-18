@@ -4,3 +4,24 @@
    ...
    obj:*/libreadline.so*
 }
+
+{
+   bin-executables
+   Memcheck:Leak
+   ...
+   obj:/bin/*
+}
+
+{
+   usr-bin-executables
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/*
+}
+
+{
+   system-binaries
+   Memcheck:Leak
+   ...
+   obj:*/bin/*
+}

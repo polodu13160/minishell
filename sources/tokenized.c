@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:55:03 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	check_args(char *str, t_token *token, int count)
 		else if (process_token(str, token, &data))
 			return (1);
 	}
+	
 	return (0);
 }
 

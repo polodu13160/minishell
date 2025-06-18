@@ -18,7 +18,7 @@ FILES = main \
 		parsing_full_quote \
 		cd \
 		check_here_doc \
-		ft_pipex \
+		pipex \
 		func_pipex \
 		error_and_free \
 		messages \
@@ -27,14 +27,14 @@ FILES = main \
 		fd_infiles \
 		fd_outfiles \
 		fd \
-		ft_prepare_to_pipex \
+		prepare_to_pipex \
 		pipex_env \
 		cd2 \
 		ft_exit \
 		ft_export \
 		ft_unset \
 		builtins_env \
-		free_error \
+		free \
 		ctrl \
 		execve_builtins \
 		check_tokens \
