@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 02:14:33 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:39:36 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	ft_set_path_env(t_pip *exec, char **env)
 			text++;
 			if (text == 0)
 			{
-				ft_printf("No path env");
+				ft_printf_fd(2, "No path env\n");
 				return (1);
 			}
 			exec->path_args = ft_split(text, ':');
 			if (exec->path_args == NULL || ft_add_slash_to_env(exec) == 1)
 			{
-				ft_printf("Error Malloc");
+				ft_printf_fd(2, "Error Malloc\n");
 				return (1);
 			}
 			break ;
@@ -59,7 +59,7 @@ int	ft_set_path_env(t_pip *exec, char **env)
 	return (0);
 }
 
-void	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
+int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
 	int	test_acces;
 
@@ -68,20 +68,17 @@ void	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 		exec->path_absolut_exec = ft_strjoin(exec->path_args[i],
 				minishell->pipex[arg_exec].cmd[0]);
 		if (exec->path_absolut_exec == NULL)
-		{
-			free_all(minishell->tokens, minishell, 0);
-			exit(-1);
-		}
+			return (10);
 		test_acces = access(exec->path_absolut_exec, F_OK);
 		if (test_acces == 0)
 		{
 			execve(exec->path_absolut_exec, minishell->pipex[arg_exec].cmd,
 				exec->env);
-			free_all(minishell->tokens, minishell, 0);
-			exit(126);
+			return (126);
 		}
 		free(exec->path_absolut_exec);
 		exec->path_absolut_exec = NULL;
 		i++;
 	}
+	return (127);
 }

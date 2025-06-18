@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 01:21:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:17:56 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,34 @@
 #include "pipex.h"
 #include "token.h"
 
-static int	error_dup2_execve_builtin_no_child(t_pip *exec)
+static int	error_dup2_execve_builtin_no_child(t_pip *exec, int dup_redirect_in,
+		int dup_redirect_out)
 {
+	ft_close(&dup_redirect_in);
+	ft_close(&dup_redirect_out);
 	ft_close(&exec->fd_infile.fd);
 	ft_close(&exec->fd_outfile.fd);
 	return (8);
+}
+
+static int	dup_infile_and_outfile_builtin_no_child(t_pip *exec,
+		int dup_redirect_in, int dup_redirect_out)
+{
+	if (exec->fd_infile.fd != -1)
+	{
+		if (dup2(exec->fd_infile.fd, 0) == -1)
+			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
+					dup_redirect_out));
+		ft_close(&exec->fd_infile.fd);
+	}
+	if (exec->fd_outfile.fd != -1)
+	{
+		if (dup2(exec->fd_outfile.fd, 1) == -1)
+			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
+					dup_redirect_out));
+		ft_close(&exec->fd_outfile.fd);
+	}
+	return (0);
 }
 
 int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
@@ -28,28 +51,20 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 	{
 		dup_redirect_in = dup(0);
 		dup_redirect_out = dup(1);
-		if (exec->fd_infile.fd != -1)
-		{
-			if (dup2(exec->fd_infile.fd, 0) == -1)
-				return (error_dup2_execve_builtin_no_child(exec));
-			ft_close(&exec->fd_infile.fd);
-		}
-		if (exec->fd_outfile.fd != -1)
-		{
-			if (dup2(exec->fd_outfile.fd, 1) == -1)
-				return (error_dup2_execve_builtin_no_child(exec));
-			ft_close(&exec->fd_outfile.fd);
-		}
+		if (dup_infile_and_outfile_builtin_no_child(exec, dup_redirect_in,
+				dup_redirect_out) == 8)
+			return (8);
 		if (ft_strcmp(minishell->pipex[0].cmd[0], "exit") == 0)
 		{
-			close(dup_redirect_in);
-			close(dup_redirect_out);
+			ft_close(&dup_redirect_in);
+			ft_close(&dup_redirect_out);
 		}
 		apply_builtins(minishell, 0, exec);
 		if (dup2(dup_redirect_in, 0) == -1 || dup2(dup_redirect_out, 1) == -1)
-			return (error_dup2_execve_builtin_no_child(exec));
-		close(dup_redirect_in);
-		close(dup_redirect_out);
+			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
+					dup_redirect_out));
+		ft_close(&dup_redirect_in);
+		ft_close(&dup_redirect_out);
 		return (0);
 	}
 	return (1);
@@ -112,7 +127,7 @@ int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i)
 
 	if (pipe(new_pipe) < 0)
 		return (1);
-	pid = fork();
+	pid = -1;
 	return_exec = 1;
 	minishell->pids[i] = pid;
 	if (pid == 0)

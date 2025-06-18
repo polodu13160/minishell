@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 01:32:25 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:39:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 {
 	int	test_acces;
 
-	if (ft_close_and_dup(exec) == 8)
-		return (8);
+	if (ft_close_and_dup(exec) == 10)
+		return (10);
 	if (minishell->pipex[0].cmd[0] != NULL)
 	{
 		test_acces = access(minishell->pipex[0].cmd[0], F_OK);
@@ -45,7 +45,7 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 			return (126);
 		}
 		else
-			ft_exec_to_env(minishell, exec, 0, 0);
+			return ft_exec_to_env(minishell, exec, 0, 0);
 	}
 	else
 		return (0);
@@ -57,8 +57,8 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 {
 	int	test_acces;
 
-	if (ft_close_and_dup_last(exec, new_pipe) == 8)
-		return (8);
+	if (ft_close_and_dup_last(exec, new_pipe) == 10)
+		return (10);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
 		test_acces = access(minishell->pipex[i].cmd[0], F_OK);
@@ -69,7 +69,7 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 			return (126);
 		}
 		else
-			ft_exec_to_env(minishell, exec, 0, i);
+			return ft_exec_to_env(minishell, exec, 0, i);
 	}
 	else
 		return (0);

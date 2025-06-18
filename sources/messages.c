@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 17:53:07 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:44:55 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	ft_print_error(t_token *tokens, int i, int error)
 	malloc_string = NULL;
 	if (error == 2)
 		perror("not create tmp file");
-	if (error == 3)
+	else if (error == 3)
 		perror("get_next_line error");
-	if (error == 4)
+	else if (error == 4)
 		perror("write error");
-	if (error == 5)
+	else if (error == 5)
 		perror("malloc error");
 	else if (tokens[i + 1].value == NULL)
 		printf("syntax error near unexpected token `newline'\n");
@@ -96,7 +96,7 @@ int	ft_message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
 			message_error("Error dup2", "in parent");
 		}
 		if (statuetemp == 10)
-			message_error("Error malloc", "in child");
+			message_error("Error dup or malloc", "in child");
 		else if (statuetemp == 126)
 			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
 		else if (statuetemp == 127)

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 01:37:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:37:08 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ static int	ft_wait_child(t_minishell *minishell)
 
 	status = 0;
 	pid = minishell->pids[minishell->count_pipe];
+	while (pid == -1)
+	{
+		minishell->count_pipe--;
+		pid = minishell->pids[minishell->count_pipe];
+		printf("pid = %d\n",pid);
+	}
 	pidvalue = wait(&statuetemp);
 	while (pidvalue > 0)
 	{
@@ -57,12 +63,27 @@ void	ft_finish(t_pip *exec, t_minishell *minishell, int full, int status)
 	minishell->return_command = status;
 }
 
-void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
+void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 {
-	int	i;
 	int	pid;
 
-	i = -1;
+	pid = fork();
+	minishell->pids[i] = pid;
+	if (pid == 0)
+	{
+		ft_close(&exec->pipe[0]);
+		ft_close(&exec->pipe[1]);
+		if (exec->fd_infile.value == NULL)
+			ft_close(&exec->fd_infile.fd);
+		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
+			ft_close(&exec->fd_outfile.fd);
+		ft_finish_child(minishell, exec);
+		exit(1);
+	}
+}
+
+void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)
+{
 	while (++i <= minishell->count_pipe)
 	{
 		if (ft_check_perm(exec, minishell, i) == 0)
@@ -84,22 +105,7 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec)
 				ft_close(&exec->fd_outfile.fd);
 		}
 		else
-		{
-			pid = fork();
-			minishell->pids[i] = pid;
-			if (pid == 0)
-			{
-				ft_close(&exec->pipe[0]);
-				ft_close(&exec->pipe[1]);
-				if (exec->fd_infile.value == NULL)
-					ft_close(&exec->fd_infile.fd);
-				if (exec->fd_outfile.type != T_PIPE
-					&& exec->fd_outfile.value != NULL)
-					ft_close(&exec->fd_outfile.fd);
-				ft_finish_child(minishell, exec);
-				exit(1);
-			}
-		}
+			ft_no_perm_child(minishell, exec, i);
 	}
 }
 
@@ -108,6 +114,7 @@ int	ft_pipex(t_minishell *minishell)
 	t_pip	exec;
 	int		status;
 
+	status = 0;
 	init_exec(&exec, minishell->env);
 	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
@@ -119,10 +126,13 @@ int	ft_pipex(t_minishell *minishell)
 	if (minishell->pids == NULL)
 		return (ft_putstr_fd("Error Malloc", 2));
 	if (ft_set_path_env(&exec, minishell->env) == 1)
+	{
+		ft_finish(&exec, minishell, 0, status);
 		return (1);
+	}
 	if (pipe(exec.pipe) == -1)
 		return (1);
-	ft_loop_pipe(minishell, &exec);
+	ft_loop_pipe(minishell, &exec, -1);
 	ft_close(&exec.pipe[0]);
 	ft_close(&exec.pipe[1]);
 	status = WEXITSTATUS(ft_wait_child(minishell));

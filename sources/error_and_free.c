@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 04:56:12 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:48:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 #include "token.h"
 #include <stdio.h>
 
-int	free_and_close(char *value1, char *value, int *save_text, int return_error)
+int	free_and_close(char *value1, int *save_text, int return_error)
 {
 	if (value1 != NULL)
 		free(value1);
-	free(value);
 	ft_close(save_text);
 	return (return_error);
 }

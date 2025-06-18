@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 01:29:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:40:22 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ int	ft_close_and_dup(t_pip *exec)
 	else
 		ft_close(&exec->pipe[1]);
 	if (dup2(exec->fd_infile.fd, 0) == -1)
-		return (8);
+		return (10);
 	if (dup2(exec->fd_outfile.fd, 1) == -1)
-		return (8);
+		return (10);
 	if (exec->fd_infile.fd != 0)
 		ft_close(&exec->fd_infile.fd);
 	if (exec->fd_outfile.fd != 1)
 		ft_close(&exec->fd_outfile.fd);
-	return (0);
+	return (10);
 }
 
 int	ft_close_and_dup_last(t_pip *exec, int *new_pipe)
@@ -125,9 +125,9 @@ int	ft_close_and_dup_last(t_pip *exec, int *new_pipe)
 	else
 		ft_close(&exec->pipe[1]);
 	if (dup2(exec->fd_infile.fd, 0) == -1)
-		return (8);
+		return (10);
 	if (dup2(exec->fd_outfile.fd, 1) == -1)
-		return (8);
+		return (10);
 	if (exec->fd_outfile.fd != 1)
 		ft_close(&exec->fd_outfile.fd);
 	if (exec->fd_infile.fd != 0)

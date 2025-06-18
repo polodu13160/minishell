@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/17 23:52:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 03:19:44 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ typedef struct s_pip
 int			ft_check_perm(t_pip *exec, t_minishell *minishell, int i);
 int			ft_close(int *fd);
 int			ft_execve_next(t_minishell *minishell, t_pip *exec, int i);
-void		ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i,
+int		ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i,
 				int arg_exec);
 int			ft_execve_first(t_minishell *minishell, t_pip *exec);
 int			ft_add_slash_to_env(t_pip *exec);
 int			ft_set_path_env(t_pip *exec, char **env);
-void		ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i,
-				int arg_exec);
 
 void		ft_finish(t_pip *exec, t_minishell *minishell, int full,
 				int status);

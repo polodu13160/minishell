@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/18 04:49:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,7 @@ int			ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
 				t_token *malloc_outfiles, int count_pipe);
 t_token		*ft_store_outfiles(t_token *tokens, int limit_pipe);
 /********************free********************* */
-int			free_and_close(char *value1, char *value, int *save_text,
-				int return_error);
+int			free_and_close(char *value1, int *save_text, int return_error);
 void		*ft_error_free_tab(t_token *tab);
 void		ft_free_all(void *value, char *text, int perrorornot,
 				int exitornot);
