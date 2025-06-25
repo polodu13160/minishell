@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/05 18:19:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:23:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**copy_env(t_minishell *minishell, char **str, int i)
 	j = 0;
 	while (minishell->env[j])
 		j++;
-	new_env = malloc(sizeof(char *) * (j + 2));
+	new_env = ft_calloc(sizeof(char *), (j + 2));
 	if (!new_env)
 		return (NULL);
 	j = 0;
@@ -88,7 +88,6 @@ char	**copy_env(t_minishell *minishell, char **str, int i)
 		free(new_env);
 		return (NULL);
 	}
-	new_env[j + 1] = NULL;
 	free(minishell->env);
 	return (new_env);
 }

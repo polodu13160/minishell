@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 17:04:41 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:41:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	*return_env(char *str, t_minishell *minishell)
 {
 	char	*var_name;
 
+	if (!str)
+		return (NULL);
 	var_name = str + 1;
 	if (ft_strncmp(var_name, "?", 2) == 0)
 		return (ft_itoa(minishell->return_command));
@@ -85,9 +87,12 @@ char	*handle_single_quotes_env(char *str)
 
 	i = 1;
 	j = 0;
-	result = malloc(sizeof(char) * ft_strlen(str));
+	result = ft_calloc(sizeof(char), ft_strlen(str));
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	if (str[i] == '\'')
 		i++;
 	copy_single(str, result, &i, &j);
@@ -99,7 +104,6 @@ char	*handle_single_quotes_env(char *str)
 			result[j++] = str[i++];
 		}
 	}
-	result[j] = '\0';
 	free(str);
 	return (result);
 }
@@ -112,9 +116,12 @@ char	*handle_double_quotes_env(char *str)
 
 	i = 1;
 	j = 0;
-	result = malloc(sizeof(char) * ft_strlen(str));
+	result = ft_calloc(sizeof(char), ft_strlen(str));
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	if (str[i] == '"')
 		i++;
 	while (str[i] && str[i] != '"')
@@ -123,11 +130,8 @@ char	*handle_double_quotes_env(char *str)
 	{
 		i++;
 		while (str[i])
-		{
 			result[j++] = str[i++];
-		}
 	}
-	result[j] = '\0';
 	free(str);
 	return (result);
 }

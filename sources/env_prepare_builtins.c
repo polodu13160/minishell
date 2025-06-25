@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_prepare_builtins.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:15:08 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 15:44:28 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:21:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**declare_env(void)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
-	copy_env = malloc(sizeof(char *) * 3);
+	copy_env = ft_calloc(sizeof(char *), 3);
 	if (!copy_env)
 		return (NULL);
 	copy_env[0] = ft_strjoin("PWD=", pwd);
@@ -32,7 +32,6 @@ char	**declare_env(void)
 		free(pwd);
 		return (NULL);
 	}
-	copy_env[2] = NULL;
 	free(pwd);
 	return (copy_env);
 }
@@ -71,7 +70,7 @@ char	**copy_original_env(char **env)
 		return (declare_env());
 	while (env[i])
 		i++;
-	copy_env = malloc(sizeof(char *) * (i + 1));
+	copy_env = ft_calloc(sizeof(char *), (i + 1));
 	if (!copy_env)
 		return (NULL);
 	i = 0;
@@ -81,7 +80,6 @@ char	**copy_original_env(char **env)
 			return (NULL);
 		i++;
 	}
-	copy_env[i] = NULL;
 	return (copy_env);
 }
 

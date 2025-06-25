@@ -6,10 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 17:43:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:38:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parsing.h"
 #include "token.h"
 
 int	ft_strlen_quote(char *str)
@@ -38,7 +39,12 @@ char	*check_quote_command(char *str)
 	j = 0;
 	if (str[0] == '$')
 		str = ft_strtrim(str, "$");
-	copy = malloc(sizeof(char *) * (ft_strlen_quote(str) + 1));
+	copy = ft_calloc(sizeof(char), (ft_strlen_quote(str) + 1));
+	if (!copy)
+	{
+		free(str);
+		return (NULL);
+	}
 	while (str[i])
 	{
 		if (str[i] == '"')
@@ -46,35 +52,6 @@ char	*check_quote_command(char *str)
 		else
 			copy[j++] = str[i++];
 	}
-	copy[j] = '\0';
-	free(str);
-	return (copy);
-}
-
-char	*parsing_one_quote(char *str)
-{
-	int		i;
-	int		j;
-	char	*copy;
-
-	i = 0;
-	j = 0;
-	if (str[i] == '"')
-		i++;
-	if (str[i] == '$')
-		while (str[i + j] != '"')
-			j++;
-	copy = malloc(sizeof(char) * j);
-	if (!copy)
-		return (NULL);
-	j = 0;
-	while (str[i] != '"')
-	{
-		copy[j] = str[i];
-		i++;
-		j++;
-	}
-	copy[j] = '\0';
 	free(str);
 	return (copy);
 }
@@ -87,14 +64,48 @@ char	*parse_single_quotes(char *str)
 
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	result = ft_calloc(sizeof(char), (ft_strlen(str) + 1));
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	if (str[0] == '\'')
 		i = 1;
 	while (str[i] && str[i] != '\'')
 		result[j++] = str[i++];
-	result[j] = '\0';
 	free(str);
 	return (result);
+}
+
+int	process_dollar(t_token *token, t_minishell *minishell, int type)
+{
+	int		i;
+	char	*temp;
+
+	i = 1;
+	temp = ft_calloc(sizeof(char), ft_strlen(token->value));
+	if (!temp)
+		return (1);
+	while (token->value[i])
+	{
+		temp[i - 1] = token->value[i];
+		i++;
+	}
+	free(token->value);
+	token->value = temp;
+	token->value = check_quote_command(token->value);
+	if (!token->value)
+		return (1);
+	temp = return_env(token->value, minishell);
+	if (!temp)
+		return (1);
+	free(token->value);
+	token->value = temp;
+	if (type || token->type == T_FORBID)
+	{
+		ft_putstr_fd("forbidden preprocessor, || or && or ; or () or \\ \n", 2);
+		return (1);
+	}
+	return (0);
 }

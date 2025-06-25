@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:25:50 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,51 @@ void	check_expand_special(t_token *tokens)
 	int	i;
 
 	i = 0;
-	while (tokens[i].value != NULL)
+	while (tokens[i].type != T_NULL)
 	{
-		if (tokens[i].type == T_HEREDOC)
+		if (tokens[i].value && tokens[i].type == T_HEREDOC)
 		{
-			if (tokens[i + 1].value != NULL && tokens[i + 1].type == T_ENV)
+			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value && tokens[i + 1].type == T_ENV)
 				tokens[i + 1].type = T_WORD;
 		}
 		i++;
 	}
 }
 
-void delete_null_token(t_token *tokens)
+void	delete_null_token(t_token *tokens)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	while (tokens[i].value != NULL)
+	while (tokens[i].type != T_NULL)
 	{
-		if (tokens[i].value[0] == '\0')
+		if (tokens[i].value && tokens[i].value[0] == '\0')
 		{
-			while (tokens[i+1].value != NULL)
+			while (tokens[i + 1].type != T_NULL)
 			{
 				free(tokens[i].value);
-				tokens[i] = tokens[i+1];
+				tokens[i] = tokens[i + 1];
 				i++;
 			}
-			tokens[i] = tokens[i+1];
+			tokens[i] = tokens[i + 1];
 		}
 		i++;
 	}
 }
 
-void	check_token(t_token *tokens, t_minishell *minishell)
+int	check_token(t_token *tokens, t_minishell *minishell)
 {
-	int	j;
-	int i;
-
-	j = 0;
-	i = 0;
 	check_expand_special(minishell->tokens);
 	if (check_parsing(tokens, minishell))
-	{
-		free_all(tokens, minishell, 0);
-		return ;
-	}
+		return (1);
 	delete_null_token(minishell->tokens);
+	return (0);
 }
 
 void	shift_token(t_token *token, int i)
 {
 	free(token[i].value);
-	while (token[i + 1].value != NULL)
+	while (token[i + 1].type != T_NULL)
 	{
 		token[i] = token[i + 1];
 		i++;

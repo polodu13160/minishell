@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 16:22:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:14:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*parse_quotes(char *str, t_minishell *minishell);
 char	*handle_double_quotes_env(char *str);
 char	*handle_single_quotes_env(char *str);
 char	*parse_env(char *str, t_minishell *minishell);
+int		process_dollar(t_token *token, t_minishell *minishell, int type);
 
 /**********************************************************/
 

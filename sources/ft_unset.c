@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:35:07 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/05 18:21:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:24:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	**copy_env_without_var(t_minishell *minishell, char *var_to_remove)
 	int		j;
 
 	new_count = count_remaining_vars(minishell, var_to_remove);
-	new_env = malloc(sizeof(char *) * (new_count + 1));
+	new_env = ft_calloc(sizeof(char *), (new_count + 1));
 	if (!new_env)
 		return (NULL);
 	i = 0;
@@ -70,7 +70,6 @@ static char	**copy_env_without_var(t_minishell *minishell, char *var_to_remove)
 			free(minishell->env[i]);
 		i++;
 	}
-	new_env[j] = NULL;
 	free(minishell->env);
 	return (new_env);
 }

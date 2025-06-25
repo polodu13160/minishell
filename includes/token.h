@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/18 04:49:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:36:12 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_minishell
 	char	*cwd_join;
 	char	*line;
 	char	**env;
-	int		code_error;
 	int		count_pipe;
 	t_pipex	*pipex;
 	int		return_command;

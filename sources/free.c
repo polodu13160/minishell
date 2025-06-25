@@ -33,6 +33,7 @@ void	ft_free_exec(t_pip *exec)
 		}
 	}
 }
+
 void	ft_free_env(t_minishell *minishell)
 {
 	int	i;
@@ -48,6 +49,7 @@ void	ft_free_env(t_minishell *minishell)
 		free(minishell->env);
 	}
 }
+
 void	ft_free_tokens(t_minishell *minishell)
 {
 	int	i;
@@ -55,15 +57,15 @@ void	ft_free_tokens(t_minishell *minishell)
 	i = 0;
 	if (minishell->tokens)
 	{
-		while (minishell->tokens[i].value)
+		while (minishell->tokens[i].type != T_NULL)
 		{
-			free(minishell->tokens[i].value);
+			if (minishell->tokens[i].value)
+				free(minishell->tokens[i].value);
 			i++;
 		}
 		free(minishell->tokens);
 	}
 }
-
 
 void	free_pipex(t_minishell *minishell, int end)
 {
@@ -91,8 +93,9 @@ void	free_pipex(t_minishell *minishell, int end)
 		free(minishell->pids);
 	minishell->pids = NULL;
 	if (end > 0)
-		exit(minishell->code_error);
+		exit(minishell->return_command );
 }
+
 void	ft_finish_child(t_minishell *minishell, t_pip *exec)
 {
 	ft_free_exec(exec);
@@ -106,21 +109,21 @@ void	ft_finish_child(t_minishell *minishell, t_pip *exec)
 		free(minishell->cwd_join);
 }
 
-
 int	free_all(t_token *token, t_minishell *structure, int end)
 {
 	int	i;
 
-	if (end == 2)
-		perror("Malloc error ");
 	i = 0;
 	if (token)
 	{
-		while (token[i].value)
-			free(token[i++].value);
+		while (token[i].type != T_NULL)
+		{
+			if (token[i].value)
+				free(token[i].value);
+			i++;
+		}
 		free(token);
 	}
-	i = 0;
 	free(structure->line);
 	if (structure->cwd)
 		free(structure->cwd);
@@ -137,9 +140,10 @@ void	free_loop(t_token *token, t_minishell *minishell)
 	i = 0;
 	if (token)
 	{
-		while (token[i].value)
+		while (token[i].type != T_NULL)
 		{
-			free(token[i].value);
+			if (token[i].value)
+				free(token[i].value);
 			i++;
 		}
 		free(token);

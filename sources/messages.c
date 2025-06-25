@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 20:23:12 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:23:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	message_error(char *first_message, char *last_message)
 	return (0);
 }
 
-void	ft_message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
+void	ft_message_output(int statuetemp, t_minishell *minishell,
+		pid_t pidvalue)
 {
 	int	i;
 

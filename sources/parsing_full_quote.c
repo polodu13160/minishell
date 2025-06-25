@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_full_quote.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 18:03:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:13:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*init_quote_parsing(char *str, t_index *index, t_quote_state *state)
 	index->j = 0;
 	state->in_dquote = 0;
 	state->in_squote = 0;
-	result = malloc(sizeof(char) * (ft_strlen(str) * 4 + 1));
+	result = ft_calloc(sizeof(char), (ft_strlen(str) * 4 + 1));
 	if (!result)
 		return (NULL);
 	return (result);
@@ -53,8 +53,8 @@ char	*extract_var_name(char *str, int *i, int *var_len)
 	*var_len = 0;
 	(*i)++;
 	while (str[*i + *var_len] && str[*i + *var_len] != ' ' && str[*i
-		+ *var_len] != '"' && str[*i + *var_len] != '\'' && str[*i
-		+ *var_len] != '$' && str[*i + *var_len] != '/')
+			+ *var_len] != '"' && str[*i + *var_len] != '\'' && str[*i
+			+ *var_len] != '$' && str[*i + *var_len] != '/')
 		(*var_len)++;
 	var_name = ft_substr(str, *i, *var_len);
 	return (var_name);
@@ -86,7 +86,10 @@ char	*parse_quotes(char *str, t_minishell *minishell)
 
 	result = init_quote_parsing(str, &index, &state);
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	while (str[index.i])
 	{
 		if (str[index.i] == '"' || str[index.i] == '\'')
@@ -100,6 +103,7 @@ char	*parse_quotes(char *str, t_minishell *minishell)
 	free(str);
 	return (result);
 }
+
 char	*parse_env(char *str, t_minishell *minishell)
 {
 	t_index	index;
@@ -107,9 +111,12 @@ char	*parse_env(char *str, t_minishell *minishell)
 
 	index.i = 0;
 	index.j = 0;
-	result = malloc(sizeof(char) * (ft_strlen(str) * 4 + 1));
+	result = ft_calloc(sizeof(char), (ft_strlen(str) * 4 + 1));
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	while (str[index.i])
 	{
 		if (str[index.i] == '$')

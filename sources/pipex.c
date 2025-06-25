@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 20:35:58 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:26:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ int	ft_pipex(t_minishell *minishell)
 	init_exec(&exec, minishell->env);
 	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
-		status = ft_message_output_builtin_no_child(ft_execve_builtin_no_child(minishell,
-					&exec, 0, 0), minishell);
+		status = ft_message_output_builtin_no_child(ft_execve_builtin_no_child(
+					minishell, &exec, 0, 0), minishell);
 		return (status);
 	}
 	minishell->pids = ft_calloc(minishell->count_pipe + 1, sizeof(pid_t));

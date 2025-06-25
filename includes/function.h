@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 17:54:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:31:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);
 void							shift_token(t_token *token, int i);
-void							check_token(t_token *token,
+int							check_token(t_token *token,
 									t_minishell *minishell);
 void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
@@ -65,7 +65,7 @@ int								ft_cd(char **str, int i,
 char							*ft_strjoin3(const char *s1, const char *s2,
 									const char *s3);
 int								copy_new_env(t_minishell *minishell,
-									char **new_env, char *new_var);
+									char *new_var);
 int								check_var_exist(t_minishell *minishell,
 									const char *name, int name_len);
 int								replace_existing_var(t_minishell *minishell,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/18 18:59:55 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:58:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	ft_echo(char **str, int start)
 {
 	int	i;
 	int	no_newline;
-	
+
+	(void)start;
 	i = 0;
 	no_newline = 0;
 	if (str[1] && !check_arg(str[1]))

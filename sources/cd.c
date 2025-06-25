@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/16 15:18:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:15:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ int	ft_putenv(const char *name, const char *value, int overwrite,
 	cd.var_index = check_var_exist(minishell, name, cd.name_len);
 	if (cd.var_index)
 		return (replace_existing_var(minishell, cd.new_var, cd.var_index));
-	cd.error = copy_new_env(minishell, cd.new_env, cd.new_var);
+	cd.error = copy_new_env(minishell, cd.new_var);
 	if (cd.error)
-	{
-		free(minishell->env);
 		free(cd.new_var);
-	}
 	return (cd.error);
 }
 
@@ -63,10 +60,10 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 		perror("cd: error retrieving current directory");
 		return (1);
 	}
-	if (!ft_putenv("OLDPWD", old_pwd, 1, minishell))
-		return (-1);
-	if (!ft_putenv("PWD", new_pwd, 1, minishell))
-		return (-1);
+	if (ft_putenv("OLDPWD", old_pwd, 1, minishell))
+		return (1);
+	if (ft_putenv("PWD", new_pwd, 1, minishell))
+		return (1);
 	if (minishell->cwd)
 		free(minishell->cwd);
 	minishell->cwd = ft_strdup(new_pwd);

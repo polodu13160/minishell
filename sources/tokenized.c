@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/17 20:55:03 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:31:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	check_args(char *str, t_token *token, int count)
 		else if (process_token(str, token, &data))
 			return (1);
 	}
-	
 	return (0);
 }
 
@@ -96,7 +95,7 @@ int	tokenize(char *str, t_minishell *minishell)
 	count = count_tokens(str);
 	if (count == 0)
 		return (1);
-	tokens = malloc(sizeof(t_token) * (count + 1));
+	tokens = ft_calloc(sizeof(t_token), (count + 1));
 	if (!tokens)
 		return (1);
 	init_data_null(tokens, count);

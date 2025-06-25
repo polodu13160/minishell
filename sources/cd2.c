@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:34:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 20:12:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:17:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ char	*ft_strjoin3(const char *s1, const char *s2, const char *s3)
 	return (result);
 }
 
-int	copy_new_env(t_minishell *minishell, char **new_env, char *new_var)
+int	copy_new_env(t_minishell *minishell, char *new_var)
 {
-	int	i;
+	char	**new_env;
+	int		i;
 
 	i = 0;
 	while (minishell->env[i])
 		i++;
-	new_env = malloc(sizeof(char *) * (i + 2));
+	new_env = ft_calloc(sizeof(char *), i + 2);
 	if (!new_env)
 	{
-		free(new_var);
-		return (-1);
+		return (1);
 	}
 	i = 0;
 	while (minishell->env[i])
@@ -58,7 +58,6 @@ int	copy_new_env(t_minishell *minishell, char **new_env, char *new_var)
 	new_env[i + 1] = NULL;
 	free(minishell->env);
 	minishell->env = new_env;
-	free(new_var);
 	return (0);
 }
 
@@ -71,7 +70,7 @@ int	check_var_exist(t_minishell *minishell, const char *name, int name_len)
 	{
 		if (ft_strncmp(minishell->env[i], name, name_len) == 0
 			&& minishell->env[i][name_len] == '=')
-			return (i);
+			return (i + 1);
 		i++;
 	}
 	return (0);
@@ -79,8 +78,8 @@ int	check_var_exist(t_minishell *minishell, const char *name, int name_len)
 
 int	replace_existing_var(t_minishell *minishell, char *new_var, int var_index)
 {
-	free(minishell->env[var_index]);
-	minishell->env[var_index] = new_var;
+	free(minishell->env[var_index - 1]);
+	minishell->env[var_index - 1] = new_var;
 	return (0);
 }
 

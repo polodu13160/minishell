@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/18 20:36:37 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:35:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
 {
 	if (minishell->pipex[i].cmd && minishell->pipex[i].cmd[0] != NULL)
 	{
-		
 		if (ft_strncmp(minishell->pipex[i].cmd[0], "echo", 5) == 0)
 			return (ft_echo(minishell->pipex[i].cmd, i));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "cd", 3) == 0)
@@ -49,7 +48,7 @@ int	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5) == 0)
 			ft_exit(minishell->pipex[i].cmd, minishell, 0, exec);
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "env", 4) == 0)
-			return (minishell->code_error = ft_env(minishell, 0));
+			return (minishell->return_command  = ft_env(minishell, 0));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "pwd", 4) == 0)
 			return (ft_env(minishell, 1));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "export", 7) == 0)

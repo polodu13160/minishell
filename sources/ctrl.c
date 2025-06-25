@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/18 20:18:25 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:25:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,3 @@ void	setup_signals_child(void)
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-//note a tester sur dautre minishell et pour montrer au correctuer mettre le dernier fork a -1, et faire echo ttkjd | echo jfkd, voir si crash et si utilie le 	signal(SIGPIPE, SIG_IGN);
