@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 16:31:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:01:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);
 void							shift_token(t_token *token, int i);
-int							check_token(t_token *token,
+int								check_token(t_token *token,
 									t_minishell *minishell);
 void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
-char							**copy_original_env(char **env);
 int								env_loop(char **copy_env, char **env, int *i);
 char							**declare_env(void);
 
@@ -81,7 +80,7 @@ void							free_exit(t_token *token,
 
 /****************************************************************************/
 
-int								free_all(t_token *token,
-									t_minishell *minishell, int end);
+int								free_all(t_token *token, t_minishell *minishell,
+									int end);
 
 #endif

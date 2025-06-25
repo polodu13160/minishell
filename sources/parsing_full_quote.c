@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 17:13:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:07:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*extract_var_name(char *str, int *i, int *var_len)
 	return (var_name);
 }
 
-static void	process_env_var(char *str, char *result, t_index *index,
+void	process_env_var(char *str, char *result, t_index *index,
 		t_minishell *minishell)
 {
 	char	*var_name;
@@ -95,31 +95,6 @@ char	*parse_quotes(char *str, t_minishell *minishell)
 		if (str[index.i] == '"' || str[index.i] == '\'')
 			handle_quotes(str, &index, &state, result);
 		else if (str[index.i] == '$' && !state.in_squote)
-			process_env_var(str, result, &index, minishell);
-		else
-			result[index.j++] = str[index.i++];
-	}
-	result[index.j] = '\0';
-	free(str);
-	return (result);
-}
-
-char	*parse_env(char *str, t_minishell *minishell)
-{
-	t_index	index;
-	char	*result;
-
-	index.i = 0;
-	index.j = 0;
-	result = ft_calloc(sizeof(char), (ft_strlen(str) * 4 + 1));
-	if (!result)
-	{
-		free(str);
-		return (NULL);
-	}
-	while (str[index.i])
-	{
-		if (str[index.i] == '$')
 			process_env_var(str, result, &index, minishell);
 		else
 			result[index.j++] = str[index.i++];

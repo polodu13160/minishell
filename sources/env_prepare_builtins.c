@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 15:15:08 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/25 16:21:04 by antbonin         ###   ########.fr       */
+/*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
+/*   Updated: 2025/06/25 23:46:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,13 @@ char	**copy_original_env(char **env)
 int	ft_env(t_minishell *minishell, int pwd)
 {
 	int		i;
-	char	*cwd;
 
 	i = 0;
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (1);
 	if (pwd)
 	{
-		printf("%s\n", cwd);
+		printf("%s\n", minishell->cwd);
 		return (0);
 	}
-	free(cwd);
 	if (minishell->env)
 	{
 		while (minishell->env[i])

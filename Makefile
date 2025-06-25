@@ -1,7 +1,7 @@
 .PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra -MMD -MP -I$(LIBFT_DIR)includes -Iincludes -g3
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(LIBFT_DIR)includes -Iincludes
 CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
 NAME = minishell
@@ -38,7 +38,10 @@ FILES = main \
 		ctrl \
 		execve_builtins \
 		check_tokens \
-		env_prepare_builtins
+		env_prepare_builtins \
+		init_minishell \
+		free2 \
+		execve_builtins_first \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
@@ -46,7 +49,7 @@ SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 DEPS = $(addprefix $(OBJ_DIR), $(addsuffix .d, $(FILES)))
 
-LIBFT_DIR = new_libft/
+LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
 

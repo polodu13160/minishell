@@ -93,10 +93,10 @@ void	free_pipex(t_minishell *minishell, int end)
 		free(minishell->pids);
 	minishell->pids = NULL;
 	if (end > 0)
-		exit(minishell->return_command );
+		exit(minishell->return_command);
 }
 
-void	ft_finish_child(t_minishell *minishell, t_pip *exec)
+void	ft_finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
 {
 	ft_free_exec(exec);
 	ft_free_env(minishell);
@@ -107,69 +107,5 @@ void	ft_finish_child(t_minishell *minishell, t_pip *exec)
 		free(minishell->cwd);
 	if (minishell->cwd_join)
 		free(minishell->cwd_join);
-}
-
-int	free_all(t_token *token, t_minishell *structure, int end)
-{
-	int	i;
-
-	i = 0;
-	if (token)
-	{
-		while (token[i].type != T_NULL)
-		{
-			if (token[i].value)
-				free(token[i].value);
-			i++;
-		}
-		free(token);
-	}
-	free(structure->line);
-	if (structure->cwd)
-		free(structure->cwd);
-	if (structure->cwd_join)
-		free(structure->cwd_join);
-	free_pipex(structure, end);
-	return (0);
-}
-
-void	free_loop(t_token *token, t_minishell *minishell)
-{
-	int	i;
-
-	i = 0;
-	if (token)
-	{
-		while (token[i].type != T_NULL)
-		{
-			if (token[i].value)
-				free(token[i].value);
-			i++;
-		}
-		free(token);
-	}
-	i = 0;
-	if (minishell->env)
-	{
-		while (minishell->env[i])
-		{
-			free(minishell->env[i]);
-			i++;
-		}
-		free(minishell->env);
-	}
-}
-
-void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
-{
-	free_loop(token, minishell);
-	if (exec)
-		ft_finish(exec, minishell, minishell->return_command);
-	if (minishell->cwd)
-		free(minishell->cwd);
-	if (minishell->cwd_join)
-		free(minishell->cwd_join);
-	if (minishell->line)
-		free(minishell->line);
-	exit(minishell->return_command);
+	exit(exit_return);
 }

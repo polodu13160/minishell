@@ -1,0 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
+/*   Updated: 2025/06/26 00:09:57 by antbonin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "free.h"
+
+void	ft_finish(t_pip *exec, t_minishell *minishell, int status)
+{
+	ft_free_exec(exec);
+	free_pipex(minishell, 0);
+	minishell->return_command = status;
+}
+
+int	free_all(t_token *token, t_minishell *structure, int end)
+{
+	int	i;
+
+	i = 0;
+	if (token)
+	{
+		while (token[i].type != T_NULL)
+		{
+			if (token[i].value)
+				free(token[i].value);
+			i++;
+		}
+		free(token);
+	}
+	free(structure->line);
+	if (structure->cwd_join)
+		free(structure->cwd_join);
+	free_pipex(structure, end);
+	return (0);
+}
+
+void	free_loop(t_token *token, t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	if (token)
+	{
+		while (token[i].type != T_NULL)
+		{
+			if (token[i].value)
+				free(token[i].value);
+			i++;
+		}
+		free(token);
+	}
+	i = 0;
+	if (minishell->env)
+	{
+		while (minishell->env[i])
+		{
+			free(minishell->env[i]);
+			i++;
+		}
+		free(minishell->env);
+	}
+}
+
+void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
+{
+	free_loop(token, minishell);
+	if (exec)
+		ft_finish(exec, minishell, minishell->return_command);
+	if (minishell->cwd)
+		free(minishell->cwd);
+	if (minishell->cwd_join)
+		free(minishell->cwd_join);
+	if (minishell->line)
+		free(minishell->line);
+	exit(minishell->return_command);
+}

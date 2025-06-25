@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 20:39:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:16:15 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,56 +71,6 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 	return (1);
 }
 
-static int	ft_execve_first_builtin(t_minishell *minishell, t_pip *exec)
-{
-	if (ft_close_and_dup(exec) == 8)
-		return (8);
-	if (minishell->pipex[0].cmd[0] != NULL)
-	{
-		return (apply_builtins(minishell, 0, exec));
-	}
-	else
-		return (0);
-}
-
-void	error_fork(t_pip *exec, t_minishell *minishell, int *new_pipe)
-{
-	ft_wait_child(minishell);
-	if (exec->fd_infile.value == NULL && exec->fd_infile.type != T_PIPE)
-		ft_close(&exec->fd_infile.fd);
-	if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
-		ft_close(&exec->fd_outfile.fd);
-	ft_close_pip(exec, new_pipe, 0);
-	ft_finish_child(minishell, exec);
-	exit(1);
-}
-
-int	ft_execve_builtin_first(t_minishell *minishell, t_pip *exec)
-{
-	pid_t	pid;
-	int		return_exec;
-
-	pid = fork();
-	return_exec = 1;
-	minishell->pids[0] = pid;
-	if (pid == 0)
-	{
-		if (exec->error == 0)
-			return_exec = ft_execve_first_builtin(minishell, exec);
-		if (exec->fd_infile.value == NULL && exec->fd_infile.type != T_PIPE)
-			ft_close(&exec->fd_infile.fd);
-		ft_close(&exec->pipe[0]);
-		ft_close(&exec->pipe[1]);
-		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
-			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec);
-		exit(return_exec);
-	}
-	else if (pid == -1)
-		error_fork(exec, minishell, NULL);
-	return (return_exec);
-}
-
 static int	ft_execve_finish_builtin(t_minishell *minishell, t_pip *exec,
 		int *new_pipe, int i)
 {
@@ -137,30 +87,28 @@ static int	ft_execve_finish_builtin(t_minishell *minishell, t_pip *exec,
 int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i)
 {
 	pid_t	pid;
-	int		new_pipe[2];
+	int		n_pipe[2];
 	int		return_exec;
 
-	if (pipe(new_pipe) < 0)
+	if (pipe(n_pipe) < 0)
 		return (1);
 	pid = fork();
 	return_exec = 1;
 	minishell->pids[i] = pid;
 	if (pid == -1)
-		error_fork(exec, minishell, new_pipe);
+		error_fork(exec, minishell, n_pipe);
 	if (pid == 0)
 	{
 		if (exec->error == 0)
-			return_exec = ft_execve_finish_builtin(minishell, exec, new_pipe,
-					i);
+			return_exec = ft_execve_finish_builtin(minishell, exec, n_pipe, i);
 		if (exec->fd_infile.value == NULL)
 			ft_close(&exec->fd_infile.fd);
-		ft_close_pip(exec, new_pipe, 0);
+		ft_close_pip(exec, n_pipe, 0);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec);
-		exit(return_exec);
+		ft_finish_child(minishell, exec, return_exec);
 	}
 	else
-		ft_close_pip(exec, new_pipe, 1);
+		ft_close_pip(exec, n_pipe, 1);
 	return (0);
 }

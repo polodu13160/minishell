@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 17:14:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:12:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,22 @@ typedef struct s_quote_state
 
 /*************************Parsing*************************/
 
-int		check_parsing(t_token *token, t_minishell *minishell);
+int		check_parsing(t_token *token, t_minishell *minishell, int ret, int i);
 char	*get_env_value(char *var_name, char **env);
 char	*return_env(char *str, t_minishell *minishell);
 char	*check_quote_command(char *str);
-int		check_parsing(t_token *token, t_minishell *minishell);
 char	*parse_single_quotes(char *str);
 char	*parse_quotes(char *str, t_minishell *minishell);
 char	*handle_double_quotes_env(char *str);
 char	*handle_single_quotes_env(char *str);
 char	*parse_env(char *str, t_minishell *minishell);
 int		process_dollar(t_token *token, t_minishell *minishell, int type);
+void	process_env_var(char *str, char *result, t_index *index,
+			t_minishell *minishell);
 
 /**********************************************************/
+
+void	minishell_env(t_minishell *minishell, char **env, int ac, char **av);
+void	init_minishell(t_minishell *minishell);
 
 #endif

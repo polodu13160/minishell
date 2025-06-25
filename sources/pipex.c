@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/25 15:26:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:14:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ int	ft_wait_child(t_minishell *minishell)
 	return (status);
 }
 
-void	ft_finish(t_pip *exec, t_minishell *minishell, int status)
-{
-	ft_free_exec(exec);
-	free_pipex(minishell, 0);
-	minishell->return_command = status;
-}
-
 void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 {
 	int	pid;
@@ -76,8 +69,7 @@ void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 			ft_close(&exec->fd_infile.fd);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec);
-		exit(1);
+		ft_finish_child(minishell, exec, 1);
 	}
 }
 
@@ -106,6 +98,8 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)
 		else
 			ft_no_perm_child(minishell, exec, i);
 	}
+	ft_close(&exec->pipe[0]);
+	ft_close(&exec->pipe[1]);
 }
 
 int	ft_pipex(t_minishell *minishell)
@@ -132,8 +126,6 @@ int	ft_pipex(t_minishell *minishell)
 	if (pipe(exec.pipe) == -1)
 		return (1);
 	ft_loop_pipe(minishell, &exec, -1);
-	ft_close(&exec.pipe[0]);
-	ft_close(&exec.pipe[1]);
 	status = WEXITSTATUS(ft_wait_child(minishell));
 	ft_finish(&exec, minishell, status);
 	return (0);

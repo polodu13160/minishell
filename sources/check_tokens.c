@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/25 18:25:50 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:11:37 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	check_expand_special(t_token *tokens)
 	{
 		if (tokens[i].value && tokens[i].type == T_HEREDOC)
 		{
-			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value && tokens[i + 1].type == T_ENV)
+			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value && tokens[i
+					+ 1].type == T_ENV)
 				tokens[i + 1].type = T_WORD;
 		}
 		i++;
@@ -53,7 +54,7 @@ void	delete_null_token(t_token *tokens)
 int	check_token(t_token *tokens, t_minishell *minishell)
 {
 	check_expand_special(minishell->tokens);
-	if (check_parsing(tokens, minishell))
+	if (check_parsing(tokens, minishell, 0, 0))
 		return (1);
 	delete_null_token(minishell->tokens);
 	return (0);

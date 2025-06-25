@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 18:29:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:11:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,15 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 	return (0);
 }
 
-int	check_parsing(t_token *token, t_minishell *minishell)
+int	check_parsing(t_token *token, t_minishell *minishell, int ret, int i)
 {
-	int	i;
-	int	ret;
-
-	ret = 0;
-	i = 0;
 	while (token[i].type != T_NULL)
 	{
+		if (token[i].value == NULL)
+		{
+			i++;
+			continue ;
+		}
 		if (token[i].value[0] == '"' || token[i].value[0] == '\''
 			|| (token[i].type == T_FUNC && ft_strchr(token[i].value, '"')))
 			ret = process_quotes_tokens(&token[i], minishell);

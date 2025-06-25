@@ -6,13 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 15:25:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:01:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "function.h"
 #include <readline/history.h>
 #include <readline/readline.h>
+
+volatile sig_atomic_t	g_sig = 0;
 
 void	handle_sigint(int signal)
 {
