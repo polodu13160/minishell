@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:11:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:47:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 #include "parsing.h"
 #include "token.h"
 
@@ -20,7 +20,7 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 	{
 		if (token->value[2] == '$')
 		{
-			if (process_dollar(token, minishell, 0))
+			if (process_dollar(token, minishell, 0, 0))
 				return (1);
 		}
 		else
@@ -95,7 +95,7 @@ int	check_parsing(t_token *token, t_minishell *minishell, int ret, int i)
 			continue ;
 		}
 		if (token[i].value[0] == '"' || token[i].value[0] == '\''
-			|| (token[i].type == T_FUNC && ft_strchr(token[i].value, '"')))
+			|| (token[i].type == T_FUNC))
 			ret = process_quotes_tokens(&token[i], minishell);
 		else if (token[i].type == T_ENV)
 		{
@@ -104,7 +104,7 @@ int	check_parsing(t_token *token, t_minishell *minishell, int ret, int i)
 				shift_token(token, i);
 		}
 		else if (token[i].type == T_FORBID)
-			ret = process_dollar(token, minishell, 1);
+			ret = process_dollar(token, minishell, 1, 0);
 		else if (token[i].type == T_WORD)
 			ret = process_word_tokens(&token[i], minishell);
 		if (ret)

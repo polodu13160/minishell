@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/04/23 20:21:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:36:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 
 int	is_forbid(char *str, int *i, int *token_index, t_token *token)
 {

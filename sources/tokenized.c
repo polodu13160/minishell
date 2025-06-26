@@ -5,11 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 15:34:13 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 18:31:28 by antbonin         ###   ########.fr       */
+/*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
+/*   Updated: 2025/06/26 17:53:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "free.h"
 #include "stdio.h"
 #include "token.h"
 
@@ -106,7 +107,7 @@ int	tokenize(char *str, t_minishell *minishell)
 	}
 	if (check_args(str, tokens, count))
 	{
-		free_all(tokens, minishell, 0);
+		free_token(count, tokens);
 		return (1);
 	}
 	tokens[count].type = T_NULL;

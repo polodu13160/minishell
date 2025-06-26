@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/25 15:23:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:37:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ void	ft_message_output(int statuetemp, t_minishell *minishell,
 		i++;
 	if (WEXITSTATUS(statuetemp) != 0)
 	{
+		if (WEXITSTATUS(statuetemp) == 8)
+			message_error("Error dup2", "");
 		if (WEXITSTATUS(statuetemp) == 10)
-			message_error("Error malloc", "in child");
+			message_error("Error malloc", "");
 		else if (WEXITSTATUS(statuetemp) == 126)
 			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
 		else if (WEXITSTATUS(statuetemp) == 127)
@@ -94,10 +96,10 @@ int	ft_message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
 	{
 		if (statuetemp == 8)
 		{
-			message_error("Error dup2", "in parent");
+			message_error("Error dup2", "");
 		}
 		if (statuetemp == 10)
-			message_error("Error dup or malloc", "in child");
+			message_error("Error malloc", "");
 		else if (statuetemp == 126)
 			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
 		else if (statuetemp == 127)

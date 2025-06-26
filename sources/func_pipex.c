@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 00:15:03 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:35:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 {
 	int	test_acces;
 
-	if (ft_close_and_dup(exec) == 10)
-		return (10);
+	if (ft_close_and_dup(exec) == 8)
+		return (8);
 	if (minishell->pipex[0].cmd[0] != NULL)
 	{
 		test_acces = access(minishell->pipex[0].cmd[0], F_OK);
@@ -58,8 +58,8 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 {
 	int	test_acces;
 
-	if (ft_close_and_dup_last(exec, new_pipe) == 10)
-		return (10);
+	if (ft_close_and_dup_last(exec, new_pipe) == 8)
+		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
 		test_acces = access(minishell->pipex[i].cmd[0], F_OK);

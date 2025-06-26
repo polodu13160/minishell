@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 00:14:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
-#include "function.h"
+#include "builtins.h"
 #include "pipex.h"
 #include "token.h"
 #include <stdio.h>

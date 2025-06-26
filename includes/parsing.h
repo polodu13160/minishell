@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:12:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:47:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*parse_quotes(char *str, t_minishell *minishell);
 char	*handle_double_quotes_env(char *str);
 char	*handle_single_quotes_env(char *str);
 char	*parse_env(char *str, t_minishell *minishell);
-int		process_dollar(t_token *token, t_minishell *minishell, int type);
+int		process_dollar(t_token *token, t_minishell *minishell, int type, int i);
 void	process_env_var(char *str, char *result, t_index *index,
 			t_minishell *minishell);
 

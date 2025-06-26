@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:09:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:54:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ int	free_all(t_token *token, t_minishell *structure, int end)
 		}
 		free(token);
 	}
-	free(structure->line);
+	if (structure->line)
+	{
+		free(structure->line);
+		structure->line = NULL;
+	}
 	if (structure->cwd_join)
+	{
 		free(structure->cwd_join);
+		structure->cwd_join = NULL;
+	}
 	free_pipex(structure, end);
 	return (0);
 }
@@ -65,6 +72,7 @@ void	free_loop(t_token *token, t_minishell *minishell)
 			i++;
 		}
 		free(minishell->env);
+		minishell->env = NULL;
 	}
 }
 
@@ -74,10 +82,33 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
 	if (exec)
 		ft_finish(exec, minishell, minishell->return_command);
 	if (minishell->cwd)
+	{
 		free(minishell->cwd);
+		minishell->cwd = NULL;
+	}
 	if (minishell->cwd_join)
+	{
 		free(minishell->cwd_join);
+		minishell->cwd_join = NULL;
+	}
 	if (minishell->line)
+	{
 		free(minishell->line);
+		minishell->line = NULL;
+	}
 	exit(minishell->return_command);
+}
+
+void	free_token(int count, t_token *tokens)
+{
+	int	i;
+
+	i = 0;
+	while (i < count && tokens[i].type != T_NULL)
+	{
+		if (tokens[i].value)
+			free(tokens[i].value);
+		i++;
+	}
+	free(tokens);
 }

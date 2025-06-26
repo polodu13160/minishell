@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:00:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:47:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 #include "libft.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,6 +88,23 @@ char	*get_cd_path(char **str, int i)
 	return (path);
 }
 
+int	check_path(char *str)
+{
+	long int	i;
+
+	i = 0;
+	while (str[i] && i <= 4095)
+	{
+		i++;
+	}
+	if (i >= 4095)
+	{
+		perror("invalid directory , buffer size max 4096 error");
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_cd(char **str, int i, t_minishell *minishell)
 {
 	char	*path;
@@ -104,6 +121,8 @@ int	ft_cd(char **str, int i, t_minishell *minishell)
 	path = get_cd_path(str, i);
 	if (!path)
 		return (1);
+	if (check_path(path))
+		return (0);
 	if (chdir(path) != 0)
 	{
 		error += handle_cd_error(path);

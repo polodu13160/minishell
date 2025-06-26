@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:35:07 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 16:24:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 #include "stdio.h"
 
 static int	should_remove_var(char *env_var, char *var_to_remove)

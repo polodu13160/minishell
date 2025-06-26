@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 00:11:37 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:33:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 #include "parsing.h"
 
 void	check_expand_special(t_token *tokens)
@@ -35,19 +35,22 @@ void	delete_null_token(t_token *tokens)
 	int	i;
 
 	i = 0;
-	while (tokens[i].type != T_NULL)
+	if (tokens)
 	{
-		if (tokens[i].value && tokens[i].value[0] == '\0')
+		while (tokens[i].type != T_NULL)
 		{
-			while (tokens[i + 1].type != T_NULL)
+			if (tokens[i].value && tokens[i].value[0] == '\0')
 			{
-				free(tokens[i].value);
+				while (tokens[i + 1].type != T_NULL)
+				{
+					free(tokens[i].value);
+					tokens[i] = tokens[i + 1];
+					i++;
+				}
 				tokens[i] = tokens[i + 1];
-				i++;
 			}
-			tokens[i] = tokens[i + 1];
+			i++;
 		}
-		i++;
 	}
 }
 

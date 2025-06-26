@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.h                                         :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:01:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:48:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTION_H
-# define FUNCTION_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 # include "libft.h"
 # include "pipex.h"
 # include "signal.h"
@@ -52,6 +52,12 @@ int								ft_export(char **str, t_minishell *minishell,
 									int i);
 int								ft_unset(char **str, t_minishell *minishell,
 									int i);
+int								check_double(char **str, t_minishell *minishell,
+									char *var_name, int i);
+char							**copy_env(t_minishell *minishell, char **str,
+									int i);
+int								is_valid_identifier(char *str);
+int								print_export(t_minishell *minishell);
 
 /*******************************echo****************************************/
 

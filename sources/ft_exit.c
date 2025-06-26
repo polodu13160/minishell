@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:00:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 
 int	check_arg_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 {

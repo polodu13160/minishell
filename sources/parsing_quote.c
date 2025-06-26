@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 00:03:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:46:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,29 @@
 int	ft_strlen_quote(char *str)
 {
 	int	i;
-	int	j;
+	int	count;
+	int	inside_squotes;
+	int	inside_dquotes;
 
 	i = 0;
-	j = 0;
+	count = 0;
+	inside_squotes = 0;
+	inside_dquotes = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '"')
-			j++;
+		if (str[i] == '\'' && !inside_dquotes && !inside_squotes)
+			inside_squotes = 1;
+		else if (str[i] == '\'' && inside_squotes && !inside_dquotes)
+			inside_squotes = 0;
+		else if (str[i] == '"' && !inside_squotes && !inside_dquotes)
+			inside_dquotes = 1;
+		else if (str[i] == '"' && inside_dquotes && !inside_squotes)
+			inside_dquotes = 0;
+		else
+			count++;
 		i++;
 	}
-	return (i - j);
+	return (count);
 }
 
 char	*check_quote_command(char *str)
@@ -34,12 +46,16 @@ char	*check_quote_command(char *str)
 	int		i;
 	int		j;
 	char	*copy;
+	int		inside_squotes;
+	int		inside_dquotes;
 
 	i = 0;
 	j = 0;
+	inside_squotes = 0;
+	inside_dquotes = 0;
 	if (str[0] == '$')
 		str = ft_strtrim(str, "$");
-	copy = ft_calloc(sizeof(char), (ft_strlen_quote(str) + 1));
+	copy = ft_calloc(sizeof(char), (ft_strlen(str) + 1));
 	if (!copy)
 	{
 		free(str);
@@ -47,11 +63,30 @@ char	*check_quote_command(char *str)
 	}
 	while (str[i])
 	{
-		if (str[i] == '"')
+		if (str[i] == '\'' && !inside_dquotes && !inside_squotes)
+		{
+			inside_squotes = 1;
 			i++;
+		}
+		else if (str[i] == '\'' && inside_squotes && !inside_dquotes)
+		{
+			inside_squotes = 0;
+			i++;
+		}
+		else if (str[i] == '"' && !inside_squotes && !inside_dquotes)
+		{
+			inside_dquotes = 1;
+			i++;
+		}
+		else if (str[i] == '"' && inside_dquotes && !inside_squotes)
+		{
+			inside_dquotes = 0;
+			i++;
+		}
 		else
 			copy[j++] = str[i++];
 	}
+	copy[j] = '\0';
 	free(str);
 	return (copy);
 }
@@ -78,22 +113,22 @@ char	*parse_single_quotes(char *str)
 	return (result);
 }
 
-int	process_dollar(t_token *token, t_minishell *minishell, int type)
+int	process_dollar(t_token *token, t_minishell *minishell, int type, int i)
 {
-	int		i;
 	char	*temp;
 
-	i = 0;
 	temp = ft_calloc(sizeof(char), ft_strlen(token->value));
 	if (!temp)
 		return (1);
 	while (token->value[++i])
 		temp[i - 1] = token->value[i];
+	temp[ft_strlen(token->value) - 1] = '\0';
 	free(token->value);
 	token->value = temp;
-	token->value = check_quote_command(token->value);
-	if (!token->value)
+	temp = check_quote_command(token->value);
+	if (!temp)
 		return (1);
+	token->value = temp;
 	temp = return_env(token->value, minishell);
 	if (!temp)
 		return (1);
@@ -114,6 +149,8 @@ char	*parse_env(char *str, t_minishell *minishell)
 
 	index.i = 0;
 	index.j = 0;
+	if (ft_strrchr(str, '\'') > ft_strrchr(str, '$'))
+		return (str);
 	result = ft_calloc(sizeof(char), (ft_strlen(str) * 4 + 1));
 	if (!result)
 	{

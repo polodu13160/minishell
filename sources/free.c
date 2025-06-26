@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "function.h"
+#include "builtins.h"
 #include "stdio.h"
 
 void	ft_free_exec(t_pip *exec)
@@ -30,6 +30,7 @@ void	ft_free_exec(t_pip *exec)
 				i++;
 			}
 			free(exec->path_args);
+			exec->path_args = NULL;
 		}
 	}
 }
@@ -47,6 +48,7 @@ void	ft_free_env(t_minishell *minishell)
 			i++;
 		}
 		free(minishell->env);
+		minishell->env = NULL;
 	}
 }
 
@@ -64,6 +66,7 @@ void	ft_free_tokens(t_minishell *minishell)
 			i++;
 		}
 		free(minishell->tokens);
+		minishell->tokens = NULL;
 	}
 }
 

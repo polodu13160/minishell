@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 23:14:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:54:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
-#include "function.h"
+#include "builtins.h"
 #include "libft.h"
 #include "parsing.h"
 #include "signal.h"
@@ -22,7 +22,7 @@ void	declare_readline(t_minishell *minishell)
 	if (minishell->cwd == NULL)
 		minishell->cwd = getcwd(NULL, 0);
 	if (minishell->cwd)
-		minishell->cwd_join = ft_strjoin(minishell->cwd, "$>");
+		minishell->cwd_join = ft_strjoin(minishell->cwd, "$> ");
 	if (minishell->cwd_join == NULL)
 		ft_free_all(minishell->cwd, "cwd error", 1, 1);
 	minishell->line = readline(minishell->cwd_join);
