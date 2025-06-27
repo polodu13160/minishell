@@ -45,7 +45,8 @@ void	ft_join_tab_infiles_ext(t_token *tokens, int i)
 	if (tokens[i].type == T_REDIRECT_IN)
 	{
 		free(tokens[i].value);
-		tokens[i].value = ft_strdup(tokens[i + 1].value);
+		tokens[i].value = tokens[i + 1].value;
+		tokens[i].value = tokens[i + 1].value;
 	}
 }
 

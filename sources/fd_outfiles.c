@@ -45,7 +45,8 @@ void	ft_join_tab_outfiles_ext(t_token *tokens, int i,
 	if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
 	{
 		free(tokens[i].value);
-		tokens[i].value = ft_strdup(tokens[i + 1].value);
+		tokens[i].value = NULL;
+		tokens[i].value = tokens[i + 1].value;
 		tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 		malloc_outfiles[j++] = tokens[i];
 	}
@@ -72,7 +73,8 @@ int	ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
 			if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
 			{
 				free(tokens[i].value);
-				tokens[i].value = ft_strdup(tokens[i + 1].value);
+				tokens[i].value = NULL;
+				tokens[i].value = tokens[i + 1].value;
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_outfiles[j++] = tokens[i];
 			}

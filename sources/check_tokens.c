@@ -45,6 +45,7 @@ void	delete_null_token(t_token *tokens)
 				while (tokens[i + 1].type != T_NULL)
 				{
 					free(tokens[i].value);
+					tokens[i].value = NULL;
 					tokens[i] = tokens[i + 1];
 					i++;
 				}

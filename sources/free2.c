@@ -28,11 +28,13 @@ int	free_all(t_token *token, t_minishell *structure, int end)
 	{
 		while (token[i].type != T_NULL)
 		{
-			if (token[i].value)
+			if (token[i].value && token[i].value != token[i+1].value)
 				free(token[i].value);
+			token[i].value = NULL;
 			i++;
 		}
 		free(token);
+		token = NULL;
 	}
 	if (structure->line)
 	{
@@ -57,11 +59,13 @@ void	free_loop(t_token *token, t_minishell *minishell)
 	{
 		while (token[i].type != T_NULL)
 		{
-			if (token[i].value)
+			if (token[i].value != NULL)
 				free(token[i].value);
+			token[i].value = NULL;
 			i++;
 		}
 		free(token);
+		token = NULL;
 	}
 	i = 0;
 	if (minishell->env)
@@ -106,8 +110,9 @@ void	free_token(int count, t_token *tokens)
 	i = 0;
 	while (i < count && tokens[i].type != T_NULL)
 	{
-		if (tokens[i].value)
+		if (tokens[i].value && tokens[i].value != tokens[i+1].value)
 			free(tokens[i].value);
+		tokens[i].value = NULL;
 		i++;
 	}
 	free(tokens);
