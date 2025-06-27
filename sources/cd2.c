@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:34:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 16:32:31 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:19:16 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 #include "libft.h"
 #include "stdlib.h"
 
-char	*ft_strjoin3(const char *s1, const char *s2, const char *s3)
+int	check_path(char *str)
 {
-	char	*temp;
-	char	*result;
+	long int	i;
 
-	if (!s1 && !s2 && !s3)
-		return (NULL);
-	if (!s1)
-		return (ft_strjoin(s2, s3));
-	if (!s2)
-		return (ft_strjoin(s1, s3));
-	if (!s3)
-		return (ft_strjoin(s1, s2));
-	temp = ft_strjoin(s1, s2);
-	if (!temp)
-		return (NULL);
-	result = ft_strjoin(temp, s3);
-	free(temp);
-	return (result);
+	i = 0;
+	while (str[i] && i <= 4095)
+	{
+		i++;
+	}
+	if (i >= 4095)
+	{
+		ft_printf_fd(2, "invalid directory , buffer size max 4096 error");
+		return (1);
+	}
+	return (0);
 }
 
 int	copy_new_env(t_minishell *minishell, char *new_var)

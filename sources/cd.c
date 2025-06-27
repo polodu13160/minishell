@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 17:47:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:19:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,23 +86,6 @@ char	*get_cd_path(char **str, int i)
 	else
 		path = str[i + 1];
 	return (path);
-}
-
-int	check_path(char *str)
-{
-	long int	i;
-
-	i = 0;
-	while (str[i] && i <= 4095)
-	{
-		i++;
-	}
-	if (i >= 4095)
-	{
-		perror("invalid directory , buffer size max 4096 error");
-		return (1);
-	}
-	return (0);
 }
 
 int	ft_cd(char **str, int i, t_minishell *minishell)

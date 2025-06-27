@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:25:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/04 16:50:34 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:17:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char				*ft_strnstr(const char *big, const char *little,
 char				*ft_strdup(const char *s);
 char				*ft_substr(const char *str, unsigned int start, size_t len);
 char				*ft_strjoin(const char *s1, const char *s2);
+char				*ft_strjoin3(const char *s1, const char *s2,
+						const char *s3);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_itoa(int n);
 long long			ft_atoll(const char *str, int *error);

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 17:46:51 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:23:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,50 +43,21 @@ int	ft_strlen_quote(char *str)
 
 char	*check_quote_command(char *str)
 {
-	int		i;
-	int		j;
-	char	*copy;
-	int		inside_squotes;
-	int		inside_dquotes;
+	char			*copy;
+	t_quote_state	state;
+	t_index			index;
 
-	i = 0;
-	j = 0;
-	inside_squotes = 0;
-	inside_dquotes = 0;
-	if (str[0] == '$')
-		str = ft_strtrim(str, "$");
-	copy = ft_calloc(sizeof(char), (ft_strlen(str) + 1));
+	str = prepare_string_for_quote_check(str);
+	copy = allocate_quote_copy(str);
 	if (!copy)
-	{
-		free(str);
 		return (NULL);
-	}
-	while (str[i])
-	{
-		if (str[i] == '\'' && !inside_dquotes && !inside_squotes)
-		{
-			inside_squotes = 1;
-			i++;
-		}
-		else if (str[i] == '\'' && inside_squotes && !inside_dquotes)
-		{
-			inside_squotes = 0;
-			i++;
-		}
-		else if (str[i] == '"' && !inside_squotes && !inside_dquotes)
-		{
-			inside_dquotes = 1;
-			i++;
-		}
-		else if (str[i] == '"' && inside_dquotes && !inside_squotes)
-		{
-			inside_dquotes = 0;
-			i++;
-		}
-		else
-			copy[j++] = str[i++];
-	}
-	copy[j] = '\0';
+	state.in_squote = 0;
+	state.in_dquote = 0;
+	index.i = 0;
+	index.j = 0;
+	while (str[index.i])
+		process_quote_character(str, copy, &state, &index);
+	copy[index.j] = '\0';
 	free(str);
 	return (copy);
 }

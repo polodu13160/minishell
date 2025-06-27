@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 17:48:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:19:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int								check_var_exist(t_minishell *minishell,
 int								replace_existing_var(t_minishell *minishell,
 									char *new_var, int var_index);
 void							declare_putenv(t_cd *cd, const char *name);
+int								check_path(char *str);
 
 /*********************************exit***************************************/
 

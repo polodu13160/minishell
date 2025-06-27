@@ -43,6 +43,9 @@ FILES = main \
 		free2 \
 		execve_builtins_first \
 		ft_export2 \
+		retokenize \
+		retokenize_final \
+		check_quote_command \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

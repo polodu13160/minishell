@@ -63,6 +63,7 @@ SRCS = $(addprefix $(LIBFT_DIR), \
        ft_lstlast_bonus.c \
        ft_lstnew_bonus.c \
        ft_lstsize_bonus.c \
+       ft_strjoin3.c \
        ft_lstmap_bonus.c)
 
 OBJ_DIR = obj/

@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 16:33:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:12:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "free.h"
 #include "parsing.h"
 
 void	check_expand_special(t_token *tokens)
@@ -56,9 +57,28 @@ void	delete_null_token(t_token *tokens)
 
 int	check_token(t_token *tokens, t_minishell *minishell)
 {
+	int	i;
+
 	check_expand_special(minishell->tokens);
 	if (check_parsing(tokens, minishell, 0, 0))
 		return (1);
+	i = 0;
+	while (minishell->tokens[i].type != T_NULL)
+	{
+		if (minishell->tokens[i].type == T_ENV)
+		{
+			if (ft_strchr(minishell->tokens[i].value, ' '))
+			{
+				if (retokenize(minishell->tokens, minishell, i))
+					return (1);
+				i = 0;
+				continue ;
+			}
+			else
+				minishell->tokens[i].type = T_WORD;
+		}
+		i++;
+	}
 	delete_null_token(minishell->tokens);
 	return (0);
 }

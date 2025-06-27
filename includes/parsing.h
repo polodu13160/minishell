@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 17:47:45 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:24:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef struct s_quote_state
 	int	in_squote;
 }		t_quote_state;
 
+typedef struct s_retokenize_data
+{
+	int	old_count;
+	int	nb_new;
+	int	insert_pos;
+}		t_retokenize_data;
+
 /*************************Parsing*************************/
 
 int		check_parsing(t_token *token, t_minishell *minishell, int ret, int i);
@@ -41,8 +48,20 @@ char	*parse_env(char *str, t_minishell *minishell);
 int		process_dollar(t_token *token, t_minishell *minishell, int type, int i);
 void	process_env_var(char *str, char *result, t_index *index,
 			t_minishell *minishell);
+int		retokenize(t_token *tokens, t_minishell *minishell, int i);
+void	process_quote_character(char *str, char *copy, t_quote_state *state,
+			t_index *index);
+void	handle_double_quote(int *i, int *inside_dquotes, int inside_squotes);
+void	handle_single_quote(int *i, int *inside_squotes, int inside_dquotes);
+char	*allocate_quote_copy(char *str);
+char	*prepare_string_for_quote_check(char *str);
 
 /**********************************************************/
+
+t_token	*allocate_new_tokens(int old_count, int nb_new, char **split);
+char	**split_token_value(char *value, int *nb_new);
+int		count_tokens_array(t_token *tokens);
+void	copy_tokens_before(t_token *new_tokens, t_token *tokens, int i);
 
 void	minishell_env(t_minishell *minishell, char **env, int ac, char **av);
 void	init_minishell(t_minishell *minishell);
