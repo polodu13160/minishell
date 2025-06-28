@@ -61,7 +61,8 @@ void	ft_free_tokens(t_minishell *minishell)
 	{
 		while (minishell->tokens[i].type != T_NULL)
 		{
-			if (minishell->tokens[i].value)
+			if (minishell->tokens[i].value
+				&& minishell->tokens[i].value != minishell->tokens[i + 1].value)
 				free(minishell->tokens[i].value);
 			i++;
 		}

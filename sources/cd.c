@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:19:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:49:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 	if (minishell->cwd)
 		free(minishell->cwd);
 	minishell->cwd = ft_strdup(new_pwd);
+	if (!minishell->cwd)
+		return (1);
 	return (0);
 }
 

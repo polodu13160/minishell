@@ -6,67 +6,92 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:13:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 19:31:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "free.h"
+#include "token.h"
 
-static void	insert_split_tokens(t_token *new_tokens, char **split, int start,
-		int nb_new)
+t_token	*tokenize_expanded_value(char *expanded_value)
 {
-	int	k;
+	t_token	*new_tokens;
+	int		count;
 
-	k = 0;
-	while (k < nb_new)
+	count = count_tokens(expanded_value);
+	if (count == 0)
+		return (NULL);
+	new_tokens = ft_calloc(sizeof(t_token), (count + 1));
+	if (!new_tokens)
+		return (NULL);
+	init_data_null(new_tokens, count);
+	if (count_quote(expanded_value))
 	{
-		new_tokens[start + k].value = split[k];
-		new_tokens[start + k].type = T_WORD;
-		new_tokens[start + k].option = NULL;
-		k++;
+		free(new_tokens);
+		return (NULL);
 	}
+	if (check_args(expanded_value, new_tokens, count))
+		free_token(count, new_tokens);
+	new_tokens[count].type = T_NULL;
+	return (new_tokens);
 }
 
-static void	copy_tokens_after(t_token *new_tokens, t_token *tokens, int i,
-		t_retokenize_data *data)
+static t_token	*prepare_retokenized_array(t_token *tokens, t_token *new_tokens,
+		int i, t_retokenize_data *data)
 {
-	int	k;
+	t_token	*result;
 
-	k = i + 1;
-	while (k < data->old_count)
-	{
-		new_tokens[data->insert_pos + data->nb_new + k - (i + 1)] = tokens[k];
-		k++;
-	}
-	new_tokens[data->old_count + data->nb_new - 1].type = T_NULL;
+	data->old_count = count_tokens_array(tokens);
+	data->nb_new = count_new_tokens(new_tokens);
+	result = ft_calloc(sizeof(t_token), data->old_count + data->nb_new);
+	if (!result)
+		return (NULL);
+	data->insert_pos = i;
+	copy_tokens_before(result, tokens, i);
+	copy_new_tokens(result, new_tokens, i, data->nb_new);
+	copy_tokens_after(result, tokens, i, data);
+	return (result);
 }
 
-static void	finalize_retokenize(t_token *tokens, t_token *new_tokens,
-		t_minishell *minishell, int i)
+static void	cleanup_and_assign(t_token *tokens, t_token *new_tokens,
+		t_token *result, t_minishell *minishell)
 {
-	free(tokens[i].value);
 	free(tokens);
-	minishell->tokens = new_tokens;
+	free(new_tokens);
+	minishell->tokens = result;
+}
+
+static void	fix_pipe_types(t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	while (minishell->tokens[i].type != T_NULL)
+	{
+		if (minishell->tokens[i].type == T_PIPE)
+			minishell->tokens[i].type = T_WORD;
+		i++;
+	}
 }
 
 int	retokenize(t_token *tokens, t_minishell *minishell, int i)
 {
 	t_retokenize_data	data;
-	char				**split;
 	t_token				*new_tokens;
+	t_token				*result;
 
-	data.old_count = count_tokens_array(tokens);
-	split = split_token_value(tokens[i].value, &data.nb_new);
-	if (!split)
-		return (1);
-	new_tokens = allocate_new_tokens(data.old_count, data.nb_new, split);
+	new_tokens = tokenize_expanded_value(tokens[i].value);
 	if (!new_tokens)
 		return (1);
-	data.insert_pos = i;
-	copy_tokens_before(new_tokens, tokens, i);
-	insert_split_tokens(new_tokens, split, i, data.nb_new);
-	copy_tokens_after(new_tokens, tokens, i, &data);
-	finalize_retokenize(tokens, new_tokens, minishell, i);
-	free(split);
+	result = prepare_retokenized_array(tokens, new_tokens, i, &data);
+	if (!result)
+	{
+		free_all(new_tokens, minishell, 0);
+		return (1);
+	}
+	free(tokens[i].value);
+	cleanup_and_assign(tokens, new_tokens, result, minishell);
+	fix_pipe_types(minishell);
 	return (0);
 }

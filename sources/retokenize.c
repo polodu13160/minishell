@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 18:52:53 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:14:22 by antbonin         ###   ########.fr       */
+/*   Created: 2025/06/28 19:21:44 by antbonin          #+#    #+#             */
+/*   Updated: 2025/06/28 19:21:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "token.h"
 
 int	count_tokens_array(t_token *tokens)
 {
@@ -22,50 +23,51 @@ int	count_tokens_array(t_token *tokens)
 	return (count);
 }
 
-char	**split_token_value(char *value, int *nb_new)
+int	count_new_tokens(t_token *new_tokens)
 {
-	char	**split;
+	int	count;
 
-	split = ft_split(value, ' ');
-	if (!split)
-		return (NULL);
-	*nb_new = 0;
-	while (split[*nb_new])
-		(*nb_new)++;
-	return (split);
+	count = 0;
+	while (new_tokens[count].type != T_NULL)
+		count++;
+	return (count);
 }
 
-void	free_split_array(char **split)
-{
-	int	j;
-
-	j = 0;
-	while (split[j])
-		free(split[j++]);
-	free(split);
-}
-
-t_token	*allocate_new_tokens(int old_count, int nb_new, char **split)
-{
-	t_token	*new_tokens;
-
-	new_tokens = ft_calloc(sizeof(t_token), old_count + nb_new);
-	if (!new_tokens)
-	{
-		free_split_array(split);
-		return (NULL);
-	}
-	return (new_tokens);
-}
-
-void	copy_tokens_before(t_token *new_tokens, t_token *tokens, int i)
+void	copy_tokens_before(t_token *result, t_token *tokens, int i)
 {
 	int	j;
 
 	j = 0;
 	while (j < i)
 	{
-		new_tokens[j] = tokens[j];
+		result[j] = tokens[j];
 		j++;
 	}
+}
+
+void	copy_new_tokens(t_token *result, t_token *new_tokens, int start,
+		int nb_new)
+{
+	int	k;
+
+	k = 0;
+	while (k < nb_new)
+	{
+		result[start + k] = new_tokens[k];
+		k++;
+	}
+}
+
+void	copy_tokens_after(t_token *result, t_token *tokens, int i,
+		t_retokenize_data *data)
+{
+	int	k;
+
+	k = i + 1;
+	while (k < data->old_count)
+	{
+		result[data->insert_pos + data->nb_new + k - (i + 1)] = tokens[k];
+		k++;
+	}
+	result[data->old_count + data->nb_new - 1].type = T_NULL;
 }
