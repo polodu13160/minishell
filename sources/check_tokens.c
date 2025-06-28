@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/28 22:36:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:39:07 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ int	delete_null_token(t_token *tokens)
 	return (0);
 }
 
-int	check_token(t_token *tokens, t_minishell *minishell)
+int	check_token(t_token *tokens, t_minishell *minishell, int i)
 {
-	int	i;
-
 	check_expand_special(minishell->tokens);
 	if (check_parsing(tokens, minishell, 0, 0))
 		return (1);
@@ -69,7 +67,8 @@ int	check_token(t_token *tokens, t_minishell *minishell)
 	{
 		if (minishell->tokens[i].type == T_ENV)
 		{
-			if (ft_strchr(minishell->tokens[i].value, ' '))
+			if (ft_strchr(minishell->tokens[i].value, ' ')
+				|| ft_strchr(minishell->tokens[i].value, '\t'))
 			{
 				if (retokenize(minishell->tokens, minishell, i))
 					return (1);

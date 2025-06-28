@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 18:18:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:38:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 #include "parsing.h"
 #include "token.h"
 
+// ((ft_strrchr(token->value, '$') + 48) > token->value[1])
+
 static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 {
 	if (token->value[1] == '"')
 	{
-		if (token->value[2] == '$')
-		{
-			if (process_dollar(token, minishell, 0, 0))
-				return (1);
-		}
+		if (ft_strchr(token->value + 2, '$'))
+			token->value = parse_quotes(token->value, minishell);
 		else
 			token->value = handle_double_quotes_env(token->value);
 	}

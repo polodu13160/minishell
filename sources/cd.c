@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 22:48:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:38:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 int	ft_cd(char **str, int i, t_minishell *minishell, int error)
 {
 	char	*path;
-	char	*old_pwd = minishell->cwd;
+	char	*old_pwd;
 
+	old_pwd = minishell->cwd;
 	if (!old_pwd || (str[0] && str[1] && str[2]))
 	{
 		perror("cd: error retrieving current directory");

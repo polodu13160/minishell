@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 21:39:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:38:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "free.h"
+#include "parsing.h"
 #include "token.h"
 
 t_token	*tokenize_expanded_value(char *expanded_value)
