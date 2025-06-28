@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/28 18:35:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:36:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,30 @@ void	check_expand_special(t_token *tokens)
 	}
 }
 
-void	delete_null_token(t_token *tokens)
+int	delete_null_token(t_token *tokens)
 {
 	int	i;
 
+	if (!tokens)
+		return (0);
 	i = 0;
-	if (tokens)
+	while (tokens[i].type != T_NULL && tokens[i + 1].type != T_NULL)
 	{
-		while (tokens[i].type != T_NULL)
+		if (tokens[i].value && tokens[i].value[0] == '\0')
 		{
-			if (tokens[i].value && tokens[i].value[0] == '\0')
+			free(tokens[i].value);
+			while (tokens[i + 1].type != T_NULL)
 			{
-				while (tokens[i + 1].type != T_NULL)
-				{
-					free(tokens[i].value);
-					tokens[i].value = NULL;
-					tokens[i] = tokens[i + 1];
-					i++;
-				}
 				tokens[i] = tokens[i + 1];
+				i++;
 			}
-			i++;
+			tokens[i].value = NULL;
+			tokens[i].type = T_NULL;
+			break ;
 		}
+		i++;
 	}
+	return (0);
 }
 
 int	check_token(t_token *tokens, t_minishell *minishell)
@@ -80,7 +81,8 @@ int	check_token(t_token *tokens, t_minishell *minishell)
 		}
 		i++;
 	}
-	delete_null_token(minishell->tokens);
+	if (delete_null_token(minishell->tokens))
+		return (1);
 	return (0);
 }
 

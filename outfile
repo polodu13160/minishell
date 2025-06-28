@@ -1,0 +1,29 @@
+int	delete_null_token(t_token *tokens)
+{
+	int	i;
+
+	i = 0;
+	if (tokens)
+	{
+		while (tokens[i].type != T_NULL)
+		{
+			if (tokens[i].value && tokens[i].value[0] == '\0')
+			{
+				while (tokens[i + 1].type != T_NULL)
+				{
+					free(tokens[i].value);
+					tokens[i].value = ft_strdup(tokens[i + 1].value);
+					if (!tokens[i].value)
+						return (garbage_caca(tokens, i));
+					i++;
+				}
+				tokens[i].value = ft_strdup(tokens[i + 1].value);
+				break ;
+			}
+			i++;
+		}
+		if (!tokens[i].value)
+			return (garbage_caca(tokens, i));
+	}
+	return (0);
+}

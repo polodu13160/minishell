@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 19:31:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 21:39:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_token	*tokenize_expanded_value(char *expanded_value)
 		return (NULL);
 	}
 	if (check_args(expanded_value, new_tokens, count))
-		free_token(count, new_tokens);
+		free_token(new_tokens);
 	new_tokens[count].type = T_NULL;
 	return (new_tokens);
 }

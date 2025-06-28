@@ -12,6 +12,7 @@
 
 #include "builtins.h"
 #include "stdio.h"
+#include "free.h"
 
 void	ft_free_exec(t_pip *exec)
 {
@@ -52,23 +53,16 @@ void	ft_free_env(t_minishell *minishell)
 	}
 }
 
-void	ft_free_tokens(t_minishell *minishell)
+int	garbage_token_collector(t_token *token, int i)
 {
-	int	i;
-
-	i = 0;
-	if (minishell->tokens)
+	while (i >= 0)
 	{
-		while (minishell->tokens[i].type != T_NULL)
-		{
-			if (minishell->tokens[i].value
-				&& minishell->tokens[i].value != minishell->tokens[i + 1].value)
-				free(minishell->tokens[i].value);
-			i++;
-		}
-		free(minishell->tokens);
-		minishell->tokens = NULL;
+		if (token[i].value)
+			free(token[i].value);
+		token[i].value = NULL;
+		i--;
 	}
+	return (1);
 }
 
 void	free_pipex(t_minishell *minishell, int end)
@@ -104,7 +98,7 @@ void	ft_finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
 {
 	ft_free_exec(exec);
 	ft_free_env(minishell);
-	ft_free_tokens(minishell);
+	free_token(minishell->tokens);
 	free_pipex(minishell, 0);
 	free(minishell->line);
 	if (minishell->cwd)

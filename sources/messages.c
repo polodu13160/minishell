@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 17:37:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:16:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_print_error(t_token *tokens, int i, int error)
 	if (error == 2)
 		perror("not create tmp file");
 	else if (error == 3)
-		perror("get_next_line error");
+		ft_printf_fd(2, "here-document delimited by end-of-file\n");
 	else if (error == 4)
 		perror("write error or close error");
 	else if (error == 5)

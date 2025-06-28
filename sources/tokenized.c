@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 17:53:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 21:39:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	tokenize(char *str, t_minishell *minishell)
 	}
 	if (check_args(str, tokens, count))
 	{
-		free_token(count, tokens);
+		free_token(tokens);
 		return (1);
 	}
 	tokens[count].type = T_NULL;

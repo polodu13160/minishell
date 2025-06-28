@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:35:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int	ft_env(t_minishell *minishell, int pwd)
 		while (minishell->env[i])
 		{
 			if (ft_strchr(minishell->env[i], '='))
-				printf("%s\n", minishell->env[i++]);
+				printf("%s\n", minishell->env[i]);
+			i++;
 		}
 	}
 	else

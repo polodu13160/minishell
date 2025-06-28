@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 17:26:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:21:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	handle_invalid_identifier(char *var_name)
 {
-	printf("export: `%s': not a valid identifier\n", var_name);
+	printf("export: '%s': not a valid identifier\n", var_name);
 	return (1);
 }
 

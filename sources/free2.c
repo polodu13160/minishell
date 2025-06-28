@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 18:51:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:36:12 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	free_loop(t_token *token, t_minishell *minishell)
 	}
 }
 
-void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
+void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
+		int end_readline)
 {
 	free_loop(token, minishell);
 	if (exec)
@@ -94,15 +95,17 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec)
 		free(minishell->line);
 		minishell->line = NULL;
 	}
+	if (end_readline)
+		ft_printf("exit\n");
 	exit(minishell->return_command);
 }
 
-void	free_token(int count, t_token *tokens)
+void	free_token(t_token *tokens)
 {
 	int	i;
 
 	i = 0;
-	while (i < count && tokens[i].type != T_NULL)
+	while (tokens[i].type != T_NULL)
 	{
 		if (tokens[i].value && tokens[i].value != tokens[i + 1].value)
 			free(tokens[i].value);
