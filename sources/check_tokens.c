@@ -6,13 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/28 23:39:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:11:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "free.h"
 #include "parsing.h"
+#include "libft.h"
 
 void	check_expand_special(t_token *tokens)
 {
@@ -38,9 +39,9 @@ int	delete_null_token(t_token *tokens)
 	if (!tokens)
 		return (0);
 	i = 0;
-	while (tokens[i].type != T_NULL && tokens[i + 1].type != T_NULL)
+	while (tokens[i].type != T_NULL)
 	{
-		if (tokens[i].value && tokens[i].value[0] == '\0')
+		if (tokens[i].value &&  (tokens[i].value[0] == '\0' || ft_strncmp(tokens[i].value, ":", 2) == 0))
 		{
 			free(tokens[i].value);
 			while (tokens[i + 1].type != T_NULL)

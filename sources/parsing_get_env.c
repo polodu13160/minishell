@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 19:35:15 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:09:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char *extract_var_env(char *str)
 	if (str_save == NULL)
 		return NULL;
 	null_str_save = str_save + 1;
-	while (*null_str_save != '"' && *null_str_save != '\'' && *null_str_save != '$' && *null_str_save != '/' && *null_str_save != ':' && *null_str_save != '\0' && *null_str_save != '?')
+	while ((ft_isalnum(*null_str_save) == 1 && *null_str_save != '\0') || *null_str_save == '_' )
 		null_str_save++;
 	while (*null_str_save)
 		*(null_str_save++) = '\0';
@@ -150,7 +150,7 @@ char	*return_env(char *str, t_minishell *minishell)
 			}
 			var_name = ft_join_malloc(var_name, get_env_value(var_env+1, minishell->env));
 			str++;
-			while (*str != '"' && *str != '\'' && *str != '$' && *str != '/' && *str != ':' && *str != '\0' && *str != '?')
+			while ((ft_isalnum(*str) == 1 && *str != '\0') || *str == '_')
 					str++;
 		}
 	}
