@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 17:52:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:58:18 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "free.h"
 #include "builtins.h"
+#include "free.h"
 #include "libft.h"
 #include "parsing.h"
 #include "signal.h"
@@ -49,6 +49,13 @@ void	minishell_env(t_minishell *minishell, char **env, int ac, char **av)
 	minishell->return_command = 0;
 	minishell->env = NULL;
 	minishell->cwd = NULL;
+	minishell->cwd_join = NULL;
+	minishell->tokens = NULL;
+	minishell->line = NULL;
+	minishell->pipex = NULL;
+	minishell->pids = NULL;
+	minishell->count_pipe = 0;
+	minishell->nb_here_doc = 0;
 	(void)ac;
 	(void)av;
 	minishell->env = copy_original_env(env);

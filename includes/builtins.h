@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 23:20:31 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:35:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_cd
 
 void							setup_signals(void);
 void							setup_signals_child(void);
+void							setup_signals_heredoc(void);
 
 int								apply_builtins(t_minishell *minishell, int i,
 									t_pip *exec);

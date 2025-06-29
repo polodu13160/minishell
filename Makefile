@@ -47,6 +47,8 @@ FILES = main \
 		retokenize_final \
 		check_quote_command \
 		parsing_full_quote_end \
+		parsing_get_env_quote \
+		return_expand \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 23:56:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:36:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	handle_sigint_child(int signal)
 	(void)signal;
 	g_sig = SIGINT;
 	write(STDOUT_FILENO, "\n", 1);
+	printf("ca marche\n");
 }
 
 void	setup_signals(void)
@@ -52,6 +53,17 @@ void	setup_signals_child(void)
 	act.sa_handler = handle_sigint_child;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	setup_signals_heredoc(void)
+{
+	struct sigaction	act;
+
+	act.sa_handler = handle_sigint_child;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

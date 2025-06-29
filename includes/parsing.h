@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 19:36:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:39:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ char	*allocate_quote_copy(char *str);
 char	*prepare_string_for_quote_check(char *str);
 int		parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 			char *result);
+char	*handle_double_quotes_env(char *str);
+char	*handle_single_quotes_env(char *str);
+void	copy_single(char *str, char *result, int *i, int *j);
+char	*ft_join_malloc(char *malloc_str1, char *malloc_str2);
+char	*ft_chardup(char c);
+char	*extract_var_env(char *str);
 
 /*********************************retokenize*******************/
 

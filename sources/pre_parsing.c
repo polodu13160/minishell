@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/11 17:51:22 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 20:41:37 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,51 @@ int	check_is_forbid(char *str, int i)
 	return (0);
 }
 
+static void	init_quote_counters(int *count_d, int *count_s, int *in_single,
+		int *in_double)
+{
+	*count_d = 0;
+	*count_s = 0;
+	*in_single = 0;
+	*in_double = 0;
+}
+
+static void	handle_double_quote(int *count_d, int *in_double, int in_single)
+{
+	if (!in_single)
+	{
+		(*count_d)++;
+		*in_double = !(*in_double);
+	}
+}
+
+static void	handle_single_quote(int *count_s, int *in_single, int in_double)
+{
+	if (!in_double)
+	{
+		(*count_s)++;
+		*in_single = !(*in_single);
+	}
+}
+
 int	count_quote(char *str)
 {
 	int	i;
 	int	count_d;
 	int	count_s;
+	int	in_single;
+	int	in_double;
 
 	i = 0;
-	count_d = 0;
-	count_s = 0;
+	init_quote_counters(&count_d, &count_s, &in_single, &in_double);
 	while (str[i])
 	{
 		if (check_is_forbid(str, i))
 			return (1);
-		if (!ft_strchr(str, '\'') && str[i] == '"')
-			count_d++;
-		else if (!ft_strchr(str, '"') && str[i] == '\'')
-			count_s++;
+		if (str[i] == '"')
+			handle_double_quote(&count_d, &in_double, in_single);
+		else if (str[i] == '\'')
+			handle_single_quote(&count_s, &in_single, in_double);
 		i++;
 	}
 	if (count_d % 2 != 0 || count_s % 2 != 0)

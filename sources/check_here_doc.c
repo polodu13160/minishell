@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "pipex.h"
 #include "token.h"
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <stdio.h>
 #include <sys/stat.h>
-
-extern char	**environ;
 
 int	check_command(t_token *tokens, int i)
 {
@@ -93,14 +92,16 @@ int	write_here_doc(int i, int j, t_token *tokens, int save_text)
 	{
 		if (j != 0)
 		{
-			if ((read_like_gnl != NULL) && (write(save_text, read_like_gnl,
-						ft_strlen(read_like_gnl)) == -1 || write(save_text,
-						"\n", 1) == -1))
+			if ((read_like_gnl != NULL) && g_sig != SIGINT && (write(save_text,
+						read_like_gnl, ft_strlen(read_like_gnl)) == -1
+					|| write(save_text, "\n", 1) == -1))
+			{
 				return (free_and_close(read_like_gnl, &save_text, 4));
+			}
 			free(read_like_gnl);
 		}
 		read_like_gnl = readline(">");
-		if (read_like_gnl == NULL)
+		if (g_sig == SIGINT || read_like_gnl == NULL)
 			return (free_and_close(read_like_gnl, &save_text, 3));
 	}
 	free(read_like_gnl);
