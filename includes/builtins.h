@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:19:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:20:31 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int								check_builtins(t_minishell *minishell, int i);
 char							**copy_original_env(char **env);
 void							shift_token(t_token *token, int i);
 int								check_token(t_token *token,
-									t_minishell *minishell);
+									t_minishell *minishell, int i);
 void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
 int								env_loop(char **copy_env, char **env, int *i);
@@ -66,7 +66,7 @@ int								ft_echo(char **str, int i);
 /********************************cd*****************************************/
 
 int								ft_cd(char **str, int i,
-									t_minishell *minishell);
+									t_minishell *minishell, int error);
 char							*ft_strjoin3(const char *s1, const char *s2,
 									const char *s3);
 int								copy_new_env(t_minishell *minishell,
@@ -82,8 +82,6 @@ int								check_path(char *str);
 
 void							ft_exit(char **str, t_minishell *minishell,
 									int i, t_pip *exec);
-void							free_exit(t_token *token,
-									t_minishell *minishell, t_pip *exit);
 
 /****************************************************************************/
 

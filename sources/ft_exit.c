@@ -6,18 +6,19 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:10:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "free.h"
 
 int	check_arg_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 {
 	if (!str[i + 1])
 	{
 		minishell->return_command = 0;
-		free_exit(minishell->tokens, minishell, exec);
+		free_exit(minishell->tokens, minishell, exec, 0);
 	}
 	if (str[i + 1] && str[i + 2])
 	{
@@ -64,19 +65,19 @@ void	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 	if (check_exit_numeric(str, i, &sign) == 2)
 	{
 		minishell->return_command = 2;
-		free_exit(NULL, minishell, exec);
+		free_exit(NULL, minishell, exec, 0);
 	}
 	value = ft_atoll(str[i + 1], &error);
 	if (error)
 	{
 		ft_putendl_fd("exit: numeric argument required", 2);
 		minishell->return_command = 2;
-		free_exit(minishell->tokens, minishell, exec);
+		free_exit(minishell->tokens, minishell, exec, 0);
 	}
 	if (sign)
 		value = 256 - value;
 	else if (value > 255)
 		value = value % 256;
 	minishell->return_command = value;
-	free_exit(minishell->tokens, minishell, exec);
+	free_exit(minishell->tokens, minishell, exec, 0);
 }

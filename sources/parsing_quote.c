@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:23:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:32:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,12 @@ char	*parse_env(char *str, t_minishell *minishell)
 		free(str);
 		return (NULL);
 	}
-	while (str[index.i])
+	while (str[index.i] && result != NULL)
 	{
 		if (str[index.i] == '$')
+		{
 			process_env_var(str, result, &index, minishell);
+		}
 		else
 			result[index.j++] = str[index.i++];
 	}

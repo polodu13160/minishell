@@ -6,26 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 16:35:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 19:35:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "token.h"
-
-static char	*init_quote_parsing(char *str, t_index *index, t_quote_state *state)
-{
-	char	*result;
-
-	index->i = 0;
-	index->j = 0;
-	state->in_dquote = 0;
-	state->in_squote = 0;
-	result = ft_calloc(sizeof(char), (ft_strlen(str) * 4 + 1));
-	if (!result)
-		return (NULL);
-	return (result);
-}
 
 static void	handle_quotes(char *str, t_index *index, t_quote_state *state,
 		char *result)
@@ -54,13 +40,14 @@ char	*extract_var_name(char *str, int *i, int *var_len)
 	(*i)++;
 	while (str[*i + *var_len] && str[*i + *var_len] != ' ' && str[*i
 			+ *var_len] != '"' && str[*i + *var_len] != '\'' && str[*i
-			+ *var_len] != '$' && str[*i + *var_len] != '/')
+			+ *var_len] != '$' && str[*i + *var_len] != '/' && str[*i
+			+ *var_len] != ':')
 		(*var_len)++;
 	var_name = ft_substr(str, *i, *var_len);
 	return (var_name);
 }
 
-void	process_env_var(char *str, char *result, t_index *index,
+int	process_env_var(char *str, char *result, t_index *index,
 		t_minishell *minishell)
 {
 	char	*var_name;
@@ -71,35 +58,41 @@ void	process_env_var(char *str, char *result, t_index *index,
 	var_name = extract_var_name(str, &(index->i), &var_len);
 	value = get_env_value(var_name, minishell->env);
 	free(var_name);
+	if (!value)
+	{
+		index->i += var_len;
+		return (0);
+	}
 	k = 0;
 	while (value && value[k])
 		result[(index->j)++] = value[k++];
 	free(value);
 	index->i += var_len;
+	return (0);
 }
 
-char	*parse_quotes(char *str, t_minishell *minishell)
+int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
+		char *result)
 {
-	t_index			index;
 	t_quote_state	state;
-	char			*result;
 
-	result = init_quote_parsing(str, &index, &state);
-	if (!result)
+	state.in_dquote = 0;
+	state.in_squote = 0;
+	while (str[index->i])
 	{
-		free(str);
-		return (NULL);
-	}
-	while (str[index.i])
-	{
-		if (str[index.i] == '"' || str[index.i] == '\'')
-			handle_quotes(str, &index, &state, result);
-		else if (str[index.i] == '$' && !state.in_squote)
-			process_env_var(str, result, &index, minishell);
+		if (str[index->i] == '$' && !state.in_squote)
+		{
+			if (process_env_var(str, result, index, minishell))
+			{
+				free(result);
+				free(str);
+				return (1);
+			}
+		}
+		else if (str[index->i] == '"' || str[index->i] == '\'')
+			handle_quotes(str, index, &state, result);
 		else
-			result[index.j++] = str[index.i++];
+			result[index->j++] = str[index->i++];
 	}
-	result[index.j] = '\0';
-	free(str);
-	return (result);
+	return (0);
 }

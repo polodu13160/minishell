@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/25 18:36:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:26:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int			count_tokens(char *str);
 int			tokenize(char *str, t_minishell *minishell);
 int			count_quote(char *str);
 int			check_is_forbid(char *str, int i);
+void		init_data_null(t_token *token, int count);
+int			check_args(char *str, t_token *token, int count);
 
 /********************************lexing**************************************/
 int			is_dollar(char *str, int *i, int *token_index, t_token *token);
@@ -106,7 +108,6 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*************************************************************************/
 
 int			free_all(t_token *token, t_minishell *structure, int end);
-char		*get_env_value(char *var_name, char **env);
 // rajouter par paul
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
 int			ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);

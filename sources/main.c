@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 17:43:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:48:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 static void	main_run(t_minishell *minishell)
 {
+	setup_signals_child();
+	setup_signals();
 	if (tokenize(minishell->line, minishell) == 0)
 	{
-		setup_signals_child();
-		setup_signals();
-		if (!check_token(minishell->tokens, minishell))
+		if (!check_token(minishell->tokens, minishell, 0))
 		{
 			if (ft_check(minishell->tokens, 0, minishell) == 0)
 			{
@@ -70,6 +70,7 @@ int	main(int ac, char **av, char **env)
 	t_minishell	minishell;
 
 	minishell_env(&minishell, env, ac, av);
+	setup_signals();
 	while (1)
 	{
 		init_minishell(&minishell);

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:27:31 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:38:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 #include "parsing.h"
 #include "token.h"
 
+// ((ft_strrchr(token->value, '$') + 48) > token->value[1])
+
 static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 {
 	if (token->value[1] == '"')
 	{
-		if (token->value[2] == '$')
-		{
-			if (process_dollar(token, minishell, 0, 0))
-				return (1);
-		}
+		if (ft_strchr(token->value + 2, '$'))
+			token->value = parse_quotes(token->value, minishell);
 		else
 			token->value = handle_double_quotes_env(token->value);
 	}
@@ -30,6 +29,8 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 		token->value = handle_single_quotes_env(token->value);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
 		token->value = parse_quotes(token->value, minishell);
+	if (!token->value)
+		return (1);
 	return (0);
 }
 
@@ -46,6 +47,8 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell)
 	else
 	{
 		temp = return_env(token->value, minishell);
+		if (!temp)
+			return (1);
 		free(token->value);
 		token->value = temp;
 	}
@@ -56,14 +59,24 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell)
 
 static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
 {
+	int	was_double_quoted;
+
+	was_double_quoted = (token->value[0] == '"');
 	if (ft_strchr(token->value, '$') && !ft_strchr(token->value, '\''))
 	{
 		token->value = parse_quotes(token->value, minishell);
-		token->type = T_ENV;
+		if (!token->value)
+			return (1);
+		if (!was_double_quoted)
+			token->type = T_ENV;
 	}
 	else if (token->value[0] == '"' || token->value[0] == '\''
 		|| ft_strchr(token->value, '$'))
+	{
 		token->value = parse_quotes(token->value, minishell);
+		if (!token->value)
+			return (1);
+	}
 	else if (token->type == T_FUNC)
 		token->value = check_quote_command(token->value);
 	if (!token->value)

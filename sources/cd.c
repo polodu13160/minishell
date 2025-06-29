@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:19:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:38:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft.h"
+#include "parsing.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -67,50 +68,55 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 	if (minishell->cwd)
 		free(minishell->cwd);
 	minishell->cwd = ft_strdup(new_pwd);
+	if (!minishell->cwd)
+		return (1);
 	return (0);
 }
 
-char	*get_cd_path(char **str, int i)
+char	*get_cd_path(char **str, int i, t_minishell *minishell)
 {
 	char	*path;
+	char	*home_value;
 
 	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1))
 	{
-		path = getenv("HOME");
-		if (!path)
+		home_value = get_env_value("HOME", minishell->env);
+		if (!home_value || ft_strlen(home_value) == 0)
 		{
+			if (home_value)
+				free(home_value);
 			ft_putstr_fd("cd: HOME not set\n", 2);
 			return (NULL);
 		}
+		return (home_value);
 	}
 	else
 		path = str[i + 1];
-	return (path);
+	return (ft_strdup(path));
 }
 
-int	ft_cd(char **str, int i, t_minishell *minishell)
+int	ft_cd(char **str, int i, t_minishell *minishell, int error)
 {
 	char	*path;
 	char	*old_pwd;
-	int		error;
 
-	error = 0;
 	old_pwd = minishell->cwd;
 	if (!old_pwd || (str[0] && str[1] && str[2]))
 	{
 		perror("cd: error retrieving current directory");
 		return (1);
 	}
-	path = get_cd_path(str, i);
+	path = get_cd_path(str, i, minishell);
 	if (!path)
 		return (1);
-	if (check_path(path))
-		return (0);
-	if (chdir(path) != 0)
+	if (check_path(path) || chdir(path) != 0)
 	{
-		error += handle_cd_error(path);
+		if (!check_path(path))
+			error += handle_cd_error(path);
+		free(path);
 		return (error);
 	}
 	error += update_pwd_vars(old_pwd, minishell);
+	free(path);
 	return (error);
 }
