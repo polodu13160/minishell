@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+extern volatile sig_atomic_t g_sig;
+
 int	check_command(t_token *tokens, int i)
 {
 	if (tokens[i].type == T_PIPE)
@@ -50,7 +52,15 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 		{
 			error = ft_check_here_doc(tokens, i, minishell);
 			if (error > 0)
+			{
+				minishell->return_command = 1;
+				if (error == 130)
+				{
+					minishell->return_command = error;
+					return (130);
+				}
 				return (ft_print_error(tokens, i, error));
+			}
 		}
 		if (recurs == 0)
 			if (check_command(tokens, i) == 1)
@@ -82,11 +92,23 @@ static char	*create_name_here_doc(int i)
 	return (join_text1);
 }
 
+int check_interrupt(void)
+{
+	if (g_sig == SIGINT)
+	{
+		rl_done = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	write_here_doc(int i, int j, t_token *tokens, int save_text)
 {
 	char	*read_like_gnl;
 
 	read_like_gnl = NULL;
+	setup_signals_heredoc();
+	rl_event_hook = check_interrupt;
 	while (j++ == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
 			tokens[i + 1].value))
 	{
@@ -101,10 +123,18 @@ int	write_here_doc(int i, int j, t_token *tokens, int save_text)
 			free(read_like_gnl);
 		}
 		read_like_gnl = readline(">");
-		if (g_sig == SIGINT || read_like_gnl == NULL)
+		if (g_sig == SIGINT)
+		{
+			free(read_like_gnl);
+			close(save_text);
+			rl_event_hook = NULL;
+			return (130);
+		}
+		if (read_like_gnl == NULL)
 			return (free_and_close(read_like_gnl, &save_text, 3));
 	}
 	free(read_like_gnl);
+	setup_signals();
 	if (ft_close(&save_text) == -1)
 		free_and_close(read_like_gnl, &save_text, 4);
 	return (0);

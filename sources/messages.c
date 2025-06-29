@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/28 22:16:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:10:22 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_print_error(t_token *tokens, int i, int error)
 		printf("syntax error near unexpected token `newline'\n");
 	else
 	{
-		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i
+		ft_printf_fd(2, "syntax error near unexpected token '%s'\n", tokens[i
 			+ 1].value);
 	}
 	return (1);
