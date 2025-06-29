@@ -6,11 +6,10 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 22:35:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:51:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define _POSIX_C_SOURCE 200809L
 #include "builtins.h"
 #include <readline/history.h>
 #include <readline/readline.h>
@@ -34,7 +33,8 @@ void	handle_sigint_child(int signal)
 {
 	(void)signal;
 	g_sig = SIGINT;
-	write(STDOUT_FILENO, "\n", 1);
+	rl_done = 1;
+	rl_redisplay();
 }
 
 void	setup_signals(void)
@@ -56,26 +56,6 @@ void	setup_signals_child(void)
 	act.sa_handler = handle_sigint_child;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &act, NULL);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	handle_sigint_heredoc(int signal)
-{
-	(void)signal;
-	g_sig = SIGINT;
-	rl_done = 1;
-	rl_redisplay();
-}
-
-void	setup_signals_heredoc(void)
-{
-	struct sigaction	act;
-
-	g_sig = 0;
-	act.sa_handler = handle_sigint_heredoc;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

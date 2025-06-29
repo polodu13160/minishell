@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 22:07:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:50:50 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 static void	main_run(t_minishell *minishell)
 {
-	setup_signals_child();
 	setup_signals();
 	if (tokenize(minishell->line, minishell) == 0)
 	{

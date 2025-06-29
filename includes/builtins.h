@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 21:35:14 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:46:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_cd
 void							setup_signals(void);
 void							setup_signals_child(void);
 void							setup_signals_heredoc(void);
+void							handle_sigint_heredoc(int signal);
 
 int								apply_builtins(t_minishell *minishell, int i,
 									t_pip *exec);
@@ -66,8 +67,8 @@ int								ft_echo(char **str, int i);
 
 /********************************cd*****************************************/
 
-int								ft_cd(char **str, int i,
-									t_minishell *minishell, int error);
+int								ft_cd(char **str, int i, t_minishell *minishell,
+									int error);
 char							*ft_strjoin3(const char *s1, const char *s2,
 									const char *s3);
 int								copy_new_env(t_minishell *minishell,

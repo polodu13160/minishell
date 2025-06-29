@@ -49,6 +49,7 @@ FILES = main \
 		parsing_full_quote_end \
 		parsing_get_env_quote \
 		return_expand \
+		check_here_doc_signals \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
