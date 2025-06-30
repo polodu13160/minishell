@@ -6,13 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 13:09:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:45:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "pipex.h"
 #include "stdio.h"
+#include "free.h"
 
 int	check_builtins(t_minishell *minishell, int i)
 {

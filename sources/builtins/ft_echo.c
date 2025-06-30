@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:21:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_echo(char **str, int start)
 	while (str[i])
 	{
 		ft_putstr_fd(str[i], 1);
-		if (str[i])
+		if (str[i] && str[i + 1])
 			ft_putchar_fd(' ', 1);
 		i++;
 	}

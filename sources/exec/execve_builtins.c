@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 17:48:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:26:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,21 @@ static int	ft_execve_finish_builtin(t_minishell *minishell, t_pip *exec,
 		return (0);
 }
 
-int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i)
+int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
+		int return_exec)
 {
 	pid_t	pid;
 	int		n_pipe[2];
-	int		return_exec;
 
 	if (pipe(n_pipe) < 0)
 		return (1);
 	pid = fork();
-	return_exec = 1;
 	minishell->pids[i] = pid;
 	if (pid == -1)
 		error_fork(exec, minishell, n_pipe);
 	if (pid == 0)
 	{
+		setup_signals_child();
 		if (exec->error == 0)
 			return_exec = ft_execve_finish_builtin(minishell, exec, n_pipe, i);
 		if (exec->fd_infile.value == NULL)

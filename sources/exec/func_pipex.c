@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 13:09:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:27:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "builtins.h"
 
 void	ft_init_exec_loop(t_pip *exec)
 {
@@ -79,21 +80,20 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 	return (127);
 }
 
-int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i)
+int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 {
 	pid_t	pid;
 	int		new_pipe[2];
-	int		return_exec;
 
 	if (pipe(new_pipe) < 0)
 		return (1);
 	pid = fork();
-	return_exec = 1;
 	minishell->pids[i] = pid;
 	if (pid == -1)
 		error_fork(exec, minishell, NULL);
 	if (pid == 0)
 	{
+		setup_signals_child();
 		if (exec->error == 0)
 			return_exec = ft_execve_finish(minishell, exec, new_pipe, i);
 		if (exec->fd_infile.value == NULL)
@@ -120,6 +120,7 @@ int	ft_execve_first(t_minishell *minishell, t_pip *exec)
 		error_fork(exec, minishell, NULL);
 	if (pid == 0)
 	{
+		setup_signals_child();
 		if (exec->error == 0)
 			return_exec = ft_execve_first_child(minishell, exec);
 		if (exec->fd_infile.value == NULL)

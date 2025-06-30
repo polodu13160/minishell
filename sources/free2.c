@@ -6,17 +6,18 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 22:36:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:43:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
 
-void	ft_finish(t_pip *exec, t_minishell *minishell, int status)
+int	ft_finish(t_pip *exec, t_minishell *minishell, int status)
 {
 	ft_free_exec(exec);
 	free_pipex(minishell, 0);
 	minishell->return_command = status;
+	return (1);
 }
 
 int	free_all(t_token *token, t_minishell *structure, int end)

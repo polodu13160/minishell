@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 18:58:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:34:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	init_minishell(t_minishell *minishell)
 	minishell->pids = NULL;
 	minishell->nb_here_doc = 0;
 	if (g_sig == SIGINT)
+	{
 		minishell->return_command = 130;
+	}
 	declare_readline(minishell);
 }
 

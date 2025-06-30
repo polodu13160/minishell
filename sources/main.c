@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 13:08:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:39:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parsing.h"
 #include "pipex.h"
 #include "readline/history.h"
+#include "readline/readline.h"
 #include "token.h"
 #include <stdio.h>
 

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/29 18:25:03 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 14:40:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	delete_null_token(t_token *tokens)
 	i = 0;
 	while (tokens[i].type != T_NULL)
 	{
-		if (tokens[i].value && (tokens[i].value[0] == '\0'
-				|| ft_strncmp(tokens[i].value, ":", 2) == 0))
+		if (tokens[i].value && ft_strncmp(tokens[i].value, ":", 2) == 0)
 		{
 			free(tokens[i].value);
 			while (tokens[i + 1].type != T_NULL)

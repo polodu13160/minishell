@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 18:39:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:40:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void	copy_single(char *str, char *result, int *i, int *j);
 char	*ft_join_malloc(char *malloc_str1, char *malloc_str2);
 char	*ft_chardup(char c);
 char	*extract_var_env(char *str);
+char	*extract_var_name(char *str, int *i, int *var_len);
+size_t	calculate_needed_size(char *str, t_minishell *minishell, int i,
+			size_t total_size);
 
 /*********************************retokenize*******************/
 
