@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 22:21:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:04:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	add_new_variable(char **str, t_minishell *minishell, int i)
 {
 	char	**temp_env;
 
+	if (ft_strchr(str[i + 1], '=') == NULL)
+		return (0);
 	temp_env = copy_env(minishell, str, i);
 	if (!temp_env)
 		return (1);

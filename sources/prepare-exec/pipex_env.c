@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/18 04:39:36 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/30 12:53:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_add_slash_to_env(t_pip *exec)
 	char	*new_path;
 	int		i;
 
+	if (exec->path_args == NULL)
+		return (0);
 	i = 0;
 	while (exec->path_args[i])
 		i++;
@@ -35,6 +37,7 @@ int	ft_set_path_env(t_pip *exec, char **env)
 {
 	char	*text;
 
+	exec->path_args = NULL;
 	while (*env != NULL)
 	{
 		if (ft_strncmp(*env, "PATH=", 5) == 0)
@@ -63,6 +66,8 @@ int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
 	int	test_acces;
 
+	if (exec->path_args == NULL)
+		return (127);
 	while (exec->path_args[i])
 	{
 		exec->path_absolut_exec = ft_strjoin(exec->path_args[i],

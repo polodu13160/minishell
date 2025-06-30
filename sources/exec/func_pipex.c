@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 17:35:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:09:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
 #include "free.h"
+#include "pipex.h"
 #include "token.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -36,7 +36,8 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 
 	if (ft_close_and_dup(exec) == 8)
 		return (8);
-	if (minishell->pipex[0].cmd[0] != NULL)
+	if (minishell->pipex[0].cmd[0] != NULL
+		&& minishell->pipex[0].cmd[0][0] != '\0')
 	{
 		test_acces = access(minishell->pipex[0].cmd[0], F_OK);
 		if (test_acces == 0 && ft_strchr(minishell->pipex[0].cmd[0], '/') != 0)
@@ -49,7 +50,7 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 			return (ft_exec_to_env(minishell, exec, 0, 0));
 	}
 	else
-		return (0);
+		return (127);
 	return (127);
 }
 
@@ -60,7 +61,8 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 
 	if (ft_close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
-	if (minishell->pipex[i].cmd[0] != NULL)
+	if (minishell->pipex[i].cmd[0] != NULL
+		&& minishell->pipex[i].cmd[0][0] != '\0')
 	{
 		test_acces = access(minishell->pipex[i].cmd[0], F_OK);
 		if (test_acces == 0 && ft_strchr(minishell->pipex[i].cmd[0], '/') != 0)
@@ -73,7 +75,7 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 			return (ft_exec_to_env(minishell, exec, 0, i));
 	}
 	else
-		return (0);
+		return (127);
 	return (127);
 }
 

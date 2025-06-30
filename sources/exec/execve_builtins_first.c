@@ -6,24 +6,25 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:04:37 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/26 15:55:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:09:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
 #include "builtins.h"
 #include "free.h"
+#include "pipex.h"
 
 static int	ft_execve_first_builtin(t_minishell *minishell, t_pip *exec)
 {
 	if (ft_close_and_dup(exec) == 8)
 		return (8);
-	if (minishell->pipex[0].cmd[0] != NULL)
+	if (minishell->pipex[0].cmd[0] != NULL
+		&& minishell->pipex[0].cmd[0][0] != '\0')
 	{
 		return (apply_builtins(minishell, 0, exec));
 	}
 	else
-		return (0);
+		return (127);
 }
 
 void	error_fork(t_pip *exec, t_minishell *minishell, int *new_pipe)

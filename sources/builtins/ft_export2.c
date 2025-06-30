@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 22:35:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:09:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	exist_return(char **str, int exists, int i, t_minishell *minishell)
 {
 	char	*temp;
 
+	if (ft_strchr(str[i + 1], '=') == NULL)
+		return (1);
 	temp = ft_strdup(str[i + 1]);
 	if (!temp)
 		return (2);
