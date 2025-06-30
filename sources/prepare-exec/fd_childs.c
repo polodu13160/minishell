@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_childs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 17:35:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 22:34:33 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	ft_check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		if (minishell->pipex[i].infiles[j].type != T_PIPE
 			&& access(minishell->pipex[i].infiles[j].value, R_OK) == -1)
 		{
-			return (ft_perr_and_add_exec_error(\
-			minishell->pipex[i].infiles[j].value,
+			return (ft_perr_and_add_exec_error(minishell->pipex[i].infiles[j].value,
 					exec));
 		}
 	}
@@ -38,8 +37,7 @@ int	ft_check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 			exec->fd_infile.fd = open(minishell->pipex[i].infiles[j].value,
 					O_RDONLY);
 			if (exec->fd_infile.fd == -1)
-				return (ft_perr_and_add_exec_error(\
-				minishell->pipex[i].infiles[j].value,
+				return (ft_perr_and_add_exec_error(minishell->pipex[i].infiles[j].value,
 						exec));
 		}
 	}
@@ -82,8 +80,21 @@ int	ft_check_perm(t_pip *exec, t_minishell *minishell, int i)
 	j = -1;
 	if (ft_check_perm_infiles(minishell, i, j, exec) == 1)
 		return (1);
+	j = -1;
 	while (minishell->pipex[i].outfiles[++j].value != NULL)
-		;
+	{
+		if (minishell->pipex[i].outfiles[j].type != T_PIPE)
+		{
+			if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
+				&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
+				return (ft_perr_and_add_exec_error(minishell->pipex[i].infiles[j].value,
+						exec));
+			else if (open(minishell->pipex[i].outfiles[j].value,
+					O_CREAT | O_WRONLY | O_APPEND, 0644) == -1)
+				return (ft_perr_and_add_exec_error(minishell->pipex[i].infiles[j].value,
+						exec));
+		}
+	}
 	if (ft_check_perm_outfiles(minishell, i, j, exec) == 1)
 		return (1);
 	return (0);

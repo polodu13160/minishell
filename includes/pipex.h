@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 16:40:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:44:12 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int			ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
 				int return_exec);
 int			ft_wait_child(t_minishell *minishell);
 void		error_fork(t_pip *exec, t_minishell *minishell, int *new_pipe);
+void		ft_close_2_fds(int *fd, int *fd2);
 
 #endif

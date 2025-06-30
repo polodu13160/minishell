@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 20:07:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/30 22:09:31 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void	init_exec(t_pip *exec, char **env)
 {
 	exec->path_absolut_exec = NULL;
 	exec->error = 0;
-	exec->pipe[0] = 0;
-	exec->pipe[1] = 1;
+	exec->pipe[0] = -1;
+	exec->pipe[1] = -1;
 	exec->path_args = NULL;
 	exec->env = env;
 	exec->fd_infile.value = NULL;
+	exec->fd_infile.fd = -1;
 	exec->fd_outfile.value = NULL;
+	exec->fd_outfile.fd = -1;
 }
 
 int	ft_wait_child(t_minishell *minishell)
@@ -127,7 +129,7 @@ int	ft_pipex(t_minishell *minishell)
 		return (ft_finish(&exec, minishell, status));
 	if (pipe(exec.pipe) == -1)
 		return (1);
-	rl_event_hook = in_process_marker;
+	rl_event_hook = in_process_marker; //c quoi ca
 	ft_loop_pipe(minishell, &exec, -1);
 	ft_wait_child(minishell);
 	status = minishell->return_command;
