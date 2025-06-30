@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 16:26:14 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:14:30 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 			ft_close(&dup_redirect_out);
 		}
 		minishell->return_command = apply_builtins(minishell, 0, exec);
-		if (dup2(dup_redirect_in, 0) == -1 || dup2(dup_redirect_out, 1) == -1)
-			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
+		if (exec->fd_infile.fd != -1)
+			if (dup2(dup_redirect_in, 0) == -1)
+			 return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
 					dup_redirect_out));
+		if (exec->fd_outfile.fd != -1)
+			if (dup2(dup_redirect_out, 1) == -1)
+				return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
+					dup_redirect_out));	
 		ft_close(&dup_redirect_in);
 		ft_close(&dup_redirect_out);
 		return (minishell->return_command);
