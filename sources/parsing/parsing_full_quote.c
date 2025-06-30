@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 19:35:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:20:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,22 @@ int	process_env_var(char *str, char *result, t_index *index,
 	return (0);
 }
 
+void	check_state_quote(char *str, t_quote_state *state, t_index *index,
+		char *result)
+{
+	if (str[index->i] == '\\' && state->in_dquote && str[index->i + 1])
+	{
+		if (str[index->i + 1] == '$' || str[index->i + 1] == '"' || str[index->i
+				+ 1] == '\\' || str[index->i + 1] == '`')
+		{
+			result[index->j++] = str[index->i + 1];
+			index->i += 2;
+		}
+		else
+			result[index->j++] = str[index->i++];
+	}
+}
+
 int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 		char *result)
 {
@@ -80,7 +96,9 @@ int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 	state.in_squote = 0;
 	while (str[index->i])
 	{
-		if (str[index->i] == '$' && !state.in_squote)
+		if (str[index->i] == '\\' && state.in_dquote && str[index->i + 1])
+			check_state_quote(str, &state, index, result);
+		else if (str[index->i] == '$' && !state.in_squote)
 		{
 			if (process_env_var(str, result, index, minishell))
 			{
