@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_outfiles.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/25 23:29:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 02:17:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
 			if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
 			{
 				free(tokens[i].value);
-				tokens[i].value = NULL;
 				tokens[i].value = tokens[i + 1].value;
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_outfiles[j++] = tokens[i];

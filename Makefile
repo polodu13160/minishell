@@ -4,52 +4,53 @@ CC = cc
 CFLAGS = -Wall -Wextra  -g3 -MMD -MP -I$(LIBFT_DIR)includes -Iincludes
 CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
+
 NAME = minishell
 FILES = main \
-		tokenized \
-		tokenized_more \
-		tokenized_more2 \
-		count_tokens \
-		ft_echo \
-		pre_parsing \
-		parsing_quote \
-		parsing \
-		parsing_get_env \
-		parsing_full_quote \
-		cd \
-		check_here_doc \
-		pipex \
-		func_pipex \
+		parsing/tokenized \
+		parsing/tokenized_more \
+		parsing/tokenized_more2 \
+		parsing/count_tokens \
+		builtins/ft_echo \
+		parsing/pre_parsing \
+		parsing/parsing_quote \
+		parsing/parsing \
+		parsing/parsing_get_env \
+		parsing/parsing_full_quote \
+		builtins/cd \
+		prepare-exec/check_here_doc \
+		exec/pipex \
+		exec/func_pipex \
 		error_and_free \
 		messages \
-		cmds \
-		fd_childs \
-		fd_infiles \
-		fd_outfiles \
-		fd \
-		prepare_to_pipex \
-		pipex_env \
-		cd2 \
-		ft_exit \
-		ft_export \
-		ft_unset \
-		builtins_env \
+		prepare-exec/cmds \
+		prepare-exec/fd_childs \
+		prepare-exec/fd_infiles \
+		prepare-exec/fd_outfiles \
+		prepare-exec/fd \
+		prepare-exec/prepare_to_pipex \
+		prepare-exec/pipex_env \
+		builtins/cd2 \
+		builtins/ft_exit \
+		builtins/ft_export \
+		builtins/ft_unset \
+		builtins/builtins_env \
 		free \
-		ctrl \
-		execve_builtins \
-		check_tokens \
-		env_prepare_builtins \
+		parsing/ctrl \
+		exec/execve_builtins \
+		parsing/check_tokens \
+		builtins/env_prepare_builtins \
 		init_minishell \
 		free2 \
-		execve_builtins_first \
-		ft_export2 \
-		retokenize \
-		retokenize_final \
-		check_quote_command \
-		parsing_full_quote_end \
-		parsing_get_env_quote \
-		return_expand \
-		check_here_doc_signals \
+		exec/execve_builtins_first \
+		builtins/ft_export2 \
+		parsing/retokenize \
+		parsing/retokenize_final \
+		parsing/check_quote_command \
+		parsing/parsing_full_quote_end \
+		parsing/parsing_get_env_quote \
+		parsing/return_expand \
+		prepare-exec/check_here_doc_signals \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
@@ -72,6 +73,10 @@ FORCE:
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c 
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)parsing
+	mkdir -p $(OBJ_DIR)exec
+	mkdir -p $(OBJ_DIR)prepare-exec
+	mkdir -p $(OBJ_DIR)builtins
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 22:49:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 02:53:33 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int			free_all(t_token *token, t_minishell *structure, int end);
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
 int			ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);
 int			ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens);
-int			write_here_doc(int i, int j, t_token *tokens, int save_text);
+int			write_here_doc(int i, t_token *tokens, int save_text);
 int			ft_pipex(t_minishell *minishell);
 /*********************message************************* */
 int			ft_print_error(t_token *tokens, int i, int error);

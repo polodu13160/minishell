@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc_signals.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 22:57:05 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 02:53:16 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,22 @@ int	check_interrupt(void)
 	return (0);
 }
 
-int	write_here_doc(int i, int j, t_token *tokens, int save_text)
+int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
+		int i)
 {
-	char	*read_like_gnl;
+	int	j;
 
-	read_like_gnl = NULL;
-	setup_signals_child();
-	rl_event_hook = check_interrupt;
+	j = 0;
 	while (j++ == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
 			tokens[i + 1].value))
 	{
-		if (j != 0)
+		if ((read_like_gnl != NULL) && g_sig != SIGINT && (write(save_text,
+					read_like_gnl, ft_strlen(read_like_gnl)) == -1
+				|| write(save_text, "\n", 1) == -1))
 		{
-			if ((read_like_gnl != NULL) && g_sig != SIGINT && (write(save_text,
-						read_like_gnl, ft_strlen(read_like_gnl)) == -1
-					|| write(save_text, "\n", 1) == -1))
-			{
-				return (free_and_close(read_like_gnl, &save_text, 4));
-			}
-			free(read_like_gnl);
+			return (free_and_close(read_like_gnl, &save_text, 4));
 		}
+		free(read_like_gnl);
 		read_like_gnl = readline(">");
 		if (g_sig == SIGINT)
 		{
@@ -56,6 +52,20 @@ int	write_here_doc(int i, int j, t_token *tokens, int save_text)
 		if (read_like_gnl == NULL)
 			return (free_and_close(read_like_gnl, &save_text, 3));
 	}
+	return (0);
+}
+
+int	write_here_doc(int i, t_token *tokens, int save_text)
+{
+	char	*read_like_gnl;
+	int		return_while;
+
+	read_like_gnl = NULL;
+	setup_signals_child();
+	rl_event_hook = check_interrupt;
+	return_while = while_write_here_doc(read_like_gnl, tokens, save_text, i);
+	if (return_while != 0)
+		return (return_while);
 	free(read_like_gnl);
 	setup_signals();
 	if (ft_close(&save_text) == -1)

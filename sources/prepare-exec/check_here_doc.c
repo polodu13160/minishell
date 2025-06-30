@@ -113,7 +113,7 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 		free(tokens[i].value);
 		tokens[i].value = NULL;
 		tokens[i].value = name_here_doc;
-		return (write_here_doc(i, 0, tokens, save_text));
+		return (write_here_doc(i, tokens, save_text));
 	}
 	return (0);
 }
