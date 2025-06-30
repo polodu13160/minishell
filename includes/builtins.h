@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 16:25:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:38:04 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int								check_path(char *str);
 
 /*********************************exit***************************************/
 
-void							ft_exit(char **str, t_minishell *minishell,
+int							ft_exit(char **str, t_minishell *minishell,
 									int i, t_pip *exec);
 
 /****************************************************************************/

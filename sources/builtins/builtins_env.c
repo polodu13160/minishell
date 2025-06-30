@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 20:06:11 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:34:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	apply_builtins(t_minishell *minishell, int i, t_pip *exec)
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "cd", 3) == 0)
 			return (ft_cd(minishell->pipex[i].cmd, i, minishell, 0));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5) == 0)
-			ft_exit(minishell->pipex[i].cmd, minishell, 0, exec);
+			return ft_exit(minishell->pipex[i].cmd, minishell, 0, exec);
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "env", 4) == 0)
 			return (minishell->return_command = ft_env(minishell, 0));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "pwd", 4) == 0)

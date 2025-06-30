@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 16:27:47 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:20:22 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
 #include "builtins.h"
+#include "pipex.h"
 #include "stdio.h"
 #include "token.h"
 #include <signal.h>
@@ -76,7 +76,8 @@ void	ft_message_output(int statuetemp, t_minishell *minishell,
 		i++;
 	if (WIFSIGNALED(statuetemp))
 		check_sig(statuetemp);
-	else if (WEXITSTATUS(statuetemp) != 0)
+	else if (WEXITSTATUS(statuetemp) != 0
+		&& ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (WEXITSTATUS(statuetemp) == 8)
 			message_error("Error dup2", "");
@@ -100,7 +101,7 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell)
 	int	i;
 
 	i = 0;
-	if (statuetemp != 0)
+	if (statuetemp != 0 && ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (statuetemp == 8)
 		{
