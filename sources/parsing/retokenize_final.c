@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 23:38:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:00:58 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	retokenize(t_token *tokens, t_minishell *minishell, int i)
 	t_token				*new_tokens;
 	t_token				*result;
 
+
+	(void)data;
 	new_tokens = tokenize_expanded_value(tokens[i].value);
 	if (!new_tokens)
 		return (1);

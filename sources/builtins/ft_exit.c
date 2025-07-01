@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 16:03:44 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:50:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	check_arg_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 	if (!str[i + 1])
 	{
 		minishell->return_command = 0;
-		free_exit(minishell->tokens, minishell, exec, 0);
+		free_exit(minishell->tokens, minishell, exec, 1);
 	}
 	if (str[i + 1] && str[i + 2])
 	{
-		ft_putendl_fd("exit: too many arguments\n", 2);
+		ft_putendl_fd("exit\nexit: too many arguments", 2);
 		return (1);
 	}
 	return (0);
@@ -53,6 +53,12 @@ int	check_exit_numeric(char **str, int i, int *sign)
 	return (0);
 }
 
+void print_error(t_minishell *minishell)
+{
+	ft_putendl_fd("exit: numeric argument required", 2);
+		minishell->return_command = 2;
+}
+
 int	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 {
 	int					error;
@@ -65,22 +71,19 @@ int	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 	if (check_exit_numeric(str, i, &sign) == 2)
 	{
 		minishell->return_command = 2;
-		free_exit(NULL, minishell, exec, 0);
-		return (2);
+		free_exit(minishell->tokens, minishell, exec, 1);
 	}
 	value = ft_atoll(str[i + 1], &error);
 	if (error)
 	{
-		ft_putendl_fd("exit: numeric argument required", 2);
-		minishell->return_command = 2;
-		free_exit(minishell->tokens, minishell, exec, 0);
-		// je sais pas
+		print_error(minishell);
+		free_exit(minishell->tokens, minishell, exec, 1);
 	}
-	// if (sign)
-	// 	value = 256 - value;
+	if (sign)
+		value = 256 - value;
 	if (value > 255)
 		value = value % 256;
 	minishell->return_command = value;
-	free_exit(minishell->tokens, minishell, exec, 0);
+	free_exit(minishell->tokens, minishell, exec, 1);
 	return (0);
 }
