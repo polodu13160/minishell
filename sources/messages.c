@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 17:04:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:08:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_message_output(int statuetemp, t_minishell *minishell,
 	if (WIFSIGNALED(statuetemp))
 		check_sig(statuetemp);
 	else if (WEXITSTATUS(statuetemp) != 0
-		&& minishell->pipex[i].cmd && ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
+		&& ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (WEXITSTATUS(statuetemp) == 8)
 			message_error("Error dup2", "");
