@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 15:52:00 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:15:19 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		return \
 		(ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value, \
 		exec));
+	return (0);
 }
 
 int	ft_count_outfiles(t_token *tokens, int limit_pipe)
