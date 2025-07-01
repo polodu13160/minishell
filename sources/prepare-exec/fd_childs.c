@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 22:34:33 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/06/30 22:38:21 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ int	ft_check_perm(t_pip *exec, t_minishell *minishell, int i)
 		{
 			if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
 				&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
-				return (ft_perr_and_add_exec_error(minishell->pipex[i].infiles[j].value,
+				return (ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value,
 						exec));
 			else if (open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_APPEND, 0644) == -1)
-				return (ft_perr_and_add_exec_error(minishell->pipex[i].infiles[j].value,
+				return (ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value,
 						exec));
 		}
 	}

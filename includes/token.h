@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 19:56:03 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:28:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef enum e_token_type
 	T_ENV,
 	T_FORBID,
 	T_NULL,
-	T_WORD_FOR_REDIRECT
+	T_WORD_FOR_REDIRECT,
+	T_IGNORE
 }			t_token_type;
 
 typedef struct s_token

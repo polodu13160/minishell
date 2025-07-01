@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 20:20:22 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:18:28 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	ft_print_error(t_token *tokens, int i, int error)
 	else if (error == 5)
 		perror("malloc error");
 	else if (tokens[i + 1].value == NULL)
-		printf("syntax error near unexpected token 'newline'\n");
+		printf("syntax error near unexpected token `newline'\n");
 	else if (tokens[i + 1].value[0] == '\0')
-		printf("syntax error near unexpected token 'newline'\n");
+		printf("syntax error near unexpected token `newline'\n");
 	else
 	{
-		ft_printf_fd(2, "syntax error near unexpected token '%s'\n", tokens[i
+		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i
 			+ 1].value);
 	}
 	return (1);
