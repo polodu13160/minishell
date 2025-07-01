@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 16:50:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:14:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	check_exit_numeric(char **str, int i, int *sign)
 	return (0);
 }
 
-void print_error(t_minishell *minishell)
+void	print_error(t_minishell *minishell)
 {
 	ft_putendl_fd("exit: numeric argument required", 2);
-		minishell->return_command = 2;
+	minishell->return_command = 2;
 }
 
 int	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)

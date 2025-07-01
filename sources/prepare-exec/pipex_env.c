@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 12:53:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:26:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,12 @@ int	ft_set_path_env(t_pip *exec, char **env)
 int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
 	int	test_acces;
+	char *join;
 
 	if (exec->path_args == NULL)
+	{
+		if (access(, ) == 0)
+	}
 		return (127);
 	while (exec->path_args[i])
 	{

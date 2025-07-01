@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 13:20:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:21:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "token.h"
+#include "builtins.h"
 
 static void	handle_quotes(char *str, t_index *index, t_quote_state *state,
 		char *result)

@@ -3,30 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 14:28:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:34:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
-# define TOKEN_H
+# define TOKEN_H 
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE = 1
 
 # include "libft.h"
+# include "readline/readline.h"
 # include <stdlib.h>
-
-// # define T_FUNC 0
-// # define T_WORD 1
-// # define T_PIPE 2
-// # define T_REDIRECT_IN 3
-// # define T_REDIRECT_OUT 4
-// # define T_APPEND 5
-// # define T_HEREDOC 6
-// # define T_ENV 7
-// # define T_FORBID 8
-// # define T_NULL 9
-// # define T_WORD_FOR_REDIRECT 10
 
 typedef enum e_token_type
 {
@@ -118,8 +110,7 @@ int			ft_pipex(t_minishell *minishell);
 /*********************message************************* */
 int			ft_print_error(t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
-int			message_output_no_child(int statuetemp,
-				t_minishell *minishell);
+int			message_output_no_child(int statuetemp, t_minishell *minishell);
 /**********************prepare cmd************** */
 int			ft_count_cmd(t_token *tokens, int limit_pipe);
 int			ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,

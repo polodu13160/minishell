@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 16:40:00 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:20:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_retokenize_data
 /*************************Parsing*************************/
 
 int		check_parsing(t_token *token, t_minishell *minishell, int ret, int i);
-char	*get_env_value(char *var_name, char **env);
 char	*return_env(char *str, t_minishell *minishell);
 char	*check_quote_command(char *str);
 char	*parse_single_quotes(char *str);

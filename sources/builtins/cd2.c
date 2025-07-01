@@ -6,13 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:34:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:19:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:20:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "libft.h"
-#include "stdlib.h"
 
 int	check_path(char *str)
 {

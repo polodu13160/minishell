@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 16:03:09 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:32:07 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "free.h"
 #include "pipex.h"
-#include "readline/readline.h"
 #include "token.h"
-#include <stdio.h>
 #include <sys/wait.h>
 
 void	init_exec(t_pip *exec, char **env)

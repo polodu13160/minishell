@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 16:04:22 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:20:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
 int								env_loop(char **copy_env, char **env, int *i);
 char							**declare_env(void);
+char							*get_env_value(char *var_name, char **env);
 
 /*****************************export****************************************/
 

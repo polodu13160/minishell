@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 20:41:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:23:18 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "builtins.h"
 
 int	return_command(char **str, t_minishell *minishell, char **var_name)
 {
