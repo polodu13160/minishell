@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 18:26:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 21:07:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "pipex.h"
 
 int	ft_add_slash_to_env(t_pip *exec)
@@ -64,14 +65,28 @@ int	ft_set_path_env(t_pip *exec, char **env)
 
 int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
-	int	test_acces;
-	char *join;
+	int		test_acces;
+	char	*join;
 
 	if (exec->path_args == NULL)
 	{
-		if (access(, ) == 0)
-	}
+		join = ft_strjoin("./", minishell->pipex[arg_exec].cmd[0]);
+		if (join == NULL)
+			return (10);
+		if (access(join, F_OK) == 0)
+		{
+			minishell->pipex[arg_exec].cmd[0] = join;
+			if (access(join, X_OK) == -1)
+			{
+				free(join);
+				return (126);
+			}
+			else
+				execve(join, minishell->pipex[arg_exec].cmd, exec->env);
+		}
+		free(join);
 		return (127);
+	}
 	while (exec->path_args[i])
 	{
 		exec->path_absolut_exec = ft_strjoin(exec->path_args[i],

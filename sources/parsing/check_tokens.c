@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 16:02:45 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 20:32:44 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_expand_special(t_token *tokens)
 		if (tokens[i].value && tokens[i].type == T_HEREDOC)
 		{
 			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value && tokens[i
-					+ 1].type == T_ENV)
+				+ 1].type == T_ENV)
 				tokens[i + 1].type = T_IGNORE;
 		}
 		i++;
@@ -41,7 +41,8 @@ int	delete_null_token(t_token *tokens)
 	i = 0;
 	while (tokens[i].type != T_NULL)
 	{
-		if (tokens[i].value && ft_strncmp(tokens[i].value, ":", 2) == 0)
+		if ((tokens[i].type == T_ENV && ft_strncmp(tokens[i].value, "", 1) == 0)
+			|| (tokens[i].value && ft_strncmp(tokens[i].value, ":", 2) == 0))
 		{
 			free(tokens[i].value);
 			while (tokens[i + 1].type != T_NULL)
@@ -53,6 +54,13 @@ int	delete_null_token(t_token *tokens)
 			tokens[i].type = T_NULL;
 			break ;
 		}
+		i++;
+	}
+	i = 0;
+	while (tokens[i].type != T_NULL)
+	{
+		if (tokens[i].type == T_ENV)
+			tokens[i].type = T_WORD;
 		i++;
 	}
 	return (0);
@@ -90,8 +98,6 @@ int	check_token(t_token *tokens, t_minishell *minishell, int i)
 				i = 0;
 				continue ;
 			}
-			else
-				minishell->tokens[i].type = T_WORD;
 		}
 		i++;
 	}
