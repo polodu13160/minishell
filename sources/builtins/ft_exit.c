@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 20:37:01 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:03:44 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ int	check_exit_numeric(char **str, int i, int *sign)
 
 int	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 {
-	int			error;
-	int			sign;
-	signed long long value;
+	int					error;
+	int					sign;
+	signed long long	value;
 
 	error = 0;
 	if (check_arg_exit(str, minishell, i, exec) == 1)
-		return 1;
+		return (1);
 	if (check_exit_numeric(str, i, &sign) == 2)
 	{
 		minishell->return_command = 2;
 		free_exit(NULL, minishell, exec, 0);
-		return 2;
+		return (2);
 	}
 	value = ft_atoll(str[i + 1], &error);
 	if (error)
@@ -74,13 +74,13 @@ int	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 		ft_putendl_fd("exit: numeric argument required", 2);
 		minishell->return_command = 2;
 		free_exit(minishell->tokens, minishell, exec, 0);
-		// je sais pas 
+		// je sais pas
 	}
 	// if (sign)
 	// 	value = 256 - value;
 	if (value > 255)
-	 	value = value % 256;
+		value = value % 256;
 	minishell->return_command = value;
 	free_exit(minishell->tokens, minishell, exec, 0);
-	return 0;
+	return (0);
 }

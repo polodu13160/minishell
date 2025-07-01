@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 22:09:31 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:03:09 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	ft_pipex(t_minishell *minishell)
 		return (ft_finish(&exec, minishell, status));
 	if (pipe(exec.pipe) == -1)
 		return (1);
-	rl_event_hook = in_process_marker; //c quoi ca
+	rl_event_hook = in_process_marker;
 	ft_loop_pipe(minishell, &exec, -1);
 	ft_wait_child(minishell);
 	status = minishell->return_command;

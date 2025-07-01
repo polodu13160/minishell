@@ -6,14 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:00:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 20:43:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:00:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "token.h"
 
-void ft_close_2_fds(int *fd, int *fd2)
+void	ft_close_2_fds(int *fd, int *fd2)
 {
 	ft_close(fd);
 	ft_close(fd2);

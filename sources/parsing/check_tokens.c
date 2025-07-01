@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 15:22:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:02:45 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,17 @@ int	delete_null_token(t_token *tokens)
 	return (0);
 }
 
-static  void check_tokens_t_ignore(t_token *tokens)
+static void	check_tokens_t_ignore(t_token *tokens)
 {
 	int	i;
+
 	i = 0;
 	while (tokens[i].type != T_NULL)
 	{
 		if (tokens[i].type == T_IGNORE)
 			tokens[i].type = T_WORD;
 		i++;
-	}	
+	}
 }
 
 int	check_token(t_token *tokens, t_minishell *minishell, int i)
