@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/26 17:48:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:03:23 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,17 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 				dup_redirect_out) == 8)
 			return (8);
 		if (ft_strcmp(minishell->pipex[0].cmd[0], "exit") == 0)
-		{
-			ft_close(&dup_redirect_in);
-			ft_close(&dup_redirect_out);
-		}
+			ft_close_2_fds(&dup_redirect_in, &dup_redirect_out);
 		minishell->return_command = apply_builtins(minishell, 0, exec);
-		if (dup2(dup_redirect_in, 0) == -1 || dup2(dup_redirect_out, 1) == -1)
-			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
-					dup_redirect_out));
-		ft_close(&dup_redirect_in);
-		ft_close(&dup_redirect_out);
+		if (exec->fd_infile.fd != -1)
+			if (dup2(dup_redirect_in, 0) == -1)
+				return (error_dup2_execve_builtin_no_child(exec,
+						dup_redirect_in, dup_redirect_out));
+		if (exec->fd_outfile.fd != -1)
+			if (dup2(dup_redirect_out, 1) == -1)
+				return (error_dup2_execve_builtin_no_child(exec,
+						dup_redirect_in, dup_redirect_out));
+		ft_close_2_fds(&dup_redirect_in, &dup_redirect_out);
 		return (minishell->return_command);
 	}
 	return (1);
@@ -84,21 +85,21 @@ static int	ft_execve_finish_builtin(t_minishell *minishell, t_pip *exec,
 		return (0);
 }
 
-int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i)
+int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
+		int return_exec)
 {
 	pid_t	pid;
 	int		n_pipe[2];
-	int		return_exec;
 
 	if (pipe(n_pipe) < 0)
 		return (1);
 	pid = fork();
-	return_exec = 1;
 	minishell->pids[i] = pid;
 	if (pid == -1)
 		error_fork(exec, minishell, n_pipe);
 	if (pid == 0)
 	{
+		setup_signals_child();
 		if (exec->error == 0)
 			return_exec = ft_execve_finish_builtin(minishell, exec, n_pipe, i);
 		if (exec->fd_infile.value == NULL)

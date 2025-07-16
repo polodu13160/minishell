@@ -6,11 +6,28 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/30 02:17:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:15:19 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "pipex.h"
 #include "token.h"
+#include <fcntl.h>
+
+int	ft_check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
+{
+	if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
+		&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
+		return \
+	(ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value, \
+	exec));
+	else if (open(minishell->pipex[i].outfiles[j].value,
+			O_CREAT | O_WRONLY | O_APPEND, 0644) == -1)
+		return \
+		(ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value, \
+		exec));
+	return (0);
+}
 
 int	ft_count_outfiles(t_token *tokens, int limit_pipe)
 {

@@ -6,13 +6,17 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/29 22:10:22 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:08:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "pipex.h"
 #include "stdio.h"
 #include "token.h"
+#include <signal.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 int	ft_print_error(t_token *tokens, int i, int error)
 {
@@ -31,9 +35,11 @@ int	ft_print_error(t_token *tokens, int i, int error)
 		perror("malloc error");
 	else if (tokens[i + 1].value == NULL)
 		printf("syntax error near unexpected token `newline'\n");
+	else if (tokens[i + 1].value[0] == '\0')
+		printf("syntax error near unexpected token `newline'\n");
 	else
 	{
-		ft_printf_fd(2, "syntax error near unexpected token '%s'\n", tokens[i
+		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i
 			+ 1].value);
 	}
 	return (1);
@@ -68,7 +74,10 @@ void	ft_message_output(int statuetemp, t_minishell *minishell,
 	i = 0;
 	while (pidvalue != minishell->pids[i])
 		i++;
-	if (WEXITSTATUS(statuetemp) != 0)
+	if (WIFSIGNALED(statuetemp))
+		check_sig(statuetemp);
+	else if (WEXITSTATUS(statuetemp) != 0
+		&& ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (WEXITSTATUS(statuetemp) == 8)
 			message_error("Error dup2", "");
@@ -87,12 +96,12 @@ void	ft_message_output(int statuetemp, t_minishell *minishell,
 	}
 }
 
-int	ft_message_output_builtin_no_child(int statuetemp, t_minishell *minishell)
+int	message_output_no_child(int statuetemp, t_minishell *minishell)
 {
 	int	i;
 
 	i = 0;
-	if (statuetemp != 0)
+	if (statuetemp != 0 && ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (statuetemp == 8)
 		{

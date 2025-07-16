@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "stdio.h"
 #include "free.h"
 
 void	ft_free_exec(t_pip *exec)

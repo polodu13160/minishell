@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ctrl_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 15:10:57 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:07:20 by antbonin         ###   ########.fr       */
+/*   Created: 2025/06/30 16:09:19 by antbonin          #+#    #+#             */
+/*   Updated: 2025/06/30 16:26:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/libft.h"
+#include "builtins.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	check_sig(int statuetemp)
 {
-	size_t	i;
+	int	sig;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
+	if (WIFSIGNALED(statuetemp))
 	{
-		i++;
+		sig = WTERMSIG(statuetemp);
+		if (sig == SIGQUIT)
+			write(STDERR_FILENO, "Quit (core dumped)\n", 19);
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+void	setup_signals_heredoc(void)
+{
+	struct sigaction	act;
+
+	act.sa_handler = handle_sigint_child;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }

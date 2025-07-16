@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 18:58:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:14:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	declare_readline(t_minishell *minishell)
 	if (minishell->cwd)
 		minishell->cwd_join = ft_strjoin(minishell->cwd, "$> ");
 	if (minishell->cwd_join == NULL)
+	{
+		free_tab(minishell->env);
 		ft_free_all(minishell->cwd, "cwd error", 1, 1);
+	}
 	minishell->line = readline(minishell->cwd_join);
 	if (minishell->line == NULL)
 		free_exit(minishell->tokens, minishell, NULL, 1);
@@ -40,7 +43,9 @@ void	init_minishell(t_minishell *minishell)
 	minishell->pids = NULL;
 	minishell->nb_here_doc = 0;
 	if (g_sig == SIGINT)
+	{
 		minishell->return_command = 130;
+	}
 	declare_readline(minishell);
 }
 

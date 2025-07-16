@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:26:00 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 18:28:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:48:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ void	copy_single(char *str, char *result, int *i, int *j)
 				result[(*j)++] = '\0';
 				(*i) += 2;
 			}
+			else
+				result[(*j)++] = str[(*i)++];
 		}
-		result[(*j)++] = str[(*i)++];
+		else
+			result[(*j)++] = str[(*i)++];
 	}
 }

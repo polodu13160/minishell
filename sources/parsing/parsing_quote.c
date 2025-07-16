@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 23:32:00 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:47:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,14 @@ char	*parse_env(char *str, t_minishell *minishell)
 {
 	t_index	index;
 	char	*result;
+	size_t	needed_size;
 
 	index.i = 0;
 	index.j = 0;
 	if (ft_strrchr(str, '\'') > ft_strrchr(str, '$'))
 		return (str);
-	result = ft_calloc(sizeof(char), (ft_strlen(str) * 4 + 1));
+	needed_size = calculate_needed_size(str, minishell, 0, ft_strlen(str));
+	result = ft_calloc(sizeof(char), needed_size);
 	if (!result)
 	{
 		free(str);
@@ -131,9 +133,7 @@ char	*parse_env(char *str, t_minishell *minishell)
 	while (str[index.i] && result != NULL)
 	{
 		if (str[index.i] == '$')
-		{
 			process_env_var(str, result, &index, minishell);
-		}
 		else
 			result[index.j++] = str[index.i++];
 	}

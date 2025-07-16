@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 22:46:34 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:20:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ typedef struct s_cd
 
 void							setup_signals(void);
 void							setup_signals_child(void);
+void							handle_sigint_child(int signal);
 void							setup_signals_heredoc(void);
-void							handle_sigint_heredoc(int signal);
+void							check_sig(int statuetemp);
+
+int								in_process_marker(void);
 
 int								apply_builtins(t_minishell *minishell, int i,
 									t_pip *exec);
@@ -47,6 +50,7 @@ void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
 int								env_loop(char **copy_env, char **env, int *i);
 char							**declare_env(void);
+char							*get_env_value(char *var_name, char **env);
 
 /*****************************export****************************************/
 
@@ -82,7 +86,7 @@ int								check_path(char *str);
 
 /*********************************exit***************************************/
 
-void							ft_exit(char **str, t_minishell *minishell,
+int								ft_exit(char **str, t_minishell *minishell,
 									int i, t_pip *exec);
 
 /****************************************************************************/

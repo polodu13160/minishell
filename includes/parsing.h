@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 18:39:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:20:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_retokenize_data
 /*************************Parsing*************************/
 
 int		check_parsing(t_token *token, t_minishell *minishell, int ret, int i);
-char	*get_env_value(char *var_name, char **env);
 char	*return_env(char *str, t_minishell *minishell);
 char	*check_quote_command(char *str);
 char	*parse_single_quotes(char *str);
@@ -63,6 +62,9 @@ void	copy_single(char *str, char *result, int *i, int *j);
 char	*ft_join_malloc(char *malloc_str1, char *malloc_str2);
 char	*ft_chardup(char c);
 char	*extract_var_env(char *str);
+char	*extract_var_name(char *str, int *i, int *var_len);
+size_t	calculate_needed_size(char *str, t_minishell *minishell, int i,
+			size_t total_size);
 
 /*********************************retokenize*******************/
 

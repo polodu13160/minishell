@@ -6,15 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/28 23:38:00 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:22:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "libft.h"
-#include "parsing.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -58,7 +54,7 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 
 	if (!getcwd(new_pwd, 4096))
 	{
-		perror("cd: error retrieving current directory");
+		ft_printf_fd(2, "cd: error retrieving current directory");
 		return (1);
 	}
 	if (ft_putenv("OLDPWD", old_pwd, 1, minishell))
@@ -103,7 +99,7 @@ int	ft_cd(char **str, int i, t_minishell *minishell, int error)
 	old_pwd = minishell->cwd;
 	if (!old_pwd || (str[0] && str[1] && str[2]))
 	{
-		perror("cd: error retrieving current directory");
+		ft_printf_fd(2, "cd: error retrieving current directory");
 		return (1);
 	}
 	path = get_cd_path(str, i, minishell);

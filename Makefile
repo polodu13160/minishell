@@ -51,6 +51,7 @@ FILES = main \
 		parsing/parsing_get_env_quote \
 		parsing/return_expand \
 		prepare-exec/check_here_doc_signals \
+		parsing/ctrl_heredoc \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
