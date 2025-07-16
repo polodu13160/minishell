@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 16:03:23 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/17 00:39:22 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 	{
 		dup_redirect_in = dup(0);
 		dup_redirect_out = dup(1);
-		if (dup_infile_and_outfile_builtin_no_child(exec, dup_redirect_in,
-				dup_redirect_out) == 8)
-			return (8);
 		if (ft_strcmp(minishell->pipex[0].cmd[0], "exit") == 0)
 			ft_close_2_fds(&dup_redirect_in, &dup_redirect_out);
+		else if (dup_infile_and_outfile_builtin_no_child(exec, dup_redirect_in,
+				dup_redirect_out) == 8)
+			return (8);
 		minishell->return_command = apply_builtins(minishell, 0, exec);
 		if (exec->fd_infile.fd != -1)
 			if (dup2(dup_redirect_in, 0) == -1)
