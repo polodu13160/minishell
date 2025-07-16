@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 15:43:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 00:33:02 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_loop(t_token *token, t_minishell *minishell)
 	{
 		while (token[i].type != T_NULL)
 		{
-			if (token[i].value != NULL)
+			if (token[i].value && token[i].value != token[i + 1].value)
 				free(token[i].value);
 			token[i].value = NULL;
 			i++;
