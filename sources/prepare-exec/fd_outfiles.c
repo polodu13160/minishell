@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 16:15:19 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/16 22:41:24 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,23 @@
 
 int	ft_check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
+	int	fd;
+
 	if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
 		&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
-		return \
-	(ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value, \
-	exec));
-	else if (open(minishell->pipex[i].outfiles[j].value,
-			O_CREAT | O_WRONLY | O_APPEND, 0644) == -1)
-		return \
-		(ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value, \
-		exec));
+		return (ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value,
+				exec));
+	else
+	{
+		fd = open(minishell->pipex[i].outfiles[j].value,
+				O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (fd == -1)
+		{
+			return (ft_perr_and_add_exec_error(minishell->pipex[i].outfiles[j].value,
+					exec));
+		}
+		ft_close(&fd);
+	}
 	return (0);
 }
 
