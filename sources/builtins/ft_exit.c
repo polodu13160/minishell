@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:14:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/16 23:52:03 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_exit_numeric(char **str, int i, int *sign)
 
 	x = 0;
 	*sign = 0;
-	while (str[i + 1][x])
+	while (str[i+1] && str[i + 1][x])
 	{
 		if (str[i + 1][x] == '-')
 			(*sign)++;
@@ -66,13 +66,14 @@ int	ft_exit(char **str, t_minishell *minishell, int i, t_pip *exec)
 	signed long long	value;
 
 	error = 0;
-	if (check_arg_exit(str, minishell, i, exec) == 1)
-		return (1);
 	if (check_exit_numeric(str, i, &sign) == 2)
 	{
 		minishell->return_command = 2;
 		free_exit(minishell->tokens, minishell, exec, 1);
 	}
+	if (check_arg_exit(str, minishell, i, exec) == 1)
+		return (1);
+	
 	value = ft_atoll(str[i + 1], &error);
 	if (error)
 	{
