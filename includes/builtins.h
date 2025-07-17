@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:20:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 02:27:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void							check_sig(int statuetemp);
 int								in_process_marker(void);
 
 int								apply_builtins(t_minishell *minishell, int i,
-									t_pip *exec);
+									t_pip *exec, int print_exit);
 int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);
@@ -67,11 +67,11 @@ int								print_export(t_minishell *minishell);
 
 /*******************************echo****************************************/
 
-int								ft_echo(char **str, int i);
+int								ft_echo(char **str);
 
 /********************************cd*****************************************/
 
-int								ft_cd(char **str, int i, t_minishell *minishell,
+int								ft_cd(char **str, t_minishell *minishell,
 									int error);
 char							*ft_strjoin3(const char *s1, const char *s2,
 									const char *s3);
@@ -87,7 +87,7 @@ int								check_path(char *str);
 /*********************************exit***************************************/
 
 int								ft_exit(char **str, t_minishell *minishell,
-									int i, t_pip *exec);
+									t_pip *exec, int print_exit);
 
 /****************************************************************************/
 
