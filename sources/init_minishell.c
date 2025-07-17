@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:14:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:42:18 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	declare_readline(t_minishell *minishell)
 		free_tab(minishell->env);
 		ft_free_all(minishell->cwd, "cwd error", 1, 1);
 	}
-	minishell->line = readline(minishell->cwd_join);
+	if (isatty(STDIN_FILENO) == 0)
+		minishell->line = readline(NULL);
+	else
+		minishell->line = readline(minishell->cwd_join);
 	if (minishell->line == NULL)
-		free_exit(minishell->tokens, minishell, NULL, 1);
+		free_exit(minishell->tokens, minishell, NULL, 0); //faut il parfois print exit ?
 }
 
 void	init_minishell(t_minishell *minishell)
