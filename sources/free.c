@@ -19,10 +19,6 @@ void	ft_free_exec(t_pip *exec)
 
 	if (exec)
 	{
-		if (exec->fd_infile.fd != -1 && exec->fd_infile.fd != 0)
-			ft_close(&exec->fd_infile.fd);
-		if (exec->fd_outfile.fd != -1 && exec->fd_outfile.fd != 0)
-			ft_close(&exec->fd_outfile.fd);
 		if (exec->path_absolut_exec)
 			free(exec->path_absolut_exec);
 		if (exec->path_args)
