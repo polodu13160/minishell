@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:22:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 02:24:08 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 	return (ft_strdup(path));
 }
 
-int	ft_cd(char **str, int i, t_minishell *minishell, int error)
+int	ft_cd(char **str, t_minishell *minishell, int error)
 {
 	char	*path;
 	char	*old_pwd;
@@ -102,7 +102,7 @@ int	ft_cd(char **str, int i, t_minishell *minishell, int error)
 		ft_printf_fd(2, "cd: error retrieving current directory");
 		return (1);
 	}
-	path = get_cd_path(str, i, minishell);
+	path = get_cd_path(str, 0, minishell);
 	if (!path)
 		return (1);
 	if (check_path(path) || chdir(path) != 0)

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 00:33:02 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/17 02:51:16 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_loop(t_token *token, t_minishell *minishell)
 }
 
 void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
-		int end_readline)
+		int print_exit)
 {
 	free_loop(token, minishell);
 	if (exec)
@@ -96,8 +96,9 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
 		free(minishell->line);
 		minishell->line = NULL;
 	}
-	if (end_readline)
-		ft_printf("exit\n");
+
+	if (print_exit == 1)
+		ft_printf_fd(2,"exit\n");
 	exit(minishell->return_command);
 }
 

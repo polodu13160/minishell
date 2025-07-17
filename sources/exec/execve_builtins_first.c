@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins_first.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:04:37 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 16:07:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 02:27:27 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_execve_first_builtin(t_minishell *minishell, t_pip *exec)
 	if (minishell->pipex[0].cmd[0] != NULL
 		&& minishell->pipex[0].cmd[0][0] != '\0')
 	{
-		return (apply_builtins(minishell, 0, exec));
+		return (apply_builtins(minishell, 0, exec, 0));
 	}
 	else
 		return (127);
