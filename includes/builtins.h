@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 02:27:38 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/17 23:43:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
 int								env_loop(char **copy_env, char **env, int *i);
 char							**declare_env(void);
-char							*get_env_value(char *var_name, char **env);
+char							*get_env_value(char *var_name, t_minishell *minishell);
 
 /*****************************export****************************************/
 

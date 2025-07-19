@@ -6,14 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 19:55:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:43:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+# include "pipex.h"
 # include "token.h"
-#include "pipex.h"
 # include <sys/types.h>
 
 typedef struct s_pip
