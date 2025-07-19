@@ -19,12 +19,15 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-int	check_command(t_token *tokens, int i)
+int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {
 	if (tokens[i].type == T_PIPE)
 	{
-		if (tokens[i + 1].value == NULL || tokens[i + 1].type == T_PIPE)
+		if (i == 0 || tokens[i + 1].value == NULL || tokens[i + 1].type == T_PIPE)
+		{
+			minishell->return_command = 2;
 			return (ft_print_error(tokens, i, 1));
+		}
 	}
 	if (tokens[i].type == T_REDIRECT_IN || tokens[i].type == T_REDIRECT_OUT
 		|| tokens[i].type == T_HEREDOC || tokens[i].type == T_APPEND)
@@ -32,6 +35,7 @@ int	check_command(t_token *tokens, int i)
 		if (tokens[i + 1].value == NULL || (tokens[i + 1].type != T_WORD
 				&& tokens[i + 1].type != T_FUNC))
 		{
+			minishell->return_command = 2;
 			return (ft_print_error(tokens, i, 1));
 		}
 	}
@@ -50,8 +54,8 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 	int	error;
 
 	minishell->nb_here_doc = 0;
-	i = 0;
-	while (tokens[i].value)
+	i = -1;
+	while (tokens[++i].value)
 	{
 		if (recurs == 1 && tokens[i].type == T_HEREDOC)
 		{
@@ -59,12 +63,14 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 			if (error == 130)
 				return (minishell_error(minishell));
 			if (error > 0)
+			{
+				minishell->return_command = 2;
 				return (ft_print_error(tokens, i, error));
+			}
 		}
 		if (recurs == 0)
-			if (check_command(tokens, i) == 1)
+			if (check_command(tokens, i, minishell) == 1)
 				return (1);
-		i++;
 	}
 	if (recurs == 0)
 		return (ft_check(tokens, ++recurs, minishell));

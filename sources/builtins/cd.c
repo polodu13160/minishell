@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 02:24:08 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/17 23:48:24 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 
 	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1))
 	{
-		home_value = get_env_value("HOME", minishell->env);
+		home_value = get_env_value("HOME", minishell);
 		if (!home_value || ft_strlen(home_value) == 0)
 		{
 			if (home_value)

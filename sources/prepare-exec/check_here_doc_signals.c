@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc_signals.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 16:15:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 22:55:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,16 @@ int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 			return (free_and_close(read_like_gnl, &save_text, 4));
 		}
 		free(read_like_gnl);
-		read_like_gnl = readline(">");
+		// read_like_gnl = readline(">");
+		if (isatty(fileno(stdin)))
+			read_like_gnl = readline(">");
+		else
+		{
+			char *line;
+			line = get_next_line(fileno(stdin));
+			read_like_gnl = ft_strtrim(line, "\n");
+			free(line);
+		}
 		if (g_sig == SIGINT)
 		{
 			free(read_like_gnl);

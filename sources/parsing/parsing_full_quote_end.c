@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_full_quote_end.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:04:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:23:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/19 17:50:04 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	calculate_needed_size(char *str, t_minishell *minishell, int i,
 			var_name = extract_var_name(str, &i, &var_len);
 			if (var_name)
 			{
-				value = get_env_value(var_name, minishell->env);
+				value = get_env_value(var_name, minishell);
 				if (value)
 				{
 					total_size += ft_strlen(value);
@@ -40,7 +40,7 @@ size_t	calculate_needed_size(char *str, t_minishell *minishell, int i,
 		else
 			i++;
 	}
-	return (total_size * 2 + 1024);
+	return (total_size * 2 + 1024); // a quoi ca sert surtout que ca pose un gros pb de size...
 }
 
 static char	*init_quote_parsing(char *str, t_index *index,
@@ -52,7 +52,7 @@ static char	*init_quote_parsing(char *str, t_index *index,
 	index->i = 0;
 	index->j = 0;
 	needed_size = calculate_needed_size(str, minishell, 0, ft_strlen(str));
-	result = ft_calloc(sizeof(char), needed_size);
+	result = ft_calloc(needed_size, sizeof(char)); // c inversé mdrrr donc je sais pas si c pour ca que tas mis 1024 et jai modif mais ca nique les quotes;
 	if (!result)
 		return (NULL);
 	return (result);

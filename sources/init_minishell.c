@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 18:42:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/18 00:41:26 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,19 @@ void	declare_readline(t_minishell *minishell)
 		free_tab(minishell->env);
 		ft_free_all(minishell->cwd, "cwd error", 1, 1);
 	}
-	if (isatty(STDIN_FILENO) == 0)
-		minishell->line = readline(NULL);
+	// if (isatty(STDIN_FILENO) == 0)
+	// 	minishell->line = readline(NULL);
+	// else
+	// 	minishell->line = readline(minishell->cwd_join);
+	if (isatty(fileno(stdin)))
+		minishell->line = readline(">");
 	else
-		minishell->line = readline(minishell->cwd_join);
+	{
+		char *line;
+		line = get_next_line(fileno(stdin));
+		minishell->line = ft_strtrim(line, "\n");
+		free(line);
+	}
 	if (minishell->line == NULL)
 		free_exit(minishell->tokens, minishell, NULL, 0); //faut il parfois print exit ?
 }

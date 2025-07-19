@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_full_quote.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:21:14 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/18 00:26:26 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int	process_env_var(char *str, char *result, t_index *index,
 	int		k;
 
 	var_name = extract_var_name(str, &(index->i), &var_len);
-	value = get_env_value(var_name, minishell->env);
+	if (var_name == NULL)
+		return 1;
+	value = get_env_value(var_name, minishell);
 	free(var_name);
 	if (!value)
 	{

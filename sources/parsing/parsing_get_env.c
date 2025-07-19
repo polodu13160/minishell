@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 20:41:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/18 02:49:06 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,30 @@ char	*ft_chardup(char c)
 	return (malloc_char);
 }
 
-char	*get_env_value(char *var_name, char **env)
+char	*get_env_value(char *var_name, t_minishell *minishell)
 {
 	int		i;
 	char	*env_value;
 	size_t	name_len;
 
-	if (!var_name)
-		return (NULL);
-	if (!env)
+	if (!minishell->env)
 		return (ft_strdup("\0"));
 	name_len = ft_strlen(var_name);
 	if (name_len == 0)
 		return (ft_strdup("$"));
-	i = 0;
-	while (env[i])
+	i = -1;
+	if (name_len == 1 && ft_strcmp("?", var_name) == 0)
+		return (ft_itoa(minishell->return_command));
+	while (minishell->env[++i])
 	{
-		if (ft_strncmp(env[i], var_name, name_len) == 0
-			&& env[i][name_len] == '=')
+		if (ft_strncmp(minishell->env[i], var_name, name_len) == 0
+			&& minishell->env[i][name_len] == '=')
 		{
-			env_value = ft_strdup(env[i] + name_len + 1);
+			env_value = ft_strdup(minishell->env[i] + name_len + 1);
 			if (!env_value)
 				return (NULL);
 			return (env_value);
 		}
-		i++;
 	}
 	return (ft_strdup(""));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   return_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:23:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/17 23:43:04 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	expand(char **str, char **var_name, char **var_env, t_minishell *minishell)
 				return (1);
 			}
 			*var_name = ft_join_malloc(*var_name, get_env_value(*var_env + 1,
-						minishell->env));
+						minishell));
 			(*str)++;
 			while ((ft_isalnum(**str) == 1 && **str != '\0') || **str == '_')
 				(*str)++;

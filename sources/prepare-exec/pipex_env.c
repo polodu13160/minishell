@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 21:07:50 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/19 18:19:32 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
 	int		test_acces;
 	char	*join;
-
 	if (exec->path_args == NULL)
 	{
 		join = ft_strjoin("./", minishell->pipex[arg_exec].cmd[0]);

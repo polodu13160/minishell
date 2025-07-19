@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 17:08:52 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/18 03:35:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ int	ft_print_error(t_token *tokens, int i, int error)
 		perror("write error or close error");
 	else if (error == 5)
 		perror("malloc error");
-	else if (tokens[i + 1].value == NULL)
-		printf("syntax error near unexpected token `newline'\n");
-	else if (tokens[i + 1].value[0] == '\0')
+	else if (tokens[i + 1].value == NULL || tokens[i + 1].value[0] == '\0')
 		printf("syntax error near unexpected token `newline'\n");
 	else
 	{
-		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i
-			+ 1].value);
+		if (tokens[i].type != T_PIPE)
+			i++;
+		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i].value);
 	}
 	return (1);
 }
