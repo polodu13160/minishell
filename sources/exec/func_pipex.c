@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/19 18:31:56 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/19 18:46:43 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 int	is_only_space(char *str)
 {
 	if (*str == '\0')
-		return 1;
+		return (1);
 	while (*str)
 	{
 		if (*str != 32 && (*str < 9 || *str < 13))
@@ -31,7 +31,6 @@ int	is_only_space(char *str)
 			return (1);
 		}
 		str++;
-			
 	}
 	return (0);
 }
@@ -90,15 +89,17 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		int i)
 {
 	int	test_acces;
-
+	
 	if (ft_close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
-		test_acces = access(minishell->pipex[0].cmd[0], F_OK);
+		if (is_only_space(minishell->pipex[i].cmd[0]) == 1)
+			return (127);
+		test_acces = access(minishell->pipex[i].cmd[0], F_OK);
 		if ((test_acces == 0 && ft_strchr(minishell->pipex[0].cmd[0],
 					'/') != NULL)
-			|| check_relatif_path(minishell->pipex[0].cmd[0]) == 0)
+			|| check_relatif_path(minishell->pipex[i].cmd[0]) == 0)
 		{
 			execve(minishell->pipex[i].cmd[0], minishell->pipex[i].cmd,
 				exec->env);
