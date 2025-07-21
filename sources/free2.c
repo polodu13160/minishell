@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 21:28:25 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:02:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
+#include <unistd.h>
 
 int	ft_finish(t_pip *exec, t_minishell *minishell, int status)
 {
@@ -96,8 +97,8 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
 		free(minishell->line);
 		minishell->line = NULL;
 	}
-	if (print_exit == 1)
-		ft_printf_fd(2, "exit\n");
+	if (print_exit == 1 && isatty(STDIN_FILENO))
+		ft_printf_fd(1, "exit\n");
 	exit(minishell->return_command);
 }
 
