@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 23:48:24 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:37:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 	char	*path;
 	char	*home_value;
 
-	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1))
+	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1) || !ft_strncmp(str[i + 1], "--", 2))
 	{
 		home_value = get_env_value("HOME", minishell);
 		if (!home_value || ft_strlen(home_value) == 0)

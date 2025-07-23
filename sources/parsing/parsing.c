@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 14:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:34:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 {
 	if (ft_strchr(token->value, '$'))
 	{
+		if (ft_strchr(token->value, '"'))
+			token->value = check_quote_command(token->value);
 		token->value = parse_env(token->value, minishell);
 		token->type = T_ENV;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_full_quote.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/18 00:26:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:23:25 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ static void	handle_quotes(char *str, t_index *index, t_quote_state *state,
 		state->in_squote = !state->in_squote;
 		(index->i)++;
 	}
-	else if (str[index->i] == '"' || str[index->i] == '\'')
-	{
-		result[index->j++] = str[index->i++];
-	}
+	else
+		(index->i)++;
 }
 
 char	*extract_var_name(char *str, int *i, int *var_len)
@@ -110,7 +108,7 @@ int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 				return (1);
 			}
 		}
-		else if (str[index->i] == '"' || str[index->i] == '\'')
+		else if ((str[index->i] == '"' && !state.in_squote) || (str[index->i] == '\'' && !state.in_dquote))
 			handle_quotes(str, index, &state, result);
 		else
 			result[index->j++] = str[index->i++];

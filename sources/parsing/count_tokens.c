@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/05/24 17:04:00 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:23:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ static int	is_whitespace(char c)
 
 static void	process_count(char *str, int *j, int *count)
 {
+	if (str[*j] == '>' && str[*j + 1] == '|')
+	{
+		(*count)++;
+		(*j) += 2;
+		return;
+	}
 	(*count)++;
 	if ((str[*j] == '>' && str[*j + 1] == '>') || (str[*j] == '<' && str[*j
 				+ 1] == '<') || (str[*j] == '&' && str[*j + 1] == '&')

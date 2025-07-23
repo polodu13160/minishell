@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 16:47:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:35:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ char	*parse_env(char *str, t_minishell *minishell)
 
 	index.i = 0;
 	index.j = 0;
-	if (ft_strrchr(str, '\'') > ft_strrchr(str, '$'))
-		return (str);
+	// if (ft_strrchr(str, '\'') > ft_strrchr(str, '$'))
+	// 	return (str);
 	needed_size = calculate_needed_size(str, minishell, 0, ft_strlen(str));
 	result = ft_calloc(sizeof(char), needed_size);
 	if (!result)
