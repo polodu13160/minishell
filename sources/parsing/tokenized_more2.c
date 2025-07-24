@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/22 15:35:15 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:40:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	is_redirect_out(char *str, int *i, int *token_index, t_token *token)
 {
 	if (str[*i + 1] == '|')
 	{
-		token[*token_index].value = ft_strdup("|>");
+		token[*token_index].value = ft_strdup(">|");
 		if (!token[*token_index].value)
 			return (1);
 		token[*token_index].type = T_IGNORE;

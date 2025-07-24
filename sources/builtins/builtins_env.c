@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 02:54:57 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:51:47 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	apply_builtins(t_minishell *minishell, int i, t_pip *exec, int print_exit)
 		if (ft_strncmp(minishell->pipex[i].cmd[0], "echo", 5) == 0)
 			return (ft_echo(minishell->pipex[i].cmd));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "cd", 3) == 0)
-			return (ft_cd(minishell->pipex[i].cmd, minishell, 0));
+			return (ft_cd(minishell->pipex[i].cmd, minishell, 0, 0));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5) == 0)
 			return (ft_exit(minishell->pipex[i].cmd, minishell, exec, print_exit));
 		else if (ft_strncmp(minishell->pipex[i].cmd[0], "env", 4) == 0)

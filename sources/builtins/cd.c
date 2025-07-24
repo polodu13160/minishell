@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 11:13:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:51:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,10 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 	return (ft_strdup(path));
 }
 
-int	ft_cd(char **str, t_minishell *minishell, int error)
+int	ft_cd(char **str, t_minishell *minishell, int error, int return_func_check_path)
 {
 	char	*path;
 	char	*old_pwd;
-	int return_func_check_path;
 
 	old_pwd = minishell->cwd;
 	if (!old_pwd || (str[0] && str[1] && str[2]))
@@ -110,7 +109,7 @@ int	ft_cd(char **str, t_minishell *minishell, int error)
 	if (return_func_check_path || chdir(path) != 0)
 	{
 		if (!return_func_check_path)
-			error += handle_cd_error(path);
+			error = handle_cd_error(path);
 		else 
 			error = 1;
 		free(path);

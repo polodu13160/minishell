@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 23:43:25 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:52:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int								ft_echo(char **str);
 /********************************cd*****************************************/
 
 int								ft_cd(char **str, t_minishell *minishell,
-									int error);
+									int error, int return_func_check_path);
 char							*ft_strjoin3(const char *s1, const char *s2,
 									const char *s3);
 int								copy_new_env(t_minishell *minishell,

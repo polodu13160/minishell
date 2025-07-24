@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/23 17:23:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:38:20 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "token.h"
 #include "builtins.h"
 
-static void	handle_quotes(char *str, t_index *index, t_quote_state *state,
-		char *result)
+static void	handle_quotes(char *str, t_index *index, t_quote_state *state)
 {
 	if (str[index->i] == '"' && !state->in_squote)
 	{
@@ -109,7 +108,7 @@ int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 			}
 		}
 		else if ((str[index->i] == '"' && !state.in_squote) || (str[index->i] == '\'' && !state.in_dquote))
-			handle_quotes(str, index, &state, result);
+			handle_quotes(str, index, &state);
 		else
 			result[index->j++] = str[index->i++];
 	}

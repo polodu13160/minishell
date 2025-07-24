@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 16:13:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:41:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ void	handle_sigint(int signal)
 	(void)signal;
 	g_sig = SIGINT;
 	write(STDOUT_FILENO, "\n", 1);
-	if (rl_event_hook == NULL)
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	handle_sigint_child(int signal)
