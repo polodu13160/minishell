@@ -1,7 +1,7 @@
 .PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra  -Werror -MMD -MP -I$(LIBFT_DIR)includes -Iincludes -g3
+CFLAGS = -Wall -Wextra   -MMD -MP -I$(LIBFT_DIR)includes -Iincludes -g3
 CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
 
@@ -37,12 +37,12 @@ FILES = main \
 		builtins/builtins_env \
 		free \
 		parsing/ctrl \
-		exec/execve_builtins \
+		exec/execve_builtins_childs \
 		parsing/check_tokens \
 		builtins/env_prepare_builtins \
 		init_minishell \
 		free2 \
-		exec/execve_builtins_first \
+		exec/execve_builtins_no_childs \
 		builtins/ft_export2 \
 		parsing/retokenize \
 		parsing/retokenize_final \
@@ -52,6 +52,7 @@ FILES = main \
 		parsing/return_expand \
 		prepare-exec/check_here_doc_signals \
 		parsing/ctrl_heredoc \
+		utils \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
