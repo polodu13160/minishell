@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:34:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:20:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:52:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_path(char *str)
 	}
 	if (i >= 4095)
 	{
-		ft_printf_fd(2, "invalid directory , buffer size max 4096 error");
+		ft_printf_fd(2, "invalid directory , buffer size max 4096 error\n");
 		return (1);
 	}
 	return (0);
