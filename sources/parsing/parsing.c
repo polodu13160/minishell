@@ -6,15 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/22 14:34:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:19:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "parsing.h"
 #include "token.h"
-
-// ((ft_strrchr(token->value, '$') + 48) > token->value[1])
 
 static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 {

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/29 20:41:37 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:53:31 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_is_forbid(char *str, int i)
 		else if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
 			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>'))
 		{
-			ft_putstr_fd("make sur to not use more than 2 >> or <<\n", 2);
+			ft_putstr_fd("make sure to not use more than 2 >> or <<\n", 2);
 			return (1);
 		}
 	}
@@ -83,7 +83,7 @@ int	count_quote(char *str)
 	}
 	if (count_d % 2 != 0 || count_s % 2 != 0)
 	{
-		ft_putstr_fd("make sur to have quote in pairs\n", 1);
+		ft_putstr_fd("make sure to have quote in pairs\n", 1);
 		return (1);
 	}
 	return (0);

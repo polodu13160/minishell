@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:32:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:19:15 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,14 @@ int	tokenize(char *str, t_minishell *minishell)
 		free(tokens);
 		return (1);
 	}
+	tokens[count].type = T_NULL;
 	if (check_args(str, tokens, count))
 	{
 		free_token(tokens);
+		perror("Error Malloc");
+		minishell->tokens = NULL;
 		return (1);
 	}
-	tokens[count].type = T_NULL;
 	minishell->tokens = tokens;
 	return (0);
 }

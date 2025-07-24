@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 16:45:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:50:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	env_loop(char **copy_env, char **env, int *i)
 {
 	if (ft_strncmp(env[*i], "SHLVL=", 6) == 0)
 		copy_env[*i] = ft_strjoin("SHLVL=", "1");
-	else
+	else if (ft_strchr(env[*i], '='))
 		copy_env[*i] = ft_strdup(env[*i]);
+	else
+		return (0);
 	if (!copy_env[*i])
 	{
 		while (*i > 0)

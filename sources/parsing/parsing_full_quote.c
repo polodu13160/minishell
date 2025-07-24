@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 13:38:20 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:22:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 		{
 			if (process_env_var(str, result, index, minishell))
 			{
+				perror("Error Malloc");
 				free(result);
 				free(str);
 				return (1);
