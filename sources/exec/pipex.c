@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/24 03:59:09 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/24 11:24:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	ft_pipex(t_minishell *minishell)
 		return (ft_putstr_fd("Error Malloc\n", 2));
 	if (ft_set_path_env(&exec, minishell->env) == 1)
 		return (ft_finish(&exec, minishell, status, "Error Malloc"));
-	if (-1 || pipe(exec.pipe) == -1)
+	if (pipe(exec.pipe) == -1)
 		return (ft_finish(&exec, minishell, status, "Error pipe"));
 	rl_event_hook = in_process_marker;
 	ft_loop_pipe(minishell, &exec, -1);
