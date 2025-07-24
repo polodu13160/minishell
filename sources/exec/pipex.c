@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 17:32:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/24 03:59:09 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,16 @@ int	ft_pipex(t_minishell *minishell)
 	}
 	minishell->pids = ft_calloc(minishell->count_pipe + 1, sizeof(pid_t));
 	if (minishell->pids == NULL)
-		return (ft_putstr_fd("Error Malloc", 2));
+		return (ft_putstr_fd("Error Malloc\n", 2));
 	if (ft_set_path_env(&exec, minishell->env) == 1)
-		return (ft_finish(&exec, minishell, status));
-	if (pipe(exec.pipe) == -1)
-		return (1);
+		return (ft_finish(&exec, minishell, status, "Error Malloc"));
+	if (-1 || pipe(exec.pipe) == -1)
+		return (ft_finish(&exec, minishell, status, "Error pipe"));
 	rl_event_hook = in_process_marker;
 	ft_loop_pipe(minishell, &exec, -1);
 	ft_wait_child(minishell);
 	status = minishell->return_command;
 	rl_event_hook = NULL;
-	ft_finish(&exec, minishell, status);
+	ft_finish(&exec, minishell, status, NULL);
 	return (0);
 }

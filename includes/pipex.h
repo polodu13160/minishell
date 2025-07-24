@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/17 21:43:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/24 03:28:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			ft_execve_builtin_first(t_minishell *minishell, t_pip *exec);
 int			ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
 				int return_exec);
 int			ft_wait_child(t_minishell *minishell);
-void		error_fork(t_pip *exec, t_minishell *minishell, int *new_pipe);
+void		error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe, int ifpipe);
 void		ft_close_2_fds(int *fd, int *fd2);
 int			ft_check_acces_outfiles(t_minishell *minishell, int i, int j,
 				t_pip *exec);

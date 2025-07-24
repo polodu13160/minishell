@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/19 21:32:00 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/24 03:50:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 	int		new_pipe[2];
 
 	if (pipe(new_pipe) < 0)
-		return (1);
+		error_fork_or_pipe(exec, minishell, NULL, 1);
 	pid = fork();
 	minishell->pids[i] = pid;
 	if (pid == -1)
-		error_fork(exec, minishell, NULL);
+		error_fork_or_pipe(exec, minishell, new_pipe, 0);
 	if (pid == 0)
 	{
 		setup_signals_child();
@@ -159,7 +159,7 @@ int	ft_execve_first(t_minishell *minishell, t_pip *exec)
 	return_exec = 1;
 	minishell->pids[0] = pid;
 	if (pid == -1)
-		error_fork(exec, minishell, NULL);
+		error_fork_or_pipe(exec, minishell, NULL, 0);
 	if (pid == 0)
 	{
 		setup_signals_child();
