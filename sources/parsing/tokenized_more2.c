@@ -12,31 +12,6 @@
 
 #include "builtins.h"
 
-int	is_forbid(char *str, int *i, int *token_index, t_token *token)
-{
-	(void)str;
-	token[*token_index].value = ft_strdup("forbid");
-	if (!token[*token_index].value)
-		return (1);
-	if (str[*i] == '(')
-		(*i)++;
-	if (str[*i] == '\\')
-		(*i)++;
-	else if (str[*i] == ')')
-		(*i)++;
-	else if (str[*i] == ';')
-		(*i)++;
-	else if (str[*i] == '&')
-		(*i)++;
-	else if (str[*i] == '&' && str[*i + 1] == '&')
-		(*i) += 2;
-	else if (str[*i] == '|' && str[*i + 1] == '|')
-		(*i) += 2;
-	token[*token_index].type = T_FORBID;
-	(*token_index)++;
-	return (0);
-}
-
 int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 {
 	if (str[*i + 1] == '<')
@@ -99,8 +74,7 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 
 	start = *i;
 	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && str[*i] != '|'
-		&& str[*i] != '<' && str[*i] != '>' && str[*i] != '&' && str[*i] != '('
-		&& str[*i] != ')' && str[*i] != ';' && str[*i] != '\\')
+		&& str[*i] != '<' && str[*i] != '>')
 		(*i)++;
 	token[*token_index].value = ft_substr(str, start, *i - start);
 	if (!token[*token_index].value)
@@ -109,7 +83,7 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	}
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_FORBID)
+		|| token[*token_index - 1].type == T_WORD)
 		token[*token_index].type = T_FUNC;
 	else
 		token[*token_index].type = T_WORD;
@@ -119,16 +93,12 @@ int	is_word(char *str, int *i, int *token_index, t_token *token)
 
 int	is_special_token(char *str, int *i, int *token_index, t_token *token)
 {
-	if (str[*i] == '|' && str[*i + 1] != '|')
+	if (str[*i] == '|')
 		return (is_pipe(str, i, token_index, token));
 	else if (str[*i] == '<')
 		return (is_redirect_in(str, i, token_index, token));
 	else if (str[*i] == '>')
 		return (is_redirect_out(str, i, token_index, token));
-	else if (str[*i] == '&' || (str[*i] == '&' && str[*i + 1] == '&')
-		|| str[*i] == '(' || str[*i] == ')' || (str[*i] == '|' && str[*i
-				+ 1] == '|') || str[*i] == ';' || str[*i] == '\\')
-		return (is_forbid(str, i, token_index, token));
 	else if (str[*i] == '$')
 		return (is_dollar(str, i, token_index, token));
 	return (is_word(str, i, token_index, token));

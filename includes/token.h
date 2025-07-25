@@ -87,7 +87,7 @@ int			is_dollar(char *str, int *i, int *token_index, t_token *token);
 int			is_pipe(char *str, int *i, int *token_index, t_token *token);
 int			single_quote(char *str, int *i, int *token_index, t_token *token);
 int			double_quote(char *str, int *i, int *token_index, t_token *token);
-int			is_forbid(char *str, int *i, int *token_index, t_token *token);
+
 int			is_redirect_in(char *str, int *i, int *token_index, t_token *token);
 int			is_redirect_out(char *str, int *i, int *token_index,
 				t_token *token);

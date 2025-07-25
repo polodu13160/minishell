@@ -105,11 +105,6 @@ int	process_dollar(t_token *token, t_minishell *minishell, int type, int i)
 		return (1);
 	free(token->value);
 	token->value = temp;
-	if (type || token->type == T_FORBID)
-	{
-		ft_putstr_fd("forbidden preprocessor, || or && or ; or () or \\ \n", 2);
-		return (1);
-	}
 	return (0);
 }
 

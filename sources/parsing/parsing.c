@@ -130,8 +130,6 @@ int	check_parsing(t_token *t, t_minishell *minishell, int r, int i)
 			if (r == 0 && t[i].value && ft_strncmp(t[i].value, " ", 2) == 0)
 				shift_token(t, i);
 		}
-		else if (t[i].type == T_FORBID)
-			r = process_dollar(t, minishell, 1, 0);
 		else if (t[i].type == T_WORD)
 			r = process_word_tokens(&t[i], minishell);
 		if (r)

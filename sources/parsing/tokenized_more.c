@@ -27,7 +27,7 @@ int	double_quote(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_WORD;
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_FORBID)
+		|| token[*token_index - 1].type == T_WORD)
 		token[*token_index].type = T_FUNC;
 	(*token_index)++;
 	return (0);
@@ -48,7 +48,7 @@ int	single_quote(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_WORD;
 	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
-		|| token[*token_index - 1].type == T_FORBID)
+		|| token[*token_index - 1].type == T_WORD)
 		token[*token_index].type = T_FUNC;
 	(*token_index)++;
 	return (0);

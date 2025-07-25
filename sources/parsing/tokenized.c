@@ -18,9 +18,7 @@ int	process_token(char *str, t_token *token, t_parse_data *data)
 	while (str[data->i] && ((data->in_dquote || data->in_squote)
 			|| (str[data->i] != ' ' && str[data->i] != '\t'
 				&& str[data->i] != '|' && str[data->i] != '<'
-				&& str[data->i] != '>' && str[data->i] != ';'
-				&& str[data->i] != '&' && str[data->i] != '('
-				&& str[data->i] != ')' && str[data->i] != '\\')))
+				&& str[data->i] != '>')))
 	{
 		if (str[data->i] == '"' && !data->in_squote)
 			data->in_dquote = !data->in_dquote;
@@ -61,10 +59,7 @@ int	check_args(char *str, t_token *token, int count)
 			data.i++;
 		data.start = data.i;
 		if (!data.in_dquote && !data.in_squote && (str[data.i] == '|'
-				|| str[data.i] == '<' || str[data.i] == '>'
-				|| str[data.i] == ';' || str[data.i] == '&'
-				|| str[data.i] == '$' || str[data.i] == '('
-				|| str[data.i] == ')' || str[data.i] == '\\'))
+				|| str[data.i] == '<' || str[data.i] == '>'))
 		{
 			if (is_special_token(str, &data.i, &data.token_index, token))
 				return (1);

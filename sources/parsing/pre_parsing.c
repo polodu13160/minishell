@@ -16,15 +16,8 @@ int	check_is_forbid(char *str, int i)
 {
 	if (!ft_strncmp(str, "\"", ft_strlen(str)))
 	{
-		if ((str[i] == '\\' && str[i + 1] == '\\') || str[0] == ';'
-			|| (str[i] == '|' && str[i + 1] == '|') || (str[i] == ')' && str[i
-					+ 1] == ')') || (str[i] == '(' && str[i + 1] == ')'))
-		{
-			ft_putstr_fd("forbidden preprocessor : || or && or ; or () or \\\n",
-				2);
-			return (1);
-		}
-		else if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+		
+		if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
 			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>'))
 		{
 			ft_putstr_fd("make sure to not use more than 2 >> or <<\n", 2);

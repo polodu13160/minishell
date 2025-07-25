@@ -14,8 +14,7 @@
 
 static int	is_special_char(char c)
 {
-	if (c == '|' || c == '<' || c == '>' || c == ';' || c == '&' || c == '('
-		|| c == ')' || c == '$')
+	if (c == '|' || c == '<' || c == '>' || c == '$')
 		return (1);
 	return (0);
 }
@@ -36,9 +35,8 @@ static void	process_count(char *str, int *j, int *count)
 		return;
 	}
 	(*count)++;
-	if ((str[*j] == '>' && str[*j + 1] == '>') || (str[*j] == '<' && str[*j
-				+ 1] == '<') || (str[*j] == '&' && str[*j + 1] == '&')
-		|| (str[*j] == '|' && str[*j + 1] == '|'))
+	if ((str[*j] == '>' && str[*j + 1] == '>') 
+		|| (str[*j] == '<' && str[*j+ 1] == '<'))
 		(*j) += 2;
 	else if (str[*j] == '$')
 	{
@@ -59,8 +57,7 @@ static void	process_token(char *str, int *j, int *count)
 	in_squote = 0;
 	if (is_special_char(str[*j]))
 	{
-		if ((str[*j] == '|' && str[*j + 1] == '|') || (str[*j] == '&' && str[*j
-					+ 1] == '&') || str[*j] == '(' || str[*j] == ')'
+		if ((str[*j] == '|') || ((str[*j] == '<') || (str[*j] == '>'))
 			|| str[*j] == '$' || (!in_dquote && !in_squote))
 		{
 			process_count(str, j, count);
