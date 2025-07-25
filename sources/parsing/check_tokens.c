@@ -24,8 +24,7 @@ void	check_expand_special(t_token *tokens)
 	{
 		if (tokens[i].value && tokens[i].type == T_HEREDOC)
 		{
-			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value && tokens[i
-				+ 1].type == T_ENV)
+			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value)
 				tokens[i + 1].type = T_IGNORE;
 		}
 		i++;
