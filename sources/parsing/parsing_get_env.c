@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/18 02:49:06 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:11:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,22 @@ char	*ft_chardup(char c)
 	return (malloc_char);
 }
 
-char	*get_env_value(char *var_name, t_minishell *minishell)
+char	*get_env_value_loop(char *var_name, t_minishell *minishell,
+		int name_len, char *env_value)
 {
-	int		i;
-	char	*env_value;
-	size_t	name_len;
+	int	i;
 
-	if (!minishell->env)
-		return (ft_strdup("\0"));
-	name_len = ft_strlen(var_name);
-	if (name_len == 0)
-		return (ft_strdup("$"));
 	i = -1;
-	if (name_len == 1 && ft_strcmp("?", var_name) == 0)
-		return (ft_itoa(minishell->return_command));
+	if (var_name[0] == '?')
+	{
+		var_name = ft_strjoin(ft_itoa(minishell->return_command), var_name + 1);
+		if (!var_name)
+		{
+			free(var_name);
+			return (NULL);
+		}
+		return (var_name);
+	}
 	while (minishell->env[++i])
 	{
 		if (ft_strncmp(minishell->env[i], var_name, name_len) == 0
@@ -73,6 +75,24 @@ char	*get_env_value(char *var_name, t_minishell *minishell)
 		}
 	}
 	return (ft_strdup(""));
+}
+
+char	*get_env_value(char *var_name, t_minishell *minishell)
+{
+	int		i;
+	size_t	name_len;
+	char	*env_value;
+
+	env_value = NULL;
+	if (!minishell->env)
+		return (ft_strdup("\0"));
+	name_len = ft_strlen(var_name);
+	if (name_len == 0)
+		return (ft_strdup("$"));
+	i = -1;
+	if (name_len == 1 && ft_strcmp("?", var_name) == 0)
+		return (ft_itoa(minishell->return_command));
+	return (get_env_value_loop(var_name, minishell, name_len, env_value));
 }
 
 char	*extract_var_env(char *str)

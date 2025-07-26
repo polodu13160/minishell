@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 13:52:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:13:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,21 @@ void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
 int								env_loop(char **copy_env, char **env, int *i);
 char							**declare_env(void);
-char							*get_env_value(char *var_name, t_minishell *minishell);
+char							*get_env_value(char *var_name,
+									t_minishell *minishell);
 
 /*****************************export****************************************/
 
-int								ft_export(char **str, t_minishell *minishell,
-									int i);
+int								ft_export(char **str, t_minishell *minishell);
 int								ft_unset(char **str, t_minishell *minishell,
 									int i);
-int								check_double(char **str, t_minishell *minishell,
-									char *var_name, int i);
+int								check_double(char *str, t_minishell *minishell);
 char							**copy_env(t_minishell *minishell, char **str,
 									int i);
 int								is_valid_identifier(char *str);
 int								print_export(t_minishell *minishell);
+int								ft_strcmp_whithout_equality(char *env,
+									char *str);
 
 /*******************************echo****************************************/
 

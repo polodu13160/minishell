@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/23 17:23:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:36:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	process_count(char *str, int *j, int *count)
 	{
 		(*count)++;
 		(*j) += 2;
-		return;
+		return ;
 	}
 	(*count)++;
-	if ((str[*j] == '>' && str[*j + 1] == '>') 
-		|| (str[*j] == '<' && str[*j+ 1] == '<'))
+	if ((str[*j] == '>' && str[*j + 1] == '>') || (str[*j] == '<' && str[*j
+				+ 1] == '<'))
 		(*j) += 2;
 	else if (str[*j] == '$')
 	{

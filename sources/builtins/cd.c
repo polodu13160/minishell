@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 13:51:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:38:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 	char	*path;
 	char	*home_value;
 
-	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1) || !ft_strncmp(str[i + 1], "--", 2))
+	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1) || !ft_strncmp(str[i
+				+ 1], "--", 2))
 	{
 		home_value = get_env_value("HOME", minishell);
 		if (!home_value || ft_strlen(home_value) == 0)
@@ -91,7 +92,8 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 	return (ft_strdup(path));
 }
 
-int	ft_cd(char **str, t_minishell *minishell, int error, int return_func_check_path)
+int	ft_cd(char **str, t_minishell *minishell, int error,
+		int return_func_check_path)
 {
 	char	*path;
 	char	*old_pwd;
@@ -110,7 +112,7 @@ int	ft_cd(char **str, t_minishell *minishell, int error, int return_func_check_p
 	{
 		if (!return_func_check_path)
 			error = handle_cd_error(path);
-		else 
+		else
 			error = 1;
 		free(path);
 		return (error);

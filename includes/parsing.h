@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:20:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:47:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	*parse_single_quotes(char *str);
 char	*parse_quotes(char *str, t_minishell *minishell);
 char	*handle_double_quotes_env(char *str);
 char	*handle_single_quotes_env(char *str);
-char	*parse_env(char *str, t_minishell *minishell);
-int		process_dollar(t_token *token, t_minishell *minishell, int type, int i);
+char	*parse_env(char *str, t_minishell *minishell, int is_in_double);
+int		process_dollar(t_token *token, t_minishell *minishell, int i);
 int		process_env_var(char *str, char *result, t_index *index,
 			t_minishell *minishell);
 int		retokenize(t_token *tokens, t_minishell *minishell, int i);
@@ -56,6 +56,8 @@ char	*allocate_quote_copy(char *str);
 char	*prepare_string_for_quote_check(char *str);
 int		parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 			char *result);
+char	*parse_env_loop(char *str, t_minishell *minishell, char *result,
+			int is_in_double);
 char	*handle_double_quotes_env(char *str);
 char	*handle_single_quotes_env(char *str);
 void	copy_single(char *str, char *result, int *i, int *j);

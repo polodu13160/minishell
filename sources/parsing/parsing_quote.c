@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/22 15:35:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:56:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,19 @@ char	*parse_single_quotes(char *str)
 	}
 	if (str[0] == '\'')
 		i = 1;
-	while (str[i] && str[i] != '\'')
-		result[j++] = str[i++];
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			i++;
+		else
+			result[j++] = str[i++];
+	}
+	result[j] = '\0';
 	free(str);
 	return (result);
 }
 
-int	process_dollar(t_token *token, t_minishell *minishell, int type, int i)
+int	process_dollar(t_token *token, t_minishell *minishell, int i)
 {
 	char	*temp;
 
@@ -108,16 +114,11 @@ int	process_dollar(t_token *token, t_minishell *minishell, int type, int i)
 	return (0);
 }
 
-char	*parse_env(char *str, t_minishell *minishell)
+char	*parse_env(char *str, t_minishell *minishell, int is_in_double)
 {
-	t_index	index;
 	char	*result;
 	size_t	needed_size;
 
-	index.i = 0;
-	index.j = 0;
-	// if (ft_strrchr(str, '\'') > ft_strrchr(str, '$'))
-	// 	return (str);
 	needed_size = calculate_needed_size(str, minishell, 0, ft_strlen(str));
 	result = ft_calloc(sizeof(char), needed_size);
 	if (!result)
@@ -125,14 +126,7 @@ char	*parse_env(char *str, t_minishell *minishell)
 		free(str);
 		return (NULL);
 	}
-	while (str[index.i] && result != NULL)
-	{
-		if (str[index.i] == '$')
-			process_env_var(str, result, &index, minishell);
-		else
-			result[index.j++] = str[index.i++];
-	}
-	result[index.j] = '\0';
+	result = parse_env_loop(str, minishell, result, is_in_double);
 	free(str);
 	return (result);
 }

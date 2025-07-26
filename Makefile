@@ -53,6 +53,7 @@ FILES = main \
 		prepare-exec/check_here_doc_signals \
 		parsing/ctrl_heredoc \
 		utils \
+		builtins/ft_export_utils \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

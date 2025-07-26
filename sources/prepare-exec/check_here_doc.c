@@ -23,7 +23,8 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {
 	if (tokens[i].type == T_PIPE)
 	{
-		if (i == 0 || tokens[i + 1].value == NULL || tokens[i + 1].type == T_PIPE)
+		if (i == 0 || tokens[i + 1].value == NULL || tokens[i
+				+ 1].type == T_PIPE)
 		{
 			minishell->return_command = 2;
 			return (ft_print_error(tokens, i, 1));

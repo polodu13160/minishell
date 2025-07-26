@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 15:53:31 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:08:22 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	check_is_forbid(char *str, int i)
 {
 	if (!ft_strncmp(str, "\"", ft_strlen(str)))
 	{
-		
 		if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
 			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>'))
 		{

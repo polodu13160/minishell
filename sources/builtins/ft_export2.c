@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/30 13:09:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:13:50 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,29 @@ int	print_export(t_minishell *minishell)
 	j = 0;
 	while (minishell->env[j])
 	{
-		ft_printf("declare -x %s\n", minishell->env[j]);
+		ft_printf("%s\n", minishell->env[j]);
 		j++;
 	}
 	return (0);
 }
 
-int	exist_return(char **str, int exists, int i, t_minishell *minishell)
+int	exist_return(char *str, int exists, t_minishell *minishell)
 {
 	char	*temp;
+	int		i;
 
-	if (ft_strchr(str[i + 1], '=') == NULL)
+	if (ft_strchr(str, '=') == NULL)
 		return (1);
-	temp = ft_strdup(str[i + 1]);
+	temp = ft_strdup(str);
 	if (!temp)
 		return (2);
 	free(minishell->env[exists]);
 	minishell->env[exists] = temp;
+	i = 0;
 	return (1);
 }
 
-int	check_double(char **str, t_minishell *minishell, char *var_name, int i)
+int	check_double(char *str, t_minishell *minishell)
 {
 	int	j;
 	int	exists;
@@ -48,13 +50,15 @@ int	check_double(char **str, t_minishell *minishell, char *var_name, int i)
 	name_len = 0;
 	j = 0;
 	exists = -1;
-	while (var_name[name_len] && var_name[name_len] != '=')
+	if (str == NULL)
+		return (2);
+	while (str[name_len] && str[name_len] != '=')
 		name_len++;
+	if (str[name_len] != '=')
+		return (0);
 	while (minishell->env[j])
 	{
-		if (ft_strncmp(minishell->env[j], var_name, name_len) == 0
-			&& (minishell->env[j][name_len] == '='
-			|| minishell->env[j][name_len] == '\0'))
+		if (ft_strcmp_whithout_equality(minishell->env[j], str) == 0)
 		{
 			exists = j;
 			break ;
@@ -62,7 +66,7 @@ int	check_double(char **str, t_minishell *minishell, char *var_name, int i)
 		j++;
 	}
 	if (exists >= 0)
-		return (exist_return(str, exists, i, minishell));
+		return (exist_return(str, exists, minishell));
 	return (0);
 }
 
@@ -83,7 +87,7 @@ char	**copy_env(t_minishell *minishell, char **str, int i)
 		new_env[j] = minishell->env[j];
 		j++;
 	}
-	new_env[j] = ft_strdup(str[i + 1]);
+	new_env[j] = ft_strdup(str[i]);
 	if (!new_env[j])
 	{
 		free(new_env);

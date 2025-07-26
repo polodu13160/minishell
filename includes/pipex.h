@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/24 03:28:51 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:39:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			ft_add_slash_to_env(t_pip *exec);
 int			ft_set_path_env(t_pip *exec, char **env);
 void		ft_message_output(int statuetemp, t_minishell *minishell,
 				pid_t pidvalue);
-int			ft_perr_and_add_exec_error(char *value, t_pip *exec);
+int			ft_perr_exec_error(char *value, t_pip *exec);
 void		free_pipex(t_minishell *structure, int end);
 int			free_all(t_token *token, t_minishell *structure, int end);
 int			ft_check_perm_infiles(t_minishell *minishell, int i, int j,
@@ -59,7 +59,8 @@ int			ft_execve_builtin_first(t_minishell *minishell, t_pip *exec);
 int			ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
 				int return_exec);
 int			ft_wait_child(t_minishell *minishell);
-void		error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe, int ifpipe);
+void		error_fork_or_pipe(t_pip *exec, t_minishell *minishell,
+				int *new_pipe, int ifpipe);
 void		ft_close_2_fds(int *fd, int *fd2);
 int			ft_check_acces_outfiles(t_minishell *minishell, int i, int j,
 				t_pip *exec);

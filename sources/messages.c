@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/23 18:58:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:38:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	ft_print_error(t_token *tokens, int i, int error)
 	{
 		if (tokens[i].type != T_PIPE)
 			i++;
-		ft_printf_fd(2, "syntax error near unexpected token `%s'\n", tokens[i].value);
+		ft_printf_fd(2, "syntax error near unexpected token `%s'\n",
+			tokens[i].value);
 	}
 	return (1);
 }
@@ -122,7 +123,7 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell)
 	return (statuetemp);
 }
 
-int	ft_perr_and_add_exec_error(char *value, t_pip *exec)
+int	ft_perr_exec_error(char *value, t_pip *exec)
 {
 	perror(value);
 	exec->error = 1;

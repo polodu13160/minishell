@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/24 03:45:52 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:38:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
 #include "free.h"
+#include "pipex.h"
 
 void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 		int ifpipe)
@@ -23,7 +23,7 @@ void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 		ft_close(&exec->fd_outfile.fd);
 	if (ifpipe)
 		ft_printf_fd(2, "Error Pipe\n");
-	else 
+	else
 		ft_printf_fd(2, "Error Fork\n");
 	ft_close_pip(exec, new_pipe, 0);
 	ft_finish_child(minishell, exec, 1);

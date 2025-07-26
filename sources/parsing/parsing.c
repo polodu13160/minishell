@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 16:19:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:36:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,24 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
 	return (0);
 }
 
-static int	process_word_tokens(t_token *token, t_minishell *minishell)
+static int	process_word_tokens(t_token *token, t_minishell *minishell,
+		int is_in_double)
 {
 	if (ft_strchr(token->value, '$'))
 	{
-		if (ft_strchr(token->value, '"'))
+		if (ft_strchr(token->value, '"') && ft_strchr(token->value,
+				'"') < ft_strchr(token->value, '$'))
+		{
+			is_in_double = 1;
 			token->value = check_quote_command(token->value);
-		token->value = parse_env(token->value, minishell);
+		}
+		token->value = parse_env(token->value, minishell, is_in_double);
+		if (ft_strchr(token->value, '"') || (ft_strchr(token->value, '\'')
+				&& is_in_double != 1))
+		{
+			if (handle_env_quotes(token, minishell))
+				return (1);
+		}
 		token->type = T_ENV;
 	}
 	else if (ft_strchr(token->value, '"'))
@@ -106,9 +117,7 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 	else if (ft_strchr(token->value, '\''))
 		token->value = parse_single_quotes(token->value);
 	if (!token->value)
-	{
 		return (1);
-	}
 	return (0);
 }
 
@@ -131,7 +140,7 @@ int	check_parsing(t_token *t, t_minishell *minishell, int r, int i)
 				shift_token(t, i);
 		}
 		else if (t[i].type == T_WORD)
-			r = process_word_tokens(&t[i], minishell);
+			r = process_word_tokens(&t[i], minishell, 0);
 		if (r)
 			return (r);
 		i++;

@@ -6,13 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 16:22:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:08:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "parsing.h"
 #include "token.h"
-#include "builtins.h"
 
 static void	handle_quotes(char *str, t_index *index, t_quote_state *state)
 {
@@ -55,7 +55,7 @@ int	process_env_var(char *str, char *result, t_index *index,
 
 	var_name = extract_var_name(str, &(index->i), &var_len);
 	if (var_name == NULL)
-		return 1;
+		return (1);
 	value = get_env_value(var_name, minishell);
 	free(var_name);
 	if (!value)
@@ -108,7 +108,8 @@ int	parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 				return (1);
 			}
 		}
-		else if ((str[index->i] == '"' && !state.in_squote) || (str[index->i] == '\'' && !state.in_dquote))
+		else if ((str[index->i] == '"' && !state.in_squote)
+			|| (str[index->i] == '\'' && !state.in_dquote))
 			handle_quotes(str, index, &state);
 		else
 			result[index->j++] = str[index->i++];

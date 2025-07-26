@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 15:26:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:04:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	check_interrupt(void)
 int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 		int i)
 {
-	int	j;
+	int		j;
+	char	*line;
 
 	j = 0;
 	while (j++ == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
@@ -45,7 +46,6 @@ int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 			read_like_gnl = readline(">");
 		else
 		{
-			char *line;
 			line = get_next_line(fileno(stdin));
 			read_like_gnl = ft_strtrim(line, "\n");
 			free(line);

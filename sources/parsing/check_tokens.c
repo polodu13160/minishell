@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 20:32:44 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:10:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ void	check_expand_special(t_token *tokens)
 	}
 }
 
-int	delete_null_token(t_token *tokens)
+void	delete_null_token_loop(t_token *tokens)
 {
 	int	i;
 
-	if (!tokens)
-		return (0);
 	i = 0;
 	while (tokens[i].type != T_NULL)
 	{
@@ -55,6 +53,15 @@ int	delete_null_token(t_token *tokens)
 		}
 		i++;
 	}
+}
+
+int	delete_null_token(t_token *tokens)
+{
+	int	i;
+
+	if (!tokens)
+		return (0);
+	delete_null_token_loop(tokens);
 	i = 0;
 	while (tokens[i].type != T_NULL)
 	{
@@ -103,16 +110,4 @@ int	check_token(t_token *tokens, t_minishell *minishell, int i)
 	if (delete_null_token(minishell->tokens))
 		return (1);
 	return (0);
-}
-
-void	shift_token(t_token *token, int i)
-{
-	free(token[i].value);
-	while (token[i + 1].type != T_NULL)
-	{
-		token[i] = token[i + 1];
-		i++;
-	}
-	token[i].value = NULL;
-	token[i].type = T_NULL;
 }
