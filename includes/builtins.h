@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 20:13:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:47:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,15 @@ char							*get_env_value(char *var_name,
 int								ft_export(char **str, t_minishell *minishell);
 int								ft_unset(char **str, t_minishell *minishell,
 									int i);
-int								check_double(char *str, t_minishell *minishell);
-char							**copy_env(t_minishell *minishell, char **str,
-									int i);
+int								check_double(char *str, t_minishell *minishell,
+									int j, int name_len);
+int								copy_env_loop(char **new_env, char **str,
+									t_minishell *minishell, int i);
 int								is_valid_identifier(char *str);
 int								print_export(t_minishell *minishell);
 int								ft_strcmp_whithout_equality(char *env,
 									char *str);
+int								handle_invalid_identifier(char *var_name);
 
 /*******************************echo****************************************/
 

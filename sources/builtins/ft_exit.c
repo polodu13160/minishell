@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 20:12:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:46:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,26 @@ int	check_arg_exit(char **str, t_minishell *minishell, t_pip *exec,
 	return (0);
 }
 
-int	check_exit_numeric(char **str, int i, int *sign)
+int	check_exit_numeric(char **str, int i, int *sign, int x)
 {
-	int	x;
+	int	plus_sign;
 
-	x = 0;
 	*sign = 0;
+	plus_sign = 0;
 	while (str[i + 1] && str[i + 1][x])
 	{
+		if (str[i + 1][x] == '+')
+			plus_sign++;
 		if (str[i + 1][x] == '-')
 			(*sign)++;
+		if (str[i + 1][x] == '+' || str[i + 1][x] == '-')
+			x = x;
 		else if (str[i + 1][x] < '0' || str[i + 1][x] > '9')
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
 			return (2);
 		}
-		if (*sign > 1)
+		if (*sign > 1 || plus_sign > 1)
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
 			return (2);
@@ -70,7 +74,7 @@ int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 	signed long long	value;
 
 	error = 0;
-	if (check_exit_numeric(str, 0, &sign) == 2)
+	if (check_exit_numeric(str, 0, &sign, 0) == 2)
 	{
 		minishell->return_command = 2;
 		free_exit(minishell->tokens, minishell, exec, print_exit);

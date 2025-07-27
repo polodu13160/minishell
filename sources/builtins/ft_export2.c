@@ -6,24 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 20:13:50 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:03:52 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-int	print_export(t_minishell *minishell)
-{
-	int	j;
-
-	j = 0;
-	while (minishell->env[j])
-	{
-		ft_printf("%s\n", minishell->env[j]);
-		j++;
-	}
-	return (0);
-}
 
 int	exist_return(char *str, int exists, t_minishell *minishell)
 {
@@ -41,60 +28,58 @@ int	exist_return(char *str, int exists, t_minishell *minishell)
 	return (1);
 }
 
-int	check_double(char *str, t_minishell *minishell)
+int	check_double(char *str, t_minishell *minishell, int j, int name_len)
 {
-	int	j;
 	int	exists;
-	int	name_len;
 
-	name_len = 0;
-	j = 0;
 	exists = -1;
 	if (str == NULL)
 		return (2);
 	while (str[name_len] && str[name_len] != '=')
 		name_len++;
-	if (str[name_len] != '=')
-		return (0);
 	while (minishell->env[j])
+		j++;
+	j--;
+	while (j >= 0)
 	{
-		if (ft_strcmp_whithout_equality(minishell->env[j], str) == 0)
+		if (same_var_name(minishell->env[j], str))
 		{
 			exists = j;
 			break ;
 		}
-		j++;
+		j--;
 	}
 	if (exists >= 0)
 		return (exist_return(str, exists, minishell));
 	return (0);
 }
 
-char	**copy_env(t_minishell *minishell, char **str, int i)
+int	copy_env_loop(char **new_env, char **str, t_minishell *minishell, int i)
 {
-	char	**new_env;
-	int		j;
+	int	j;
 
 	j = 0;
 	while (minishell->env[j])
-		j++;
-	new_env = ft_calloc(sizeof(char *), (j + 2));
-	if (!new_env)
-		return (NULL);
-	j = 0;
-	while (minishell->env[j])
 	{
-		new_env[j] = minishell->env[j];
+		new_env[j] = ft_strdup(minishell->env[j]);
+		if (!new_env[j])
+		{
+			while (--j >= 0)
+				free(new_env[j]);
+			free(new_env);
+			return (1);
+		}
 		j++;
 	}
 	new_env[j] = ft_strdup(str[i]);
 	if (!new_env[j])
 	{
+		while (--j >= 0)
+			free(new_env[j]);
 		free(new_env);
-		return (NULL);
+		return (1);
 	}
-	free(minishell->env);
-	return (new_env);
+	return (0);
 }
 
 int	is_valid_identifier(char *str)
@@ -113,4 +98,19 @@ int	is_valid_identifier(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	same_var_name(char *env_var, char *new_var)
+{
+	int	i;
+
+	i = 0;
+	while (env_var[i] && new_var[i] && env_var[i] != '=' && new_var[i] != '=')
+	{
+		if (env_var[i] != new_var[i])
+			return (0);
+		i++;
+	}
+	return ((env_var[i] == '=' || env_var[i] == '\0') && (new_var[i] == '='
+			|| new_var[i] == '\0'));
 }

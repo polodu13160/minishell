@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   messages2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 09:20:01 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/27 19:32:14 by antbonin         ###   ########.fr       */
+/*   Created: 2025/07/27 18:38:30 by antbonin          #+#    #+#             */
+/*   Updated: 2025/07/27 19:04:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/libft.h"
+#include "builtins.h"
 
-int	ft_isalpha(int c)
+int	print_export(t_minishell *minishell)
 {
-	if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z'))
+	int	j;
+
+	j = 0;
+	while (minishell->env[j])
 	{
-		return (0);
+		ft_printf("%s\n", minishell->env[j]);
+		j++;
 	}
-	return (1);
+	return (0);
 }
 
+int	handle_invalid_identifier(char *var_name)
+{
+	printf("export: '%s': not a valid identifier\n", var_name);
+	return (1);
+}

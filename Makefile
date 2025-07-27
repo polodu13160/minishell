@@ -54,6 +54,7 @@ FILES = main \
 		parsing/ctrl_heredoc \
 		utils \
 		builtins/ft_export_utils \
+		messages2 \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

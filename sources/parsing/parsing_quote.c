@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:56:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:46:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,17 @@ char	*parse_env(char *str, t_minishell *minishell, int is_in_double)
 	size_t	needed_size;
 
 	needed_size = calculate_needed_size(str, minishell, 0, ft_strlen(str));
+	if (needed_size == 1)
+	{
+		result = ft_strdup("$");
+		if (!result)
+		{
+			free(str);
+			return (NULL);
+		}
+		free(str);
+		return (result);
+	}
 	result = ft_calloc(sizeof(char), needed_size);
 	if (!result)
 	{

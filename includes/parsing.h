@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:47:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 16:44:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ char	*return_env(char *str, t_minishell *minishell);
 char	*check_quote_command(char *str);
 char	*parse_single_quotes(char *str);
 char	*parse_quotes(char *str, t_minishell *minishell);
-char	*handle_double_quotes_env(char *str);
-char	*handle_single_quotes_env(char *str);
 char	*parse_env(char *str, t_minishell *minishell, int is_in_double);
 int		process_dollar(t_token *token, t_minishell *minishell, int i);
 int		process_env_var(char *str, char *result, t_index *index,
@@ -59,7 +57,8 @@ int		parse_quote_loop(char *str, t_minishell *minishell, t_index *index,
 char	*parse_env_loop(char *str, t_minishell *minishell, char *result,
 			int is_in_double);
 char	*handle_double_quotes_env(char *str);
-char	*handle_single_quotes_env(char *str);
+char	*handle_single_quotes_env(char *str, int i, int j);
+char	*handle_single_quote_in_double(char *str, int i, int j);
 void	copy_single(char *str, char *result, int *i, int *j);
 char	*ft_join_malloc(char *malloc_str1, char *malloc_str2);
 char	*ft_chardup(char c);

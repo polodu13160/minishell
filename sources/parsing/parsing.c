@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:36:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:23:25 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 			token->value = handle_double_quotes_env(token->value);
 	}
 	else if (token->value[1] == '\'')
-		token->value = handle_single_quotes_env(token->value);
+		token->value = handle_single_quotes_env(token->value, 1, 0);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
 		token->value = parse_quotes(token->value, minishell);
 	if (!token->value)

@@ -6,20 +6,16 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:26:00 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 20:11:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/27 16:45:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*handle_single_quotes_env(char *str)
+char	*handle_single_quotes_env(char *str, int i, int j)
 {
-	int		i;
-	int		j;
 	char	*result;
 
-	i = 1;
-	j = 0;
 	result = ft_calloc(sizeof(char), ft_strlen(str));
 	if (!result)
 	{
@@ -34,7 +30,10 @@ char	*handle_single_quotes_env(char *str)
 		i++;
 		while (str[i])
 		{
-			result[j++] = str[i++];
+			if (str[i] == '\'')
+				i++;
+			else
+				result[j++] = str[i++];
 		}
 	}
 	free(str);
