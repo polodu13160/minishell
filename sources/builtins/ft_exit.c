@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/27 19:46:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:34:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_exit_numeric(char **str, int i, int *sign, int x)
 		if (str[i + 1][x] == '-')
 			(*sign)++;
 		if (str[i + 1][x] == '+' || str[i + 1][x] == '-')
-			x = x;
+			x += 0;
 		else if (str[i + 1][x] < '0' || str[i + 1][x] > '9')
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);

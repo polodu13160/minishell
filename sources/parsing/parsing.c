@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/27 18:23:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:39:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell,
 			token->value = check_quote_command(token->value);
 		}
 		token->value = parse_env(token->value, minishell, is_in_double);
-		if (ft_strchr(token->value, '"') || (ft_strchr(token->value, '\'')
-				&& is_in_double != 1))
+		if (token->value && (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
+				&& is_in_double != 1)
 		{
 			if (handle_env_quotes(token, minishell))
 				return (1);

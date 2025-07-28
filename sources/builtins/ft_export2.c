@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/27 19:03:52 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:34:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,21 @@ int	exist_return(char *str, int exists, t_minishell *minishell)
 	minishell->env[exists] = temp;
 	i = 0;
 	return (1);
+}
+
+int	same_var_name(char *env_var, char *new_var)
+{
+	int	i;
+
+	i = 0;
+	while (env_var[i] && new_var[i] && env_var[i] != '=' && new_var[i] != '=')
+	{
+		if (env_var[i] != new_var[i])
+			return (0);
+		i++;
+	}
+	return ((env_var[i] == '=' || env_var[i] == '\0') && (new_var[i] == '='
+			|| new_var[i] == '\0'));
 }
 
 int	check_double(char *str, t_minishell *minishell, int j, int name_len)
@@ -98,19 +113,4 @@ int	is_valid_identifier(char *str)
 		i++;
 	}
 	return (1);
-}
-
-int	same_var_name(char *env_var, char *new_var)
-{
-	int	i;
-
-	i = 0;
-	while (env_var[i] && new_var[i] && env_var[i] != '=' && new_var[i] != '=')
-	{
-		if (env_var[i] != new_var[i])
-			return (0);
-		i++;
-	}
-	return ((env_var[i] == '=' || env_var[i] == '\0') && (new_var[i] == '='
-			|| new_var[i] == '\0'));
 }

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:26:00 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/27 16:45:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:12:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,27 @@ void	copy_single(char *str, char *result, int *i, int *j)
 	}
 }
 
+char	*new_str(char *str, t_minishell *minishell)
+{
+	char	*temp;
+	char	*itoa;
+	char *new_str;
+
+	temp = str;
+	itoa = ft_itoa(minishell->return_command);
+	if (!itoa)
+		return (NULL);
+	new_str = ft_strjoin(itoa, temp + 2);
+	if (!temp)
+	{
+		free(itoa);	
+		return (NULL);
+	}
+	free(temp);
+	free(itoa);
+	return (new_str);
+}
+
 char	*parse_env_loop(char *str, t_minishell *minishell, char *result,
 		int is_in_double)
 {
@@ -107,24 +128,22 @@ char	*parse_env_loop(char *str, t_minishell *minishell, char *result,
 	index.j = 0;
 	if (str[0] == '$' && str[1] == '?')
 	{
-		str = ft_strjoin(ft_itoa(minishell->return_command), str + 2);
+		str = new_str(str, minishell);
 		if (!str)
-		{
-			free(str);
 			return (NULL);
-		}
 	}
 	while (str[index.i] && result != NULL)
 	{
 		if ((!ft_strchr(str, '\'') && str[index.i] == '$') || (ft_strchr(str,
 					'"') && (ft_strchr(str, '"') < ft_strchr(str, '\'')
-					&& str[index.i] == '$')) || (is_in_double
-				&& str[index.i] == '$'))
+				&& str[index.i] == '$')) || (is_in_double
+			&& str[index.i] == '$'))
 			process_env_var(str, result, &index, minishell);
 		else
 			result[index.j++] = str[index.i++];
 	}
 	result[index.j] = '\0';
+	free(str);
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:38:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/27 19:04:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:35:12 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	print_export(t_minishell *minishell)
 
 int	handle_invalid_identifier(char *var_name)
 {
-	printf("export: '%s': not a valid identifier\n", var_name);
+	printf("bash: export: `%s': not a valid identifier\n", var_name);
 	return (1);
 }

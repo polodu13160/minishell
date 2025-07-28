@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:38:14 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:31:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	declare_readline(t_minishell *minishell)
 		ft_free_all(minishell->cwd, "cwd error", 1, 1);
 	}
 	if (isatty(fileno(stdin)))
-		minishell->line = readline(">");
+		minishell->line = readline(minishell->cwd_join);
 	else
 	{
 		line = get_next_line(fileno(stdin));
