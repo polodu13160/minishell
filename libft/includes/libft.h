@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:25:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:17:39 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:42:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
-
+int					ft_isalpha_space(int c);
 /****************************************************************/
 
 size_t				ft_strlen(const char *str);

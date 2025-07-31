@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:26:00 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/28 17:12:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:56:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,14 @@ char	*handle_double_quotes_env(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '"')
+		{
 			i++;
-		result[j++] = str[i++];
+			continue ;
+		}
+		result[j++] = str[i];
 		if (!str[i + 1])
 			break ;
+		i++;
 	}
 	result[j] = '\0';
 	free(str);
@@ -102,7 +106,7 @@ char	*new_str(char *str, t_minishell *minishell)
 {
 	char	*temp;
 	char	*itoa;
-	char *new_str;
+	char	*new_str;
 
 	temp = str;
 	itoa = ft_itoa(minishell->return_command);
@@ -111,7 +115,7 @@ char	*new_str(char *str, t_minishell *minishell)
 	new_str = ft_strjoin(itoa, temp + 2);
 	if (!temp)
 	{
-		free(itoa);	
+		free(itoa);
 		return (NULL);
 	}
 	free(temp);

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/28 14:34:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:53:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,10 @@ int	is_valid_identifier(char *str)
 
 	if (!str || !str[0])
 		return (0);
-	if (!ft_isalpha(str[0]) && str[0] != '_')
-		return (0);
-	i = 1;
+	i = 0;
 	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalpha(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/28 17:39:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:33:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 		else
 			token->value = handle_double_quotes_env(token->value);
 	}
-	else if (token->value[1] == '\'')
+	else if (token->value[1] == '\'' && (ft_strrchr(token->value, '$') < ft_strrchr(token->value, '\'')))
+	{
 		token->value = handle_single_quotes_env(token->value, 1, 0);
+	}
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
 		token->value = parse_quotes(token->value, minishell);
 	if (!token->value)
@@ -63,12 +65,18 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell)
 	return (0);
 }
 
-static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
+static int	process_quotes_tokens(t_token *token, t_minishell *minishell,
+		t_token *tokens, int i)
 {
 	int	was_double_quoted;
+	int	do_not_expand;
 
+	do_not_expand = 0;
+	if (i >= 1 && tokens[i - 1].value && tokens[i - 1].type == T_HEREDOC)
+		do_not_expand = 1;
 	was_double_quoted = (token->value[0] == '"');
-	if (ft_strchr(token->value, '$') && !ft_strchr(token->value, '\''))
+	if (ft_strchr(token->value, '$') && !ft_strchr(token->value, '\'')
+			&& !do_not_expand)
 	{
 		token->value = parse_quotes(token->value, minishell);
 		if (!token->value)
@@ -76,14 +84,14 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell)
 		if (!was_double_quoted)
 			token->type = T_ENV;
 	}
-	else if (token->value[0] == '"' || token->value[0] == '\''
-		|| ft_strchr(token->value, '$'))
+	else if ((token->value[0] == '"' || token->value[0] == '\''
+			|| ft_strchr(token->value, '$')) && !do_not_expand)
 	{
 		token->value = parse_quotes(token->value, minishell);
 		if (!token->value)
 			return (1);
 	}
-	else if (token->type == T_FUNC)
+	else if (token->type == T_FUNC || do_not_expand)
 		token->value = check_quote_command(token->value);
 	if (!token->value)
 	{
@@ -104,8 +112,8 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell,
 			token->value = check_quote_command(token->value);
 		}
 		token->value = parse_env(token->value, minishell, is_in_double);
-		if (token->value && (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
-				&& is_in_double != 1)
+		if (token->value && (ft_strchr(token->value, '"')
+				|| ft_strchr(token->value, '\'')) && is_in_double != 1)
 		{
 			if (handle_env_quotes(token, minishell))
 				return (1);
@@ -130,16 +138,15 @@ int	check_parsing(t_token *t, t_minishell *minishell, int r, int i)
 			i++;
 			continue ;
 		}
-		if (t[i].value[0] == '"' || t[i].value[0] == '\''
-			|| (t[i].type == T_FUNC))
-			r = process_quotes_tokens(&t[i], minishell);
+		if (t[i].value[0] == '"' || t[i].value[0] == '\'')
+			r = process_quotes_tokens(&t[i], minishell, t, i);
 		else if (t[i].type == T_ENV)
 		{
 			r = process_env_tokens(&t[i], minishell);
 			if (r == 0 && t[i].value && ft_strncmp(t[i].value, " ", 2) == 0)
 				shift_token(t, i);
 		}
-		else if (t[i].type == T_WORD)
+		else if (t[i].type == T_WORD || (t[i].type == T_FUNC))
 			r = process_word_tokens(&t[i], minishell, 0);
 		if (r)
 			return (r);

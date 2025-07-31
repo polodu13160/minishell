@@ -64,7 +64,8 @@ SRCS = $(addprefix $(LIBFT_DIR), \
        ft_lstnew_bonus.c \
        ft_lstsize_bonus.c \
        ft_strjoin3.c \
-       ft_lstmap_bonus.c)
+       ft_lstmap_bonus.c \
+       ft_isalpha_space.c)
 
 OBJ_DIR = obj/
 OBJS = $(addprefix $(OBJ_DIR), $(notdir $(SRCS:.c=.o)))

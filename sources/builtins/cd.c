@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/28 16:24:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:02:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	handle_cd_error(char *path)
 		ft_putstr_fd("cd: permission denied: ", 2);
 	else
 		ft_putstr_fd("cd: not a directory: ", 2);
-	ft_putendl_fd(path, 2);
+	ft_printf_fd(2, "%s\n", path);
 	return (1);
 }
 
@@ -74,8 +74,7 @@ char	*get_cd_path(char **str, int i, t_minishell *minishell)
 	char	*path;
 	char	*home_value;
 
-	if (!str[i + 1] || !ft_strncmp(str[i + 1], "~", 1) || !ft_strncmp(str[i
-				+ 1], "--", 2))
+	if (!str[i + 1])
 	{
 		home_value = get_env_value("HOME", minishell);
 		if (!home_value || ft_strlen(home_value) == 0)
@@ -101,7 +100,7 @@ int	ft_cd(char **str, t_minishell *minishell, int error,
 	old_pwd = minishell->cwd;
 	if (!old_pwd || (str[0] && str[1] && str[2]))
 	{
-		ft_printf_fd(2, "cd: error retrieving current directory");
+		ft_printf_fd(2, "cd: error retrieving current directory\n");
 		return (1);
 	}
 	path = get_cd_path(str, 0, minishell);
