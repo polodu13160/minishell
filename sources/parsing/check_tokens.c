@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/26 20:10:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/07/31 18:39:57 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,48 @@ static void	check_tokens_t_ignore(t_token *tokens)
 	}
 }
 
+int	delete_space_parsing(t_token *token)
+{
+	int	i;
+	int	j;
+	int	replace;
+
+	i = 0;
+	if (token[i].value[0] != 32 || token[i].value[0] < 9
+		|| token[i].value[0] > 13)
+		return (0);
+	while (token[i].value)
+	{
+		replace = 0;
+		j = 0;
+		while (token[i].value[j] != 0 || token[i].value[j] == 32 || (token[i].value[j] >= 9
+				&& token[i].value[j] <= 13))
+			j++;
+		while (token[i].value[j] != 0 && token[i].value[j] != 32
+			&& (token[i].value[j] < 9 || token[i].value[j] > 13))
+		{
+			token[i].value[replace] = token[i].value[j];
+			j++;
+			replace++;
+		}
+		while (token[i].value[j] != 0  || token[i].value[j] == 32 || (token[i].value[j] >= 9
+				&& token[i].value[j] <= 13))
+		{
+			token[i].value[replace] = '\0';
+			j++;
+			replace++;
+		}
+		i++;
+	}
+	return 0;
+}
+
 int	check_token(t_token *tokens, t_minishell *minishell, int i)
 {
 	check_expand_special(minishell->tokens);
 	if (check_parsing(tokens, minishell, 0, 0))
 		return (1);
+	delete_space_parsing(tokens);
 	i = 0;
 	check_tokens_t_ignore(tokens);
 	while (minishell->tokens[i].type != T_NULL)
