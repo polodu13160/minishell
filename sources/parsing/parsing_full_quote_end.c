@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:04:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 16:06:47 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:24:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,38 @@ static char	*init_quote_parsing(char *str, t_index *index,
 	return (result);
 }
 
+static char	*remove_leading_dollar(char *str)
+{
+	char	*new_str;
+	int		i;
+
+	if (!str || str[0] != '$' || !str[1] || (str[1] != '\'' && str[1] != '"'))
+		return (str);
+	new_str = ft_calloc(ft_strlen(str), sizeof(char));
+	if (!new_str)
+	{
+		free(str);
+		return (NULL);
+	}
+	i = 0;
+	while (str[i + 1])
+	{
+		new_str[i] = str[i + 1];
+		i++;
+	}
+	new_str[i] = '\0';
+	free(str);
+	return (new_str);
+}
+
 char	*parse_quotes(char *str, t_minishell *minishell)
 {
 	t_index	index;
 	char	*result;
 
+	str = remove_leading_dollar(str);
+	if (!str)
+		return (NULL);
 	result = init_quote_parsing(str, &index, minishell);
 	if (!result)
 	{
