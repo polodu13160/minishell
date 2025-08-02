@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   return_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/17 23:43:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/02 17:56:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,21 @@ char	*return_env(char *str, t_minishell *minishell)
 	if (var_name == NULL)
 		return (NULL);
 	return (return_env(str, minishell));
+}
+
+char	*copy_return_command(t_minishell *minishell, char *var_name)
+{
+	char	*temp;
+
+	temp = ft_itoa(minishell->return_command);
+	if (!temp)
+		return (NULL);
+	var_name = ft_strjoin(temp, var_name + 1);
+	free(temp);
+	if (!var_name)
+	{
+		free(var_name);
+		return (NULL);
+	}
+	return (var_name);
 }

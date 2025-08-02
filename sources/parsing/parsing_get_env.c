@@ -6,10 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/28 17:10:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/02 18:03:25 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parsing.h"
 #include "token.h"
 
 char	*ft_join_malloc(char *malloc_str1, char *malloc_str2)
@@ -54,19 +55,7 @@ char	*get_env_value_loop(char *var_name, t_minishell *minishell,
 
 	i = -1;
 	if (var_name[0] == '?')
-	{
-		char *temp = ft_itoa(minishell->return_command);
-		if (!temp)
-			return (NULL);
-		var_name = ft_strjoin(temp, var_name + 1);
-		free(temp);
-		if (!var_name)
-		{
-			free(var_name);
-			return (NULL);
-		}
-		return (var_name);
-	}
+		return (copy_return_command(minishell, var_name));
 	while (minishell->env[++i])
 	{
 		if (ft_strncmp(minishell->env[i], var_name, name_len) == 0

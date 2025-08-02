@@ -6,16 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:26:00 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 14:02:52 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/02 16:23:03 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*handle_single_quotes_env(char *str, int i, int j)
+char	*handle_single_quotes_env(char *str, int i, int j, char *result)
 {
-	char	*result;
-
 	result = ft_calloc(sizeof(char), ft_strlen(str));
 	if (!result)
 	{
@@ -42,14 +40,10 @@ char	*handle_single_quotes_env(char *str, int i, int j)
 	return (result);
 }
 
-char	*handle_double_quotes_env(char *str)
+char	*handle_double_quotes_env(char *str, int i, int j)
 {
-	int		i;
-	int		j;
 	char	*result;
 
-	i = 0;
-	j = 0;
 	result = ft_calloc(sizeof(char), ft_strlen(str));
 	if (!result)
 	{
@@ -142,8 +136,8 @@ char	*parse_env_loop(char *str, t_minishell *minishell, char *result,
 	{
 		if ((!ft_strchr(str, '\'') && str[index.i] == '$') || (ft_strchr(str,
 					'"') && (ft_strchr(str, '"') < ft_strchr(str, '\'')
-				&& str[index.i] == '$')) || (is_in_double
-			&& str[index.i] == '$'))
+					&& str[index.i] == '$')) || (is_in_double
+				&& str[index.i] == '$'))
 			process_env_var(str, result, &index, minishell);
 		else
 			result[index.j++] = str[index.i++];
@@ -151,16 +145,4 @@ char	*parse_env_loop(char *str, t_minishell *minishell, char *result,
 	result[index.j] = '\0';
 	free(str);
 	return (result);
-}
-
-void	shift_token(t_token *token, int i)
-{
-	free(token[i].value);
-	while (token[i + 1].type != T_NULL)
-	{
-		token[i] = token[i + 1];
-		i++;
-	}
-	token[i].value = NULL;
-	token[i].type = T_NULL;
 }

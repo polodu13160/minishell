@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:36:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/02 16:30:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 static int	is_special_char(char c)
 {
 	if (c == '|' || c == '<' || c == '>' || c == '$')
-		return (1);
-	return (0);
-}
-
-static int	is_whitespace(char c)
-{
-	if (c == ' ' || c == '\t')
 		return (1);
 	return (0);
 }

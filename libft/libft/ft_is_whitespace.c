@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_is_whitespace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 09:20:01 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 16:11:52 by antbonin         ###   ########.fr       */
+/*   Created: 2025/08/02 16:28:31 by antbonin          #+#    #+#             */
+/*   Updated: 2025/08/02 17:51:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/libft.h"
+#include "../includes/libft.h"
 
-int	ft_isalpha(int c)
+int	is_whitespace(char c)
 {
-	if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z'))
-	{
-		return (0);
-	}
-	return (1);
+	return (c == 32 || (c >= 9 && c <= 13));
 }

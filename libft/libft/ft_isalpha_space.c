@@ -6,15 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 17:39:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/31 17:42:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/02 16:12:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/libft.h"
 
-int ft_isalpha_space(int c)
+int	ft_isalpha_space(int c)
 {
-    if ((c < 9 || c > 13 ) && (c < 'A' || c > 'Z') && (c < 'a' || c > 'z'))
-        return (0);
-    return (1);
+	if ((c < 9 || c > 13) && (c < 'A' || c > 'Z') && (c < 'a' || c > 'z'))
+		return (0);
+	return (1);
 }

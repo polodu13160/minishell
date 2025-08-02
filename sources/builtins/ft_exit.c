@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/31 17:24:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/02 18:09:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ void	print_error(t_minishell *minishell)
 	minishell->return_command = 2;
 }
 
-int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
+int	check_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 {
-	int					error;
-	int					sign;
-	signed long long	value;
+	int	sign;
 
-	error = 0;
+	sign = 0;
 	if (str[1] && str[1][0] == '\0')
 	{
 		ft_putendl_fd("exit: numeric argument required", 2);
@@ -85,6 +83,17 @@ int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 		minishell->return_command = 2;
 		free_exit(minishell->tokens, minishell, exec, print_exit);
 	}
+	return (sign);
+}
+
+int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
+{
+	int					error;
+	int					sign;
+	signed long long	value;
+
+	error = 0;
+	sign = check_exit(str, minishell, exec, print_exit);
 	if (check_arg_exit(str, minishell, exec, print_exit) == 1)
 		return (1);
 	value = ft_atoll(str[0 + 1], &error);

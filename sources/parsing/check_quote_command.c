@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:22:08 by antbonin          #+#    #+#             */
-/*   Updated: 2025/06/27 19:22:31 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/02 17:51:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 char	*prepare_string_for_quote_check(char *str)
 {
+	char	*temp;
+
+	temp = NULL;
 	if (str[0] == '$')
-		str = ft_strtrim(str, "$");
-	return (str);
+	{
+		temp = ft_strdup(str + 1);
+		free(str);
+		return (temp);
+	}
+	temp = ft_strdup(str);
+	free(str);
+	return (temp);
 }
 
 char	*allocate_quote_copy(char *str)

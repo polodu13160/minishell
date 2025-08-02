@@ -50,8 +50,10 @@ FILES = main \
 		parsing/parsing_full_quote_end \
 		parsing/parsing_get_env_quote \
 		parsing/return_expand \
-		prepare-exec/check_here_doc_signals \
 		parsing/ctrl_heredoc \
+		parsing/parsing_mixed_quotes \
+		parsing/parsing_mixed_quotes_more \
+		prepare-exec/check_here_doc_signals \
 		utils \
 		builtins/ft_export_utils \
 		messages2 \
