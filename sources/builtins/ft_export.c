@@ -6,20 +6,26 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 17:03:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/03 17:17:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "stdio.h"
 
-static int	handle_existing_variable(char *str, t_minishell *minishell)
+int	ft_strcmp_whithout_equality(char *env, char *str)
 {
-	int	result;
-
-	result = check_double(str, minishell, 0, 0);
-	if (result)
-		return (result);
+	while (*env != '=' && *env != '\0')
+	{
+		if (*str != *env)
+			return (1);
+		if ((*str == '=' && *str == '\0'))
+			break ;
+		env++;
+		str++;
+	}
+	if (*str != *env)
+		return (1);
 	return (0);
 }
 
@@ -60,7 +66,7 @@ static int	process_export_argument(char **str, t_minishell *minishell, int i)
 
 	if (!is_valid_identifier(str[i]))
 		return (handle_invalid_identifier(str[i]));
-	result = handle_existing_variable(str[i], minishell);
+	result = check_double(str[i], minishell, 0, 0);
 	if (result == 2)
 		return (result);
 	if (result == 1)

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 16:46:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/03 17:31:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int ac, char **av, char **env)
 		init_minishell(&minishell);
 		if (g_sig != 0)
 		{
-			minishell.return_command += g_sig;
+			minishell.return_command += g_sig + 128;
 			g_sig = 0;
 		}
 		if (isatty(STDIN_FILENO) == 0)
