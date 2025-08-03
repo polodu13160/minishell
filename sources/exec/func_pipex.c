@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/24 03:50:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/03 16:55:12 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,6 @@ int	is_only_space_or_point(char *str)
 	}
 	return (1);
 }
-
-void	ft_init_exec_loop(t_pip *exec)
-{
-	exec->error = 0;
-	exec->fd_infile.value = NULL;
-	exec->fd_infile.type = T_NULL;
-	exec->fd_outfile.type = T_NULL;
-	exec->fd_outfile.value = NULL;
-	exec->fd_infile.fd = -1;
-	exec->fd_outfile.fd = -1;
-}
-
-// int	check_relatif_path(char *str)
-// {
-// 	while (*str == '\'' || *str == '"')
-// 		str++;
-// 	if (strlen(str) >= 2)
-// 	{
-// 		if (*str == '.' && *(++str) == '/')
-// 		{
-// 			if (access(str, F_OK) == 0)
-// 				return (1);
-// 			else
-// 				return (0);
-// 		}
-// 	}
-// 	return (0);
-// }
 
 static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 {
@@ -93,15 +65,12 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		int i)
 {
-	int	test_acces;
-
 	if (ft_close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
 		if (is_only_space_or_point(minishell->pipex[i].cmd[0]) == 1)
 			return (127);
-		test_acces = access(minishell->pipex[i].cmd[0], F_OK);
 		if (ft_strchr(minishell->pipex[i].cmd[0], '/') != NULL)
 		{
 			if (access(minishell->pipex[i].cmd[0], F_OK) == 0)
@@ -112,14 +81,12 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 			}
 			else
 				return (127);
-			return (126);
 		}
 		else
 			return (ft_exec_to_env(minishell, exec, 0, i));
 	}
 	else
 		return (0);
-	return (127);
 }
 
 int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)

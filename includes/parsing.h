@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 17:56:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/03 16:59:07 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ char			*extract_var_env(char *str);
 char			*extract_var_name(char *str, int *i, int *var_len);
 size_t			calculate_needed_size(char *str, t_minishell *minishell, int i,
 					size_t total_size);
-int				delete_space_parsing(t_token *token);
 char			*copy_return_command(t_minishell *minishell, char *var_name);
 
 /*********************************retokenize*******************/
@@ -98,8 +97,6 @@ int				count_tokens_array(t_token *tokens);
 int				count_new_tokens(t_token *new_tokens);
 
 /**********************************************************/
-
-char			**split_token_value(char *value, int *nb_new);
 
 void			minishell_env(t_minishell *minishell, char **env, int ac,
 					char **av);

@@ -1,7 +1,7 @@
 .PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra   -MMD -MP -I$(LIBFT_DIR)includes -Iincludes -g3
+CFLAGS = -Wall -Wextra  -Werror -MMD -MP -I$(LIBFT_DIR)includes -Iincludes 
 CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
 
@@ -53,7 +53,7 @@ FILES = main \
 		parsing/ctrl_heredoc \
 		parsing/parsing_mixed_quotes \
 		parsing/parsing_mixed_quotes_more \
-		prepare-exec/check_here_doc_signals \
+		prepare-exec/check_here_doc_utils \
 		utils \
 		builtins/ft_export_utils \
 		messages2 \

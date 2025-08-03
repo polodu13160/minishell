@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/26 19:01:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/03 16:53:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,29 @@ int	ft_set_path_env(t_pip *exec, char **env)
 	return (0);
 }
 
+int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
+{
+	while (exec->path_args[i])
+	{
+		exec->path_absolut_exec = ft_strjoin(exec->path_args[i],
+				minishell->pipex[arg_exec].cmd[0]);
+		if (exec->path_absolut_exec == NULL)
+			return (10);
+		if (access(exec->path_absolut_exec, F_OK) == 0)
+		{
+			execve(exec->path_absolut_exec, minishell->pipex[arg_exec].cmd,
+				exec->env);
+			return (126);
+		}
+		free(exec->path_absolut_exec);
+		exec->path_absolut_exec = NULL;
+		i++;
+	}
+	return (127);
+}
+
 int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
-	int		test_acces;
 	char	*join;
 
 	if (exec->path_args == NULL)
@@ -87,22 +107,5 @@ int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 		free(join);
 		return (127);
 	}
-	while (exec->path_args[i])
-	{
-		exec->path_absolut_exec = ft_strjoin(exec->path_args[i],
-				minishell->pipex[arg_exec].cmd[0]);
-		if (exec->path_absolut_exec == NULL)
-			return (10);
-		test_acces = access(exec->path_absolut_exec, F_OK);
-		if (test_acces == 0)
-		{
-			execve(exec->path_absolut_exec, minishell->pipex[arg_exec].cmd,
-				exec->env);
-			return (126);
-		}
-		free(exec->path_absolut_exec);
-		exec->path_absolut_exec = NULL;
-		i++;
-	}
-	return (127);
+	return (exec_with_env(minishell, exec, i, arg_exec));
 }

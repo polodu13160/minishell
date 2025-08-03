@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_here_doc_signals.c                           :+:      :+:    :+:   */
+/*   check_here_doc_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:04:39 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/03 16:45:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 		int i)
 {
 	int		j;
-	char	*line;
 
 	j = 0;
 	while (j++ == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,
@@ -38,18 +37,9 @@ int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 		if ((read_like_gnl != NULL) && g_sig != SIGINT && (write(save_text,
 					read_like_gnl, ft_strlen(read_like_gnl)) == -1
 				|| write(save_text, "\n", 1) == -1))
-		{
 			return (free_and_close(read_like_gnl, &save_text, 4));
-		}
 		free(read_like_gnl);
-		if (isatty(fileno(stdin)))
-			read_like_gnl = readline(">");
-		else
-		{
-			line = get_next_line(fileno(stdin));
-			read_like_gnl = ft_strtrim(line, "\n");
-			free(line);
-		}
+		read_like_gnl = readline(">");
 		if (g_sig == SIGINT)
 		{
 			free(read_like_gnl);
