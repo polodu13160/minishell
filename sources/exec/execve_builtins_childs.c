@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins_childs.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:04:37 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:14:28 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:18:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_execve_builtin_first(t_minishell *minishell, t_pip *exec)
 		ft_close(&exec->pipe[1]);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec, return_exec);
+		finish_child(minishell, exec, return_exec);
 	}
 	return (return_exec);
 }
@@ -87,7 +87,7 @@ int	ft_execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
 		ft_close_pip(exec, n_pipe, 0);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec, return_exec);
+		finish_child(minishell, exec, return_exec);
 	}
 	else
 		ft_close_pip(exec, n_pipe, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 19:07:34 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:27:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int				count_new_tokens(t_token *new_tokens);
 /*                            UTILITY FUNCTIONS                              */
 /* ************************************************************************** */
 
-char			*ft_join_malloc(char *malloc_str1, char *malloc_str2);
-char			*ft_chardup(char c);
+char			*join_malloc(char *malloc_str1, char *malloc_str2);
+char			*chardup(char c);
 
 #endif

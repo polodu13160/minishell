@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   return_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 19:03:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:27:48 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	return_command(char **str, t_minishell *minishell, char **var_name)
 			*var_name = temp;
 		else
 		{
-			*var_name = ft_join_malloc(*var_name, temp);
+			*var_name = join_malloc(*var_name, temp);
 			free(temp);
 		}
 		if (*var_name == NULL)
@@ -46,7 +46,7 @@ int	expand(char **str, char **var_name, char **var_env, t_minishell *minishell)
 		{
 			(*str)++;
 			(*str)++;
-			*var_name = ft_join_malloc(*var_name, ft_strdup("$$"));
+			*var_name = join_malloc(*var_name, ft_strdup("$$"));
 		}
 		else
 		{
@@ -57,7 +57,7 @@ int	expand(char **str, char **var_name, char **var_env, t_minishell *minishell)
 					free(*var_name);
 				return (1);
 			}
-			*var_name = ft_join_malloc(*var_name, get_env_value(*var_env + 1,
+			*var_name = join_malloc(*var_name, get_env_value(*var_env + 1,
 						minishell));
 			(*str)++;
 			while ((ft_isalnum(**str) == 1 && **str != '\0') || **str == '_')
@@ -85,7 +85,7 @@ char	*expand_environment_vars(char *str, t_minishell *minishell)
 	if (var_name == NULL)
 		var_name = ft_strdup("");
 	while (*str != '\0' && *str != '$')
-		var_name = ft_join_malloc(var_name, ft_chardup(*str++));
+		var_name = join_malloc(var_name, chardup(*str++));
 	if (expand(&str, &var_name, &var_env, minishell))
 		return (NULL);
 	free(var_env);

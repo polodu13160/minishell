@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:20:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "readline/readline.h"
 #include "stdlib.h"
 
-int	ft_finish(t_pip *exec, t_minishell *minishell, int status, char *message)
+int	finish(t_pip *exec, t_minishell *minishell, int status, char *message)
 {
 	if (message != NULL)
 		ft_printf_fd(2, "%s\n", message);
-	ft_free_exec(exec);
+	free_exec(exec);
 	free_pipex(minishell, 0);
 	minishell->return_command = status;
 	return (1);
@@ -84,7 +84,7 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
 {
 	free_loop(token, minishell);
 	if (exec)
-		ft_finish(exec, minishell, minishell->return_command, NULL);
+		finish(exec, minishell, minishell->return_command, NULL);
 	if (minishell->cwd)
 	{
 		free(minishell->cwd);

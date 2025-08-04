@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 19:10:25 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:20:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 			ft_close(&exec->fd_infile.fd);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec, 1);
+		finish_child(minishell, exec, 1);
 	}
 }
 
@@ -123,14 +123,14 @@ int	ft_pipex(t_minishell *minishell)
 	if (minishell->pids == NULL)
 		return (ft_putstr_fd("Error Malloc\n", 2));
 	if (ft_set_path_env(&exec, minishell->env) == 1)
-		return (ft_finish(&exec, minishell, status, "Error Malloc"));
+		return (finish(&exec, minishell, status, "Error Malloc"));
 	if (pipe(exec.pipe) == -1)
-		return (ft_finish(&exec, minishell, status, "Error pipe"));
+		return (finish(&exec, minishell, status, "Error pipe"));
 	rl_event_hook = in_process_marker;
 	ft_loop_pipe(minishell, &exec, -1);
 	ft_wait_child(minishell);
 	status = minishell->return_command;
 	rl_event_hook = NULL;
-	ft_finish(&exec, minishell, status, NULL);
+	finish(&exec, minishell, status, NULL);
 	return (0);
 }

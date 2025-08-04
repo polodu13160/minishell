@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:38:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:21:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	apply_builtins(t_minishell *minishell, int i, t_pip *exec, int print_exit)
 	}
 	else
 		return (127);
-	ft_finish(exec, minishell, 1, NULL);
+	finish(exec, minishell, 1, NULL);
 	return (-1);
 }

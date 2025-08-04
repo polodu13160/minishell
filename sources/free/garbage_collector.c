@@ -13,7 +13,7 @@
 #include "free.h"
 #include <stdlib.h>
 
-void	ft_free_exec(t_pip *exec)
+void	free_exec(t_pip *exec)
 {
 	int	i;
 
@@ -93,9 +93,9 @@ void	free_pipex(t_minishell *minishell, int end)
 		exit(minishell->return_command);
 }
 
-void	ft_finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
+void	finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
 {
-	ft_free_exec(exec);
+	free_exec(exec);
 	ft_free_env(minishell);
 	free_token(minishell->tokens);
 	free_pipex(minishell, 0);

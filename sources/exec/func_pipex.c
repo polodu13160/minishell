@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:13:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:19:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 		ft_close_pip(exec, new_pipe, 0);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec, return_exec);
+		finish_child(minishell, exec, return_exec);
 	}
 	else
 		ft_close_pip(exec, new_pipe, 1);
@@ -131,7 +131,7 @@ int	ft_execve_first(t_minishell *minishell, t_pip *exec)
 		ft_close(&exec->pipe[1]);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
-		ft_finish_child(minishell, exec, return_exec);
+		finish_child(minishell, exec, return_exec);
 	}
 	return (return_exec);
 }
