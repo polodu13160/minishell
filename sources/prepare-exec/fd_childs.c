@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_childs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:25:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:10:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,34 @@ int	ft_check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
 	while (minishell->pipex[i].infiles[++j].value != NULL)
 	{
-		if (minishell->pipex[i].infiles[j].type != T_PIPE
+		if (minishell->pipex[i].infiles[j].type != T_HEREDOC
+			&& minishell->pipex[i].infiles[j].type != T_PIPE
 			&& access(minishell->pipex[i].infiles[j].value, R_OK) == -1)
+		{
 			return (ft_perr_exec_error(minishell->pipex[i].infiles[j].value,
 					exec));
+		}
 	}
 	if (j > 0)
 	{
 		exec->fd_infile = minishell->pipex[i].infiles[--j];
 		if (minishell->pipex[i].infiles[j].type != T_PIPE)
 		{
-			exec->fd_infile.fd = open(minishell->pipex[i].infiles[j].value,
-					O_RDONLY);
+			if (exec->fd_infile.type != T_HEREDOC)
+				exec->fd_infile.fd = open(minishell->pipex[i].infiles[j].value,
+						O_RDONLY);
 			if (exec->fd_infile.fd == -1)
 				return (ft_perr_exec_error(minishell->pipex[i].infiles[j].value,
 						exec));
 		}
 	}
+	j = -1;
+	while (minishell->pipex[i].infiles[++j].value)
+		if (exec->fd_infile.value != minishell->pipex[i].infiles[j].value
+			&& minishell->pipex[i].infiles[j].type == T_HEREDOC)
+		{
+			ft_close(&(minishell->pipex[i].infiles[j].fd));
+		}
 	return (0);
 }
 

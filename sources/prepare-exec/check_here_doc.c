@@ -49,7 +49,6 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 	int	i;
 	int	error;
 
-	minishell->nb_here_doc = 0;
 	i = -1;
 	while (tokens[++i].value)
 	{
@@ -99,9 +98,9 @@ static char	*create_name_here_doc(int i)
 int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 {
 	int		save_text;
+	int		read_text;
 	char	*name_here_doc;
 
-	minishell->nb_here_doc++;
 	if (tokens[i].type == T_HEREDOC)
 	{
 		if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_FUNC)
@@ -109,15 +108,18 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 		name_here_doc = create_name_here_doc(0);
 		if (name_here_doc == NULL)
 			return (5);
-		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		save_text = open(name_here_doc, O_WRONLY | O_CREAT, 0644);
+		read_text = open(name_here_doc, O_RDONLY, 0644);
+	
 		if (save_text == -1)
 		{
 			free(name_here_doc);
 			return (2);
 		}
 		free(tokens[i].value);
-		tokens[i].value = NULL;
-		tokens[i].value = name_here_doc;
+		tokens[i].value = name_here_doc;	
+		unlink(minishell->tokens[i].value);
+		tokens[i].fd = read_text;
 		return (write_here_doc(i, tokens, save_text));
 	}
 	return (0);

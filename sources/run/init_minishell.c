@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:24:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:53:34 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	init_minishell(t_minishell *minishell)
 	minishell->line = NULL;
 	minishell->pipex = NULL;
 	minishell->pids = NULL;
-	minishell->nb_here_doc = 0;
 	if (g_sig == SIGINT)
 	{
 		minishell->return_command = 130;
@@ -58,7 +57,6 @@ void	declare_minishell_env(t_minishell *minishell, char **env, int ac, char **av
 	minishell->pipex = NULL;
 	minishell->pids = NULL;
 	minishell->count_pipe = 0;
-	minishell->nb_here_doc = 0;
 	(void)ac;
 	(void)av;
 	minishell->env = copy_original_env(env);

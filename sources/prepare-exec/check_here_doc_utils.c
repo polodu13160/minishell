@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:36:21 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:53:06 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	write_here_doc(int i, t_token *tokens, int save_text)
 	}
 	free(read_like_gnl);
 	setup_signals();
-	if (ft_close(&save_text) == -1)
-		free_and_close(read_like_gnl, &save_text, 4);
+	ft_close(&save_text);
 	return (0);
 }

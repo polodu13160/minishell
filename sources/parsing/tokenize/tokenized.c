@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:19:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:41:54 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	init_data_null(t_token *token, int count)
 	while (i <= count)
 	{
 		token[i].value = NULL;
+		token[i].fd = -1;
 		token[i++].option = NULL;
+	
 	}
 }
 

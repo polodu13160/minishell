@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:15:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:10:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-# include "readline/readline.h"
 #include "free.h"
+#include "readline/readline.h"
 #include <sys/wait.h>
 
 void	init_exec(t_pip *exec, char **env)

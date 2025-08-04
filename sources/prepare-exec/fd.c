@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:00:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:02:39 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:56:43 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,4 @@ int	count_pipe(t_token *tokens)
 	return (count);
 }
 
-void	unlink_here_doc(t_minishell *minishell)
-{
-	int	i;
 
-	i = 0;
-	while (minishell->tokens[i].value)
-	{
-		if (minishell->tokens[i].type == T_HEREDOC)
-		{
-			if (ft_strncmp("/tmp", minishell->tokens[i].value, 4) == 0)
-				unlink(minishell->tokens[i].value);
-		}
-		i++;
-	}
-}

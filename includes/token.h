@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:21:06 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:51:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_pipex
 
 typedef struct s_minishell
 {
-	int		nb_here_doc;
 	char	*cwd;
 	pid_t	*pids;
 	t_token	*tokens;
@@ -148,7 +147,7 @@ void		ft_free_all(void *value, char *text, int perrorornot,
 /*****************close************** */
 
 int			ft_close(int *fd);
-void		unlink_here_doc(t_minishell *minishell);
+void		unlink_here_doc(t_minishell *minishell, int i);
 
 /**********pipe********** */
 int			count_pipe(t_token *tokens);

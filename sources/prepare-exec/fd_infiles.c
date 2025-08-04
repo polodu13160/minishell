@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fd_infiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:16:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:38:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 int	ft_count_infiles(t_token *tokens, int limit_pipe)
 {
@@ -24,7 +24,6 @@ int	ft_count_infiles(t_token *tokens, int limit_pipe)
 	count_pipe = 0;
 	while (tokens[i].value)
 	{
-		tokens[i].fd = -1;
 		if (tokens[i].type == T_PIPE)
 		{
 			count_pipe++;
@@ -46,7 +45,6 @@ void	ft_join_tab_infiles_ext(t_token *tokens, int i)
 	if (tokens[i].type == T_REDIRECT_IN)
 	{
 		free(tokens[i].value);
-		tokens[i].value = tokens[i + 1].value;
 		tokens[i].value = tokens[i + 1].value;
 	}
 }
@@ -84,6 +82,8 @@ t_token	*ft_store_infiles(t_token *tokens, int limit_pipe)
 	int		count_infiles;
 	int		last_index_malloc_infiles;
 	t_token	*malloc_infiles;
+	int		i = 0;
+
 
 	count_infiles = ft_count_infiles(tokens, limit_pipe);
 	malloc_infiles = ft_calloc(count_infiles + 1, sizeof(t_token));
@@ -92,5 +92,6 @@ t_token	*ft_store_infiles(t_token *tokens, int limit_pipe)
 	last_index_malloc_infiles = ft_join_tab_infiles(tokens, limit_pipe,
 			malloc_infiles, 0);
 	malloc_infiles[last_index_malloc_infiles].value = NULL;
+	i = 0;
 	return (malloc_infiles);
 }
