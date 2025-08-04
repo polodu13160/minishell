@@ -6,13 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:20:21 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:30:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
-# include "stdlib.h"
-# include "readline/readline.h"
+#include "readline/readline.h"
+#include "stdlib.h"
 
 int	ft_finish(t_pip *exec, t_minishell *minishell, int status, char *message)
 {

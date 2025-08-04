@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:16:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:30:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 int	ft_count_infiles(t_token *tokens, int limit_pipe)
 {

@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:38:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:07:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-# include <stdlib.h>
+#include "stdlib.h"
+#include <stdio.h> // a suppr
 
 static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 {
@@ -33,7 +34,7 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 			token->value = handle_double_quotes_env(token->value, 0, 0);
 	}
 	else if (token->value[1] == '\'' && (ft_strrchr(token->value,
-				'$') < ft_strrchr(token->value, '\'')))
+		'$') < ft_strrchr(token->value, '\'')))
 		token->value = handle_single_quotes_env(token->value, 1, 0, result);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
 		token->value = parse_quotes(token->value, minishell);
@@ -71,7 +72,7 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell,
 	if (i >= 1 && tokens[i - 1].value && tokens[i - 1].type == T_HEREDOC)
 		token->value = check_quote_command(token->value);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\'')
-		|| ft_strchr(token->value, '$'))
+			|| ft_strchr(token->value, '$'))
 	{
 		token->value = parse_mixed_quotes(token->value, minishell);
 		if (!token->value)
@@ -92,7 +93,11 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 		token->value = parse_mixed_quotes(token->value, minishell);
 		if (!token->value)
 			return (1);
-		token->type = T_ENV;
+		if (ft_strchr(token->value, '>') || ft_strchr(token->value, '<')
+			|| ft_strchr(token->value, '|'))
+			token->type = T_WORD;
+		else
+			token->type = T_ENV;
 	}
 	return (0);
 }
@@ -106,9 +111,10 @@ int	check_token(t_token *t, t_minishell *minishell, int r, int i)
 			i++;
 			continue ;
 		}
-		if (t[i].value[0] == '"' || t[i].value[0] == '\''
-			|| (t[i].value[0] == '$' && (t[i].value[1] && (t[i].value[1] == '"'
-						|| t[i].value[1] == '\''))))
+		if ((t[i].value[0] == '"' || t[i].value[0] == '\''
+				|| (t[i].value[0] == '$' && (t[i].value[1]
+				&& (t[i].value[1] == '"' || t[i].value[1] == '\''))))
+				&& check_before_heredoc(t, i))
 			r = process_quotes_tokens(&t[i], minishell, t, i);
 		else if (t[i].type == T_ENV)
 		{

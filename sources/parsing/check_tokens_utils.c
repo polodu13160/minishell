@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   check_tokens_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 16:08:47 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:08:00 by antbonin         ###   ########.fr       */
+/*   Created: 2025/08/04 17:28:17 by antbonin          #+#    #+#             */
+/*   Updated: 2025/08/04 17:28:26 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/libft.h"
+#include "token.h"
 
-char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
+int	check_before_heredoc(t_token *tokens, int i)
 {
-	char			*str;
-	unsigned int	i;
-
-	i = 0;
-	str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
-	if (!str)
-		return (0);
-	while (s[i])
-	{
-		str[i] = f(i, s[i]);
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	if (i >= 1 && tokens[i - 1].value && tokens[i - 1].type == T_HEREDOC)
+		return (1);
+	return (0);
 }

@@ -1,7 +1,7 @@
 .PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra  -Werror -MMD -MP -I$(LIBFT_DIR)includes -Iincludes 
+CFLAGS = -Wall -Wextra  -MMD -MP -I$(LIBFT_DIR)includes -Iincludes 
 CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
 
@@ -39,6 +39,7 @@ FILES = builtins/builtins_env \
 		parsing/expand/parsing_get_env \
 		parsing/expand/parsing_get_env_quote \
 		parsing/check_tokens \
+		parsing/check_tokens_utils \
 		parsing/check_parsing \
 		prepare-exec/cmds \
 		prepare-exec/fd_infiles \
@@ -55,7 +56,7 @@ FILES = builtins/builtins_env \
 		messages/messages_builtins \
 		messages/messages_error \
 		run/init_minishell \
-		run/main_utils \
+		run/run_minishell \
 		main \
 
 OBJ_DIR = objects/

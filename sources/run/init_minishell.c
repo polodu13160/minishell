@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:24:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:30:12 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "free.h"
-# include <stdlib.h>
 #include <readline/readline.h>
+#include <stdlib.h>
 
 void	declare_readline(t_minishell *minishell)
 {
@@ -47,7 +47,8 @@ void	init_minishell(t_minishell *minishell)
 	declare_readline(minishell);
 }
 
-void	declare_minishell_env(t_minishell *minishell, char **env, int ac, char **av)
+void	init_minishell_env(t_minishell *minishell, char **env, int ac,
+		char **av)
 {
 	minishell->return_command = 0;
 	minishell->env = NULL;

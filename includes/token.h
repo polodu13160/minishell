@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:21:06 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:09:16 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TOKEN_H
 
 # include "libft.h"
+#include "sys/types.h"
+
 
 typedef enum e_token_type
 {
@@ -25,7 +27,6 @@ typedef enum e_token_type
 	T_APPEND,
 	T_HEREDOC,
 	T_ENV,
-	T_FORBID,
 	T_NULL,
 	T_WORD_FOR_REDIRECT,
 	T_IGNORE
@@ -76,7 +77,7 @@ typedef struct s_parse_data
 void		main_run(t_minishell *minishell);
 void		init_minishell(t_minishell *minishell);
 void		isatty_run(t_minishell *minishell);
-void		declare_minishell_env(t_minishell *minishell, char **env, int ac,
+void		init_minishell_env(t_minishell *minishell, char **env, int ac,
 				char **av);
 
 /*****************************pre parsing**************************************/

@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:38:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:29:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "token.h"
+# include "token.h"
 
 typedef struct s_index
 {
@@ -47,6 +47,7 @@ typedef struct s_expand_data
 
 int				check_token(t_token *token, t_minishell *minishell, int ret,
 					int i);
+int				check_before_heredoc(t_token *tokens, int i);
 char			*return_env(char *str, t_minishell *minishell);
 char			*check_quote_command(char *str);
 char			*parse_single_quotes(char *str);
@@ -97,6 +98,5 @@ int				count_tokens_array(t_token *tokens);
 int				count_new_tokens(t_token *new_tokens);
 
 /**********************************************************/
-
 
 #endif
