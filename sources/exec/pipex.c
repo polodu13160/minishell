@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 00:20:54 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)
 {
 	while (++i <= minishell->count_pipe)
 	{
+		
 		if (check_perm(exec, minishell, i) == 0)
 		{
 			if (check_builtins(minishell, i) == 1)

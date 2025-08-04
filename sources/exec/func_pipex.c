@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 23:48:35 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		int i)
 {
+	ft_close(&exec->pipe[1]);
 	if (close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)

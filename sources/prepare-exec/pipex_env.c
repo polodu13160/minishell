@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:35:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 01:16:04 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ int	set_path_env(t_pip *exec, char **env)
 			}
 			exec->path_args = ft_split(text, ':');
 			if (exec->path_args == NULL || add_slash_to_env(exec) == 1)
-			{
-				ft_printf_fd(2, "Error Malloc\n");
 				return (1);
-			}
 			break ;
 		}
 		env++;
@@ -86,25 +83,17 @@ int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 
 int	exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
-	char	*join;
 
 	if (exec->path_args == NULL)
 	{
-		join = ft_strjoin("./", minishell->pipex[arg_exec].cmd[0]);
-		if (join == NULL)
-			return (10);
-		if (access(join, F_OK) == 0)
+		if (ft_strchr(minishell->pipex[arg_exec].cmd[0],'/' ) != 0 && access( minishell->pipex[arg_exec].cmd[0], F_OK) == 0)
 		{
-			minishell->pipex[arg_exec].cmd[0] = join;
-			if (access(join, X_OK) == -1)
-			{
-				free(join);
+			minishell->pipex[arg_exec].cmd[0] =  minishell->pipex[arg_exec].cmd[0];
+			if (access( minishell->pipex[arg_exec].cmd[0], X_OK) == -1)
 				return (126);
-			}
 			else
-				execve(join, minishell->pipex[arg_exec].cmd, exec->env);
+				execve( minishell->pipex[arg_exec].cmd[0], minishell->pipex[arg_exec].cmd, exec->env);
 		}
-		free(join);
 		return (127);
 	}
 	return (exec_with_env(minishell, exec, i, arg_exec));

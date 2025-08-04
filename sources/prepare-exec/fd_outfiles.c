@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 22:18:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 00:21:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 
 	if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
 		&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
-		return (perr_exec_error(minishell->pipex[i].outfiles[j].value,
-				exec));
+		return (perr_exec_error(minishell->pipex[i].outfiles[j].value, exec));
 	else
 	{
 		fd = open(minishell->pipex[i].outfiles[j].value,
@@ -63,8 +62,8 @@ int	count_outfiles(t_token *tokens, int limit_pipe)
 	return (count_outfiles);
 }
 
-void	join_tab_outfiles_ext(t_token *tokens, int i,
-		t_token *malloc_outfiles, int j)
+void	join_tab_outfiles_ext(t_token *tokens, int i, t_token *malloc_outfiles,
+		int j)
 {
 	if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
 	{
@@ -76,8 +75,8 @@ void	join_tab_outfiles_ext(t_token *tokens, int i,
 	}
 }
 
-int	join_tab_outfiles(t_token *tokens, int limit_pipe,
-		t_token *malloc_outfiles, int count_pipe)
+int	join_tab_outfiles(t_token *tokens, int limit_pipe, t_token *malloc_outfiles,
+		int count_pipe)
 {
 	int	i;
 	int	j;

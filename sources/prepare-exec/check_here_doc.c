@@ -51,10 +51,8 @@ int	check(t_token *tokens, int recurs, t_minishell *minishell)
 		if (recurs == 1 && tokens[i].type == T_HEREDOC)
 		{
 			error = check_here_doc(tokens, i, minishell);
-			
 			if (error > 0)
 			{
-				minishell->return_command = 2;
 				if (error == 3)
 					print_error(minishell,tokens, i, error);
 				else
