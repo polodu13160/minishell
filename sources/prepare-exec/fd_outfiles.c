@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_outfiles.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:42:04 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-int	ft_check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
+int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
 	int	fd;
 
 	if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
 		&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
-		return (ft_perr_exec_error(minishell->pipex[i].outfiles[j].value,
+		return (perr_exec_error(minishell->pipex[i].outfiles[j].value,
 				exec));
 	else
 	{
@@ -28,7 +28,7 @@ int	ft_check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
-			return (ft_perr_exec_error(minishell->pipex[i].outfiles[j].value,
+			return (perr_exec_error(minishell->pipex[i].outfiles[j].value,
 					exec));
 		}
 		ft_close(&fd);

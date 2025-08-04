@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:19:38 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:36:34 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_only_space_or_point(char *str)
 
 static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 {
-	if (ft_close_and_dup(exec) == 8)
+	if (close_and_dup(exec) == 8)
 		return (8);
 	if (minishell->pipex[0].cmd[0] != NULL)
 	{
@@ -48,7 +48,7 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 				return (127);
 		}
 		else
-			return (ft_exec_to_env(minishell, exec, 0, 0));
+			return (exec_to_env(minishell, exec, 0, 0));
 	}
 	else
 		return (0);
@@ -58,7 +58,7 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		int i)
 {
-	if (ft_close_and_dup_last(exec, new_pipe) == 8)
+	if (close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
@@ -76,13 +76,13 @@ static int	ft_execve_finish(t_minishell *minishell, t_pip *exec, int *new_pipe,
 				return (127);
 		}
 		else
-			return (ft_exec_to_env(minishell, exec, 0, i));
+			return (exec_to_env(minishell, exec, 0, i));
 	}
 	else
 		return (0);
 }
 
-int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
+int	execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 {
 	pid_t	pid;
 	int		new_pipe[2];
@@ -100,17 +100,17 @@ int	ft_execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 			return_exec = ft_execve_finish(minishell, exec, new_pipe, i);
 		if (exec->fd_infile.value == NULL)
 			ft_close(&exec->fd_infile.fd);
-		ft_close_pip(exec, new_pipe, 0);
+		close_pip(exec, new_pipe, 0);
 		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
 		finish_child(minishell, exec, return_exec);
 	}
 	else
-		ft_close_pip(exec, new_pipe, 1);
+		close_pip(exec, new_pipe, 1);
 	return (0);
 }
 
-int	ft_execve_first(t_minishell *minishell, t_pip *exec)
+int	execve_first(t_minishell *minishell, t_pip *exec)
 {
 	pid_t	pid;
 	int		return_exec;

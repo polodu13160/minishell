@@ -6,13 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:00:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 17:56:43 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:38:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_close_2_fds(int *fd, int *fd2)
+void	close_2_fds(int *fd, int *fd2)
 {
 	ft_close(fd);
 	ft_close(fd2);
@@ -31,7 +31,7 @@ int	ft_close(int *fd)
 	return (0);
 }
 
-void	ft_close_pip(t_pip *exec, int *new_pipe, int substitue)
+void	close_pip(t_pip *exec, int *new_pipe, int substitue)
 {
 	ft_close(&exec->pipe[0]);
 	ft_close(&exec->pipe[1]);

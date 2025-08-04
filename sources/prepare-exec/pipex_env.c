@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:35:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdlib.h>
 
-int	ft_add_slash_to_env(t_pip *exec)
+int	add_slash_to_env(t_pip *exec)
 {
 	char	*new_path;
 	int		i;
@@ -34,7 +34,7 @@ int	ft_add_slash_to_env(t_pip *exec)
 	return (0);
 }
 
-int	ft_set_path_env(t_pip *exec, char **env)
+int	set_path_env(t_pip *exec, char **env)
 {
 	char	*text;
 
@@ -51,7 +51,7 @@ int	ft_set_path_env(t_pip *exec, char **env)
 				return (1);
 			}
 			exec->path_args = ft_split(text, ':');
-			if (exec->path_args == NULL || ft_add_slash_to_env(exec) == 1)
+			if (exec->path_args == NULL || add_slash_to_env(exec) == 1)
 			{
 				ft_printf_fd(2, "Error Malloc\n");
 				return (1);
@@ -84,7 +84,7 @@ int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 	return (127);
 }
 
-int	ft_exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
+int	exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
 	char	*join;
 

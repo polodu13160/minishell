@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:20:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:41:45 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_exec(t_pip *exec, char **env)
 	exec->fd_outfile.fd = -1;
 }
 
-int	ft_wait_child(t_minishell *minishell)
+int	wait_child(t_minishell *minishell)
 {
 	int		statuetemp;
 	pid_t	pidvalue;
@@ -46,7 +46,7 @@ int	ft_wait_child(t_minishell *minishell)
 	pidvalue = wait(&statuetemp);
 	while (pidvalue > 0)
 	{
-		ft_message_output(statuetemp, minishell, pidvalue);
+		message_output(statuetemp, minishell, pidvalue);
 		if (pidvalue == pid)
 			status = statuetemp;
 		pidvalue = wait(&statuetemp);
@@ -81,19 +81,19 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)
 {
 	while (++i <= minishell->count_pipe)
 	{
-		if (ft_check_perm(exec, minishell, i) == 0)
+		if (check_perm(exec, minishell, i) == 0)
 		{
 			if (check_builtins(minishell, i) == 1)
 			{
 				if (i == 0)
-					ft_execve_builtin_first(minishell, exec);
+					execve_builtin_first(minishell, exec);
 				else
-					ft_execve_builtin_next(minishell, exec, i, 1);
+					execve_builtin_next(minishell, exec, i, 1);
 			}
 			else if (i == 0)
-				ft_execve_first(minishell, exec);
+				execve_first(minishell, exec);
 			else if (i > 0)
-				ft_execve_next(minishell, exec, i, 1);
+				execve_next(minishell, exec, i, 1);
 			if (exec->fd_infile.type != T_PIPE)
 				ft_close(&exec->fd_infile.fd);
 			if (exec->fd_outfile.type != T_PIPE)
@@ -115,20 +115,20 @@ int	ft_pipex(t_minishell *minishell)
 	init_exec(&exec, minishell->env);
 	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
-		status = message_output_no_child(ft_execve_builtin_no_child(minishell,
+		status = message_output_no_child(execve_builtin_no_child(minishell,
 					&exec, 0, 0), minishell);
 		return (status);
 	}
 	minishell->pids = ft_calloc(minishell->count_pipe + 1, sizeof(pid_t));
 	if (minishell->pids == NULL)
 		return (ft_putstr_fd("Error Malloc\n", 2));
-	if (ft_set_path_env(&exec, minishell->env) == 1)
+	if (set_path_env(&exec, minishell->env) == 1)
 		return (finish(&exec, minishell, status, "Error Malloc"));
 	if (pipe(exec.pipe) == -1)
 		return (finish(&exec, minishell, status, "Error pipe"));
 	rl_event_hook = in_process_marker;
 	ft_loop_pipe(minishell, &exec, -1);
-	ft_wait_child(minishell);
+	wait_child(minishell);
 	status = minishell->return_command;
 	rl_event_hook = NULL;
 	finish(&exec, minishell, status, NULL);

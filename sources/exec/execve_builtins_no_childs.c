@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins_no_childs.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 16:14:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:40:33 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ static int	dup_infile_and_outfile_builtin_no_child(t_pip *exec,
 	return (0);
 }
 
-int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
+int	execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 		int dup_redirect_in, int dup_redirect_out)
 {
-	if (ft_check_perm(exec, minishell, 0) == 0)
+	if (check_perm(exec, minishell, 0) == 0)
 	{
 		dup_redirect_in = dup(0);
 		dup_redirect_out = dup(1);
 		if (ft_strcmp(minishell->pipex[0].cmd[0], "exit") == 0)
 		{
-			ft_close_2_fds(&dup_redirect_in, &dup_redirect_out);
-			ft_close_2_fds(&exec->fd_infile.fd, &exec->fd_outfile.fd);
+			close_2_fds(&dup_redirect_in, &dup_redirect_out);
+			close_2_fds(&exec->fd_infile.fd, &exec->fd_outfile.fd);
 		}
 		else if (dup_infile_and_outfile_builtin_no_child(exec, dup_redirect_in,
 				dup_redirect_out) == 8)
@@ -64,7 +64,7 @@ int	ft_execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 		if (dup2(dup_redirect_out, 1) == -1)
 			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
 					dup_redirect_out));
-		ft_close_2_fds(&dup_redirect_in, &dup_redirect_out);
+		close_2_fds(&dup_redirect_in, &dup_redirect_out);
 		return (minishell->return_command);
 	}
 	return (1);

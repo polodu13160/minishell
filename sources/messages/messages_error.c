@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:31:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	message_error(char *first_message, char *last_message)
 	return (0);
 }
 
-void	ft_message_output(int statuetemp, t_minishell *minishell,
+void	message_output(int statuetemp, t_minishell *minishell,
 		pid_t pidvalue)
 {
 	int	i;
@@ -124,7 +124,7 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell)
 	return (statuetemp);
 }
 
-int	ft_perr_exec_error(char *value, t_pip *exec)
+int	perr_exec_error(char *value, t_pip *exec)
 {
 	perror(value);
 	exec->error = 1;
