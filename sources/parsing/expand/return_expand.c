@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:23:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:03:40 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	expand(char **str, char **var_name, char **var_env, t_minishell *minishell)
 	return (0);
 }
 
-char	*return_env(char *str, t_minishell *minishell)
+char	*expand_environment_vars(char *str, t_minishell *minishell)
 {
 	static char	*var_name = NULL;
 	char		*var_env;
@@ -91,7 +91,7 @@ char	*return_env(char *str, t_minishell *minishell)
 	free(var_env);
 	if (var_name == NULL)
 		return (NULL);
-	return (return_env(str, minishell));
+	return (expand_environment_vars(str, minishell));
 }
 
 char	*copy_return_command(t_minishell *minishell, char *var_name)

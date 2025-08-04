@@ -1,98 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   retokenize_final.c                                 :+:      :+:    :+:   */
+/*   retokenize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:15:35 by antbonin         ###   ########.fr       */
+/*   Created: 2025/06/28 19:21:44 by antbonin          #+#    #+#             */
+/*   Updated: 2025/08/04 16:05:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "free.h"
 #include "parsing.h"
-# include <stdlib.h>
+#include "token.h"
 
-t_token	*tokenize_expanded_value(char *expanded_value)
+int	count_tokens_array(t_token *tokens)
 {
-	t_token	*new_tokens;
-	int		count;
+	int	count;
 
-	count = count_tokens(expanded_value);
-	if (count == 0)
-		return (NULL);
-	new_tokens = ft_calloc(sizeof(t_token), (count + 1));
-	if (!new_tokens)
-		return (NULL);
-	init_data_null(new_tokens, count);
-	if (count_quote(expanded_value))
+	count = 0;
+	while (tokens[count].type != T_NULL)
+		count++;
+	return (count);
+}
+
+int	count_new_tokens(t_token *new_tokens)
+{
+	int	count;
+
+	count = 0;
+	while (new_tokens[count].type != T_NULL)
+		count++;
+	return (count);
+}
+
+void	copy_tokens_before(t_token *result, t_token *tokens, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
 	{
-		free(new_tokens);
-		return (NULL);
-	}
-	if (check_args(expanded_value, new_tokens, count))
-		free_token(new_tokens);
-	new_tokens[count].type = T_NULL;
-	return (new_tokens);
-}
-
-static t_token	*prepare_retokenized_array(t_token *tokens, t_token *new_tokens,
-		int i, t_retokenize_data *data)
-{
-	t_token	*result;
-
-	data->old_count = count_tokens_array(tokens);
-	data->nb_new = count_new_tokens(new_tokens);
-	result = ft_calloc(sizeof(t_token), data->old_count + data->nb_new);
-	if (!result)
-		return (NULL);
-	data->insert_pos = i;
-	copy_tokens_before(result, tokens, i);
-	copy_new_tokens(result, new_tokens, i, data->nb_new);
-	copy_tokens_after(result, tokens, i, data);
-	return (result);
-}
-
-static void	cleanup_and_assign(t_token *tokens, t_token *new_tokens,
-		t_token *result, t_minishell *minishell)
-{
-	free(tokens);
-	free(new_tokens);
-	minishell->tokens = result;
-}
-
-static void	fix_pipe_types(t_minishell *minishell)
-{
-	int	i;
-
-	i = 0;
-	while (minishell->tokens[i].type != T_NULL)
-	{
-		if (minishell->tokens[i].type == T_PIPE)
-			minishell->tokens[i].type = T_WORD;
-		i++;
+		result[j] = tokens[j];
+		j++;
 	}
 }
 
-int	retokenize(t_token *tokens, t_minishell *minishell, int i)
+void	copy_new_tokens(t_token *result, t_token *new_tokens, int start,
+		int nb_new)
 {
-	t_retokenize_data	data;
-	t_token				*new_tokens;
-	t_token				*result;
+	int	k;
 
-	(void)data;
-	new_tokens = tokenize_expanded_value(tokens[i].value);
-	if (!new_tokens)
-		return (1);
-	result = prepare_retokenized_array(tokens, new_tokens, i, &data);
-	if (!result)
+	k = 0;
+	while (k < nb_new)
 	{
-		free_all(new_tokens, minishell, 0);
-		return (1);
+		result[start + k] = new_tokens[k];
+		k++;
 	}
-	free(tokens[i].value);
-	cleanup_and_assign(tokens, new_tokens, result, minishell);
-	fix_pipe_types(minishell);
-	return (0);
+}
+
+void	copy_tokens_after(t_token *result, t_token *tokens, int i,
+		t_retokenize_data *data)
+{
+	int	k;
+
+	k = i + 1;
+	while (k < data->old_count)
+	{
+		result[data->insert_pos + data->nb_new + k - (i + 1)] = tokens[k];
+		k++;
+	}
+	result[data->old_count + data->nb_new - 1].type = T_NULL;
 }

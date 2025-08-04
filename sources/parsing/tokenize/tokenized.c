@@ -6,16 +6,16 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:41:54 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:42:09 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
-#include "token.h"
-# include "stdlib.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "token.h"
 
-int	process_token(char *str, t_token *token, t_parse_data *data)
+static int	process_token(char *str, t_token *token, t_parse_data *data)
 {
 	while (str[data->i] && ((data->in_dquote || data->in_squote)
 			|| (str[data->i] != ' ' && str[data->i] != '\t'
@@ -41,7 +41,7 @@ int	process_token(char *str, t_token *token, t_parse_data *data)
 	return (0);
 }
 
-void	init_data(t_parse_data *data)
+static void	init_data(t_parse_data *data)
 {
 	data->in_dquote = 0;
 	data->in_squote = 0;
@@ -72,7 +72,7 @@ int	check_args(char *str, t_token *token, int count)
 	return (0);
 }
 
-void	init_data_null(t_token *token, int count)
+void	init_data_token(t_token *token, int count)
 {
 	int	i;
 
@@ -97,7 +97,7 @@ int	tokenize(char *str, t_minishell *minishell)
 	tokens = ft_calloc(sizeof(t_token), (count + 1));
 	if (!tokens)
 		return (1);
-	init_data_null(tokens, count);
+	init_data_token(tokens, count);
 	if (count_quote(str))
 	{
 		free(tokens);
@@ -107,8 +107,8 @@ int	tokenize(char *str, t_minishell *minishell)
 	if (check_args(str, tokens, count))
 	{
 		free_token(tokens);
-		perror("Error Malloc");
 		minishell->tokens = NULL;
+		minishell->return_command = 8;
 		return (1);
 	}
 	minishell->tokens = tokens;

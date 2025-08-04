@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:50:18 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:25:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:43:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	main_run(t_minishell *minishell)
 	setup_signals();
 	if (tokenize(minishell->line, minishell) == 0)
 	{
-		if (!check_parsing(minishell->tokens, minishell, 0))
+		if (!validate_parsing(minishell->tokens, minishell, 0))
 		{
 			if (ft_check(minishell->tokens, 0, minishell) == 0)
 			{

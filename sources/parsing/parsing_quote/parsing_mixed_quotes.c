@@ -6,15 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:37:44 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:23:37 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:03:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "parsing.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
-void	handle_env_variable(char *str, char *result, t_expand_data *data)
+static void	handle_env_variable(char *str, char *result, t_expand_data *data)
 {
 	int		var_start;
 	char	*var_name;
@@ -49,7 +49,19 @@ static void	process_dollar_sign(char *str, char *result, t_expand_data *data)
 		handle_special_variable(str, result, data);
 	else if (ft_isalnum(str[data->i]) || str[data->i] == '_')
 		handle_env_variable(str, result, data);
-	else
+	else if ((str[data->i] == '"' || str[data->i] == '\'') && !data->in_dquote)
+	{
+		if (str[data->i] == '"' && !data->in_squote)
+		{
+			data->in_dquote = !data->in_dquote;
+		}
+		else if (str[data->i] == '\'' && !data->in_dquote)
+		{
+			data->in_squote = !data->in_squote;
+		}
+		data->i++;
+	}
+	else 
 		result[data->j++] = '$';
 }
 
@@ -71,7 +83,7 @@ static void	process_character(char *str, char *result, t_expand_data *data)
 		result[data->j++] = str[data->i++];
 }
 
-char	*parse_mixed_quotes(char *str, t_minishell *minishell)
+char	*expand_mixed_quotes(char *str, t_minishell *minishell)
 {
 	char			*result;
 	size_t			needed_size;

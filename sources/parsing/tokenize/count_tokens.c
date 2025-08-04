@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:59:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 16:30:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:28:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	process_count(char *str, int *j, int *count)
 		(*j)++;
 }
 
-static void	process_token(char *str, int *j, int *count)
+static void	process_count_token(char *str, int *j, int *count)
 {
 	int	in_dquote;
 	int	in_squote;
@@ -83,7 +83,7 @@ int	count_tokens(char *str)
 			i++;
 			continue ;
 		}
-		process_token(str, &i, &token_count);
+		process_count_token(str, &i, &token_count);
 	}
 	return (token_count);
 }

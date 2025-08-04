@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenized_more2.c                                  :+:      :+:    :+:   */
+/*   tokenized_redirect_word.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:23:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:30:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 # include <stdlib.h>
 
-int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
+static int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 {
 	if (str[*i + 1] == '<')
 	{
@@ -36,7 +36,7 @@ int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 	return (0);
 }
 
-int	is_redirect_pipe(t_token *token, int *token_index, int *i)
+static int	is_redirect_pipe(t_token *token, int *token_index, int *i)
 {
 	token[*token_index].value = ft_strdup(">|");
 	if (!token[*token_index].value)
@@ -47,7 +47,7 @@ int	is_redirect_pipe(t_token *token, int *token_index, int *i)
 	return (0);
 }
 
-int	is_redirect_out(char *str, int *i, int *token_index, t_token *token)
+static int	is_redirect_out(char *str, int *i, int *token_index, t_token *token)
 {
 	if (str[*i + 1] == '|')
 		return (is_redirect_pipe(token, token_index, i));
@@ -72,7 +72,7 @@ int	is_redirect_out(char *str, int *i, int *token_index, t_token *token)
 	return (0);
 }
 
-int	is_word(char *str, int *i, int *token_index, t_token *token)
+static int	is_word(char *str, int *i, int *token_index, t_token *token)
 {
 	int	start;
 

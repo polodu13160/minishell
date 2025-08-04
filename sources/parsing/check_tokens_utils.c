@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   check_tokens_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 16:08:47 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:08:00 by antbonin         ###   ########.fr       */
+/*   Created: 2025/08/04 17:28:17 by antbonin          #+#    #+#             */
+/*   Updated: 2025/08/04 19:02:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/libft.h"
+#include "token.h"
+#include "stdlib.h"
 
-char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
+int	before_is_heredoc(t_token *tokens, int i)
 {
-	char			*str;
-	unsigned int	i;
-
-	i = 0;
-	str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
-	if (!str)
-		return (0);
-	while (s[i])
+	if (i >= 1 && tokens[i - 1].value && tokens[i - 1].type == T_HEREDOC)
+		return (1);
+	return (0);
+}
+void	shift_token(t_token *token, int i)
+{
+	free(token[i].value);
+	while (token[i + 1].type != T_NULL)
 	{
-		str[i] = f(i, s[i]);
+		token[i] = token[i + 1];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	token[i].value = NULL;
+	token[i].type = T_NULL;
 }

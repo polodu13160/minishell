@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:38:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:12:25 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,15 @@
 # include "pipex.h"
 # include "signal.h"
 
+/* ************************************************************************** */
+/*                            GLOBAL VARIABLES                               */
+/* ************************************************************************** */
+
 extern volatile sig_atomic_t	g_sig;
+
+/* ************************************************************************** */
+/*                                 STRUCTURES                                 */
+/* ************************************************************************** */
 
 typedef struct s_cd
 {
@@ -26,30 +34,39 @@ typedef struct s_cd
 	int							var_index;
 }								t_cd;
 
+/* ************************************************************************** */
+/*                            SIGNAL HANDLING                                */
+/* ************************************************************************** */
+
 void							setup_signals(void);
 void							setup_signals_child(void);
 void							handle_sigint_child(int signal);
 void							setup_signals_heredoc(void);
 void							check_sig(int statuetemp);
-
 int								in_process_marker(void);
+
+/* ************************************************************************** */
+/*                           BUILTIN EXECUTION                               */
+/* ************************************************************************** */
 
 int								apply_builtins(t_minishell *minishell, int i,
 									t_pip *exec, int print_exit);
 int								check_builtins(t_minishell *minishell, int i);
 
+/* ************************************************************************** */
+/*                        ENVIRONMENT MANAGEMENT                             */
+/* ************************************************************************** */
+
 char							**copy_original_env(char **env);
-void							shift_token(t_token *token, int i);
-int								check_parsing(t_token *token,
-									t_minishell *minishell, int i);
-void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);
 int								env_loop(char **copy_env, char **env, int *i);
 char							**declare_env(void);
 char							*get_env_value(char *var_name,
 									t_minishell *minishell);
 
-/*****************************export****************************************/
+/* ************************************************************************** */
+/*                            EXPORT BUILTIN                                 */
+/* ************************************************************************** */
 
 int								ft_export(char **str, t_minishell *minishell);
 int								ft_unset(char **str, t_minishell *minishell,
@@ -64,16 +81,18 @@ int								ft_strcmp_whithout_equality(char *env,
 									char *str);
 int								handle_invalid_identifier(char *var_name);
 
-/*******************************echo****************************************/
+/* ************************************************************************** */
+/*                             ECHO BUILTIN                                  */
+/* ************************************************************************** */
 
 int								ft_echo(char **str);
 
-/********************************cd*****************************************/
+/* ************************************************************************** */
+/*                              CD BUILTIN                                   */
+/* ************************************************************************** */
 
 int								ft_cd(char **str, t_minishell *minishell,
 									int error, int return_func_check_path);
-char							*ft_strjoin3(const char *s1, const char *s2,
-									const char *s3);
 int								copy_new_env(t_minishell *minishell,
 									char *new_var);
 int								check_var_exist(t_minishell *minishell,
@@ -83,13 +102,21 @@ int								replace_existing_var(t_minishell *minishell,
 void							declare_putenv(t_cd *cd, const char *name);
 int								check_path(char *str);
 
-/*********************************exit***************************************/
+/* ************************************************************************** */
+/*                             EXIT BUILTIN                                  */
+/* ************************************************************************** */
 
 int								ft_exit(char **str, t_minishell *minishell,
 									t_pip *exec, int print_exit);
 
-/****************************************************************************/
+/* ************************************************************************** */
+/*                          UTILITY FUNCTIONS                                */
+/* ************************************************************************** */
 
+void							shift_token(t_token *token, int i);
+int								validate_parsing(t_token *token,
+									t_minishell *minishell, int i);
+void							check_expand_special(t_token *tokens);
 int								free_all(t_token *token, t_minishell *minishell,
 									int end);
 
