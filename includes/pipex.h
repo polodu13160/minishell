@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:42:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:21:15 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		message_output(int statuetemp, t_minishell *minishell,
 				pid_t pidvalue);
 int			perr_exec_error(char *value, t_pip *exec);
 void		free_pipex(t_minishell *structure, int end);
-int			free_all(t_token *token, t_minishell *structure, int end);
+
 int			check_perm_infiles(t_minishell *minishell, int i, int j,
 				t_pip *exec);
 int			check_perm_outfiles(t_minishell *minishell, int i, int j,

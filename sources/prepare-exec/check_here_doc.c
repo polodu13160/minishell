@@ -22,7 +22,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 			+ 1].type == T_PIPE)
 		{
 			minishell->return_command = 2;
-			return (ft_print_error(tokens, i, 1));
+			return (print_error(tokens, i, 1));
 		}
 	}
 	if (tokens[i].type == T_REDIRECT_IN || tokens[i].type == T_REDIRECT_OUT
@@ -32,7 +32,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 				&& tokens[i + 1].type != T_FUNC))
 		{
 			minishell->return_command = 2;
-			return (ft_print_error(tokens, i, 1));
+			return (print_error(tokens, i, 1));
 		}
 	}
 	return (0);
@@ -44,7 +44,7 @@ int	minishell_error(t_minishell *minishell)
 	return (1);
 }
 
-int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
+int	check(t_token *tokens, int recurs, t_minishell *minishell)
 {
 	int	i;
 	int	error;
@@ -54,16 +54,16 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 	{
 		if (recurs == 1 && tokens[i].type == T_HEREDOC)
 		{
-			error = ft_check_here_doc(tokens, i, minishell);
+			error = check_here_doc(tokens, i, minishell);
 			if (error == 130)
 				return (minishell_error(minishell));
 			if (error > 0)
 			{
 				minishell->return_command = 2;
 				if (error == 3)
-					ft_print_error(tokens, i, error);
+					print_error(tokens, i, error);
 				else
-					return (ft_print_error(tokens, i, error));
+					return (print_error(tokens, i, error));
 			}
 		}
 		if (recurs == 0)
@@ -71,7 +71,7 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 				return (1);
 	}
 	if (recurs == 0)
-		return (ft_check(tokens, ++recurs, minishell));
+		return (check(tokens, ++recurs, minishell));
 	return (0);
 }
 
@@ -95,7 +95,7 @@ static char	*create_name_here_doc(int i)
 	return (join_text1);
 }
 
-int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
+int	check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 {
 	int		save_text;
 	int		read_text;

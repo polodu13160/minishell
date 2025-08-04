@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:42:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:18:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 	return (0);
 }
 
-int	ft_count_outfiles(t_token *tokens, int limit_pipe)
+int	count_outfiles(t_token *tokens, int limit_pipe)
 {
 	int	count_outfiles;
 	int	i;
@@ -63,7 +63,7 @@ int	ft_count_outfiles(t_token *tokens, int limit_pipe)
 	return (count_outfiles);
 }
 
-void	ft_join_tab_outfiles_ext(t_token *tokens, int i,
+void	join_tab_outfiles_ext(t_token *tokens, int i,
 		t_token *malloc_outfiles, int j)
 {
 	if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
@@ -76,7 +76,7 @@ void	ft_join_tab_outfiles_ext(t_token *tokens, int i,
 	}
 }
 
-int	ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
+int	join_tab_outfiles(t_token *tokens, int limit_pipe,
 		t_token *malloc_outfiles, int count_pipe)
 {
 	int	i;
@@ -106,19 +106,19 @@ int	ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
 	return (j);
 }
 
-t_token	*ft_store_outfiles(t_token *tokens, int limit_pipe)
+t_token	*store_outfiles(t_token *tokens, int limit_pipe)
 {
 	int		count_pipe;
-	int		count_outfiles;
+	int		i_count_outfiles;
 	int		last_index_malloc_outfiles;
 	t_token	*malloc_outfiles;
 
 	count_pipe = 0;
-	count_outfiles = ft_count_outfiles(tokens, limit_pipe);
-	malloc_outfiles = ft_calloc(count_outfiles + 1, sizeof(t_token));
+	i_count_outfiles = count_outfiles(tokens, limit_pipe);
+	malloc_outfiles = ft_calloc(i_count_outfiles + 1, sizeof(t_token));
 	if (malloc_outfiles == NULL)
 		return (NULL);
-	last_index_malloc_outfiles = ft_join_tab_outfiles(tokens, limit_pipe,
+	last_index_malloc_outfiles = join_tab_outfiles(tokens, limit_pipe,
 			malloc_outfiles, 0);
 	malloc_outfiles[last_index_malloc_outfiles].value = NULL;
 	return (malloc_outfiles);

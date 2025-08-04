@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:31:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:45:32 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int	ft_print_error(t_token *tokens, int i, int error)
+int	print_error(t_token *tokens, int i, int error)
 {
 	char	*malloc_string;
 	int		j;

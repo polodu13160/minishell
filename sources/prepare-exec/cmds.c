@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:10:03 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/25 23:29:31 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:11:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-int	ft_count_cmd(t_token *tokens, int limit_pipe)
+int	count_cmd(t_token *tokens, int limit_pipe)
 {
-	int	count_cmd;
+	int	i_count_command;
 	int	i;
 	int	count_pipe;
 
-	count_cmd = 0;
+	i_count_command = 0;
 	i = 0;
 	count_pipe = 0;
 	while (tokens[i].value)
@@ -29,13 +29,13 @@ int	ft_count_cmd(t_token *tokens, int limit_pipe)
 			break ;
 		else if (count_pipe == limit_pipe)
 			if (tokens[i].type == T_FUNC || tokens[i].type == T_WORD)
-				count_cmd++;
+				i_count_command++;
 		i++;
 	}
-	return (count_cmd);
+	return (i_count_command);
 }
 
-int	ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
+int	join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 		int count_pipe)
 {
 	int	i;
@@ -56,17 +56,17 @@ int	ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 	return (j);
 }
 
-char	**ft_store_cmd(t_token *tokens, int limit_pipe)
+char	**store_cmd(t_token *tokens, int limit_pipe)
 {
-	int		count_cmd;
+	int		i_count_command;
 	int		last_index_malloc_infiles;
 	char	**malloc_cmd;
 
-	count_cmd = ft_count_cmd(tokens, limit_pipe);
-	malloc_cmd = ft_calloc(count_cmd + 1, sizeof(char *));
+	i_count_command = count_cmd(tokens, limit_pipe);
+	malloc_cmd = ft_calloc(i_count_command + 1, sizeof(char *));
 	if (malloc_cmd == NULL)
 		return (NULL);
-	last_index_malloc_infiles = ft_join_tab_cmd(tokens, limit_pipe, malloc_cmd,
+	last_index_malloc_infiles = join_tab_cmd(tokens, limit_pipe, malloc_cmd,
 			0);
 	malloc_cmd[last_index_malloc_infiles] = NULL;
 	return (malloc_cmd);

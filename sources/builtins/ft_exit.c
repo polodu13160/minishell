@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 18:09:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:47:01 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_exit_numeric(char **str, int i, int *sign, int x)
 	return (0);
 }
 
-void	print_error(t_minishell *minishell)
+static void	print_error_exit(t_minishell *minishell)
 {
 	ft_putendl_fd("exit: numeric argument required", 2);
 	minishell->return_command = 2;
@@ -99,7 +99,7 @@ int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 	value = ft_atoll(str[0 + 1], &error);
 	if (error)
 	{
-		print_error(minishell);
+		print_error_exit(minishell);
 		free_exit(minishell->tokens, minishell, exec, print_exit);
 	}
 	if (sign)

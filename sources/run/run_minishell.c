@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:50:18 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 19:43:38 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:44:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	main_run(t_minishell *minishell)
 	{
 		if (!validate_parsing(minishell->tokens, minishell, 0))
 		{
-			if (ft_check(minishell->tokens, 0, minishell) == 0)
+			if (check(minishell->tokens, 0, minishell) == 0)
 			{
 				
-				if (ft_prepare_to_pipex(minishell, minishell->tokens) == 0)
+				if (prepare_to_pipex(minishell, minishell->tokens) == 0)
 					ft_pipex(minishell);
 			}
 		}

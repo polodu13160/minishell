@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_with_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 04:56:12 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:20 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:22:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,9 @@ int	free_and_close(char *value1, int *save_text, int return_error)
 	return (return_error);
 }
 
-void	*ft_error_free_tab(t_token *tab)
-{
-	int	i;
 
-	i = 0;
-	free(tab);
-	return (NULL);
-}
 
-void	ft_free_all(void *value, char *text, int perrorornot, int exitornot)
+void	free_value(void *value, char *text, int perrorornot, int exitornot)
 {
 	free(value);
 	if (perrorornot == 1)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prepare_to_pipex.c                              :+:      :+:    :+:   */
+/*   prepare_to_pipex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 03:06:18 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/06/16 15:38:18 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:18:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	init_pipex(t_minishell *minishell, int count_pipe)
 	return (0);
 }
 
-int	ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens)
+int	prepare_to_pipex(t_minishell *minishell, t_token *tokens)
 {
 	int	limit_pipe;
 
@@ -43,11 +43,11 @@ int	ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens)
 	while (limit_pipe <= count_pipe(tokens))
 	{
 		minishell->pipex[limit_pipe].init = 0;
-		minishell->pipex[limit_pipe].infiles = ft_store_infiles(tokens,
+		minishell->pipex[limit_pipe].infiles = store_infiles(tokens,
 				limit_pipe);
-		minishell->pipex[limit_pipe].outfiles = ft_store_outfiles(tokens,
+		minishell->pipex[limit_pipe].outfiles = store_outfiles(tokens,
 				limit_pipe);
-		minishell->pipex[limit_pipe].cmd = ft_store_cmd(tokens, limit_pipe);
+		minishell->pipex[limit_pipe].cmd = store_cmd(tokens, limit_pipe);
 		if (minishell->pipex[limit_pipe].infiles == NULL
 			|| minishell->pipex[limit_pipe].outfiles == NULL
 			|| minishell->pipex[limit_pipe].cmd == NULL)

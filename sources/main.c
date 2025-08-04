@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:07:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:26:27 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
+#include "free.h"
 #include "readline/history.h"
 #include "readline/readline.h"
-#include "builtins.h"
 
 int	main(int ac, char **av, char **env)
 {
@@ -40,5 +41,6 @@ int	main(int ac, char **av, char **env)
 		minishell.line = NULL;
 	}
 	rl_clear_history();
+		// si on exit avant le rl_clear_history nest pas executé pour antoine le message
 	return (0);
 }

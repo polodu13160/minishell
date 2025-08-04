@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 19:43:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:23:44 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	declare_readline(t_minishell *minishell)
 	if (minishell->cwd_join == NULL)
 	{
 		free_tab(minishell->env);
-		ft_free_all(minishell->cwd, "cwd error", 1, 1);
+		free_value(minishell->cwd, "cwd error", 1, 1);
 	}
 	minishell->line = readline(minishell->cwd_join);
 	if (minishell->line == NULL)
