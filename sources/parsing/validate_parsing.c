@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 18:07:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:10:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parsing.h"
 # include <stdlib.h>
 
-void	check_expand_special(t_token *tokens)
+static void	check_expand_special(t_token *tokens)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	check_expand_special(t_token *tokens)
 	}
 }
 
-void	delete_null_token_loop(t_token *tokens)
+static void	delete_null_token_loop(t_token *tokens)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ void	delete_null_token_loop(t_token *tokens)
 	}
 }
 
-int	delete_null_token(t_token *tokens)
+static int	delete_null_token(t_token *tokens)
 {
 	int	i;
 
@@ -84,10 +84,10 @@ static void	check_tokens_t_ignore(t_token *tokens)
 	}
 }
 
-int	check_parsing(t_token *tokens, t_minishell *minishell, int i)
+int	validate_parsing(t_token *tokens, t_minishell *minishell, int i)
 {
 	check_expand_special(minishell->tokens);
-	if (check_token(tokens, minishell, 0, 0))
+	if (validate_token(tokens, minishell, 0, 0))
 		return (1);
 	i = 0;
 	check_tokens_t_ignore(tokens);
@@ -99,7 +99,7 @@ int	check_parsing(t_token *tokens, t_minishell *minishell, int i)
 					|| ft_strchr(minishell->tokens[i].value, '\t'))
 				&& !ft_strchr(minishell->tokens[i].value, '='))
 			{
-				if (retokenize(minishell->tokens, minishell, i))
+				if (retokenize_expanded_token(minishell->tokens, minishell, i))
 					return (1);
 				i = 0;
 				continue ;

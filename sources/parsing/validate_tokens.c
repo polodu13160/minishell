@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:07:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:04:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 			if (!temp)
 				return (1);
 			free(token->value);
-			token->value = parse_quotes(temp, minishell);
+			token->value = remove_outer_quotes(temp, minishell);
 		}
 		else
 			token->value = handle_double_quotes_env(token->value, 0, 0);
@@ -37,7 +37,7 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 		'$') < ft_strrchr(token->value, '\'')))
 		token->value = handle_single_quotes_env(token->value, 1, 0, result);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
-		token->value = parse_quotes(token->value, minishell);
+		token->value = remove_outer_quotes(token->value, minishell);
 	if (!token->value)
 		return (1);
 	return (0);
@@ -55,7 +55,7 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell)
 	}
 	else
 	{
-		temp = return_env(token->value, minishell);
+		temp = expand_environment_vars(token->value, minishell);
 		if (!temp)
 			return (1);
 		free(token->value);
@@ -74,7 +74,7 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell,
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\'')
 			|| ft_strchr(token->value, '$'))
 	{
-		token->value = parse_mixed_quotes(token->value, minishell);
+		token->value = expand_mixed_quotes(token->value, minishell);
 		if (!token->value)
 			return (1);
 	}
@@ -90,7 +90,7 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 	if (ft_strchr(token->value, '$') || ft_strchr(token->value, '"')
 		|| ft_strchr(token->value, '\''))
 	{
-		token->value = parse_mixed_quotes(token->value, minishell);
+		token->value = expand_mixed_quotes(token->value, minishell);
 		if (!token->value)
 			return (1);
 		if (ft_strchr(token->value, '>') || ft_strchr(token->value, '<')
@@ -102,7 +102,7 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell)
 	return (0);
 }
 
-int	check_token(t_token *t, t_minishell *minishell, int r, int i)
+int	validate_token(t_token *t, t_minishell *minishell, int r, int i)
 {
 	while (t[i].type != T_NULL)
 	{
@@ -114,7 +114,7 @@ int	check_token(t_token *t, t_minishell *minishell, int r, int i)
 		if ((t[i].value[0] == '"' || t[i].value[0] == '\''
 				|| (t[i].value[0] == '$' && (t[i].value[1]
 				&& (t[i].value[1] == '"' || t[i].value[1] == '\''))))
-				&& check_before_heredoc(t, i))
+				&& before_is_heredoc(t, i))
 			r = process_quotes_tokens(&t[i], minishell, t, i);
 		else if (t[i].type == T_ENV)
 		{

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:37:44 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:46:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:03:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parsing.h"
 #include <stdlib.h>
 
-void	handle_env_variable(char *str, char *result, t_expand_data *data)
+static void	handle_env_variable(char *str, char *result, t_expand_data *data)
 {
 	int		var_start;
 	char	*var_name;
@@ -83,7 +83,7 @@ static void	process_character(char *str, char *result, t_expand_data *data)
 		result[data->j++] = str[data->i++];
 }
 
-char	*parse_mixed_quotes(char *str, t_minishell *minishell)
+char	*expand_mixed_quotes(char *str, t_minishell *minishell)
 {
 	char			*result;
 	size_t			needed_size;

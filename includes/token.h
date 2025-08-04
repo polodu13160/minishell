@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:09:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:00:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 #include "sys/types.h"
 
+/* ************************************************************************** */
+/*                                 STRUCTURES                                 */
+/* ************************************************************************** */
 
 typedef enum e_token_type
 {
@@ -72,7 +75,9 @@ typedef struct s_parse_data
 	int		i;
 }			t_parse_data;
 
-/*********************************main************************************ */
+/* ************************************************************************** */
+/*                            INITIALIZATION                                  */
+/* ************************************************************************** */
 
 void		main_run(t_minishell *minishell);
 void		init_minishell(t_minishell *minishell);
@@ -80,30 +85,28 @@ void		isatty_run(t_minishell *minishell);
 void		init_minishell_env(t_minishell *minishell, char **env, int ac,
 				char **av);
 
-/*****************************pre parsing**************************************/
+/* ************************************************************************** */
+/*                              TOKENIZATION                                  */
+/* ************************************************************************** */
 
 int			count_tokens(char *str);
 int			tokenize(char *str, t_minishell *minishell);
 int			count_quote(char *str);
-int			check_is_forbid(char *str, int i);
-void		init_data_null(t_token *token, int count);
+void		init_data_token(t_token *token, int count);
 int			check_args(char *str, t_token *token, int count);
 
-/********************************lexing**************************************/
+/* ************************************************************************** */
+/*                               LEXING                                       */
+/* ************************************************************************** */
 
 int			is_dollar(char *str, int *i, int *token_index, t_token *token);
 int			is_pipe(char *str, int *i, int *token_index, t_token *token);
-int			single_quote(char *str, int *i, int *token_index, t_token *token);
-int			double_quote(char *str, int *i, int *token_index, t_token *token);
-
-int			is_redirect_in(char *str, int *i, int *token_index, t_token *token);
-int			is_redirect_out(char *str, int *i, int *token_index,
-				t_token *token);
 int			is_special_token(char *str, int *i, int *token_index,
 				t_token *token);
-int			is_word(char *str, int *i, int *token_index, t_token *token);
 
-/*************************************************************************/
+/* ************************************************************************** */
+/*                           PARSING & EXECUTION                             */
+/* ************************************************************************** */
 
 int			free_all(t_token *token, t_minishell *structure, int end);
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
@@ -112,47 +115,62 @@ int			ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens);
 int			write_here_doc(int i, t_token *tokens, int save_text);
 int			ft_pipex(t_minishell *minishell);
 
-/*********************message************************* */
+/* ************************************************************************** */
+/*                          ERROR HANDLING                                    */
+/* ************************************************************************** */
 
 int			ft_print_error(t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
 int			message_output_no_child(int statuetemp, t_minishell *minishell);
 
-/**********************prepare cmd************** */
+/* ************************************************************************** */
+/*                        COMMAND PREPARATION                                 */
+/* ************************************************************************** */
 
 int			ft_count_cmd(t_token *tokens, int limit_pipe);
 int			ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 				int count_pipe);
 char		**ft_store_cmd(t_token *tokens, int limit_pipe);
 
-/************************prepare infile***************** */
+/* ************************************************************************** */
+/*                         INPUT FILES HANDLING                              */
+/* ************************************************************************** */
 
 int			ft_count_infiles(t_token *tokens, int limit_pipe);
 int			ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 				t_token *malloc_infiles, int count_pipe);
 t_token		*ft_store_infiles(t_token *tokens, int limit_pipe);
 
-/**********************prepare outfile******************** */
+/* ************************************************************************** */
+/*                        OUTPUT FILES HANDLING                              */
+/* ************************************************************************** */
 
 int			ft_count_outfiles(t_token *tokens, int limit_pipe);
 int			ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
 				t_token *malloc_outfiles, int count_pipe);
 t_token		*ft_store_outfiles(t_token *tokens, int limit_pipe);
 
-/********************free********************* */
+/* ************************************************************************** */
+/*                           MEMORY MANAGEMENT                                */
+/* ************************************************************************** */
 
 int			free_and_close(char *value1, int *save_text, int return_error);
 void		*ft_error_free_tab(t_token *tab);
 void		ft_free_all(void *value, char *text, int perrorornot,
 				int exitornot);
 
-/*****************close************** */
+/* ************************************************************************** */
+/*                          FILE DESCRIPTORS                                 */
+/* ************************************************************************** */
 
 int			ft_close(int *fd);
 void		unlink_here_doc(t_minishell *minishell);
 
-/**********pipe********** */
-int			count_pipe(t_token *tokens);
+/* ************************************************************************** */
+/*                              PIPELINES                                     */
+/* ************************************************************************** */
 
+int			count_pipe(t_token *tokens);
 int			init_pipex(t_minishell *minishell, int count_pipe);
+
 #endif

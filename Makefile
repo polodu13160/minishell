@@ -38,9 +38,9 @@ FILES = builtins/builtins_env \
 		parsing/expand/return_expand \
 		parsing/expand/parsing_get_env \
 		parsing/expand/parsing_get_env_quote \
-		parsing/check_tokens \
+		parsing/validate_tokens \
 		parsing/check_tokens_utils \
-		parsing/check_parsing \
+		parsing/validate_parsing \
 		prepare-exec/cmds \
 		prepare-exec/fd_infiles \
 		prepare-exec/prepare_to_pipex \

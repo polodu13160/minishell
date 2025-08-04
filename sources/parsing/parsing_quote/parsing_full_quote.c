@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:23:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:43:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	process_env_var(char *str, char *result, t_index *index,
 	return (0);
 }
 
-void	check_state_quote(char *str, t_quote_state *state, t_index *index,
+static void	check_state_quote(char *str, t_quote_state *state, t_index *index,
 		char *result)
 {
 	if (str[index->i] == '\\' && state->in_dquote && str[index->i + 1])

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:50:18 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:30:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:11:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	main_run(t_minishell *minishell)
 	setup_signals();
 	if (tokenize(minishell->line, minishell) == 0)
 	{
-		if (!check_parsing(minishell->tokens, minishell, 0))
+		if (!validate_parsing(minishell->tokens, minishell, 0))
 		{
 			if (ft_check(minishell->tokens, 0, minishell) == 0)
 			{

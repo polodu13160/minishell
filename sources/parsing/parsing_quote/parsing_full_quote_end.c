@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:04:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:23:32 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:04:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*remove_leading_dollar(char *str)
 	return (new_str);
 }
 
-char	*parse_quotes(char *str, t_minishell *minishell)
+char	*remove_outer_quotes(char *str, t_minishell *minishell)
 {
 	t_index	index;
 	char	*result;
