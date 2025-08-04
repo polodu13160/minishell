@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 18:03:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:16:18 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "token.h"
+# include <stdlib.h>
 
 char	*ft_join_malloc(char *malloc_str1, char *malloc_str2)
 {

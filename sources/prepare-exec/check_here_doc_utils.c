@@ -6,14 +6,17 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/08/03 22:00:05 by pde-petr         ###   ########.fr       */
+=======
+/*   Updated: 2025/08/04 16:23:59 by antbonin         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "parsing.h"
-#include "token.h"
-#include <readline/readline.h>
+# include "readline/readline.h"
+# include <stdlib.h>
 
 int	check_interrupt(void)
 {

@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:22:08 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 17:51:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:15:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+# include <stdlib.h>
 
 char	*prepare_string_for_quote_check(char *str)
 {

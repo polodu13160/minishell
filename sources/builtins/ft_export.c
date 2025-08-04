@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/03 17:17:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:22:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "stdio.h"
+# include <stdlib.h>
 
 int	ft_strcmp_whithout_equality(char *env, char *str)
 {

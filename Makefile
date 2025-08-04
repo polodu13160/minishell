@@ -7,39 +7,39 @@ CFLAGS_AFTER = -lft -lreadline -o $(NAME)
 
 NAME = minishell
 FILES = builtins/builtins_env \
-		builtins/cd \
 		builtins/env_prepare_builtins \
 		builtins/ft_echo \
 		builtins/ft_exit \
-		builtins/ft_export \
 		builtins/ft_unset \
+		builtins/cd \
 		builtins/cd_utils \
+		builtins/ft_export \
 		builtins/ft_export_utils \
+		builtins/ctrl \
+		builtins/ctrl_heredoc \
 		exec/execve_builtins_childs \
 		exec/execve_builtins_no_childs \
 		exec/func_pipex \
 		exec/pipex \
 		exec/utils \
-		parsing/ctrl_heredoc \
-		parsing/retokenize \
-		parsing/retokenize_final \
-		parsing/check_quote_command \
+		parsing/parsing_quote/check_quote_command \
+		parsing/parsing_quote/parsing_full_quote_end \
+		parsing/parsing_quote/parsing_full_quote \
+		parsing/parsing_quote/parsing_mixed_quotes_more \
+		parsing/parsing_quote/parsing_quote \
+		parsing/parsing_quote/parsing_mixed_quotes \
+		parsing/tokenize/tokenized \
+		parsing/tokenize/count_tokens \
+		parsing/tokenize/retokenize \
+		parsing/tokenize/tokenized_quote_pip_dollar \
+		parsing/tokenize/tokenized_redirect_word \
+		parsing/tokenize/retokenize_utils \
+		parsing/tokenize/before_tokenize \
+		parsing/expand/return_expand \
+		parsing/expand/parsing_get_env \
+		parsing/expand/parsing_get_env_quote \
 		parsing/check_tokens \
-		parsing/count_tokens \
-		parsing/ctrl \
-		parsing/parsing \
-		parsing/parsing_full_quote \
-		parsing/parsing_full_quote_end \
-		parsing/parsing_get_env \
-		parsing/parsing_get_env_quote \
-		parsing/parsing_mixed_quotes \
-		parsing/parsing_mixed_quotes_more \
-		parsing/parsing_quote \
-		parsing/pre_parsing \
-		parsing/return_expand \
-		parsing/tokenized \
-		parsing/tokenized_more \
-		parsing/tokenized_more2 \
+		parsing/check_parsing \
 		prepare-exec/cmds \
 		prepare-exec/fd_infiles \
 		prepare-exec/prepare_to_pipex \
@@ -49,13 +49,14 @@ FILES = builtins/builtins_env \
 		prepare-exec/fd_childs \
 		prepare-exec/fd_outfiles \
 		prepare-exec/pipex_env \
-		free/free \
-		free/free_utils \
-		free/error_and_free \
-		messages/messages \
-		messages/messages_utils \
+		free/garbage_collector \
+		free/garbage_utils \
+		free/error_with_free \
+		messages/messages_builtins \
+		messages/messages_error \
 		run/init_minishell \
-		run/main \
+		run/main_utils \
+		main \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
@@ -79,6 +80,9 @@ FORCE:
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c 
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)parsing
+	mkdir -p $(OBJ_DIR)parsing/expand
+	mkdir -p $(OBJ_DIR)parsing/parsing_quote
+	mkdir -p $(OBJ_DIR)parsing/tokenize
 	mkdir -p $(OBJ_DIR)exec
 	mkdir -p $(OBJ_DIR)prepare-exec
 	mkdir -p $(OBJ_DIR)builtins

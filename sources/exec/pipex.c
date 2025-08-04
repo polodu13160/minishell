@@ -6,14 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/03 16:57:37 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:15:16 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+# include "readline/readline.h"
 #include "free.h"
-#include "pipex.h"
-#include "token.h"
 #include <sys/wait.h>
 
 void	init_exec(t_pip *exec, char **env)

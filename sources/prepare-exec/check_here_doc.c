@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "parsing.h"
 #include "pipex.h"
-#include "token.h"
 #include <fcntl.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <sys/stat.h>
+# include <stdlib.h>
 
 int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {

@@ -6,14 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:04:37 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:36:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:14:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "free.h"
-#include "libft.h"
-#include "pipex.h"
 
 static int	ft_execve_first_builtin(t_minishell *minishell, t_pip *exec)
 {

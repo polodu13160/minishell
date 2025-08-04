@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/26 19:12:35 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+# include <stdlib.h>
 
 int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 {

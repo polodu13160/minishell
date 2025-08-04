@@ -6,16 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 15:41:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:03 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <unistd.h>
+# include "readline/readline.h"
 
 volatile sig_atomic_t	g_sig = 0;
 

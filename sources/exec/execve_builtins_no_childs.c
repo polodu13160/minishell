@@ -6,14 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/26 19:35:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:14:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "free.h"
-#include "pipex.h"
-#include "token.h"
 
 static int	error_dup2_execve_builtin_no_child(t_pip *exec, int dup_redirect_in,
 		int dup_redirect_out)

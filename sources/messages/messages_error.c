@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/26 19:38:34 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:24:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
+# include <stdlib.h>
 
 int	ft_print_error(t_token *tokens, int i, int error)
 {

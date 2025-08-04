@@ -6,18 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/28 15:47:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:38:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
-# include "libft.h"
 # include "pipex.h"
 # include "signal.h"
-# include "token.h"
-# include <stdlib.h>
-# include <unistd.h>
 
 extern volatile sig_atomic_t	g_sig;
 
@@ -44,7 +40,7 @@ int								check_builtins(t_minishell *minishell, int i);
 
 char							**copy_original_env(char **env);
 void							shift_token(t_token *token, int i);
-int								check_token(t_token *token,
+int								check_parsing(t_token *token,
 									t_minishell *minishell, int i);
 void							check_expand_special(t_token *tokens);
 int								ft_env(t_minishell *minishell, int pwd);

@@ -6,15 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/26 19:39:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:22:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-# include "pipex.h"
+
 # include "token.h"
-# include <sys/types.h>
 
 typedef struct s_pip
 {

@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/31 17:19:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:16:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "token.h"
+# include <stdlib.h>
 
 int	ft_strlen_quote(char *str)
 {

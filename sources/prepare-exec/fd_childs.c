@@ -6,17 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/02 16:13:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:25:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "token.h"
 #include <fcntl.h>
 #include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 int	ft_check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {

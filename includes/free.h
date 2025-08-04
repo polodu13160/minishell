@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:00:08 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/03 17:22:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:26:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FREE_H
 # define FREE_H
+
 # include "pipex.h"
 
 void	ft_free_exec(t_pip *exec);

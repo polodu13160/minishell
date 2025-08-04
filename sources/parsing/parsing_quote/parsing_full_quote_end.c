@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:04:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/01 15:24:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:32 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "builtins.h"
+# include <stdlib.h>
 
 size_t	calculate_needed_size(char *str, t_minishell *minishell, int i,
 		size_t total_size)

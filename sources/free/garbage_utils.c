@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free2.c                                            :+:      :+:    :+:   */
+/*   garbage_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 16:46:19 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:20:21 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
-#include "libft.h"
-#include <unistd.h>
+# include "stdlib.h"
+# include "readline/readline.h"
 
 int	ft_finish(t_pip *exec, t_minishell *minishell, int status, char *message)
 {
@@ -102,6 +102,7 @@ void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
 	}
 	if (print_exit == 1)
 		ft_printf_fd(2, "exit\n");
+	rl_clear_history();
 	exit(minishell->return_command);
 }
 

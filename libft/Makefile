@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 NAME = libft.a
 
-LIBFT_DIR = libft/
+LIBFT_DIR = sources/
 
 SRCS = $(addprefix $(LIBFT_DIR), \
        ft_isalpha.c \

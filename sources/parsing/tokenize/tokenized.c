@@ -6,12 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 16:02:40 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:19:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
 #include "token.h"
+# include "stdlib.h"
+#include "stdio.h"
 
 int	process_token(char *str, t_token *token, t_parse_data *data)
 {

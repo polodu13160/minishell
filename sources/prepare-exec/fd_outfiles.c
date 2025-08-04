@@ -6,13 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/26 19:02:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:16:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "token.h"
 #include <fcntl.h>
+# include <stdlib.h>
 
 int	ft_check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
