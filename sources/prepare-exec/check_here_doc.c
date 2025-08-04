@@ -24,7 +24,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 	if (tokens[i].type == T_PIPE)
 	{
 		if (i == 0 || tokens[i + 1].value == NULL || tokens[i
-				+ 1].type == T_PIPE)
+			+ 1].type == T_PIPE)
 		{
 			minishell->return_command = 2;
 			return (ft_print_error(tokens, i, 1));
@@ -66,7 +66,10 @@ int	ft_check(t_token *tokens, int recurs, t_minishell *minishell)
 			if (error > 0)
 			{
 				minishell->return_command = 2;
-				return (ft_print_error(tokens, i, error));
+				if (error == 3)
+					ft_print_error(tokens, i, error);
+				else
+					return (ft_print_error(tokens, i, error));
 			}
 		}
 		if (recurs == 0)
@@ -111,7 +114,7 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 		name_here_doc = create_name_here_doc(0);
 		if (name_here_doc == NULL)
 			return (5);
-		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 446);
+		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (save_text == -1)
 		{
 			free(name_here_doc);
