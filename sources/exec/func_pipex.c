@@ -6,12 +6,12 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:09:40 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:36:34 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "free.h"
+#include "use_free.h"
 
 int	is_only_space_or_point(char *str)
 {

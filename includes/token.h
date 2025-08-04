@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 22:24:44 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:58:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			ft_pipex(t_minishell *minishell);
 /*                          ERROR HANDLING                                    */
 /* ************************************************************************** */
 
-int			print_error(t_token *tokens, int i, int error);
+int			print_error(t_minishell *minishell,t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
 int			message_output_no_child(int statuetemp, t_minishell *minishell);
 
@@ -148,13 +148,6 @@ int			join_tab_outfiles(t_token *tokens, int limit_pipe,
 				t_token *malloc_outfiles, int count_pipe);
 t_token		*store_outfiles(t_token *tokens, int limit_pipe);
 
-/* ************************************************************************** */
-/*                           MEMORY MANAGEMENT                                */
-/* ************************************************************************** */
-
-int			free_and_close(char *value1, int *save_text, int return_error);
-void		free_value(void *value, char *text, int perrorornot,
-				int exitornot);
 
 /* ************************************************************************** */
 /*                          FILE DESCRIPTORS                                 */

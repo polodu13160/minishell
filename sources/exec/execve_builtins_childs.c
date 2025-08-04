@@ -6,12 +6,12 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:04:37 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 20:41:27 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "free.h"
+#include "use_free.h"
 
 static int	ft_execve_first_builtin(t_minishell *minishell, t_pip *exec)
 {

@@ -6,12 +6,12 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 20:21:05 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "free.h"
+#include "use_free.h"
 #include "pipex.h"
 
 int	check_builtins(t_minishell *minishell, int i)

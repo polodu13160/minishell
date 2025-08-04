@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:45:32 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 23:02:24 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,20 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int	print_error(t_token *tokens, int i, int error)
+int	minishell_ctr_c(t_minishell *minishell)
+{
+	minishell->return_command = 130;
+	return (1);
+}
+
+int	print_error(t_minishell *minishell, t_token *tokens, int i, int error)
 {
 	char	*malloc_string;
-	int		j;
 
-	j = -1;
 	malloc_string = NULL;
+	minishell->return_command = 2;
+	if (error == 130)
+		return (minishell_ctr_c(minishell));
 	if (error == 2)
 		perror("not create tmp file");
 	else if (error == 3)
@@ -67,8 +74,7 @@ int	message_error(char *first_message, char *last_message)
 	return (0);
 }
 
-void	message_output(int statuetemp, t_minishell *minishell,
-		pid_t pidvalue)
+void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 {
 	int	i;
 

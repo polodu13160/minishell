@@ -6,13 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:50:18 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 20:44:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "readline/history.h"
 #include "readline/readline.h"
+#include "use_free.h"
 
 void	main_run(t_minishell *minishell)
 {

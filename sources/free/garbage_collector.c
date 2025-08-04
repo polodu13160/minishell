@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "free.h"
+#include "use_free.h"
 #include <stdlib.h>
+#include "readline/readline.h"
 
 void	free_exec(t_pip *exec)
 {
@@ -90,7 +91,10 @@ void	free_pipex(t_minishell *minishell, int end)
 		free(minishell->pids);
 	minishell->pids = NULL;
 	if (end > 0)
+	{
+		rl_clear_history(); // a voir avec antoine par rapport a ce que jai mis dans le main 
 		exit(minishell->return_command);
+	}
 }
 
 void	finish_child(t_minishell *minishell, t_pip *exec, int exit_return)

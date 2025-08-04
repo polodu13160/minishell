@@ -6,12 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 17:53:06 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:44:41 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 # include "readline/readline.h"
+#include "use_free.h"
 # include <stdlib.h>
 
 int	check_interrupt(void)
