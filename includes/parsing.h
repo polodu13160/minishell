@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/03 16:59:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "token.h"
+#include "token.h"
 
 typedef struct s_index
 {
@@ -98,8 +98,5 @@ int				count_new_tokens(t_token *new_tokens);
 
 /**********************************************************/
 
-void			minishell_env(t_minishell *minishell, char **env, int ac,
-					char **av);
-void			init_minishell(t_minishell *minishell);
 
 #endif

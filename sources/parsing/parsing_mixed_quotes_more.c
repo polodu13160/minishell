@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 16:20:50 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 17:58:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "builtins.h"
+# include <stdlib.h>
 
 void	append_value_to_result(char *result, char *value, int *j)
 {

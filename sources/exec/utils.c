@@ -6,12 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/03 16:56:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:12:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
-#include "pipex.h"
 
 void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 		int ifpipe)

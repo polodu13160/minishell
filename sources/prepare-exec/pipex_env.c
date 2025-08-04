@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/03 16:53:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "pipex.h"
+# include <stdlib.h>
 
 int	ft_add_slash_to_env(t_pip *exec)
 {

@@ -6,13 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 17:14:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:15:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
 #include "parsing.h"
-#include "token.h"
+# include <stdlib.h>
 
 t_token	*tokenize_expanded_value(char *expanded_value)
 {

@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/01 19:56:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:21:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
-# define TOKEN_H 
+# define TOKEN_H
 
 # include "libft.h"
-# include "readline/readline.h"
-# include <stdlib.h>
 
 typedef enum e_token_type
 {
@@ -73,6 +71,14 @@ typedef struct s_parse_data
 	int		i;
 }			t_parse_data;
 
+/*********************************main************************************ */
+
+void		main_run(t_minishell *minishell);
+void		init_minishell(t_minishell *minishell);
+void		isatty_run(t_minishell *minishell);
+void		declare_minishell_env(t_minishell *minishell, char **env, int ac,
+				char **av);
+
 /*****************************pre parsing**************************************/
 
 int			count_tokens(char *str);
@@ -83,6 +89,7 @@ void		init_data_null(t_token *token, int count);
 int			check_args(char *str, t_token *token, int count);
 
 /********************************lexing**************************************/
+
 int			is_dollar(char *str, int *i, int *token_index, t_token *token);
 int			is_pipe(char *str, int *i, int *token_index, t_token *token);
 int			single_quote(char *str, int *i, int *token_index, t_token *token);
@@ -98,39 +105,51 @@ int			is_word(char *str, int *i, int *token_index, t_token *token);
 /*************************************************************************/
 
 int			free_all(t_token *token, t_minishell *structure, int end);
-// rajouter par paul
 int			ft_check(t_token *tokens, int recurs, t_minishell *minishell);
 int			ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell);
 int			ft_prepare_to_pipex(t_minishell *minishell, t_token *tokens);
 int			write_here_doc(int i, t_token *tokens, int save_text);
 int			ft_pipex(t_minishell *minishell);
+
 /*********************message************************* */
+
 int			ft_print_error(t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
 int			message_output_no_child(int statuetemp, t_minishell *minishell);
+
 /**********************prepare cmd************** */
+
 int			ft_count_cmd(t_token *tokens, int limit_pipe);
 int			ft_join_tab_cmd(t_token *tokens, int limit_pipe, char **malloc_cmd,
 				int count_pipe);
 char		**ft_store_cmd(t_token *tokens, int limit_pipe);
+
 /************************prepare infile***************** */
+
 int			ft_count_infiles(t_token *tokens, int limit_pipe);
 int			ft_join_tab_infiles(t_token *tokens, int limit_pipe,
 				t_token *malloc_infiles, int count_pipe);
 t_token		*ft_store_infiles(t_token *tokens, int limit_pipe);
+
 /**********************prepare outfile******************** */
+
 int			ft_count_outfiles(t_token *tokens, int limit_pipe);
 int			ft_join_tab_outfiles(t_token *tokens, int limit_pipe,
 				t_token *malloc_outfiles, int count_pipe);
 t_token		*ft_store_outfiles(t_token *tokens, int limit_pipe);
+
 /********************free********************* */
+
 int			free_and_close(char *value1, int *save_text, int return_error);
 void		*ft_error_free_tab(t_token *tab);
 void		ft_free_all(void *value, char *text, int perrorornot,
 				int exitornot);
+
 /*****************close************** */
+
 int			ft_close(int *fd);
 void		unlink_here_doc(t_minishell *minishell);
+
 /**********pipe********** */
 int			count_pipe(t_token *tokens);
 

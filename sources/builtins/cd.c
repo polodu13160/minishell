@@ -6,13 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/03 17:22:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:22:47 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include <sys/stat.h>
 #include <unistd.h>
+# include <stdlib.h>
 
 int	ft_putenv(const char *name, const char *value, int overwrite,
 		t_minishell *minishell)

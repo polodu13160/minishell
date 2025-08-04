@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:09:19 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/03 17:29:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:21 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+# include <stdlib.h>
 
 void	check_sig(int statuetemp)
 {

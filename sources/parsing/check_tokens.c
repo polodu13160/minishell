@@ -6,14 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/02 17:51:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:16:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "free.h"
-#include "libft.h"
 #include "parsing.h"
+# include <stdlib.h>
 
 void	check_expand_special(t_token *tokens)
 {

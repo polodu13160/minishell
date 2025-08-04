@@ -49,13 +49,14 @@ FILES = builtins/builtins_env \
 		prepare-exec/fd_childs \
 		prepare-exec/fd_outfiles \
 		prepare-exec/pipex_env \
-		free/free \
-		free/free_utils \
-		free/error_and_free \
+		free/garbage_collector \
+		free/garbage_utils \
+		free/error_with_free \
 		messages/messages \
 		messages/messages_utils \
 		run/init_minishell \
-		run/main \
+		run/main_utils \
+		main \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/

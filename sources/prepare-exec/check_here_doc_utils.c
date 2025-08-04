@@ -6,14 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/03 16:45:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "parsing.h"
-#include "token.h"
-#include <readline/readline.h>
+# include "readline/readline.h"
+# include <stdlib.h>
 
 int	check_interrupt(void)
 {

@@ -6,13 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/03 16:27:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:16:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "parsing.h"
-#include "token.h"
+# include <stdlib.h>
 
 static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 {

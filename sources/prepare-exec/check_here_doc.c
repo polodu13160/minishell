@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "parsing.h"
 #include "pipex.h"
-#include "token.h"
 #include <fcntl.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <sys/stat.h>
+# include <stdlib.h>
 
 int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {
@@ -111,7 +106,7 @@ int	ft_check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 		name_here_doc = create_name_here_doc(0);
 		if (name_here_doc == NULL)
 			return (5);
-		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 446);
+		save_text = open(name_here_doc, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (save_text == -1)
 		{
 			free(name_here_doc);

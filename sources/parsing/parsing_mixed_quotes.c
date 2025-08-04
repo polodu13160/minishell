@@ -6,12 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:37:44 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/02 17:50:03 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:37 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "parsing.h"
+# include <stdlib.h>
 
 void	handle_env_variable(char *str, char *result, t_expand_data *data)
 {

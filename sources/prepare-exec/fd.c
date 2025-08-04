@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:00:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/07/01 16:00:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:02:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "token.h"
 
 void	ft_close_2_fds(int *fd, int *fd2)
 {
