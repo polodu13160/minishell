@@ -6,21 +6,20 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:59:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 16:50:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 21:29:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-
-#include <stdio.h>
-#include <sys/types.h>
+# include <stdio.h>
+# include <sys/types.h>
 
 typedef struct s_token
 {
 	char	*value;
+	int		index;
 	int		type;
 	int		fd;
 }			t_token;
