@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:06:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:23:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	check_arg_exit(char **str, t_minishell *minishell, t_pip *exec,
 	}
 	if (str[i + 1] && str[i + 2])
 	{
+		ft_putendl_fd("exit", 2);
 		ft_putendl_fd("exit: too many arguments", 2);
 		return (1);
 	}
@@ -96,7 +97,7 @@ int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 	error = 0;
 	sign = check_exit(str, minishell, exec, print_exit);
 	if (check_arg_exit(str, minishell, exec, print_exit) == 1)
-		return (1);
+		return (0);
 	value = ft_atoll(str[0 + 1], &error);
 	if (error)
 	{

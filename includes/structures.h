@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:59:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:15:45 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:50:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_token
 {
 	char	*value;
 	int		type;
-	char	**option;
 	int		fd;
 }			t_token;
 
