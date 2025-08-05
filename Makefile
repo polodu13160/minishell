@@ -46,7 +46,6 @@ FILES =  builtins/cd \
        parsing/check_tokens_utils \
        parsing/validate_tokens \
        parsing/validate_parsing \
-       parsing/check_parsing \
        parsing/check_tokens \
        prepare-exec/here_doc/check_here_doc_utils \
        prepare-exec/here_doc/check_here_doc \
@@ -89,6 +88,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)parsing
 	mkdir -p $(OBJ_DIR)parsing/expand
 	mkdir -p $(OBJ_DIR)parsing/parsing_quote
+	mkdir -p $(OBJ_DIR)parsing/validate_tokens
 	mkdir -p $(OBJ_DIR)parsing/tokenize
 	mkdir -p $(OBJ_DIR)signals
 	mkdir -p $(OBJ_DIR)exec
