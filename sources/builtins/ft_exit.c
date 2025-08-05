@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:06:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:18:08 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	check_arg_exit(char **str, t_minishell *minishell, t_pip *exec,
 	}
 	if (str[i + 1] && str[i + 2])
 	{
+		ft_printf_fd(2, "exit\n");
 		ft_putendl_fd("exit: too many arguments", 2);
 		return (1);
 	}
