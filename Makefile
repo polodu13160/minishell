@@ -6,58 +6,64 @@ CFLAGS_AFTER = -lft -lreadline -o $(NAME)
 
 
 NAME = minishell
-FILES = builtins/builtins_env \
-		builtins/env_prepare_builtins \
-		builtins/ft_echo \
-		builtins/ft_exit \
-		builtins/ft_unset \
-		builtins/cd \
-		builtins/cd_utils \
-		builtins/ft_export \
-		builtins/ft_export_utils \
-		exec/execve_builtins_childs \
-		exec/execve_builtins_no_childs \
-		exec/func_pipex \
-		exec/pipex \
-		exec/utils \
-		parsing/parsing_quote/check_quote_command \
-		parsing/parsing_quote/parsing_full_quote_end \
-		parsing/parsing_quote/parsing_full_quote \
-		parsing/parsing_quote/parsing_mixed_quotes_more \
-		parsing/parsing_quote/parsing_quote \
-		parsing/parsing_quote/parsing_mixed_quotes \
-		parsing/tokenize/tokenized \
-		parsing/tokenize/count_tokens \
-		parsing/tokenize/retokenize \
-		parsing/tokenize/tokenized_quote_pip_dollar \
-		parsing/tokenize/tokenized_redirect_word \
-		parsing/tokenize/retokenize_utils \
-		parsing/tokenize/before_tokenize \
-		parsing/expand/return_expand \
-		parsing/expand/parsing_get_env \
-		parsing/expand/parsing_get_env_quote \
-		parsing/validate_tokens \
-		parsing/check_tokens_utils \
-		parsing/validate_parsing \
-		prepare-exec/cmds \
-		prepare-exec/fd_infiles \
-		prepare-exec/prepare_to_pipex \
-		prepare-exec/fd \
-		prepare-exec/check_here_doc \
-		prepare-exec/check_here_doc_utils \
-		prepare-exec/fd_childs \
-		prepare-exec/fd_outfiles \
-		prepare-exec/pipex_env \
-		free/garbage_collector \
-		free/garbage_utils \
-		free/error_with_free \
-		messages/messages_builtins \
-		messages/messages_error \
-		run/init_minishell \
-		run/run_minishell \
-		signals/ctrl \
-		signals/ctrl_heredoc \
-		main \
+FILES =  builtins/cd \
+       builtins/cd_utils \
+       builtins/env_prepare_builtins \
+       builtins/ft_echo \
+       builtins/ft_export \
+       builtins/ft_export_utils \
+       builtins/ft_unset \
+       builtins/builtins_env \
+       builtins/ft_exit \
+       exec/exec_in_child/execve_first \
+       exec/exec_in_child/execve_last \
+       exec/exec_in_child_builtins/execve_builtins_childs_last \
+       exec/exec_in_child_builtins/execve_buitlins_childs_first \
+       exec/exec_no_child_bultins/execve_builtins_no_childs \
+       exec/pipex/pipex \
+       exec/pipex/utils \
+       exec/pipex/pipex_env \
+       exec/management_fd_exec/check_perm_infiles_outfiles_in_child \
+       exec/management_fd_exec/close_fd \
+       exec/management_fd_exec/dup_and_close_in_child \
+       exec/management_fd_exec/error_dup_fork_pipe_childs \
+       parsing/expand/parsing_get_env_quote \
+       parsing/expand/parsing_get_env \
+       parsing/expand/return_expand \
+       parsing/parsing_quote/parsing_mixed_quotes_more \
+       parsing/parsing_quote/check_quote_command \
+       parsing/parsing_quote/parsing_full_quote \
+       parsing/parsing_quote/parsing_full_quote_end \
+       parsing/parsing_quote/parsing_mixed_quotes \
+       parsing/parsing_quote/parsing_quote \
+       parsing/tokenize/count_tokens \
+       parsing/tokenize/retokenize_utils \
+       parsing/tokenize/before_tokenize \
+       parsing/tokenize/tokenized_quote_pip_dollar \
+       parsing/tokenize/tokenized_redirect_word \
+       parsing/tokenize/retokenize \
+       parsing/tokenize/tokenized \
+       parsing/check_tokens_utils \
+       parsing/validate_tokens \
+       parsing/validate_parsing \
+       parsing/check_parsing \
+       parsing/check_tokens \
+       prepare-exec/here_doc/check_here_doc_utils \
+       prepare-exec/here_doc/check_here_doc \
+       prepare-exec/from_parsing_to_exec/cmds \
+       prepare-exec/from_parsing_to_exec/store_outfiles \
+       prepare-exec/from_parsing_to_exec/store_infiles \
+       prepare-exec/from_parsing_to_exec/prepare_to_pipex \
+       run/init_minishell \
+       run/run_minishell \
+       free/error_with_free \
+       free/garbage_collector \
+       free/garbage_utils \
+       messages/messages_builtins \
+       messages/messages_error \
+       main \
+       signals/ctrl \
+       signals/ctrl_heredoc \
 
 OBJ_DIR = objects/
 SRC_DIR = sources/
@@ -86,7 +92,16 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)parsing/tokenize
 	mkdir -p $(OBJ_DIR)signals
 	mkdir -p $(OBJ_DIR)exec
+	mkdir -p $(OBJ_DIR)exec/exec_in_child
+	mkdir -p $(OBJ_DIR)exec/exec_in_child_builtins
+	mkdir -p $(OBJ_DIR)exec/exec_in_child_builtins
+	mkdir -p $(OBJ_DIR)exec/exec_no_child
+	mkdir -p $(OBJ_DIR)exec/exec_no_child_bultins
+	mkdir -p $(OBJ_DIR)exec/management_fd_exec
+	mkdir -p $(OBJ_DIR)exec/pipex
 	mkdir -p $(OBJ_DIR)prepare-exec
+	mkdir -p $(OBJ_DIR)prepare-exec/from_parsing_to_exec
+	mkdir -p $(OBJ_DIR)prepare-exec/here_doc
 	mkdir -p $(OBJ_DIR)builtins
 	mkdir -p $(OBJ_DIR)free
 	mkdir -p $(OBJ_DIR)messages

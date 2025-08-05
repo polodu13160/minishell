@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_childs.c                                        :+:      :+:    :+:   */
+/*   check_perm_infiles_outfiles_in_child.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 16:41:51 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:32:08 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "token.h"
 
-void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error)
-{
-	int	j;
 
-	j = -1;
-	if (error == 0)
-	{
-		while (minishell->pipex[i].infiles[++j].value)
-			if (exec->fd_infile.value != minishell->pipex[i].infiles[j].value
-				&& minishell->pipex[i].infiles[j].type == T_HEREDOC)
-				ft_close(&(minishell->pipex[i].infiles[j].fd));
-	}
-	else
-	{
-		i = 0;
-		while (minishell->pipex[i].infiles != NULL)
-		{
-			j = -1;
-			while (minishell->pipex[i].infiles[++j].value)
-				if (minishell->pipex[i].infiles[j].type == T_HEREDOC)
-					ft_close(&(minishell->pipex[i].infiles[j].fd));
-			i++;
-		}
-	}
-}
 
 int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
@@ -122,56 +99,4 @@ int	check_perm(t_pip *exec, t_minishell *minishell, int i)
 	return (0);
 }
 
-int	close_and_dup(t_pip *exec)
-{
-	int	return_value;
 
-	return_value = 0;
-	ft_close(&exec->pipe[0]);
-	if (exec->fd_infile.value == NULL)
-		exec->fd_infile.fd = 0;
-	if (exec->fd_outfile.value == NULL)
-		exec->fd_outfile.fd = 1;
-	if (exec->fd_outfile.type == T_PIPE)
-		exec->fd_outfile.fd = exec->pipe[1];
-	else
-		ft_close(&exec->pipe[1]);
-	if (dup2(exec->fd_infile.fd, 0) == -1)
-		return_value = 8;
-	if (dup2(exec->fd_outfile.fd, 1) == -1)
-		return_value = 8;
-	if (exec->fd_infile.fd != 0)
-		ft_close(&exec->fd_infile.fd);
-	if (exec->fd_outfile.fd != 1)
-		ft_close(&exec->fd_outfile.fd);
-	return (return_value);
-}
-
-int	close_and_dup_last(t_pip *exec, int *new_pipe)
-{
-	int	return_value;
-
-	return_value = 0;
-	if (exec->fd_outfile.value == NULL)
-		exec->fd_outfile.fd = 1;
-	if (exec->fd_infile.type == T_PIPE)
-		exec->fd_infile.fd = exec->pipe[0];
-	else
-		ft_close(&exec->pipe[0]);
-	if (exec->fd_outfile.type == T_PIPE)
-		exec->fd_outfile.fd = new_pipe[1];
-	else
-		ft_close(&exec->pipe[1]);
-	if (dup2(exec->fd_infile.fd, 0) == -1)
-		return_value = 8;
-	if (dup2(exec->fd_outfile.fd, 1) == -1)
-		return_value = 8;
-	if (exec->fd_outfile.fd != 1)
-		ft_close(&exec->fd_outfile.fd);
-	if (exec->fd_infile.fd != 0)
-		ft_close(&exec->fd_infile.fd);
-	ft_close(&new_pipe[0]);
-	if (exec->fd_outfile.type != T_PIPE)
-		ft_close(&new_pipe[1]);
-	return (return_value);
-}
