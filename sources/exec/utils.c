@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:13:36 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:45:20 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 	else
 		ft_printf_fd(2, "Error Fork\n");
 	close_pip(exec, new_pipe, 0);
+	if (ifpipe)
+		finish_child(minishell, exec, 10);
 	finish_child(minishell, exec, 1);
+	
 }
 
 void	init_exec_loop(t_pip *exec)

@@ -6,17 +6,16 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:14:32 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:01:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "use_free.h"
 #include "readline/readline.h"
+#include "use_free.h"
 #include <sys/wait.h>
-#include <unistd.h>
 #include <token.h>
-
+#include <unistd.h>
 
 void	init_exec(t_pip *exec, char **env)
 {
@@ -41,10 +40,11 @@ int	wait_child(t_minishell *minishell)
 
 	status = 0;
 	pid = minishell->pids[minishell->count_pipe];
-	while (pid == -1)
+	minishell->count_pipe--;
+	while (pid == -1 && minishell->count_pipe != -1)
 	{
-		minishell->count_pipe--;
 		pid = minishell->pids[minishell->count_pipe];
+		minishell->count_pipe--;
 	}
 	pidvalue = wait(&statuetemp);
 	while (pidvalue > 0)
@@ -84,7 +84,6 @@ void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)
 {
 	while (++i <= minishell->count_pipe)
 	{
-		
 		if (check_perm(exec, minishell, i) == 0)
 		{
 			if (check_builtins(minishell, i) == 1)
