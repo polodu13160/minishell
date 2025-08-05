@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:09:19 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 16:32:08 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:55:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include <readline/readline.h>
 #include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -19,6 +20,12 @@ void	check_sig(int statuetemp)
 {
 	int	sig;
 
+	if (g_sig == SIGINT)
+	{
+		rl_done = 1;
+		write(STDOUT_FILENO, "\n", 1);
+		return ;
+	}
 	if (WIFSIGNALED(statuetemp))
 	{
 		sig = WTERMSIG(statuetemp);

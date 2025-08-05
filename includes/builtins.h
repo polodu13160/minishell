@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 22:21:29 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:35:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,7 @@ int								validate_parsing(t_token *token,
 									t_minishell *minishell, int i);
 void							check_expand_special(t_token *tokens);
 
+int								free_all(t_token *token, t_minishell *minishell,
+									int end);
 
 #endif
