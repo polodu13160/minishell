@@ -15,8 +15,6 @@ FILES = builtins/builtins_env \
 		builtins/cd_utils \
 		builtins/ft_export \
 		builtins/ft_export_utils \
-		builtins/ctrl \
-		builtins/ctrl_heredoc \
 		exec/execve_builtins_childs \
 		exec/execve_builtins_no_childs \
 		exec/func_pipex \
@@ -57,6 +55,8 @@ FILES = builtins/builtins_env \
 		messages/messages_error \
 		run/init_minishell \
 		run/run_minishell \
+		signals/ctrl \
+		signals/ctrl_heredoc \
 		main \
 
 OBJ_DIR = objects/
@@ -84,6 +84,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)parsing/expand
 	mkdir -p $(OBJ_DIR)parsing/parsing_quote
 	mkdir -p $(OBJ_DIR)parsing/tokenize
+	mkdir -p $(OBJ_DIR)signals
 	mkdir -p $(OBJ_DIR)exec
 	mkdir -p $(OBJ_DIR)prepare-exec
 	mkdir -p $(OBJ_DIR)builtins
