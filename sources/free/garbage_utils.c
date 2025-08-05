@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:24:58 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:49:36 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,13 @@ int	finish(t_pip *exec, t_minishell *minishell, int status, char *message)
 	return (1);
 }
 
-int	free_all(t_token *token, t_minishell *structure, int end)
+int	free_all(t_token *tokens, t_minishell *structure, int end)
 {
 	int	i;
 
 	i = 0;
-	if (token)
-	{
-		while (token[i].type != T_NULL)
-		{
-			if (token[i].value && token[i].value != token[i + 1].value)
-				free(token[i].value);
-			token[i].value = NULL;
-			i++;
-		}
-		free(token);
-		token = NULL;
-	}
+	if (tokens)
+		free_token(tokens);
 	if (structure->line)
 		free(structure->line);
 	structure->line = NULL;
@@ -52,22 +42,22 @@ int	free_all(t_token *token, t_minishell *structure, int end)
 	return (0);
 }
 
-void	free_loop(t_token *token, t_minishell *minishell)
+void	free_loop(t_token *tokens, t_minishell *minishell)
 {
 	int	i;
 
 	i = 0;
-	if (token)
+	if (tokens)
 	{
-		while (token[i].type != T_NULL)
+		while (tokens[i].type != T_NULL)
 		{
-			if (token[i].value && token[i].value != token[i + 1].value)
-				free(token[i].value);
-			token[i].value = NULL;
+			if (tokens[i].value && tokens[i].value != tokens[i + 1].value)
+				free(tokens[i].value);
+			tokens[i].value = NULL;
 			i++;
 		}
-		free(token);
-		token = NULL;
+		free(tokens);
+		tokens = NULL;
 	}
 	i = 0;
 	if (minishell->env)
@@ -80,10 +70,10 @@ void	free_loop(t_token *token, t_minishell *minishell)
 	}
 }
 
-void	free_exit(t_token *token, t_minishell *minishell, t_pip *exec,
+void	free_exit(t_token *tokens, t_minishell *minishell, t_pip *exec,
 		int print_exit)
 {
-	free_loop(token, minishell);
+	free_loop(tokens, minishell);
 	if (exec)
 		finish(exec, minishell, minishell->return_command, NULL);
 	if (minishell->cwd)
@@ -116,6 +106,8 @@ void	free_token(t_token *tokens)
 	{
 		if (tokens[i].value && tokens[i].value != tokens[i + 1].value)
 			free(tokens[i].value);
+		if (tokens[i].type == T_HEREDOC)
+			ft_close(&tokens[i].fd);
 		tokens[i].value = NULL;
 		i++;
 	}

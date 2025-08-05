@@ -6,14 +6,40 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 03:35:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:41:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <fcntl.h>
 #include <stdio.h>
- #include <unistd.h>
+#include <unistd.h>
+
+void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error)
+{
+	int	j;
+
+	j = -1;
+	if (error == 0)
+	{
+		while (minishell->pipex[i].infiles[++j].value)
+			if (exec->fd_infile.value != minishell->pipex[i].infiles[j].value
+				&& minishell->pipex[i].infiles[j].type == T_HEREDOC)
+				ft_close(&(minishell->pipex[i].infiles[j].fd));
+	}
+	else
+	{
+		i = 0;
+		while (minishell->pipex[i].infiles != NULL)
+		{
+			j = -1;
+			while (minishell->pipex[i].infiles[++j].value)
+				if (minishell->pipex[i].infiles[j].type == T_HEREDOC)
+					ft_close(&(minishell->pipex[i].infiles[j].fd));
+			i++;
+		}
+	}
+}
 
 int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
@@ -22,10 +48,8 @@ int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		if (minishell->pipex[i].infiles[j].type != T_HEREDOC
 			&& minishell->pipex[i].infiles[j].type != T_PIPE
 			&& access(minishell->pipex[i].infiles[j].value, R_OK) == -1)
-		{
 			return (perr_exec_error(minishell->pipex[i].infiles[j].value,
 					exec));
-		}
 	}
 	if (j > 0)
 	{
@@ -41,10 +65,7 @@ int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		}
 	}
 	j = -1;
-	while (minishell->pipex[i].infiles[++j].value)
-		if (exec->fd_infile.value != minishell->pipex[i].infiles[j].value
-			&& minishell->pipex[i].infiles[j].type == T_HEREDOC)
-			ft_close(&(minishell->pipex[i].infiles[j].fd));
+	ft_close_here_doc(i, minishell, exec, 0);
 	return (0);
 }
 
@@ -64,7 +85,8 @@ int	check_perm_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		else if (minishell->pipex[i].outfiles[j].type != T_PIPE)
 			exec->fd_outfile.fd = open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (minishell->pipex[i].outfiles[j].type != T_PIPE && exec->fd_outfile.fd == -1)
+		if (minishell->pipex[i].outfiles[j].type != T_PIPE
+			&& exec->fd_outfile.fd == -1)
 		{
 			ft_close(&exec->fd_infile.fd);
 			perror(minishell->pipex[i].outfiles[j].value);

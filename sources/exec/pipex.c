@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 03:07:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:34:26 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 			ft_close(&exec->fd_outfile.fd);
 		finish_child(minishell, exec, 1);
 	}
+	
 }
 
 void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)

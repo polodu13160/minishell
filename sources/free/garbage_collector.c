@@ -13,6 +13,7 @@
 #include "use_free.h"
 #include <stdlib.h>
 #include "readline/readline.h"
+#include "token.h"
 
 void	free_exec(t_pip *exec)
 {
@@ -100,6 +101,7 @@ void	free_pipex(t_minishell *minishell, int end)
 void	finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
 {
 	free_exec(exec);
+	ft_close_here_doc(0,minishell, exec, 1);
 	free_env(minishell);
 	free_token(minishell->tokens);
 	free_pipex(minishell, 0);
