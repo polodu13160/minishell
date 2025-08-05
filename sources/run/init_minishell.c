@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:26:23 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "use_free.h"
 #include <readline/readline.h>
 #include <stdlib.h>
+ #include <unistd.h>
+  #include <libft.h>
 
 void	declare_readline(t_minishell *minishell)
 {

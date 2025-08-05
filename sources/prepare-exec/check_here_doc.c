@@ -13,6 +13,7 @@
 #include "pipex.h"
 #include <fcntl.h>
 #include <stdlib.h>
+#include "token.h"
 
 int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {

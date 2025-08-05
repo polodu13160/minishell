@@ -6,12 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 01:16:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:27:19 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdlib.h>
+#include <unistd.h>
+ #include <libft.h>
 
 int	add_slash_to_env(t_pip *exec)
 {

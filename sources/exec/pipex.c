@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 00:20:54 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:14:32 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "use_free.h"
 #include "readline/readline.h"
 #include <sys/wait.h>
+#include <unistd.h>
+#include <token.h>
+
 
 void	init_exec(t_pip *exec, char **env)
 {
@@ -117,7 +120,7 @@ int	ft_pipex(t_minishell *minishell)
 	if (check_builtins(minishell, 0) != 0 && minishell->count_pipe == 0)
 	{
 		status = message_output_no_child(execve_builtin_no_child(minishell,
-					&exec, 0, 0), minishell);
+					&exec, 0, 0), minishell, &exec);
 		return (status);
 	}
 	minishell->pids = ft_calloc(minishell->count_pipe + 1, sizeof(pid_t));

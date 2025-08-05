@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:13:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/07/24 13:47:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:06:31 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "libft.h"
 
 int	check_arg(char *str)
 {

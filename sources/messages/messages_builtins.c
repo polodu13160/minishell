@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   messages_utils.c                                   :+:      :+:    :+:   */
+/*   messages_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:38:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:20:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:24:40 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "stdio.h"
+#include "libft.h"
 
 int	print_export(t_minishell *minishell)
 {

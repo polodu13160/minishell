@@ -6,11 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:00:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 20:38:51 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:17:44 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <unistd.h>
+
 
 void	close_2_fds(int *fd, int *fd2)
 {

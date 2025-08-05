@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized_redirect_word.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:30:55 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:22:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 # include <stdlib.h>
+#include <libft.h>
+#include "token.h"
 
 static int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 {

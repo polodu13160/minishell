@@ -6,13 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 00:22:15 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:28:12 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <fcntl.h>
 #include <stdio.h>
+ #include <unistd.h>
 
 int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {

@@ -6,13 +6,14 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:24:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "use_free.h"
 #include "readline/readline.h"
 #include "stdlib.h"
+ #include <libft.h>
 
 int	finish(t_pip *exec, t_minishell *minishell, int status, char *message)
 {

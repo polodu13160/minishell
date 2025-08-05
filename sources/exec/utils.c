@@ -6,11 +6,12 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:13:36 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "use_free.h"
+#include <libft.h>
 
 void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 		int ifpipe)

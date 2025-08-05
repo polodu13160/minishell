@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 22:44:41 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:24:19 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # include "readline/readline.h"
 #include "use_free.h"
 # include <stdlib.h>
+#include "libft.h"
+ #include <unistd.h>
 
 int	check_interrupt(void)
 {

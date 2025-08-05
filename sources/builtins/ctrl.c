@@ -6,12 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 23:20:41 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:08:42 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 # include "readline/readline.h"
+#include "unistd.h"
 
 volatile sig_atomic_t	g_sig = 0;
 

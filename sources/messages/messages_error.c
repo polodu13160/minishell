@@ -6,11 +6,12 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 23:02:24 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 01:56:20 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "use_free.h"
 #include "pipex.h"
 #include "stdio.h"
 #include "token.h"
@@ -103,7 +104,7 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	}
 }
 
-int	message_output_no_child(int statuetemp, t_minishell *minishell)
+int	message_output_no_child(int statuetemp, t_minishell *minishell, t_pip *exec)
 {
 	int	i;
 
@@ -111,9 +112,7 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell)
 	if (statuetemp != 0 && ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (statuetemp == 8)
-		{
-			message_error("Error dup2", "");
-		}
+			message_error("Error Dup", "");
 		if (statuetemp == 10)
 			message_error("Error malloc", "");
 		else if (statuetemp == 126)
@@ -127,6 +126,8 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell)
 					": Command not found");
 		}
 	}
+	if (statuetemp == 8)
+		finish_child(minishell,exec,8);
 	return (statuetemp);
 }
 

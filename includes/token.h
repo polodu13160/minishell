@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 22:58:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:03:20 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,64 +15,13 @@
 
 # include "libft.h"
 #include "sys/types.h"
+#include "structures.h"
 
 /* ************************************************************************** */
 /*                                 STRUCTURES                                 */
 /* ************************************************************************** */
 
-typedef enum e_token_type
-{
-	T_FUNC,
-	T_WORD,
-	T_PIPE,
-	T_REDIRECT_IN,
-	T_REDIRECT_OUT,
-	T_APPEND,
-	T_HEREDOC,
-	T_ENV,
-	T_NULL,
-	T_WORD_FOR_REDIRECT,
-	T_IGNORE
-}			t_token_type;
 
-typedef struct s_token
-{
-	char	*value;
-	int		type;
-	char	**option;
-	int		fd;
-}			t_token;
-
-typedef struct s_pipex
-{
-	int		init;
-	t_token	*infiles;
-	t_token	*outfiles;
-	char	**cmd;
-}			t_pipex;
-
-typedef struct s_minishell
-{
-	char	*cwd;
-	pid_t	*pids;
-	t_token	*tokens;
-	char	*cwd_join;
-	char	*line;
-	char	**env;
-	int		count_pipe;
-	t_pipex	*pipex;
-	int		return_command;
-}			t_minishell;
-
-typedef struct s_parse_data
-{
-	int		in_dquote;
-	int		in_squote;
-	int		*error;
-	int		token_index;
-	int		start;
-	int		i;
-}			t_parse_data;
 
 /* ************************************************************************** */
 /*                            INITIALIZATION                                  */
@@ -119,7 +68,7 @@ int			ft_pipex(t_minishell *minishell);
 
 int			print_error(t_minishell *minishell,t_token *tokens, int i, int error);
 int			message_error(char *first_message, char *last_message);
-int			message_output_no_child(int statuetemp, t_minishell *minishell);
+int			message_output_no_child(int statuetemp, t_minishell *minishell, t_pip *exec);
 
 /* ************************************************************************** */
 /*                        COMMAND PREPARATION                                 */

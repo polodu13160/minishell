@@ -36,7 +36,7 @@ void	free_exec(t_pip *exec)
 	}
 }
 
-void	ft_free_env(t_minishell *minishell)
+void	free_env(t_minishell *minishell)
 {
 	int	i;
 
@@ -100,7 +100,7 @@ void	free_pipex(t_minishell *minishell, int end)
 void	finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
 {
 	free_exec(exec);
-	ft_free_env(minishell);
+	free_env(minishell);
 	free_token(minishell->tokens);
 	free_pipex(minishell, 0);
 	free(minishell->line);

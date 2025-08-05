@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env_prepare_builtins.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:22:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:06:05 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "stdio.h"
+#include <unistd.h>
+#include "libft.h"
 # include <stdlib.h>
 
 char	**declare_env(void)

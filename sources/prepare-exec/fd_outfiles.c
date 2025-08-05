@@ -6,13 +6,15 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 00:21:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 02:27:00 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <fcntl.h>
 #include <stdlib.h>
+ #include <unistd.h>
+ #include "libft.h"
 
 int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
