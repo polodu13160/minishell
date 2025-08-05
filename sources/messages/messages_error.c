@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 01:56:20 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:21:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell, t_pip *exec)
 
 int	perr_exec_error(char *value, t_pip *exec)
 {
+	
 	perror(value);
 	exec->error = 1;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:27:19 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:29:44 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	set_path_env(t_pip *exec, char **env)
 	char	*text;
 
 	exec->path_args = NULL;
-	while (*env != NULL)
+ 	while (*env != NULL)
 	{
-		if (ft_strncmp(*env, "PATH=", 5) == 0)
+    		if (ft_strncmp(*env, "PATH=", 5) == 0)
 		{
 			text = ft_memchr(*env, '=', 5);
 			text++;

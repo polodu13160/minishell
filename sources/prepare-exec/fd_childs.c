@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:28:12 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:35:47 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_perm_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		else if (minishell->pipex[i].outfiles[j].type != T_PIPE)
 			exec->fd_outfile.fd = open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (exec->fd_outfile.fd == -1)
+		if (minishell->pipex[i].outfiles[j].type != T_PIPE && exec->fd_outfile.fd == -1)
 		{
 			ft_close(&exec->fd_infile.fd);
 			perror(minishell->pipex[i].outfiles[j].value);

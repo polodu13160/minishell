@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:21:28 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 03:11:34 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 				dup_redirect_out) == 8)
 			return (8);
 		minishell->return_command = apply_builtins(minishell, 0, exec, 1);
-		if (1 || dup2(dup_redirect_in, 0) == -1)
+		if (dup2(dup_redirect_in, 0) == -1)
 			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
 					dup_redirect_out));
 		if (dup2(dup_redirect_out, 1) == -1)
