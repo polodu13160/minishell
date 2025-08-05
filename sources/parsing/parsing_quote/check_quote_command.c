@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:22:08 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:42:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:38:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*prepare_string_for_quote_check(char *str)
 	temp = NULL;
 	if (str[0] == '$')
 	{
-		temp = ft_strdup(str + 1);
+		temp = ft_strdup(str );
 		free(str);
 		return (temp);
 	}
@@ -71,6 +71,8 @@ void	process_quote_character(char *str, char *copy, t_quote_state *state,
 		handle_double_quote_tokenize(&index->i, &state->in_dquote, state->in_squote);
 	else if (str[index->i] == '"' && state->in_dquote && !state->in_squote)
 		handle_double_quote_tokenize(&index->i, &state->in_dquote, state->in_squote);
+	else if (str[index->i] == '$' && (str[index->i + 1] == '\'' || str[index->i + 1] == '"') && (state->in_dquote || state->in_squote ))
+		index->i++;
 	else
 		copy[index->j++] = str[index->i++];
 }

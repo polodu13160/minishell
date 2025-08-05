@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 18:33:27 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:40:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ void	handle_sigint(int signal)
 {
 	(void)signal;
 	g_sig = SIGINT;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (rl_done != 1)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	handle_sigint_child(int signal)

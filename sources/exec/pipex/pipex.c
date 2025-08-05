@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 16:34:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:58:37 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	wait_child(t_minishell *minishell)
 		minishell->count_pipe--;
 	}
 	pidvalue = wait(&statuetemp);
+	setup_signals_child();
+	if (WIFSIGNALED(statuetemp))
+		check_sig(statuetemp);
 	while (pidvalue > 0)
 	{
 		message_output(statuetemp, minishell, pidvalue);
@@ -69,7 +72,6 @@ void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 	minishell->pids[i] = pid;
 	if (pid == 0)
 	{
-		setup_signals_child();
 		ft_close(&exec->pipe[0]);
 		ft_close(&exec->pipe[1]);
 		if (exec->fd_infile.value == NULL)

@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_tokens.c                                     :+:      :+:    :+:   */
+/*   validate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 19:04:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:08:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "stdlib.h"
-#include <stdio.h> // a suppr
 
 static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 {
@@ -114,7 +113,7 @@ int	validate_token(t_token *t, t_minishell *minishell, int r, int i)
 		if ((t[i].value[0] == '"' || t[i].value[0] == '\''
 				|| (t[i].value[0] == '$' && (t[i].value[1]
 				&& (t[i].value[1] == '"' || t[i].value[1] == '\''))))
-				&& before_is_heredoc(t, i))
+				|| before_is_heredoc(t, i))
 			r = process_quotes_tokens(&t[i], minishell, t, i);
 		else if (t[i].type == T_ENV)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 03:21:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:58:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	i = 0;
 	while (pidvalue != minishell->pids[i])
 		i++;
-	if (WIFSIGNALED(statuetemp))
-		check_sig(statuetemp);
-	else if (WEXITSTATUS(statuetemp) != 0
+	if (WEXITSTATUS(statuetemp) != 0
 		&& ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
 	{
 		if (WEXITSTATUS(statuetemp) == 8)
