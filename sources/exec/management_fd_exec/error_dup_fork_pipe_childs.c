@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   error_dup_fork_pipe_childs.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 03:08:50 by pde-petr         ###   ########.fr       */
+/*   Created: 2025/08/05 18:35:09 by pde-petr          #+#    #+#             */
+/*   Updated: 2025/08/05 19:32:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include "pipex.h"
 #include "use_free.h"
-#include <libft.h>
+#include "libft.h"
 
 void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 		int ifpipe)
@@ -32,13 +34,6 @@ void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 	
 }
 
-void	init_exec_loop(t_pip *exec)
-{
-	exec->error = 0;
-	exec->fd_infile.value = NULL;
-	exec->fd_infile.type = T_NULL;
-	exec->fd_outfile.type = T_NULL;
-	exec->fd_outfile.value = NULL;
-	exec->fd_infile.fd = -1;
-	exec->fd_outfile.fd = -1;
-}
+
+
+

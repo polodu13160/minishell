@@ -3,34 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   check_here_doc_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 16:33:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:35:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-# include "readline/readline.h"
-#include "use_free.h"
-# include <stdlib.h>
 #include "libft.h"
- #include <unistd.h>
+#include "readline/readline.h"
+#include "readline/history.h"
+#include "use_free.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-int	check_interrupt(void)
+void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error)
 {
-	if (g_sig == SIGINT)
-	{
-		rl_done = 1;
-		return (1);
-	}
-	return (0);
-}
+	int	j;
 
+	j = -1;
+	if (error == 0)
+	{
+		while (minishell->pipex[i].infiles[++j].value)
+			if (exec->fd_infile.value != minishell->pipex[i].infiles[j].value
+				&& minishell->pipex[i].infiles[j].type == T_HEREDOC)
+				ft_close(&(minishell->pipex[i].infiles[j].fd));
+	}
+	else
+	{
+		i = 0;
+		while (minishell->pipex[i].infiles != NULL)
+		{
+			j = -1;
+			while (minishell->pipex[i].infiles[++j].value)
+				if (minishell->pipex[i].infiles[j].type == T_HEREDOC)
+					ft_close(&(minishell->pipex[i].infiles[j].fd));
+			i++;
+		}
+	}
+}
 int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 		int i)
 {
-	int		j;
+	int	j;
 
 	j = 0;
 	while (j++ == 0 || read_like_gnl[0] == 0 || ft_strcmp(read_like_gnl,

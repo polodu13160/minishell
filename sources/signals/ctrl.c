@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 17:51:35 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:40:46 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 #include <unistd.h>
 
 volatile sig_atomic_t	g_sig = 0;
+
+
+int	check_interrupt(void)
+{
+	if (g_sig == SIGINT)
+	{
+		rl_done = 1;
+		return (1);
+	}
+	return (0);
+}
+
 
 int	in_process_marker(void)
 {

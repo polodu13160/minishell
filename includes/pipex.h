@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:03:12 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:34:37 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,10 @@ void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 			int ifpipe);
 void	close_2_fds(int *fd, int *fd2);
 int		check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec);
+int		error_dup2_execve_builtin_no_child(t_pip *exec, int dup_redirect_in,
+			int dup_redirect_out);
+int		is_only_space_or_point(char *str);
+int		dup_infile_and_outfile_builtin_no_child(t_pip *exec,
+			int dup_redirect_in, int dup_redirect_out);
 
 #endif
