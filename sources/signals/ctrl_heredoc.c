@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:09:19 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 17:55:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:03:20 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	check_sig(int statuetemp)
 	{
 		rl_done = 1;
 		write(STDOUT_FILENO, "\n", 1);
-		return ;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	if (WIFSIGNALED(statuetemp))
 	{
@@ -34,13 +36,15 @@ void	check_sig(int statuetemp)
 	}
 }
 
+void	handle_sigint_heredoc(int signal)
+{
+	(void)signal;
+	g_sig = SIGINT;
+	rl_done = 1;
+}
+
 void	setup_signals_heredoc(void)
 {
-	struct sigaction	act;
-
-	act.sa_handler = handle_sigint_child;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &act, NULL);
+	signal(SIGINT, handle_sigint_heredoc);
 	signal(SIGQUIT, SIG_IGN);
 }

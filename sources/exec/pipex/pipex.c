@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 17:58:37 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 13:46:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	wait_child(t_minishell *minishell)
 		minishell->count_pipe--;
 	}
 	pidvalue = wait(&statuetemp);
-	setup_signals_child();
 	if (WIFSIGNALED(statuetemp))
 		check_sig(statuetemp);
 	while (pidvalue > 0)
@@ -80,7 +79,6 @@ void	ft_no_perm_child(t_minishell *minishell, t_pip *exec, int i)
 			ft_close(&exec->fd_outfile.fd);
 		finish_child(minishell, exec, 1);
 	}
-	
 }
 
 void	ft_loop_pipe(t_minishell *minishell, t_pip *exec, int i)

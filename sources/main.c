@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 17:47:13 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:02:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int ac, char **av, char **env)
 		init_minishell(&minishell);
 		if (g_sig != 0)
 		{
+			if (g_sig == 10)
+				g_sig = 2;
 			minishell.return_command = g_sig + 128;
 			g_sig = 0;
 		}
@@ -42,6 +44,5 @@ int	main(int ac, char **av, char **env)
 		minishell.line = NULL;
 	}
 	rl_clear_history();
-	// si on exit avant le rl_clear_history nest pas executé pour antoine le message
 	return (0);
 }

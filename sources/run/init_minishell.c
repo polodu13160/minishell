@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:26:23 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:05:21 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ void	init_minishell(t_minishell *minishell)
 	minishell->line = NULL;
 	minishell->pipex = NULL;
 	minishell->pids = NULL;
-	if (g_sig == SIGINT)
-	{
-		minishell->return_command = 130;
-	}
 	declare_readline(minishell);
 }
 

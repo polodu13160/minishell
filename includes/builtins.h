@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 19:40:08 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 00:58:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_cd
 void							setup_signals(void);
 void							setup_signals_child(void);
 void							handle_sigint_child(int signal);
+void							handle_sigint_heredoc(int signal);
 void							setup_signals_heredoc(void);
 void							check_sig(int statuetemp);
 int								in_process_marker(void);

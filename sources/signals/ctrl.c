@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 19:40:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:00:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <unistd.h>
 
 volatile sig_atomic_t	g_sig = 0;
-
 
 int	check_interrupt(void)
 {
@@ -28,7 +27,6 @@ int	check_interrupt(void)
 	return (0);
 }
 
-
 int	in_process_marker(void)
 {
 	return (0);
@@ -37,9 +35,11 @@ int	in_process_marker(void)
 void	handle_sigint(int signal)
 {
 	(void)signal;
-	g_sig = SIGINT;
-	if (rl_done != 1)
+	if (rl_done == 1)
+		write(STDOUT_FILENO, "\n", 1);
+	else if (rl_done != 1)
 	{
+		g_sig = SIGINT;
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -50,28 +50,35 @@ void	handle_sigint(int signal)
 void	handle_sigint_child(int signal)
 {
 	(void)signal;
-	g_sig = SIGINT;
+	if (g_sig == 10)
+	{
+		g_sig = 10;
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		return ;
+	}
+	if (rl_done == 1)
+		write(STDOUT_FILENO, "\n", 1);
+	else if (rl_done != 1)
+	{
+		g_sig = SIGINT;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	setup_signals(void)
 {
-	struct sigaction	act;
-
-	act.sa_handler = handle_sigint;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &act, NULL);
+	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	g_sig = 0;
 }
 
 void	setup_signals_child(void)
 {
-	struct sigaction	act;
-
-	act.sa_handler = handle_sigint_child;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &act, NULL);
+	signal(SIGINT, handle_sigint_child);
 	signal(SIGQUIT, SIG_DFL);
 }

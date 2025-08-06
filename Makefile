@@ -46,7 +46,6 @@ FILES =  builtins/cd \
        parsing/check_tokens_utils \
        parsing/validate_tokens \
        parsing/validate_parsing \
-       parsing/check_tokens \
        prepare-exec/here_doc/check_here_doc_utils \
        prepare-exec/here_doc/check_here_doc \
        prepare-exec/from_parsing_to_exec/cmds \
