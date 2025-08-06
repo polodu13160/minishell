@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   messages_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 17:58:54 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:59:07 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "use_free.h"
 #include "pipex.h"
 #include "stdio.h"
 #include "token.h"
+#include "use_free.h"
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -82,8 +82,8 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	i = 0;
 	while (pidvalue != minishell->pids[i])
 		i++;
-	if (WEXITSTATUS(statuetemp) != 0
-		&& ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
+	if (WEXITSTATUS(statuetemp) != 0 && ft_strncmp(minishell->pipex[i].cmd[0],
+			"exit", 5))
 	{
 		if (WEXITSTATUS(statuetemp) == 8)
 			message_error("Error dup2", "");
@@ -125,14 +125,18 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell, t_pip *exec)
 		}
 	}
 	if (statuetemp == 8)
-		finish_child(minishell,exec,8);
+		finish_child(minishell, exec, 8);
 	return (statuetemp);
 }
 
-int	perr_exec_error(char *value, t_pip *exec)
+int	perr_exec_error(char *value, t_pip *exec, int no_ambigous)
 {
-	
-	perror(value);
+	if (no_ambigous == 1)
+		ft_printf_fd(2, "%s: ambiguous redirect\n", value);
+	else
+		perror(value);
 	exec->error = 1;
+	if (no_ambigous == 1)
+		exec->error = 2;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 16:49:36 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 22:31:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,7 @@ void	free_loop(t_token *tokens, t_minishell *minishell)
 
 	i = 0;
 	if (tokens)
-	{
-		while (tokens[i].type != T_NULL)
-		{
-			if (tokens[i].value && tokens[i].value != tokens[i + 1].value)
-				free(tokens[i].value);
-			tokens[i].value = NULL;
-			i++;
-		}
-		free(tokens);
-		tokens = NULL;
-	}
+		free_token(tokens);
 	i = 0;
 	if (minishell->env)
 	{
