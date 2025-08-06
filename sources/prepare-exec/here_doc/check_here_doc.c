@@ -30,7 +30,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 		|| tokens[i].type == T_HEREDOC || tokens[i].type == T_APPEND)
 	{
 		if (tokens[i + 1].value == NULL || (tokens[i + 1].type != T_WORD
-				&& tokens[i + 1].type != T_FUNC))
+				&& tokens[i + 1].type != T_FUNC && tokens[i + 1].type != T_AMBIGOUS) )
 		{
 			minishell->return_command = 2;
 			return (print_error(minishell, tokens, i, 1));

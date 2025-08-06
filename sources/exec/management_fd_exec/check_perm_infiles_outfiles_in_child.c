@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 19:32:08 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:04:51 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,26 @@
 #include <unistd.h>
 #include "token.h"
 
+int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
+{
+	int	fd;
 
+	if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
+		&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
+		return (perr_exec_error(minishell->pipex[i].outfiles[j].value, exec));
+	else
+	{
+		fd = open(minishell->pipex[i].outfiles[j].value,
+				O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (fd == -1)
+		{
+			return (perr_exec_error(minishell->pipex[i].outfiles[j].value,
+					exec));
+		}
+		ft_close(&fd);
+	}
+	return (0);
+}
 
 int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
 {
@@ -83,19 +102,25 @@ int	check_perm(t_pip *exec, t_minishell *minishell, int i)
 	if (check_perm_infiles(minishell, i, j, exec) == 1)
 		return (1);
 	j = -1;
-	while (minishell->pipex[i].outfiles[++j].value != NULL)
-	{
-		if (minishell->pipex[i].outfiles[j].type != T_PIPE)
-		{
-			if (check_acces_outfiles(minishell, i, j, exec) == 1)
-			{
-				ft_close(&exec->fd_infile.fd);
-				return (1);
-			}
-		}
-	}
-	if (check_perm_outfiles(minishell, i, j, exec) == 1)
-		return (1);
+	
+	
+	
+
+
+
+	// while (minishell->pipex[i].outfiles[++j].value != NULL)
+	// {
+	// 	if (minishell->pipex[i].outfiles[j].type != T_PIPE)
+	// 	{
+	// 		if (check_acces_outfiles(minishell, i, j, exec) == 1)
+	// 		{
+	// 			ft_close(&exec->fd_infile.fd);
+	// 			return (1);
+	// 		}
+	// 	}
+	// }
+	// if (check_perm_outfiles(minishell, i, j, exec) == 1)
+	// 	return (1);
 	return (0);
 }
 

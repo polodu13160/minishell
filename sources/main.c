@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 15:35:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:54:10 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **env)
 		else if (minishell.line && *minishell.line)
 		{
 			add_history(minishell.line);
-			marun(&minishell);
+			main_run(&minishell);
 		}
 		free_all(minishell.tokens, &minishell, 0);
 		minishell.tokens = NULL;

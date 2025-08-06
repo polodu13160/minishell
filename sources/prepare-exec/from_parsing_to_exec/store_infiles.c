@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_infiles.c                                       :+:      :+:    :+:   */
+/*   store_infiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 00:18:34 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:59:19 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	join_tab_infiles_ext(t_token *tokens, int i)
 	}
 }
 
-int	join_tab_infiles(t_token *tokens, int limit_pipe,
-		t_token *malloc_infiles, int count_pipe)
+int	join_tab_infiles(t_token *tokens, int limit_pipe, t_token *malloc_infiles,
+		int count_pipe)
 {
 	int	i;
 	int	j;
@@ -69,6 +69,8 @@ int	join_tab_infiles(t_token *tokens, int limit_pipe,
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 			{
 				join_tab_infiles_ext(tokens, i);
+				if (tokens[i + 1].type == T_AMBIGOUS)
+					tokens[i].type = T_AMBIGOUS;
 				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 				malloc_infiles[j++] = tokens[i];
 			}
@@ -82,9 +84,9 @@ t_token	*store_infiles(t_token *tokens, int limit_pipe)
 	int		i_count_infiles;
 	int		last_index_malloc_infiles;
 	t_token	*malloc_infiles;
-	int		i = 0;
+	int		i;
 
-
+	i = 0;
 	i_count_infiles = count_infiles(tokens, limit_pipe);
 	malloc_infiles = ft_calloc(i_count_infiles + 1, sizeof(t_token));
 	if (malloc_infiles == NULL)

@@ -1,41 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_outfiles.c                                      :+:      :+:    :+:   */
+/*   store_outfiles.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 02:27:00 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:03:38 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "pipex.h"
 #include <fcntl.h>
 #include <stdlib.h>
- #include <unistd.h>
- #include "libft.h"
-
-int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
-{
-	int	fd;
-
-	if (access(minishell->pipex[i].outfiles[j].value, F_OK) == 0
-		&& access(minishell->pipex[i].outfiles[j].value, W_OK) == -1)
-		return (perr_exec_error(minishell->pipex[i].outfiles[j].value, exec));
-	else
-	{
-		fd = open(minishell->pipex[i].outfiles[j].value,
-				O_CREAT | O_WRONLY | O_APPEND, 0644);
-		if (fd == -1)
-		{
-			return (perr_exec_error(minishell->pipex[i].outfiles[j].value,
-					exec));
-		}
-		ft_close(&fd);
-	}
-	return (0);
-}
+#include <unistd.h>
 
 int	count_outfiles(t_token *tokens, int limit_pipe)
 {
@@ -72,6 +51,8 @@ void	join_tab_outfiles_ext(t_token *tokens, int i, t_token *malloc_outfiles,
 		free(tokens[i].value);
 		tokens[i].value = NULL;
 		tokens[i].value = tokens[i + 1].value;
+		if (tokens[i + 1].type == T_AMBIGOUS)
+			tokens[i].type = T_AMBIGOUS;
 		tokens[i + 1].type = T_WORD_FOR_REDIRECT;
 		malloc_outfiles[j++] = tokens[i];
 	}
