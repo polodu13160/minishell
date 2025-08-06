@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 16:13:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:04:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,53 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell)
 	return (0);
 }
 
+int	check_is_retokenizable(char *str)
+{
+	int	i;
+	int	has_quotes;
+	int	has_dollar;
+	int	in_dquote;
+	int	in_squote;
+	int	dollar_in_quotes;
+
+	i = 0;
+	has_quotes = 0;
+	has_dollar = 0;
+	in_dquote = 0;
+	in_squote = 0;
+	dollar_in_quotes = 0;
+	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+			has_quotes = 1;
+		if (str[i] == '$')
+			has_dollar = 1;
+		i++;
+	}
+	if (!has_quotes || !has_dollar)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"' && !in_squote)
+			in_dquote = !in_dquote;
+		else if (str[i] == '\'' && !in_dquote)
+			in_squote = !in_squote;
+		else if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
+		{
+			if (in_dquote || in_squote)
+				dollar_in_quotes = 1;
+		}
+		i++;
+	}
+	return (!dollar_in_quotes);
+}
+
 static int	process_quotes_tokens(t_token *token, t_minishell *minishell,
 		t_token *tokens, int i)
 {
+	if (check_is_retokenizable(token->value))
+		token->type = T_ENV;
 	if (i >= 1 && tokens[i - 1].value && tokens[i - 1].type == T_HEREDOC)
 		token->value = check_quote_command(token->value);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\'')
@@ -126,7 +170,8 @@ int	validate_token(t_token *t, t_minishell *minishell, int r, int i)
 		if ((t[i].value[0] == '"' || t[i].value[0] == '\''
 				|| (t[i].value[0] == '$' && (t[i].value[1]
 				&& (t[i].value[1] == '"' || t[i].value[1] == '\''))))
-				|| before_is_heredoc(t, i))
+				|| before_is_heredoc(t, i)
+				|| !check_is_retokenizable(t[i].value))
 			r = process_quotes_tokens(&t[i], minishell, t, i);
 		else if (t[i].type == T_ENV)
 		{
