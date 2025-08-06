@@ -43,7 +43,7 @@ FILES =  builtins/cd \
        parsing/tokenize/tokenized_redirect_word \
        parsing/tokenize/retokenize \
        parsing/tokenize/tokenized \
-       parsing/check_tokens_utils \
+       parsing/validate_tokens_utils \
        parsing/validate_tokens \
        parsing/validate_parsing \
        prepare-exec/here_doc/check_here_doc_utils \
