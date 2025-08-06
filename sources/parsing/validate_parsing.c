@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 22:33:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:07:48 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int	validate_parsing(t_token *tokens, t_minishell *minishell, int i)
 	}
 	if (delete_null_token(minishell->tokens))
 		return (1);
+	get_token_index(minishell->tokens);
 	return (0);
 }

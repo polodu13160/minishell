@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 15:31:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:11:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int				validate_token(t_token *token, t_minishell *minishell, int ret,
 int				before_is_heredoc(t_token *tokens, int i);
 void			shift_token(t_token *token, int i);
 int				before_is_ambigous(t_token *tokens, int i);
+int				is_ambigous(char *str);
+void			get_token_index(t_token *tokens);
 
 /* ************************************************************************** */
 /*                           QUOTE PROCESSING                                 */
