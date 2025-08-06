@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 16:11:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:13:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	process_word_tokens(t_token *token, t_minishell *minishell,
 {
 	char	*temp;
 
-	if (check_is_ambigous_condition(token, minishell, tokens, i))
+	if (check_is_ambigous_condition(token, tokens, i))
 	{
 		temp = expand_environment_vars(token->value, minishell);
 		if (!temp)

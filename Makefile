@@ -83,28 +83,28 @@ $(LIBFT):  FORCE
 FORCE:
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c 
-	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)parsing
-	mkdir -p $(OBJ_DIR)parsing/expand
-	mkdir -p $(OBJ_DIR)parsing/parsing_quote
-	mkdir -p $(OBJ_DIR)parsing/validate_tokens
-	mkdir -p $(OBJ_DIR)parsing/tokenize
-	mkdir -p $(OBJ_DIR)signals
-	mkdir -p $(OBJ_DIR)exec
-	mkdir -p $(OBJ_DIR)exec/exec_in_child
-	mkdir -p $(OBJ_DIR)exec/exec_in_child_builtins
-	mkdir -p $(OBJ_DIR)exec/exec_in_child_builtins
-	mkdir -p $(OBJ_DIR)exec/exec_no_child
-	mkdir -p $(OBJ_DIR)exec/exec_no_child_bultins
-	mkdir -p $(OBJ_DIR)exec/management_fd_exec
-	mkdir -p $(OBJ_DIR)exec/pipex
-	mkdir -p $(OBJ_DIR)prepare-exec
-	mkdir -p $(OBJ_DIR)prepare-exec/from_parsing_to_exec
-	mkdir -p $(OBJ_DIR)prepare-exec/here_doc
-	mkdir -p $(OBJ_DIR)builtins
-	mkdir -p $(OBJ_DIR)free
-	mkdir -p $(OBJ_DIR)messages
-	mkdir -p $(OBJ_DIR)run
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)parsing
+	@mkdir -p $(OBJ_DIR)parsing/expand
+	@mkdir -p $(OBJ_DIR)parsing/parsing_quote
+	@mkdir -p $(OBJ_DIR)parsing/validate_tokens
+	@mkdir -p $(OBJ_DIR)parsing/tokenize
+	@mkdir -p $(OBJ_DIR)signals
+	@mkdir -p $(OBJ_DIR)exec
+	@mkdir -p $(OBJ_DIR)exec/exec_in_child
+	@mkdir -p $(OBJ_DIR)exec/exec_in_child_builtins
+	@mkdir -p $(OBJ_DIR)exec/exec_in_child_builtins
+	@mkdir -p $(OBJ_DIR)exec/exec_no_child
+	@mkdir -p $(OBJ_DIR)exec/exec_no_child_bultins
+	@mkdir -p $(OBJ_DIR)exec/management_fd_exec
+	@mkdir -p $(OBJ_DIR)exec/pipex
+	@mkdir -p $(OBJ_DIR)prepare-exec
+	@mkdir -p $(OBJ_DIR)prepare-exec/from_parsing_to_exec
+	@mkdir -p $(OBJ_DIR)prepare-exec/here_doc
+	@mkdir -p $(OBJ_DIR)builtins
+	@mkdir -p $(OBJ_DIR)free
+	@mkdir -p $(OBJ_DIR)messages
+	@mkdir -p $(OBJ_DIR)run
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
