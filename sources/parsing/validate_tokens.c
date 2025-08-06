@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 18:08:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:34:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,22 @@ static int	process_quotes_tokens(t_token *token, t_minishell *minishell,
 	return (0);
 }
 
-static int	process_word_tokens(t_token *token, t_minishell *minishell)
+static int	process_word_tokens(t_token *token, t_minishell *minishell,
+		t_token *tokens, int i)
 {
+	char	*temp;
+
+	if (ft_strchr(token->value, '$') && !ft_strchr(token->value, '"')
+		&& !ft_strchr(token->value, '\'') && before_is_ambigous(tokens, i))
+	{
+		temp = expand_environment_vars(token->value, minishell);
+		if (!temp)
+			return (1);
+		free(token->value);
+		token->value = temp;
+		if (ft_strncmp(token->value, "", 2) == 0)
+			token->type = T_AMBIGOUS;
+	}
 	if (ft_strchr(token->value, '$') || ft_strchr(token->value, '"')
 		|| ft_strchr(token->value, '\''))
 	{
@@ -117,12 +131,13 @@ int	validate_token(t_token *t, t_minishell *minishell, int r, int i)
 			r = process_quotes_tokens(&t[i], minishell, t, i);
 		else if (t[i].type == T_ENV)
 		{
+			printf("token : %s\n", t[i].value);
 			r = process_env_tokens(&t[i], minishell);
 			if (r == 0 && t[i].value && ft_strncmp(t[i].value, " ", 2) == 0)
 				shift_token(t, i);
 		}
 		else if (t[i].type == T_WORD || (t[i].type == T_FUNC))
-			r = process_word_tokens(&t[i], minishell);
+			r = process_word_tokens(&t[i], minishell, t, i);
 		if (r)
 			return (r);
 		i++;

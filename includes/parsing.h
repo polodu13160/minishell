@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:03:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:31:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# include "structures.h"
 # include "token.h"
-#include "structures.h"
 
 /* ************************************************************************** */
 /*                                 STRUCTURES                                 */
@@ -56,6 +56,7 @@ int				validate_token(t_token *token, t_minishell *minishell, int ret,
 					int i);
 int				before_is_heredoc(t_token *tokens, int i);
 void			shift_token(t_token *token, int i);
+int				before_is_ambigous(t_token *tokens, int i);
 
 /* ************************************************************************** */
 /*                           QUOTE PROCESSING                                 */
@@ -102,7 +103,8 @@ size_t			calculate_needed_size(char *str, t_minishell *minishell, int i,
 /*                           RETOKENIZATION                                   */
 /* ************************************************************************** */
 
-int				retokenize_expanded_token(t_token *tokens, t_minishell *minishell, int i);
+int				retokenize_expanded_token(t_token *tokens,
+					t_minishell *minishell, int i);
 void			copy_tokens_after(t_token *result, t_token *tokens, int i,
 					t_retokenize_data *data);
 void			copy_new_tokens(t_token *result, t_token *new_tokens, int start,

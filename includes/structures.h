@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:59:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 21:29:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:32:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum e_token_type
 	T_APPEND,
 	T_HEREDOC,
 	T_ENV,
+	T_AMBIGOUS,
 	T_NULL,
 	T_WORD_FOR_REDIRECT,
 	T_IGNORE
