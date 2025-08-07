@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:55:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void							check_sig_main(t_minishell *minishell);
 /* ************************************************************************** */
 
 int								apply_builtins(t_minishell *minishell, int i,
-									t_pip *exec, int print_exit);
+									t_pipe *exec, int print_exit);
 int								check_builtins(t_minishell *minishell, int i);
 
 /* ************************************************************************** */
@@ -110,7 +110,7 @@ int								check_path(char *str);
 /* ************************************************************************** */
 
 int								ft_exit(char **str, t_minishell *minishell,
-									t_pip *exec, int print_exit);
+									t_pipe *exec, int print_exit);
 
 /* ************************************************************************** */
 /*                          UTILITY FUNCTIONS                                */

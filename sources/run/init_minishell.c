@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:26:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	declare_readline(t_minishell *minishell)
 void	init_minishell(t_minishell *minishell)
 {
 	minishell->tokens = NULL;
-	minishell->count_pipe = 0;
+	minishell->count_pipee = 0;
 	minishell->cwd_join = NULL;
 	minishell->line = NULL;
 	minishell->pipex = NULL;
@@ -54,7 +54,7 @@ void	init_minishell_env(t_minishell *minishell, char **env, int ac,
 	minishell->line = NULL;
 	minishell->pipex = NULL;
 	minishell->pids = NULL;
-	minishell->count_pipe = 0;
+	minishell->count_pipee = 0;
 	(void)ac;
 	(void)av;
 	minishell->env = copy_original_env(env);

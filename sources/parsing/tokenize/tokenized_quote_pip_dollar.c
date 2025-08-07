@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:32:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_pipe(char *str, int *i, int *token_index, t_token *token)
 	token[*token_index].value = ft_strdup("|");
 	if (!token[*token_index].value)
 		return (1);
-	token[*token_index].type = T_PIPE;
+	token[*token_index].type = t_pipeE;
 	(*token_index)++;
 	(*i)++;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:48:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "pipex.h"
 #include <libft.h>
 
-static int	continue_if_no_exit(t_minishell *minishell, t_pip *exec,
+static int	continue_if_no_exit(t_minishell *minishell, t_pipe *exec,
 		int dup_redirect_in, int dup_redirect_out)
 {
 	if (ft_strcmp(minishell->pipex[0].cmd[0], "exit") != 0)
@@ -30,7 +30,7 @@ static int	continue_if_no_exit(t_minishell *minishell, t_pip *exec,
 	return (0);
 }
 
-int	error_dup2_execve_builtin_no_child(t_pip *exec, int dup_redirect_in,
+int	error_dup2_execve_builtin_no_child(t_pipe *exec, int dup_redirect_in,
 		int dup_redirect_out)
 {
 	ft_close(&dup_redirect_in);
@@ -40,7 +40,7 @@ int	error_dup2_execve_builtin_no_child(t_pip *exec, int dup_redirect_in,
 	return (8);
 }
 
-int	execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
+int	execve_builtin_no_child(t_minishell *minishell, t_pipe *exec,
 		int dup_redirect_in, int dup_redirect_out)
 {
 	if (check_perm(exec, minishell, 0) == 0)

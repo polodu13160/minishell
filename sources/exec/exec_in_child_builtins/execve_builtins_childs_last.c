@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:19:50 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:48:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "use_free.h"
 #include "unistd.h"
 
-static int	ft_execve_finish_builtin(t_minishell *minishell, t_pip *exec,
+static int	ft_execve_finish_builtin(t_minishell *minishell, t_pipe *exec,
 		int *new_pipe, int i)
 {
 	ft_close(&exec->pipe[1]);
@@ -28,7 +28,7 @@ static int	ft_execve_finish_builtin(t_minishell *minishell, t_pip *exec,
 		return (0);
 }
 
-int	execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
+int	execve_builtin_next(t_minishell *minishell, t_pipe *exec, int i,
 		int return_exec)
 {
 	pid_t	pid;
@@ -48,7 +48,7 @@ int	execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
 		if (exec->fd_infile.value == NULL)
 			ft_close(&exec->fd_infile.fd);
 		close_pip(exec, n_pipe, 0);
-		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
+		if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
 		finish_child(minishell, exec, return_exec);
 	}

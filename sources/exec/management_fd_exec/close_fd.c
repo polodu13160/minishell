@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:38:41 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:45:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_close(int *fd)
 	return (0);
 }
 
-void	close_pip(t_pip *exec, int *new_pipe, int substitue)
+void	close_pip(t_pipe *exec, int *new_pipe, int substitue)
 {
 	ft_close(&exec->pipe[0]);
 	ft_close(&exec->pipe[1]);

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:46:29 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
+int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pipe *exec)
 {
 	int	fd;
 
@@ -39,12 +39,12 @@ int	check_acces_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 	return (0);
 }
 
-int	while_perm_outfiles(int *j, t_minishell *minishell, int i, t_pip *exec)
+int	while_perm_outfiles(int *j, t_minishell *minishell, int i, t_pipe *exec)
 {
 	while (minishell->pipex[i].outfiles[++*j].value != NULL
 		&& minishell->pipex[i].outfiles[*j].type != T_IGNORE)
 	{
-		if (minishell->pipex[i].outfiles[*j].type != T_PIPE)
+		if (minishell->pipex[i].outfiles[*j].type != t_pipeE)
 		{
 			if (check_acces_outfiles(minishell, i, *j, exec) == 1)
 			{
@@ -56,13 +56,13 @@ int	while_perm_outfiles(int *j, t_minishell *minishell, int i, t_pip *exec)
 	return (0);
 }
 
-int	check_perm_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
+int	check_perm_outfiles(t_minishell *minishell, int i, int j, t_pipe *exec)
 {
 	if (while_perm_outfiles(&j, minishell, i, exec) == 1)
 		return (1);
 	if (j > 0)
 	{
-		if (minishell->pipex[i].outfiles[--j].type == T_PIPE)
+		if (minishell->pipex[i].outfiles[--j].type == t_pipeE)
 		{
 			if (j >= 1)
 				j--;
@@ -71,10 +71,10 @@ int	check_perm_outfiles(t_minishell *minishell, int i, int j, t_pip *exec)
 		if (minishell->pipex[i].outfiles[j].type == T_APPEND)
 			exec->fd_outfile.fd = open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
-		else if (minishell->pipex[i].outfiles[j].type != T_PIPE)
+		else if (minishell->pipex[i].outfiles[j].type != t_pipeE)
 			exec->fd_outfile.fd = open(minishell->pipex[i].outfiles[j].value,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (minishell->pipex[i].outfiles[j].type != T_PIPE
+		if (minishell->pipex[i].outfiles[j].type != t_pipeE
 			&& exec->fd_outfile.fd == -1)
 		{
 			ft_close(&exec->fd_infile.fd);

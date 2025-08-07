@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:29:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 #include <stdlib.h>
 #include "libft.h"
 
-int	count_infiles(t_token *tokens, int limit_pipe)
+int	count_infiles(t_token *tokens, int limit_pipee)
 {
 	int	count_infiles;
 	int	i;
-	int	count_pipe;
+	int	count_pipee;
 
 	count_infiles = 0;
 	i = 0;
-	count_pipe = 0;
+	count_pipee = 0;
 	while (tokens[i].value)
 	{
-		if (tokens[i].type == T_PIPE)
+		if (tokens[i].type == t_pipeE)
 		{
-			count_pipe++;
-			if (count_pipe == limit_pipe)
+			count_pipee++;
+			if (count_pipee == limit_pipee)
 				count_infiles++;
 		}
-		else if (count_pipe > limit_pipe)
+		else if (count_pipee > limit_pipee)
 			break ;
-		else if (count_pipe == limit_pipe)
+		else if (count_pipee == limit_pipee)
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 				count_infiles++;
 		i++;
@@ -50,8 +50,8 @@ void	join_tab_infiles_ext(t_token *tokens, int i)
 	}
 }
 
-int	join_tab_infiles(t_token *tokens, int limit_pipe, t_token *malloc_infiles,
-		int count_pipe)
+int	join_tab_infiles(t_token *tokens, int limit_pipee, t_token *malloc_infiles,
+		int count_pipee)
 {
 	int	i;
 	int	j;
@@ -60,12 +60,12 @@ int	join_tab_infiles(t_token *tokens, int limit_pipe, t_token *malloc_infiles,
 	j = 0;
 	while (tokens[++i].value)
 	{
-		if (tokens[i].type == T_PIPE)
+		if (tokens[i].type == t_pipeE)
 		{
-			if ((++count_pipe) == limit_pipe)
+			if ((++count_pipee) == limit_pipee)
 				malloc_infiles[j++] = tokens[i];
 		}
-		else if (count_pipe == limit_pipe)
+		else if (count_pipee == limit_pipee)
 		{
 			if (tokens[i].type == T_HEREDOC || tokens[i].type == T_REDIRECT_IN)
 			{
@@ -80,7 +80,7 @@ int	join_tab_infiles(t_token *tokens, int limit_pipe, t_token *malloc_infiles,
 	return (j);
 }
 
-t_token	*store_infiles(t_token *tokens, int limit_pipe)
+t_token	*store_infiles(t_token *tokens, int limit_pipee)
 {
 	int		i_count_infiles;
 	int		last_index_malloc_infiles;
@@ -88,11 +88,11 @@ t_token	*store_infiles(t_token *tokens, int limit_pipe)
 	int		i;
 
 	i = 0;
-	i_count_infiles = count_infiles(tokens, limit_pipe);
+	i_count_infiles = count_infiles(tokens, limit_pipee);
 	malloc_infiles = ft_calloc(i_count_infiles + 1, sizeof(t_token));
 	if (malloc_infiles == NULL)
 		return (NULL);
-	last_index_malloc_infiles = join_tab_infiles(tokens, limit_pipe,
+	last_index_malloc_infiles = join_tab_infiles(tokens, limit_pipee,
 			malloc_infiles, 0);
 	malloc_infiles[last_index_malloc_infiles].value = NULL;
 	i = 0;

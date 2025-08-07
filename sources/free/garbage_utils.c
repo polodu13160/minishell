@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:42:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "use_free.h"
 #include "libft.h"
 
-int	finish(t_pip *exec, t_minishell *minishell, int status, char *message)
+int	finish(t_pipe *exec, t_minishell *minishell, int status, char *message)
 {
 	if (message != NULL)
 		ft_printf_fd(2, "%s\n", message);
@@ -60,7 +60,7 @@ void	free_loop(t_token *tokens, t_minishell *minishell)
 	}
 }
 
-void	free_exit(t_token *tokens, t_minishell *minishell, t_pip *exec,
+void	free_exit(t_token *tokens, t_minishell *minishell, t_pipe *exec,
 		int print_exit)
 {
 	free_loop(tokens, minishell);

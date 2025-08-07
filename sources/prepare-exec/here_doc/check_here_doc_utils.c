@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:28:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:10:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include "use_free.h"
 #include <stdlib.h>
 
-void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error)
+void	ft_close_here_doc(int i, t_minishell *minishell, t_pipe *exec,
+		int error)
 {
 	int	j;
 

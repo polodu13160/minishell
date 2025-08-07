@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:47:43 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int	while_perm_infiles(int *j, t_minishell *minishell, int i, t_pip *exec)
+int	while_perm_infiles(int *j, t_minishell *minishell, int i, t_pipe *exec)
 {
 	while (minishell->pipex[i].infiles[++*j].value != NULL
 		&& minishell->pipex[i].infiles[*j].type != T_IGNORE)
@@ -24,7 +24,7 @@ int	while_perm_infiles(int *j, t_minishell *minishell, int i, t_pip *exec)
 			return (perr_exec_error(minishell->pipex[i].infiles[*j].value, exec,
 					1));
 		if (minishell->pipex[i].infiles[*j].type != T_HEREDOC
-			&& minishell->pipex[i].infiles[*j].type != T_PIPE
+			&& minishell->pipex[i].infiles[*j].type != t_pipeE
 			&& access(minishell->pipex[i].infiles[*j].value, R_OK) == -1)
 			return (perr_exec_error(minishell->pipex[i].infiles[*j].value, exec,
 					0));
@@ -32,14 +32,14 @@ int	while_perm_infiles(int *j, t_minishell *minishell, int i, t_pip *exec)
 	return (0);
 }
 
-int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec)
+int	check_perm_infiles(t_minishell *minishell, int i, int j, t_pipe *exec)
 {
 	if (while_perm_infiles(&j, minishell, i, exec) == 1)
 		return (1);
 	if (j > 0)
 	{
 		exec->fd_infile = minishell->pipex[i].infiles[--j];
-		if (minishell->pipex[i].infiles[j].type != T_PIPE)
+		if (minishell->pipex[i].infiles[j].type != t_pipeE)
 		{
 			if (exec->fd_infile.type != T_HEREDOC)
 				exec->fd_infile.fd = open(minishell->pipex[i].infiles[j].value,
@@ -63,7 +63,7 @@ int	count_tokens_error_files_and_ignore(t_token *tokens, int type, int error,
 		if (type == T_REDIRECT_IN)
 		{
 			if ((tokens[i].type == T_AMBIGOUS) || (tokens[i].type != T_HEREDOC
-					&& tokens[i].type != T_PIPE && access(tokens[i].value,
+					&& tokens[i].type != t_pipeE && access(tokens[i].value,
 						R_OK) == -1))
 				if (error == -1)
 					error = tokens[i].index;
@@ -100,7 +100,7 @@ void	ignore_outfiles_infiles_if_error(t_minishell *minishell,
 	}
 }
 
-int	check_perm(t_pip *exec, t_minishell *minishell, int i)
+int	check_perm(t_pipe *exec, t_minishell *minishell, int i)
 {
 	int	index_error_infiles;
 	int	index_error_outfiles;

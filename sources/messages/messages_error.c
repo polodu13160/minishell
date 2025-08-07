@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:41:34 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:09:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	print_error(t_minishell *minishell, t_token *tokens, int i, int error)
 		printf("syntax error near unexpected token `newline'\n");
 	else
 	{
-		if (tokens[i].type != T_PIPE)
+		if (tokens[i].type != t_pipeE)
 			i++;
 		ft_printf_fd(2, "syntax error near unexpected token `%s'\n",
 			tokens[i].value);
@@ -98,7 +98,8 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	}
 }
 
-int	message_output_no_child(int statuetemp, t_minishell *minishell, t_pip *exec)
+int	message_output_no_child(int statuetemp, t_minishell *minishell,
+		t_pipe *exec)
 {
 	int	i;
 

@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "readline/readline.h"
 
-void	free_exec(t_pip *exec)
+void	free_exec(t_pipe *exec)
 {
 	int	i;
 
@@ -94,7 +94,7 @@ void	free_pipex(t_minishell *minishell, int end, int i)
 	}
 }
 
-void	finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
+void	finish_child(t_minishell *minishell, t_pipe *exec, int exit_return)
 {
 	free_exec(exec);
 	free_env(minishell);

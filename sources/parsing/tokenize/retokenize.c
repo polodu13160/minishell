@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:33:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	fix_pipe_types(t_minishell *minishell)
 	i = 0;
 	while (minishell->tokens[i].type != T_NULL)
 	{
-		if (minishell->tokens[i].type == T_PIPE)
+		if (minishell->tokens[i].type == t_pipeE)
 			minishell->tokens[i].type = T_WORD;
 		i++;
 	}

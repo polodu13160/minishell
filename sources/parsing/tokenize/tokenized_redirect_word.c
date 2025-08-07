@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:32:36 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 	return (0);
 }
 
-static int	is_redirect_pipe(t_token *token, int *token_index, int *i)
+static int	is_redirect_pipee(t_token *token, int *token_index, int *i)
 {
 	token[*token_index].value = ft_strdup(">|");
 	if (!token[*token_index].value)
@@ -51,7 +51,7 @@ static int	is_redirect_pipe(t_token *token, int *token_index, int *i)
 static int	is_redirect_out(char *str, int *i, int *token_index, t_token *token)
 {
 	if (str[*i + 1] == '|')
-		return (is_redirect_pipe(token, token_index, i));
+		return (is_redirect_pipee(token, token_index, i));
 	if (str[*i + 1] == '>')
 	{
 		token[*token_index].value = ft_strdup(">>");
@@ -87,7 +87,7 @@ static int	is_word(char *str, int *i, int *token_index, t_token *token)
 		free(token);
 		return (1);
 	}
-	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
+	if (*token_index == 0 || token[*token_index - 1].type == t_pipeE
 		|| token[*token_index - 1].type == T_WORD)
 		token[*token_index].type = T_FUNC;
 	else

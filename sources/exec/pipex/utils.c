@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:43:28 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "use_free.h"
 #include <libft.h>
 
-int	perr_exec_error(char *value, t_pip *exec, int no_ambigous)
+int	perr_exec_error(char *value, t_pipe *exec, int no_ambigous)
 {
 	if (no_ambigous == 1)
 		ft_printf_fd(2, "%s: ambiguous redirect\n", value);
@@ -23,7 +23,7 @@ int	perr_exec_error(char *value, t_pip *exec, int no_ambigous)
 	return (1);
 }
 
-int	count_pipe(t_token *tokens)
+int	count_pipee(t_token *tokens)
 {
 	int	i;
 	int	count;
@@ -32,14 +32,14 @@ int	count_pipe(t_token *tokens)
 	count = 0;
 	while (tokens[i].value != NULL)
 	{
-		if (tokens[i].type == T_PIPE)
+		if (tokens[i].type == t_pipeE)
 			count++;
 		i++;
 	}
 	return (count);
 }
 
-void	init_exec_loop(t_pip *exec)
+void	init_exec_loop(t_pipe *exec)
 {
 	exec->error = 0;
 	exec->fd_infile.value = NULL;

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:45:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <libft.h>
 #include <stdlib.h>
 
-int	add_slash_to_env(t_pip *exec)
+int	add_slash_to_env(t_pipe *exec)
 {
 	char	*new_path;
 	int		i;
@@ -35,7 +35,7 @@ int	add_slash_to_env(t_pip *exec)
 	return (0);
 }
 
-int	set_path_env(t_pip *exec, char **env)
+int	set_path_env(t_pipe *exec, char **env)
 {
 	char	*text;
 
@@ -61,7 +61,7 @@ int	set_path_env(t_pip *exec, char **env)
 	return (0);
 }
 
-int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
+int	exec_with_env(t_minishell *minishell, t_pipe *exec, int i, int arg_exec)
 {
 	while (exec->path_args[i])
 	{
@@ -82,7 +82,7 @@ int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 	return (127);
 }
 
-int	exec_to_env(t_minishell *mshell, t_pip *exec, int i, int arg_exec)
+int	exec_to_env(t_minishell *mshell, t_pipe *exec, int i, int arg_exec)
 {
 	if (exec->path_args == NULL)
 	{

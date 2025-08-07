@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:22:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:49:17 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	if_is_only_space_or_point(t_minishell *minishell)
 	return (0);
 }
 
-static int	run_execve_next(t_minishell *minishell, t_pip *exec, int *new_pipe,
+static int	run_execve_next(t_minishell *minishell, t_pipe *exec, int *new_pipe,
 		int i)
 {
 	ft_close(&exec->pipe[1]);
@@ -56,7 +56,7 @@ static int	run_execve_next(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		return (0);
 }
 
-int	execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
+int	execve_next(t_minishell *minishell, t_pipe *exec, int i, int return_exec)
 {
 	pid_t	pid;
 	int		new_pipe[2];
@@ -75,7 +75,7 @@ int	execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 		if (exec->fd_infile.value == NULL)
 			ft_close(&exec->fd_infile.fd);
 		close_pip(exec, new_pipe, 0);
-		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
+		if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
 		finish_child(minishell, exec, return_exec);
 	}

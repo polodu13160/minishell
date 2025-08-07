@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:52:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_builtins(t_minishell *minishell, int i)
 	return (0);
 }
 
-int	apply_builtins(t_minishell *minishell, int i, t_pip *exec, int print_exit)
+int	apply_builtins(t_minishell *minishell, int i, t_pipe *exec, int print_exit)
 {
 	if (minishell->pipex[i].cmd && minishell->pipex[i].cmd[0] != NULL
 		&& minishell->pipex[i].cmd[0][0] != '\0')

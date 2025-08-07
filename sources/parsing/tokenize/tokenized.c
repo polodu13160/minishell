@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:32:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	process_token(char *str, t_token *token, t_parse_data *data)
 			- data->start);
 	if (!token[data->token_index].value)
 		return (1);
-	if (data->token_index == 0 || token[data->token_index - 1].type == T_PIPE)
+	if (data->token_index == 0 || token[data->token_index - 1].type == t_pipeE)
 		token[data->token_index++].type = T_FUNC;
 	else
 		token[data->token_index++].type = T_WORD;

@@ -6,20 +6,20 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:35:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:45:25 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "use_free.h"
 
-void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
+void	error_fork_or_pipe(t_pipe *exec, t_minishell *minishell, int *new_pipe,
 		int ifpipe)
 {
 	wait_child(minishell, 0, 0);
-	if (exec->fd_infile.value != NULL && exec->fd_infile.type != T_PIPE)
+	if (exec->fd_infile.value != NULL && exec->fd_infile.type != t_pipeE)
 		ft_close(&exec->fd_infile.fd);
-	if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
+	if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
 		ft_close(&exec->fd_outfile.fd);
 	if (ifpipe)
 		ft_printf_fd(2, "Error Pipe\n");

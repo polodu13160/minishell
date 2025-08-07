@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:51:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "use_free.h"
 
-int	check_arg_exit(char **str, t_minishell *minishell, t_pip *exec,
+int	check_arg_exit(char **str, t_minishell *minishell, t_pipe *exec,
 		int print_exit)
 {
 	int	i;
@@ -69,7 +69,7 @@ static void	print_error_exit(t_minishell *minishell)
 	minishell->return_command = 2;
 }
 
-int	check_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
+int	check_exit(char **str, t_minishell *minishell, t_pipe *exec, int print_exit)
 {
 	int	sign;
 
@@ -88,7 +88,7 @@ int	check_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 	return (sign);
 }
 
-int	ft_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
+int	ft_exit(char **str, t_minishell *minishell, t_pipe *exec, int print_exit)
 {
 	int					error;
 	int					sign;

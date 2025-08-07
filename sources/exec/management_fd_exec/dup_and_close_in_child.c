@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:36:03 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:45:41 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "unistd.h"
 
-int	dup_infile_and_outfile_builtin_no_child(t_pip *exec, int dup_redirect_in,
+int	dup_infile_and_outfile_builtin_no_child(t_pipe *exec, int dup_redirect_in,
 		int dup_redirect_out)
 {
 	if (exec->fd_infile.fd != -1)
@@ -33,7 +33,7 @@ int	dup_infile_and_outfile_builtin_no_child(t_pip *exec, int dup_redirect_in,
 	return (0);
 }
 
-int	close_and_dup(t_pip *exec)
+int	close_and_dup(t_pipe *exec)
 {
 	int	return_value;
 
@@ -43,7 +43,7 @@ int	close_and_dup(t_pip *exec)
 		exec->fd_infile.fd = 0;
 	if (exec->fd_outfile.value == NULL)
 		exec->fd_outfile.fd = 1;
-	if (exec->fd_outfile.type == T_PIPE)
+	if (exec->fd_outfile.type == t_pipeE)
 		exec->fd_outfile.fd = exec->pipe[1];
 	else
 		ft_close(&exec->pipe[1]);
@@ -58,18 +58,18 @@ int	close_and_dup(t_pip *exec)
 	return (return_value);
 }
 
-int	close_and_dup_last(t_pip *exec, int *new_pipe)
+int	close_and_dup_last(t_pipe *exec, int *new_pipe)
 {
 	int	return_value;
 
 	return_value = 0;
 	if (exec->fd_outfile.value == NULL)
 		exec->fd_outfile.fd = 1;
-	if (exec->fd_infile.type == T_PIPE)
+	if (exec->fd_infile.type == t_pipeE)
 		exec->fd_infile.fd = exec->pipe[0];
 	else
 		ft_close(&exec->pipe[0]);
-	if (exec->fd_outfile.type == T_PIPE)
+	if (exec->fd_outfile.type == t_pipeE)
 		exec->fd_outfile.fd = new_pipe[1];
 	else
 		ft_close(&exec->pipe[1]);
@@ -82,7 +82,7 @@ int	close_and_dup_last(t_pip *exec, int *new_pipe)
 	if (exec->fd_infile.fd != 0)
 		ft_close(&exec->fd_infile.fd);
 	ft_close(&new_pipe[0]);
-	if (exec->fd_outfile.type != T_PIPE)
+	if (exec->fd_outfile.type != t_pipeE)
 		ft_close(&new_pipe[1]);
 	return (return_value);
 }
