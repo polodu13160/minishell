@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 21:01:14 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:53:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:18:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 char	*check_quote_command(char *str)
 {

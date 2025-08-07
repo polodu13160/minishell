@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:28:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 16:14:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:25:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	before_is_ambigous(t_token *tokens, int i)
 {
 	if (i >= 1 && tokens[i - 1].value && (tokens[i - 1].type == T_APPEND
 			|| tokens[i - 1].type == T_REDIRECT_IN || tokens[i
-			- 1].type == T_REDIRECT_OUT))
+				- 1].type == T_REDIRECT_OUT))
 		return (1);
 	return (0);
 }
@@ -63,26 +63,12 @@ int	check_is_ambigous_condition(t_token *token, t_token *tokens, int i)
 	return (0);
 }
 
-void	shift_token(t_token *token, int i)
+int	should_process_ambigous_heredoc(t_token *t, int i)
 {
-	free(token[i].value);
-	while (token[i + 1].type != T_NULL)
-	{
-		token[i] = token[i + 1];
-		i++;
-	}
-	token[i].value = NULL;
-	token[i].type = T_NULL;
-}
-
-void	get_token_index(t_token *tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens[i].type != T_NULL)
-	{
-		tokens[i].index = i;
-		i++;
-	}
+	if ((t[i].value[0] == '"' || t[i].value[0] == '\'' || (t[i].value[0] == '$'
+				&& (t[i].value[1] && (t[i].value[1] == '"'
+						|| t[i].value[1] == '\'')))) || before_is_heredoc(t, i)
+		|| !check_is_retokenizable(t[i].value))
+		return (1);
+	return (0);
 }

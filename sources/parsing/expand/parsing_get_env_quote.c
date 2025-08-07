@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:26:00 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 16:16:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:26:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 char	*handle_single_quotes_env(char *str, int i, int j, char *result)
 {

@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 16:13:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:15:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void			shift_token(t_token *token, int i);
 int				before_is_ambigous(t_token *tokens, int i);
 int				is_ambigous(char *str);
 void			get_token_index(t_token *tokens);
-int				check_is_ambigous_condition(t_token *token, t_token *tokens, int i);
+int				check_is_ambigous_condition(t_token *token, t_token *tokens,
+					int i);
 
 /* ************************************************************************** */
 /*                           QUOTE PROCESSING                                 */
@@ -115,6 +116,7 @@ void			copy_new_tokens(t_token *result, t_token *new_tokens, int start,
 void			copy_tokens_before(t_token *result, t_token *tokens, int i);
 int				count_tokens_array(t_token *tokens);
 int				count_new_tokens(t_token *new_tokens);
+int				check_is_retokenizable(char *str);
 
 /* ************************************************************************** */
 /*                            UTILITY FUNCTIONS                              */

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 03:29:44 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:17:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <libft.h>
 #include <stdlib.h>
 #include <unistd.h>
- #include <libft.h>
 
 int	add_slash_to_env(t_pip *exec)
 {
@@ -41,9 +41,9 @@ int	set_path_env(t_pip *exec, char **env)
 	char	*text;
 
 	exec->path_args = NULL;
- 	while (*env != NULL)
+	while (*env != NULL)
 	{
-    		if (ft_strncmp(*env, "PATH=", 5) == 0)
+		if (ft_strncmp(*env, "PATH=", 5) == 0)
 		{
 			text = ft_memchr(*env, '=', 5);
 			text++;
@@ -85,16 +85,17 @@ int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 
 int	exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 {
-
 	if (exec->path_args == NULL)
 	{
-		if (ft_strchr(minishell->pipex[arg_exec].cmd[0],'/' ) != 0 && access( minishell->pipex[arg_exec].cmd[0], F_OK) == 0)
+		if (ft_strchr(minishell->pipex[arg_exec].cmd[0], '/') != 0
+			&& access(minishell->pipex[arg_exec].cmd[0], F_OK) == 0)
 		{
-			minishell->pipex[arg_exec].cmd[0] =  minishell->pipex[arg_exec].cmd[0];
-			if (access( minishell->pipex[arg_exec].cmd[0], X_OK) == -1)
+			minishell->pipex[arg_exec].cmd[0] = minishell->pipex[arg_exec].cmd[0];
+			if (access(minishell->pipex[arg_exec].cmd[0], X_OK) == -1)
 				return (126);
 			else
-				execve( minishell->pipex[arg_exec].cmd[0], minishell->pipex[arg_exec].cmd, exec->env);
+				execve(minishell->pipex[arg_exec].cmd[0],
+					minishell->pipex[arg_exec].cmd, exec->env);
 		}
 		return (127);
 	}

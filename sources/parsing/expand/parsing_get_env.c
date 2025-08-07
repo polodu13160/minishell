@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 20:27:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:25:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "token.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 char	*join_malloc(char *malloc_str1, char *malloc_str2)
 {

@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "token.h"
 #include <fcntl.h>
 #include <stdlib.h>
-#include "token.h"
 
 int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {
@@ -30,7 +30,8 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 		|| tokens[i].type == T_HEREDOC || tokens[i].type == T_APPEND)
 	{
 		if (tokens[i + 1].value == NULL || (tokens[i + 1].type != T_WORD
-				&& tokens[i + 1].type != T_FUNC && tokens[i + 1].type != T_AMBIGOUS) )
+				&& tokens[i + 1].type != T_FUNC && tokens[i
+				+ 1].type != T_AMBIGOUS))
 		{
 			minishell->return_command = 2;
 			return (print_error(minishell, tokens, i, 1));
@@ -38,8 +39,6 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 	}
 	return (0);
 }
-
-
 
 int	check(t_token *tokens, int recurs, t_minishell *minishell)
 {
@@ -55,7 +54,7 @@ int	check(t_token *tokens, int recurs, t_minishell *minishell)
 			if (error > 0)
 			{
 				if (error == 3)
-					print_error(minishell,tokens, i, error);
+					print_error(minishell, tokens, i, error);
 				else
 					return (print_error(minishell, tokens, i, error));
 			}

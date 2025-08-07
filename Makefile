@@ -38,6 +38,7 @@ FILES =  builtins/cd \
        parsing/parsing_quote/parsing_quote \
        parsing/tokenize/count_tokens \
        parsing/tokenize/retokenize_utils \
+       parsing/tokenize/check_is_retokenizable \
        parsing/tokenize/before_tokenize \
        parsing/tokenize/tokenized_quote_pip_dollar \
        parsing/tokenize/tokenized_redirect_word \
@@ -46,6 +47,7 @@ FILES =  builtins/cd \
        parsing/validate_tokens_utils \
        parsing/validate_tokens \
        parsing/validate_parsing \
+       parsing/validate_parsing_utils \
        prepare-exec/here_doc/check_here_doc_utils \
        prepare-exec/here_doc/check_here_doc \
        prepare-exec/from_parsing_to_exec/cmds \

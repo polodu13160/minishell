@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_to_pipex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 03:06:18 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/06 22:00:39 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:09:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,5 @@ int	prepare_to_pipex(t_minishell *minishell, t_token *tokens)
 		}
 		limit_pipe++;
 	}
-	int j = 0;
 	return (0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   return_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 20:27:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:26:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "builtins.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 int	return_command(char **str, t_minishell *minishell, char **var_name)
 {

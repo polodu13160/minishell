@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:37:44 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 19:03:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:27:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	process_dollar_sign(char *str, char *result, t_expand_data *data)
 		}
 		data->i++;
 	}
-	else 
+	else
 		result[data->j++] = '$';
 }
 
