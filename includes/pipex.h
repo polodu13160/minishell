@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/06 19:59:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:15:58 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		set_path_env(t_pip *exec, char **env);
 int		add_slash_to_env(t_pip *exec);
 int		set_path_env(t_pip *exec, char **env);
 void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue);
-int		perr_exec_error(char *value, t_pip *exec,int no_ambigous);
+int		perr_exec_error(char *value, t_pip *exec, int no_ambigous);
 void	free_pipex(t_minishell *structure, int end);
 
 int		check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec);

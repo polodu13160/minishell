@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 15:54:10 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:18:22 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		init_minishell(&minishell);
-		if (g_sig != 0)
-		{
-			if (g_sig == 10)
-				g_sig = 2;
-			minishell.return_command = g_sig + 128;
-			g_sig = 0;
-		}
+		check_sig_main(&minishell);
 		if (isatty(STDIN_FILENO) == 0)
 			isatty_run(&minishell);
 		else if (minishell.line && *minishell.line)

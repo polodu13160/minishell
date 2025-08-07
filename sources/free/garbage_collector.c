@@ -93,7 +93,7 @@ void	free_pipex(t_minishell *minishell, int end)
 	minishell->pids = NULL;
 	if (end > 0)
 	{
-		rl_clear_history(); // a voir avec antoine par rapport a ce que jai mis dans le main 
+		rl_clear_history();
 		exit(minishell->return_command);
 	}
 }

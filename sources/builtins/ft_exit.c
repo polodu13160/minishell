@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 17:29:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:29:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_exit(char **str, t_minishell *minishell, t_pip *exec, int print_exit)
 	int	sign;
 
 	sign = 0;
-	if (str[1] && str[1][0] == '\0')
+	if (str[1] && !is_only_space_or_point(str[1]))
 	{
 		ft_putendl_fd("exit: numeric argument required", 2);
 		minishell->return_command = 2;

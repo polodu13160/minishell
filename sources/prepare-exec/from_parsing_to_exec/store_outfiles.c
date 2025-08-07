@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_outfiles.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/06 16:03:38 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:34:49 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,12 @@ int	count_outfiles(t_token *tokens, int limit_pipe)
 void	join_tab_outfiles_ext(t_token *tokens, int i, t_token *malloc_outfiles,
 		int j)
 {
-	if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
-	{
-		free(tokens[i].value);
-		tokens[i].value = NULL;
-		tokens[i].value = tokens[i + 1].value;
-		if (tokens[i + 1].type == T_AMBIGOUS)
-			tokens[i].type = T_AMBIGOUS;
-		tokens[i + 1].type = T_WORD_FOR_REDIRECT;
-		malloc_outfiles[j++] = tokens[i];
-	}
+	free(tokens[i].value);
+	tokens[i].value = tokens[i + 1].value;
+	if (tokens[i + 1].type == T_AMBIGOUS)
+		tokens[i].type = T_AMBIGOUS;
+	tokens[i + 1].type = T_WORD_FOR_REDIRECT;
+	malloc_outfiles[j] = tokens[i];
 }
 
 int	join_tab_outfiles(t_token *tokens, int limit_pipe, t_token *malloc_outfiles,
@@ -77,12 +73,7 @@ int	join_tab_outfiles(t_token *tokens, int limit_pipe, t_token *malloc_outfiles,
 		else if (count_pipe == limit_pipe)
 		{
 			if (tokens[i].type == T_APPEND || tokens[i].type == T_REDIRECT_OUT)
-			{
-				free(tokens[i].value);
-				tokens[i].value = tokens[i + 1].value;
-				tokens[i + 1].type = T_WORD_FOR_REDIRECT;
-				malloc_outfiles[j++] = tokens[i];
-			}
+				join_tab_outfiles_ext(tokens, i, malloc_outfiles, j++);
 		}
 	}
 	return (j);

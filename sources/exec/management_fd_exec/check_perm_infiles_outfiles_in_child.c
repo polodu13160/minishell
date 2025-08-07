@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_perm_infiles_outfiles_in_child.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:22:48 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/06 22:26:47 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:39:47 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

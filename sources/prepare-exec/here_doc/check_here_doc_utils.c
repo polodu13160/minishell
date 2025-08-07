@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 14:59:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:15:37 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error)
 		}
 	}
 }
+
 int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 		int i)
 {

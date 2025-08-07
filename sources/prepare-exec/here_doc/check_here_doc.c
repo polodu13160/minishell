@@ -20,7 +20,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 	if (tokens[i].type == T_PIPE)
 	{
 		if (i == 0 || tokens[i + 1].value == NULL || tokens[i
-			+ 1].type == T_PIPE)
+				+ 1].type == T_PIPE)
 		{
 			minishell->return_command = 2;
 			return (print_error(minishell, tokens, i, 1));
@@ -31,7 +31,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 	{
 		if (tokens[i + 1].value == NULL || (tokens[i + 1].type != T_WORD
 				&& tokens[i + 1].type != T_FUNC && tokens[i
-				+ 1].type != T_AMBIGOUS))
+					+ 1].type != T_AMBIGOUS))
 		{
 			minishell->return_command = 2;
 			return (print_error(minishell, tokens, i, 1));

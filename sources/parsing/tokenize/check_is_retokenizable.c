@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 15:17:50 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:15:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,22 @@ static int	check_dollar_in_quotes(char *str)
 
 int	check_is_retokenizable(char *str)
 {
+	int	i;
+	int	found_quote;
+
+	i = 0;
+	found_quote = 0;
+	if (str[i])
+	{
+		while (str[i])
+		{
+			if (str[i] == '\'' || str[i] == '"')
+				found_quote = 1;
+			i++;
+		}
+	}
+	if (ft_strchr(str, '$') && !found_quote)
+		return (1);
 	if (!has_quotes_and_dollars(str))
 		return (0);
 	return (!check_dollar_in_quotes(str));

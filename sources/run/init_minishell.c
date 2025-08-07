@@ -6,16 +6,16 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 14:05:21 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:17:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "use_free.h"
+#include <libft.h>
 #include <readline/readline.h>
 #include <stdlib.h>
- #include <unistd.h>
-  #include <libft.h>
+#include <unistd.h>
 
 void	declare_readline(t_minishell *minishell)
 {
@@ -63,5 +63,16 @@ void	init_minishell_env(t_minishell *minishell, char **env, int ac,
 	{
 		perror("failed to set environment");
 		exit(1);
+	}
+}
+
+void	check_sig_main(t_minishell *minishell)
+{
+	if (g_sig != 0)
+	{
+		if (g_sig == 10)
+			g_sig = 2;
+		minishell->return_command = g_sig + 128;
+		g_sig = 0;
 	}
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   use_free.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:00:08 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/04 22:35:46 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:12:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FREE_H
-# define FREE_H
+#ifndef USE_FREE_H
+# define USE_FREE_H
 
 # include "pipex.h"
 

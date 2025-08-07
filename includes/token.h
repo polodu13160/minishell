@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 17:15:43 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:13:57 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,14 @@ t_token	*store_outfiles(t_token *tokens, int limit_pipe);
 /* ************************************************************************** */
 
 int		ft_close(int *fd);
-void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error);
+void	ft_close_here_doc(int i, t_minishell *minishell,
+			t_pip *exec, int error);
 
-	/* ************************************************************************** */
-	/*                              PIPELINES                                     */
-	/* ************************************************************************** */
+/* ************************************************************************** */
+/*                              PIPELINES                                     */
+/* ************************************************************************** */
 
-	int count_pipe(t_token *tokens);
+int		count_pipe(t_token *tokens);
 int		init_pipex(t_minishell *minishell, int count_pipe);
 
 #endif

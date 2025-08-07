@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/06 19:59:07 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:26:07 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	if (WEXITSTATUS(statuetemp) != 0 && ft_strncmp(minishell->pipex[i].cmd[0],
 			"exit", 5))
 	{
+		if (WEXITSTATUS(statuetemp) == 2)
+			message_error(".: filename argument required", "");
 		if (WEXITSTATUS(statuetemp) == 8)
-			message_error("Error dup2", "");
+			message_error("Error dup", "");
 		if (WEXITSTATUS(statuetemp) == 10)
 			message_error("Error malloc", "");
 		else if (WEXITSTATUS(statuetemp) == 126)

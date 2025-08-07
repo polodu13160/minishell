@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:21:24 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 15:26:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:24:15 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	handle_env_quotes(t_token *token, t_minishell *minishell)
 			token->value = handle_double_quotes_env(token->value, 0, 0);
 	}
 	else if (token->value[1] == '\'' && (ft_strrchr(token->value,
-				'$') < ft_strrchr(token->value, '\'')))
+		'$') < ft_strrchr(token->value, '\'')))
 		token->value = handle_single_quotes_env(token->value, 1, 0, result);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\''))
 		token->value = remove_outer_quotes(token->value, minishell);
@@ -68,19 +68,50 @@ static int	process_env_tokens(t_token *token, t_minishell *minishell)
 static int	process_quotes_tokens(t_token *token, t_minishell *minishell,
 		t_token *tokens, int i)
 {
+	char	*temp;
+	char	*old_token;
+	int		had_dollar;
+
+	if (check_is_ambigous_condition(token, tokens, i))
+	{
+		old_token = ft_strdup(token->value);
+		if (!old_token)
+		return (1);
+		temp = expand_environment_vars(token->value, minishell);
+		if (!temp)
+		{
+			free(old_token);
+			return (1);
+		}
+		free(token->value);
+		token->value = temp;
+		if (ft_strncmp(token->value, "", 2) == 0 || is_ambigous(token->value))
+		{
+			free(token->value);
+			token->type = T_AMBIGOUS;
+			token->value = old_token;
+			return (0);
+		}
+		free(old_token);
+	}
 	if (check_is_retokenizable(token->value))
-		token->type = T_ENV;
+			token->type = T_ENV;
 	if (i >= 1 && tokens[i - 1].value && tokens[i - 1].type == T_HEREDOC)
 		token->value = check_quote_command(token->value);
 	else if (ft_strchr(token->value, '"') || ft_strchr(token->value, '\'')
-		|| ft_strchr(token->value, '$'))
+			|| ft_strchr(token->value, '$'))
 	{
+		had_dollar = (ft_strchr(token->value, '$') != NULL);
 		token->value = expand_mixed_quotes(token->value, minishell);
 		if (!token->value)
 			return (1);
+		if (ft_strcmp(token->value, "") == 0 && had_dollar)
+			token->type = T_ENV;
 	}
 	else if (token->type == T_FUNC)
 		token->value = check_quote_command(token->value);
+	// if (check_is_retokenizable(token->value))
+	// 	token->type = T_ENV;
 	if (!token->value)
 		return (1);
 	return (0);

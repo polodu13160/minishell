@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:28:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 15:25:39 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:55:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdlib.h"
-#include "token.h"
+#include "parsing.h"
 
 int	before_is_heredoc(t_token *tokens, int i)
 {
