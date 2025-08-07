@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_with_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 04:56:12 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 03:20:32 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:43:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "stdio.h"
 #include "stdlib.h"
 
 int	free_and_close(char *value1, int *save_text, int return_error)
@@ -21,8 +20,6 @@ int	free_and_close(char *value1, int *save_text, int return_error)
 	ft_close(save_text);
 	return (return_error);
 }
-
-
 
 void	free_value(void *value, char *text, int perrorornot, int exitornot)
 {

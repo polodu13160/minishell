@@ -6,14 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 17:18:06 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:53:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
-# include "pipex.h"
+
 # include "signal.h"
+# include "structures.h"
 
 /* ************************************************************************** */
 /*                            GLOBAL VARIABLES                               */

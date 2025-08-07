@@ -6,15 +6,25 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:22:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 18:24:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:49:17 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft.h"
-#include "pipex.h"
-#include "unistd.h"
 #include "use_free.h"
+
+int	if_is_only_space_or_point(t_minishell *minishell)
+{
+	if (is_only_space_or_point(minishell->pipex[0].cmd[0]) == 1)
+	{
+		if (minishell->pipex[0].cmd[0][0] == '.'
+			&& minishell->pipex[0].cmd[0][1] == '\0')
+			return (2);
+		return (127);
+	}
+	return (0);
+}
 
 static int	run_execve_next(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		int i)
@@ -24,13 +34,10 @@ static int	run_execve_next(t_minishell *minishell, t_pip *exec, int *new_pipe,
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
-		if (is_only_space_or_point(minishell->pipex[0].cmd[0]) == 1)
-		{
-			if (minishell->pipex[0].cmd[0][0] == '.'
-				&& minishell->pipex[0].cmd[0][1] == '\0')
-				return (2);
+		if (if_is_only_space_or_point(minishell) == 127)
 			return (127);
-		}
+		if (if_is_only_space_or_point(minishell) == 2)
+			return (2);
 		if (ft_strchr(minishell->pipex[i].cmd[0], '/') != NULL)
 		{
 			if (access(minishell->pipex[i].cmd[0], F_OK) == 0)
@@ -51,8 +58,8 @@ static int	run_execve_next(t_minishell *minishell, t_pip *exec, int *new_pipe,
 
 int	execve_next(t_minishell *minishell, t_pip *exec, int i, int return_exec)
 {
-	pid_t pid;
-	int new_pipe[2];
+	pid_t	pid;
+	int		new_pipe[2];
 
 	if (pipe(new_pipe) < 0)
 		error_fork_or_pipe(exec, minishell, NULL, 1);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:07:43 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:50:58 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-# include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
 int	exist_return(char *str, int exists, t_minishell *minishell)
 {

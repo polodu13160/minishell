@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 17:18:22 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:23:16 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "readline/history.h"
 #include "readline/readline.h"
 #include "token.h"
+#include "libft.h"
 #include "use_free.h"
 
 int	main(int ac, char **av, char **env)

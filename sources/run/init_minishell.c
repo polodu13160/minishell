@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 17:17:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:26:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <libft.h>
 #include <readline/readline.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 void	declare_readline(t_minishell *minishell)
 {

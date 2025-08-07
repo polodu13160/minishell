@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:04:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:48:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft.h"
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
-# include <stdlib.h>
 
 int	ft_putenv(const char *name, const char *value, int overwrite,
 		t_minishell *minishell)

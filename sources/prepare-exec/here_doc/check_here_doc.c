@@ -14,6 +14,7 @@
 #include "token.h"
 #include <fcntl.h>
 #include <stdlib.h>
+#include "libft.h"
 
 int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {
@@ -22,7 +23,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 		if (i == 0 || tokens[i + 1].value == NULL || tokens[i
 				+ 1].type == T_PIPE)
 		{
-			minishell->return_command = 2;
+			minishell->return_command = 1;
 			return (print_error(minishell, tokens, i, 1));
 		}
 	}
@@ -33,7 +34,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 				&& tokens[i + 1].type != T_FUNC && tokens[i
 					+ 1].type != T_AMBIGOUS))
 		{
-			minishell->return_command = 2;
+			minishell->return_command = 1;
 			return (print_error(minishell, tokens, i, 1));
 		}
 	}

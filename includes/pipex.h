@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 17:15:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:00:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		add_slash_to_env(t_pip *exec);
 int		set_path_env(t_pip *exec, char **env);
 void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue);
 int		perr_exec_error(char *value, t_pip *exec, int no_ambigous);
-void	free_pipex(t_minishell *structure, int end);
 
 int		check_perm_infiles(t_minishell *minishell, int i, int j, t_pip *exec);
 int		check_perm_outfiles(t_minishell *minishell, int i, int j, t_pip *exec);
@@ -42,7 +41,7 @@ int		execve_builtin_no_child(t_minishell *minishell, t_pip *exec,
 int		execve_builtin_first(t_minishell *minishell, t_pip *exec);
 int		execve_builtin_next(t_minishell *minishell, t_pip *exec, int i,
 			int return_exec);
-int		wait_child(t_minishell *minishell);
+int		wait_child(t_minishell *minishell, int status, int pid);
 void	error_fork_or_pipe(t_pip *exec, t_minishell *minishell, int *new_pipe,
 			int ifpipe);
 void	close_2_fds(int *fd, int *fd2);
@@ -52,5 +51,6 @@ int		error_dup2_execve_builtin_no_child(t_pip *exec, int dup_redirect_in,
 int		is_only_space_or_point(char *str);
 int		dup_infile_and_outfile_builtin_no_child(t_pip *exec,
 			int dup_redirect_in, int dup_redirect_out);
+int		if_is_only_space_or_point(t_minishell *minishell);
 
 #endif

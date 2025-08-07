@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 03:06:18 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 15:09:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:29:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
-#include <stdio.h>
+#include "libft.h"
 
 int	init_pipex(t_minishell *minishell, int count_pipe)
 {

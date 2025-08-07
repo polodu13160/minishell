@@ -6,13 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:30:39 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 15:26:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:38:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "builtins.h"
+#include "parsing.h"
 #include <stdlib.h>
+#include "libft.h"
 
 int	return_command(char **str, t_minishell *minishell, char **var_name)
 {

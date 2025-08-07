@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:13:45 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 20:15:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:34:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "libft.h"
 
 static int	has_quotes_and_dollars(char *str)
 {

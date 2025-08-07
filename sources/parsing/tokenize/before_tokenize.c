@@ -6,11 +6,11 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:24:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:38:52 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:34:43 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "libft.h"
 
 static int	check_is_forbid(char *str, int i)
 {

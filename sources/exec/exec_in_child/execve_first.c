@@ -6,15 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:21:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 18:24:35 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:49:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "pipex.h"
-#include "unistd.h"
-#include "use_free.h"
 #include "libft.h"
+#include "use_free.h"
 
 int	is_only_space_or_point(char *str)
 {
@@ -37,12 +35,10 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 		return (8);
 	if (minishell->pipex[0].cmd[0] != NULL)
 	{
-		if (is_only_space_or_point(minishell->pipex[0].cmd[0]) == 1)
-		{
-			if (minishell->pipex[0].cmd[0][0] == '.' && minishell->pipex[0].cmd[0][1] == '\0')
-				return (2);
+		if (if_is_only_space_or_point(minishell) == 127)
 			return (127);
-		}	
+		if (if_is_only_space_or_point(minishell) == 2)
+			return (2);
 		if (ft_strchr(minishell->pipex[0].cmd[0], '/') != NULL)
 		{
 			if (access(minishell->pipex[0].cmd[0], F_OK) == 0)
@@ -64,8 +60,8 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pip *exec)
 
 int	execve_first(t_minishell *minishell, t_pip *exec)
 {
-	pid_t pid;
-	int return_exec;
+	pid_t	pid;
+	int		return_exec;
 
 	pid = fork();
 	return_exec = 1;

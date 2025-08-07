@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:58:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 18:14:57 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:14:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PARSING_H
 
 # include "structures.h"
-# include "token.h"
 
 /* ************************************************************************** */
 /*                                 STRUCTURES                                 */
@@ -60,9 +59,11 @@ int				before_is_ambigous(t_token *tokens, int i);
 int				is_ambigous(char *str);
 void			get_token_index(t_token *tokens);
 int				check_is_ambigous_condition(t_token *token, t_token *tokens,
-					int i);
+					int i, t_minishell *minishell);
 int				should_process_ambigous_heredoc(t_token *t, int i);
 int				is_only_space(char *str);
+void			replace_tenv_to_tword(t_minishell *minishell);
+int				declare_ambigous(t_token *token, t_minishell *minishell);
 
 /* ************************************************************************** */
 /*                           QUOTE PROCESSING                                 */

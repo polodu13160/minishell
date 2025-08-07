@@ -6,21 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 18:26:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:41:34 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "pipex.h"
-#include "stdio.h"
-#include "token.h"
+#include "libft.h"
 #include "use_free.h"
-#include <signal.h>
 #include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
 
-int	minishell_ctr_c(t_minishell *minishell)
+int	minishell_ctrl_c(t_minishell *minishell)
 {
 	minishell->return_command = 130;
 	return (1);
@@ -33,7 +27,7 @@ int	print_error(t_minishell *minishell, t_token *tokens, int i, int error)
 	malloc_string = NULL;
 	minishell->return_command = 2;
 	if (error == 130)
-		return (minishell_ctr_c(minishell));
+		return (minishell_ctrl_c(minishell));
 	if (error == 2)
 		perror("not create tmp file");
 	else if (error == 3)
@@ -129,16 +123,4 @@ int	message_output_no_child(int statuetemp, t_minishell *minishell, t_pip *exec)
 	if (statuetemp == 8)
 		finish_child(minishell, exec, 8);
 	return (statuetemp);
-}
-
-int	perr_exec_error(char *value, t_pip *exec, int no_ambigous)
-{
-	if (no_ambigous == 1)
-		ft_printf_fd(2, "%s: ambiguous redirect\n", value);
-	else
-		perror(value);
-	exec->error = 1;
-	if (no_ambigous == 1)
-		exec->error = 2;
-	return (1);
 }

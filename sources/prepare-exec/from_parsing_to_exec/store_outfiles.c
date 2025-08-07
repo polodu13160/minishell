@@ -6,15 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 16:34:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:29:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "pipex.h"
-#include <fcntl.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 int	count_outfiles(t_token *tokens, int limit_pipe)
 {

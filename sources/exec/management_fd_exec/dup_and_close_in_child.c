@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_and_close_in_child.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:36:03 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 19:33:19 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:45:41 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	close_and_dup(t_pip *exec)
 
 int	close_and_dup_last(t_pip *exec, int *new_pipe)
 {
-	int return_value;
+	int	return_value;
 
 	return_value = 0;
 	if (exec->fd_outfile.value == NULL)

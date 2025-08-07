@@ -6,11 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/04 18:36:32 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:32:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
+#include "libft.h"
 
 int	is_pipe(char *str, int *i, int *token_index, t_token *token)
 {

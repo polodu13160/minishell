@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:00:28 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 15:00:42 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:44:47 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ int	check_interrupt(void)
 		rl_done = 1;
 		return (1);
 	}
-	return (0);
-}
-
-int	in_process_marker(void)
-{
 	return (0);
 }
 

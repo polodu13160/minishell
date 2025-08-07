@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:00:08 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 17:12:45 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:01:21 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "pipex.h"
 
 void	free_exec(t_pip *exec);
-void	free_pipex(t_minishell *minishell, int end);
+void	free_pipex(t_minishell *minishell, int end, int i);
 void	finish_child(t_minishell *minishell, t_pip *exec, int exec_return);
 int		free_all(t_token *token, t_minishell *structure, int end);
 void	free_loop(t_token *token, t_minishell *minishell);

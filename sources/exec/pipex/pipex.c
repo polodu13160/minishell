@@ -6,16 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/06 13:46:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:44:55 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "readline/readline.h"
 #include "use_free.h"
 #include <sys/wait.h>
 #include <token.h>
-#include <unistd.h>
+#include "libft.h"
 
 void	init_exec(t_pip *exec, char **env)
 {
@@ -31,14 +30,11 @@ void	init_exec(t_pip *exec, char **env)
 	exec->fd_outfile.fd = -1;
 }
 
-int	wait_child(t_minishell *minishell)
+int	wait_child(t_minishell *minishell, int status, int pid)
 {
 	int		statuetemp;
 	pid_t	pidvalue;
-	int		status;
-	int		pid;
 
-	status = 0;
 	pid = minishell->pids[minishell->count_pipe];
 	minishell->count_pipe--;
 	while (pid == -1 && minishell->count_pipe != -1)
@@ -130,11 +126,9 @@ int	ft_pipex(t_minishell *minishell)
 		return (finish(&exec, minishell, status, "Error Malloc"));
 	if (pipe(exec.pipe) == -1)
 		return (finish(&exec, minishell, status, "Error pipe"));
-	rl_event_hook = in_process_marker;
 	ft_loop_pipe(minishell, &exec, -1);
-	wait_child(minishell);
+	wait_child(minishell, 0, 0);
 	status = minishell->return_command;
-	rl_event_hook = NULL;
 	finish(&exec, minishell, status, NULL);
 	return (0);
 }

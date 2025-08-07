@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   messages_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:38:30 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:24:40 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:41:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "stdio.h"
 #include "libft.h"
 
 int	print_export(t_minishell *minishell)

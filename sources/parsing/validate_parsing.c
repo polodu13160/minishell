@@ -6,13 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:04:52 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 20:26:12 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:31:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "use_free.h"
 #include <stdlib.h>
+#include "libft.h"
 
 static void	check_expand_special(t_token *tokens)
 {
@@ -25,30 +25,6 @@ static void	check_expand_special(t_token *tokens)
 		{
 			if (tokens[i + 1].type != T_NULL && tokens[i + 1].value)
 				tokens[i + 1].type = T_IGNORE;
-		}
-		i++;
-	}
-}
-
-static void	delete_null_token_loop(t_token *tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens[i].type != T_NULL)
-	{
-		if ((tokens[i].type == T_ENV && ft_strncmp(tokens[i].value, "", 1) == 0)
-			|| (tokens[i].value && ft_strncmp(tokens[i].value, ":", 2) == 0))
-		{
-			free(tokens[i].value);
-			while (tokens[i + 1].type != T_NULL)
-			{
-				tokens[i] = tokens[i + 1];
-				i++;
-			}
-			tokens[i].value = NULL;
-			tokens[i].type = T_NULL;
-			break ;
 		}
 		i++;
 	}
@@ -69,13 +45,10 @@ int	is_only_space(char *str)
 	return (1);
 }
 
-static int	delete_null_token(t_token *tokens)
+static int	delete_null_token(t_token *tokens, int i)
 {
-	int	i;
-
 	if (!tokens)
 		return (0);
-	i = 0;
 	while (tokens[i].type != T_NULL)
 	{
 		if ((tokens[i].type == T_ENV && ft_strncmp(tokens[i].value, "", 1) == 0)
@@ -119,7 +92,7 @@ int	validate_parsing(t_token *tokens, t_minishell *minishell, int i)
 	if (validate_token(tokens, minishell, 0, 0))
 		return (1);
 	check_tokens_t_ignore(tokens);
-	if (delete_null_token(minishell->tokens))
+	if (delete_null_token(minishell->tokens, 0))
 		return (1);
 	while (minishell->tokens[i].type != T_NULL)
 	{
@@ -137,13 +110,7 @@ int	validate_parsing(t_token *tokens, t_minishell *minishell, int i)
 		}
 		i++;
 	}
-	i = 0;
-	while (minishell->tokens[i].type != T_NULL)
-	{
-		if (minishell->tokens[i].type == T_ENV)
-			minishell->tokens[i].type = T_WORD;
-		i++;
-	}
+	replace_tenv_to_tword(minishell);
 	get_token_index(minishell->tokens);
 	return (0);
 }

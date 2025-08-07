@@ -6,12 +6,12 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:28:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 17:55:38 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:30:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
 #include "parsing.h"
+#include "libft.h"
 
 int	before_is_heredoc(t_token *tokens, int i)
 {
@@ -55,11 +55,15 @@ int	is_ambigous(char *str)
 	return (0);
 }
 
-int	check_is_ambigous_condition(t_token *token, t_token *tokens, int i)
+int	check_is_ambigous_condition(t_token *token, t_token *tokens, int i,
+		t_minishell *minishell)
 {
 	if (ft_strchr(token->value, '$') && !ft_strchr(token->value, '"')
 		&& !ft_strchr(token->value, '\'') && before_is_ambigous(tokens, i))
-		return (1);
+	{
+		if (declare_ambigous(token, minishell))
+			return (1);
+	}
 	return (0);
 }
 

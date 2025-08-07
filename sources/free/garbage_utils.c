@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/06 22:31:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:42:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "use_free.h"
 #include "readline/readline.h"
 #include "stdlib.h"
- #include <libft.h>
+#include "use_free.h"
+#include "libft.h"
 
 int	finish(t_pip *exec, t_minishell *minishell, int status, char *message)
 {
 	if (message != NULL)
 		ft_printf_fd(2, "%s\n", message);
 	free_exec(exec);
-	free_pipex(minishell, 0);
+	free_pipex(minishell, 0, 0);
 	minishell->return_command = status;
 	return (1);
 }
@@ -38,7 +38,7 @@ int	free_all(t_token *tokens, t_minishell *structure, int end)
 	if (structure->cwd_join)
 		free(structure->cwd_join);
 	structure->cwd_join = NULL;
-	free_pipex(structure, end);
+	free_pipex(structure, end, 0);
 	return (0);
 }
 

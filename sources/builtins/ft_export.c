@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:29 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:07:32 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:50:42 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "stdio.h"
 #include "libft.h"
-# include <stdlib.h>
+#include <stdlib.h>
 
 int	ft_strcmp_whithout_equality(char *env, char *str)
 {

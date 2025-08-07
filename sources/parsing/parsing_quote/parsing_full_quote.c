@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:41:31 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 15:27:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:36:47 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "parsing.h"
-#include "stdio.h"
 #include <stdlib.h>
+#include "libft.h"
 
 static void	handle_quotes(char *str, t_index *index, t_quote_state *state)
 {

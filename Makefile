@@ -23,7 +23,8 @@ FILES =  builtins/cd \
        exec/pipex/pipex \
        exec/pipex/utils \
        exec/pipex/pipex_env \
-       exec/management_fd_exec/check_perm_infiles_outfiles_in_child \
+       exec/management_fd_exec/check_perm_infiles \
+       exec/management_fd_exec/check_perm_outfiles \
        exec/management_fd_exec/close_fd \
        exec/management_fd_exec/dup_and_close_in_child \
        exec/management_fd_exec/error_dup_fork_pipe_childs \
@@ -48,6 +49,7 @@ FILES =  builtins/cd \
        parsing/validate_tokens \
        parsing/validate_parsing \
        parsing/validate_parsing_utils \
+       parsing/get_token_ambigous \
        prepare-exec/here_doc/check_here_doc_utils \
        prepare-exec/here_doc/check_here_doc \
        prepare-exec/from_parsing_to_exec/cmds \

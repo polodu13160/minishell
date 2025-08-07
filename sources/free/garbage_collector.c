@@ -13,7 +13,6 @@
 #include "use_free.h"
 #include <stdlib.h>
 #include "readline/readline.h"
-#include "token.h"
 
 void	free_exec(t_pip *exec)
 {
@@ -66,11 +65,8 @@ int	garbage_token_collector(t_token *token, int i)
 	return (1);
 }
 
-void	free_pipex(t_minishell *minishell, int end)
+void	free_pipex(t_minishell *minishell, int end, int i)
 {
-	int	i;
-
-	i = 0;
 	if (minishell->pipex)
 	{
 		while (minishell->pipex[i].init != 1)
@@ -103,7 +99,7 @@ void	finish_child(t_minishell *minishell, t_pip *exec, int exit_return)
 	free_exec(exec);
 	free_env(minishell);
 	free_token(minishell->tokens);
-	free_pipex(minishell, 0);
+	free_pipex(minishell, 0, 0);
 	free(minishell->line);
 	if (minishell->cwd)
 		free(minishell->cwd);

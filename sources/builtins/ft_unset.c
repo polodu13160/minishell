@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:35:07 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:09:26 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:50:06 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "stdio.h"
-# include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
 static int	should_remove_var(char *env_var, char *var_to_remove)
 {

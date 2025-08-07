@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:12:55 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 15:16:50 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:31:24 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ void	get_token_index(t_token *tokens)
 	while (tokens[i].type != T_NULL)
 	{
 		tokens[i].index = i;
+		i++;
+	}
+}
+
+void	replace_tenv_to_tword(t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	while (minishell->tokens[i].type != T_NULL)
+	{
+		if (minishell->tokens[i].type == T_ENV)
+			minishell->tokens[i].type = T_WORD;
 		i++;
 	}
 }

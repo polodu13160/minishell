@@ -6,13 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 15:37:44 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 19:35:53 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:36:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "parsing.h"
 #include <stdlib.h>
+#include "libft.h"
 
 static void	handle_env_variable(char *str, char *result, t_expand_data *data)
 {
@@ -94,8 +95,6 @@ char	*expand_mixed_quotes(char *str, t_minishell *minishell)
 	data.in_dquote = 0;
 	data.in_squote = 0;
 	data.minishell = minishell;
-	// if (str[0] == '$' && (str[1] == '"' || str[1] == '\''))
-	// 	data.i = 1;
 	needed_size = calculate_needed_size(str, minishell, 0, ft_strlen(str));
 	result = ft_calloc(needed_size + 1, sizeof(char));
 	if (!result)

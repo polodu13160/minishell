@@ -6,14 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 15:17:24 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:45:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <libft.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 int	add_slash_to_env(t_pip *exec)
 {
@@ -83,21 +82,21 @@ int	exec_with_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
 	return (127);
 }
 
-int	exec_to_env(t_minishell *minishell, t_pip *exec, int i, int arg_exec)
+int	exec_to_env(t_minishell *mshell, t_pip *exec, int i, int arg_exec)
 {
 	if (exec->path_args == NULL)
 	{
-		if (ft_strchr(minishell->pipex[arg_exec].cmd[0], '/') != 0
-			&& access(minishell->pipex[arg_exec].cmd[0], F_OK) == 0)
+		if (ft_strchr(mshell->pipex[arg_exec].cmd[0], '/') != 0
+			&& access(mshell->pipex[arg_exec].cmd[0], F_OK) == 0)
 		{
-			minishell->pipex[arg_exec].cmd[0] = minishell->pipex[arg_exec].cmd[0];
-			if (access(minishell->pipex[arg_exec].cmd[0], X_OK) == -1)
+			mshell->pipex[arg_exec].cmd[0] = mshell->pipex[arg_exec].cmd[0];
+			if (access(mshell->pipex[arg_exec].cmd[0], X_OK) == -1)
 				return (126);
 			else
-				execve(minishell->pipex[arg_exec].cmd[0],
-					minishell->pipex[arg_exec].cmd, exec->env);
+				execve(mshell->pipex[arg_exec].cmd[0],
+					mshell->pipex[arg_exec].cmd, exec->env);
 		}
 		return (127);
 	}
-	return (exec_with_env(minishell, exec, i, arg_exec));
+	return (exec_with_env(mshell, exec, i, arg_exec));
 }

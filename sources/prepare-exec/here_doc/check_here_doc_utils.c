@@ -6,17 +6,15 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:44:41 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 17:15:37 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:28:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft.h"
 #include "readline/readline.h"
-#include "readline/history.h"
 #include "use_free.h"
 #include <stdlib.h>
-#include <unistd.h>
 
 void	ft_close_here_doc(int i, t_minishell *minishell, t_pip *exec, int error)
 {
@@ -69,6 +67,8 @@ int	while_write_here_doc(char *read_like_gnl, t_token *tokens, int save_text,
 		if (read_like_gnl == NULL)
 			return (free_and_close(read_like_gnl, &save_text, 3));
 	}
+	if (read_like_gnl)
+		free(read_like_gnl);
 	return (0);
 }
 

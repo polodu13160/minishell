@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 03:26:43 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/05 18:42:13 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:43:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "use_free.h"
 #include <libft.h>
+
+int	perr_exec_error(char *value, t_pip *exec, int no_ambigous)
+{
+	if (no_ambigous == 1)
+		ft_printf_fd(2, "%s: ambiguous redirect\n", value);
+	else
+		perror(value);
+	exec->error = 1;
+	return (1);
+}
 
 int	count_pipe(t_token *tokens)
 {

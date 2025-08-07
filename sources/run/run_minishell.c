@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:50:18 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/05 02:20:54 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:25:53 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "readline/history.h"
-#include "readline/readline.h"
-#include "use_free.h"
 #include "token.h"
+#include "libft.h"
+#include "use_free.h"
 
 void	main_run(t_minishell *minishell)
 {
@@ -25,7 +25,6 @@ void	main_run(t_minishell *minishell)
 		{
 			if (check(minishell->tokens, 0, minishell) == 0)
 			{
-				
 				if (prepare_to_pipex(minishell, minishell->tokens) == 0)
 					ft_pipex(minishell);
 			}
