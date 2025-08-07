@@ -1,7 +1,7 @@
 .PHONY= all clean re fclean FORCE
 
 CC = cc 
-CFLAGS = -Wall -Wextra  -MMD -MP -I$(LIBFT_DIR)includes -Iincludes -g3
+CFLAGS = -Wall -Werror -Wextra  -MMD -MP -I$(LIBFT_DIR)includes -Iincludes
 CFLAGS_AFTER = -lft -lreadline -o $(NAME) 
 
 
