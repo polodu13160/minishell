@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:10:28 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/08 23:20:27 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int		error_dup2_execve_builtin_no_child(t_pipe *exec, int dup_redirect_in,
 int		is_only_space_or_point(char *str);
 int		dup_infile_and_outfile_builtin_no_child(t_pipe *exec,
 			int dup_redirect_in, int dup_redirect_out);
-int		if_is_only_space_or_point(t_minishell *minishell);
+int		if_is_only_space_or_point(t_minishell *minishell, int i);
 
 #endif

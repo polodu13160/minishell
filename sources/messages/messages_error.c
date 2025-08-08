@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:09:28 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/08 23:23:48 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
 	if (WEXITSTATUS(statuetemp) != 0 && ft_strncmp(minishell->pipex[i].cmd[0],
 			"exit", 5))
 	{
-		if (WEXITSTATUS(statuetemp) == 2)
+		if (WEXITSTATUS(statuetemp) == 7)
 			message_error(".: filename argument required", "");
 		if (WEXITSTATUS(statuetemp) == 8)
 			message_error("Error dup", "");

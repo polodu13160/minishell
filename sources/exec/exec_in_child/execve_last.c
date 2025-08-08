@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_last.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:22:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/08 23:18:59 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "libft.h"
 #include "use_free.h"
 
-int	if_is_only_space_or_point(t_minishell *minishell)
+int	if_is_only_space_or_point(t_minishell *minishell, int index)
 {
-	if (is_only_space_or_point(minishell->pipex[0].cmd[0]) == 1)
+	if (is_only_space_or_point(minishell->pipex[index].cmd[0]) == 1)
 	{
-		if (minishell->pipex[0].cmd[0][0] == '.'
-			&& minishell->pipex[0].cmd[0][1] == '\0')
+		if (minishell->pipex[index].cmd[0][0] == '.'
+			&& minishell->pipex[index].cmd[0][1] == '\0')
 			return (2);
 		return (127);
 	}
@@ -34,10 +34,10 @@ static int	run_execve_next(t_minishell *minishell, t_pipe *exec, int *new_pipe,
 		return (8);
 	if (minishell->pipex[i].cmd[0] != NULL)
 	{
-		if (if_is_only_space_or_point(minishell) == 127)
+		if (if_is_only_space_or_point(minishell, i) == 127)
 			return (127);
-		if (if_is_only_space_or_point(minishell) == 2)
-			return (2);
+		if (if_is_only_space_or_point(minishell, i) == 2)
+			return (7);
 		if (ft_strchr(minishell->pipex[i].cmd[0], '/') != NULL)
 		{
 			if (access(minishell->pipex[i].cmd[0], F_OK) == 0)

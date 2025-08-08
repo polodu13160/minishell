@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:01:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 20:48:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/08 23:23:20 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	update_pwd_vars(char *old_pwd, t_minishell *minishell)
 
 	if (!getcwd(new_pwd, 4096))
 	{
-		ft_printf_fd(2, "cd: error retrieving current directory");
+		ft_printf_fd(2, "cd: error retrieving current directory \n");
 		return (1);
 	}
 	if (ft_putenv("OLDPWD", old_pwd, 1, minishell))

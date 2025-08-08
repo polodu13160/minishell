@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_first.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:21:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/08 23:22:28 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static int	ft_execve_first_child(t_minishell *minishell, t_pipe *exec)
 		return (8);
 	if (minishell->pipex[0].cmd[0] != NULL)
 	{
-		if (if_is_only_space_or_point(minishell) == 127)
+		if (if_is_only_space_or_point(minishell, 0) == 127)
 			return (127);
-		if (if_is_only_space_or_point(minishell) == 2)
+		if (if_is_only_space_or_point(minishell, 0) == 2)
 			return (2);
 		if (ft_strchr(minishell->pipex[0].cmd[0], '/') != NULL)
 		{
