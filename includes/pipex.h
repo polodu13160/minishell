@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/08 23:20:27 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:01:39 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		set_path_env(t_pipe *exec, char **env);
 
 int		add_slash_to_env(t_pipe *exec);
 int		set_path_env(t_pipe *exec, char **env);
-void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue);
+void	command_return_for_minishell(int statuetemp, t_minishell *minishell,
+			pid_t pidvalue);
 int		perr_exec_error(char *value, t_pipe *exec, int no_ambigous);
 
 int		check_perm_infiles(t_minishell *minishell, int i, int j, t_pipe *exec);
@@ -53,5 +54,7 @@ int		is_only_space_or_point(char *str);
 int		dup_infile_and_outfile_builtin_no_child(t_pipe *exec,
 			int dup_redirect_in, int dup_redirect_out);
 int		if_is_only_space_or_point(t_minishell *minishell, int i);
+int		message_error_output(t_minishell *minishell, t_pipe *exec,
+			int value_return, char *cmd);
 
 #endif

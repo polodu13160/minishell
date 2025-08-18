@@ -6,12 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:22:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/08 23:18:59 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:09:14 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft.h"
+#include "pipex.h"
 #include "use_free.h"
 
 int	if_is_only_space_or_point(t_minishell *minishell, int index)
@@ -37,7 +38,7 @@ static int	run_execve_next(t_minishell *minishell, t_pipe *exec, int *new_pipe,
 		if (if_is_only_space_or_point(minishell, i) == 127)
 			return (127);
 		if (if_is_only_space_or_point(minishell, i) == 2)
-			return (7);
+			return (2);
 		if (ft_strchr(minishell->pipex[i].cmd[0], '/') != NULL)
 		{
 			if (access(minishell->pipex[i].cmd[0], F_OK) == 0)
@@ -75,11 +76,12 @@ int	execve_next(t_minishell *minishell, t_pipe *exec, int i, int return_exec)
 		if (exec->fd_infile.value == NULL)
 			ft_close(&exec->fd_infile.fd);
 		close_pip(exec, new_pipe, 0);
-		if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
+		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
+		message_error_output(minishell, exec, return_exec,
+			minishell->pipex[i].cmd[0]);
 		finish_child(minishell, exec, return_exec);
 	}
-	else
-		close_pip(exec, new_pipe, 1);
+	close_pip(exec, new_pipe, 1);
 	return (0);
 }

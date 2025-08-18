@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized_redirect_word.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	is_word(char *str, int *i, int *token_index, t_token *token)
 		free(token);
 		return (1);
 	}
-	if (*token_index == 0 || token[*token_index - 1].type == t_pipeE
+	if (*token_index == 0 || token[*token_index - 1].type == T_PIPE
 		|| token[*token_index - 1].type == T_WORD)
 		token[*token_index].type = T_FUNC;
 	else

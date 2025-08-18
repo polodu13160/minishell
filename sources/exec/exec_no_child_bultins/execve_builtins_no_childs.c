@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins_no_childs.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:06:15 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:06:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	execve_builtin_no_child(t_minishell *minishell, t_pipe *exec,
 		dup_redirect_in = dup(0);
 		dup_redirect_out = dup(1);
 		if (dup_redirect_in == -1 || dup_redirect_out == -1)
+		{
 			return (error_dup2_execve_builtin_no_child(exec, dup_redirect_in,
 					dup_redirect_out));
+		}
 		if (ft_strcmp(minishell->pipex[0].cmd[0], "exit") == 0)
 		{
 			close_2_fds(&dup_redirect_in, &dup_redirect_out);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:25:27 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int		ft_pipeex(t_minishell *minishell);
 
 int		print_error(t_minishell *minishell, t_token *tokens, int i, int error);
 int		message_error(char *first_message, char *last_message);
-int		message_output_no_child(int statuetemp, t_minishell *minishell,
-			t_pipe *exec);
 
 /* ************************************************************************** */
 /*                        COMMAND PREPARATION                                 */
@@ -94,8 +92,8 @@ t_token	*store_outfiles(t_token *tokens, int limit_pipee);
 /* ************************************************************************** */
 
 int		ft_close(int *fd);
-void	ft_close_here_doc(int i, t_minishell *minishell,
-			t_pipe *exec, int error);
+void	ft_close_here_doc(int i, t_minishell *minishell, t_pipe *exec,
+			int error);
 
 /* ************************************************************************** */
 /*                              PIPELINES                                     */

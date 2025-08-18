@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:10:03 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	count_cmd(t_token *tokens, int limit_pipee)
 	count_pipee = 0;
 	while (tokens[i].value)
 	{
-		if (tokens[i].type == t_pipeE)
+		if (tokens[i].type == T_PIPE)
 			count_pipee++;
 		else if (count_pipee > limit_pipee)
 			break ;
@@ -46,7 +46,7 @@ int	join_tab_cmd(t_token *tokens, int limit_pipee, char **malloc_cmd,
 	j = 0;
 	while (tokens[++i].value)
 	{
-		if (tokens[i].type == t_pipeE)
+		if (tokens[i].type == T_PIPE)
 			count_pipee++;
 		else if (count_pipee > limit_pipee)
 			break ;

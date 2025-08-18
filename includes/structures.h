@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:59:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:09:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef enum e_token_type
 {
 	T_FUNC,
 	T_WORD,
-	t_pipeE,
+	T_PIPE,
 	T_REDIRECT_IN,
 	T_REDIRECT_OUT,
 	T_APPEND,

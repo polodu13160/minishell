@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_dup_fork_pipe_childs.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:35:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	error_fork_or_pipe(t_pipe *exec, t_minishell *minishell, int *new_pipe,
 		int ifpipe)
 {
 	wait_child(minishell, 0, 0);
-	if (exec->fd_infile.value != NULL && exec->fd_infile.type != t_pipeE)
+	if (exec->fd_infile.value != NULL && exec->fd_infile.type != T_PIPE)
 		ft_close(&exec->fd_infile.fd);
-	if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
+	if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 		ft_close(&exec->fd_outfile.fd);
 	if (ifpipe)
 		ft_printf_fd(2, "Error Pipe\n");

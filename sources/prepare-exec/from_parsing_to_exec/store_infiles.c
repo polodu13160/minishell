@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_infiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	count_infiles(t_token *tokens, int limit_pipee)
 	count_pipee = 0;
 	while (tokens[i].value)
 	{
-		if (tokens[i].type == t_pipeE)
+		if (tokens[i].type == T_PIPE)
 		{
 			count_pipee++;
 			if (count_pipee == limit_pipee)
@@ -60,7 +60,7 @@ int	join_tab_infiles(t_token *tokens, int limit_pipee, t_token *malloc_infiles,
 	j = 0;
 	while (tokens[++i].value)
 	{
-		if (tokens[i].type == t_pipeE)
+		if (tokens[i].type == T_PIPE)
 		{
 			if ((++count_pipee) == limit_pipee)
 				malloc_infiles[j++] = tokens[i];

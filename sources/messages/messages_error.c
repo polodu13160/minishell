@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/08 23:23:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:14:20 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	print_error(t_minishell *minishell, t_token *tokens, int i, int error)
 		printf("syntax error near unexpected token `newline'\n");
 	else
 	{
-		if (tokens[i].type != t_pipeE)
+		if (tokens[i].type != T_PIPE)
 			i++;
 		ft_printf_fd(2, "syntax error near unexpected token `%s'\n",
 			tokens[i].value);
@@ -69,59 +69,27 @@ int	message_error(char *first_message, char *last_message)
 	return (0);
 }
 
-void	message_output(int statuetemp, t_minishell *minishell, pid_t pidvalue)
+int	message_error_output(t_minishell *minishell, t_pipe *exec, int value_return,
+		char *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (pidvalue != minishell->pids[i])
-		i++;
-	if (WEXITSTATUS(statuetemp) != 0 && ft_strncmp(minishell->pipex[i].cmd[0],
-			"exit", 5))
+	if (value_return == 2)
+		message_error(".: filename argument required \n",
+			".: usage: . filename [arguments]");
+	if (value_return == 8)
 	{
-		if (WEXITSTATUS(statuetemp) == 7)
-			message_error(".: filename argument required", "");
-		if (WEXITSTATUS(statuetemp) == 8)
-			message_error("Error dup", "");
-		if (WEXITSTATUS(statuetemp) == 10)
-			message_error("Error malloc", "");
-		else if (WEXITSTATUS(statuetemp) == 126)
-			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
-		else if (WEXITSTATUS(statuetemp) == 127)
-		{
-			if (minishell->pipex[i].cmd[0] == NULL)
-				message_error("", ": Command not found");
-			else
-				message_error(minishell->pipex[i].cmd[0],
-					": Command not found");
-		}
+		message_error("Error dup", "");
+		finish_child(minishell, exec, value_return);
 	}
-}
-
-int	message_output_no_child(int statuetemp, t_minishell *minishell,
-		t_pipe *exec)
-{
-	int	i;
-
-	i = 0;
-	if (statuetemp != 0 && ft_strncmp(minishell->pipex[i].cmd[0], "exit", 5))
+	if (value_return == 10)
+		message_error("Error malloc", "");
+	else if (value_return == 126)
+		message_error(cmd, ": Permission denied");
+	else if (value_return == 127)
 	{
-		if (statuetemp == 8)
-			message_error("Error Dup", "");
-		if (statuetemp == 10)
-			message_error("Error malloc", "");
-		else if (statuetemp == 126)
-			message_error(minishell->pipex[i].cmd[0], ": Permission denied");
-		else if (statuetemp == 127)
-		{
-			if (minishell->pipex[i].cmd[0] == NULL)
-				message_error("", ": Command not found");
-			else
-				message_error(minishell->pipex[i].cmd[0],
-					": Command not found");
-		}
+		if (cmd == NULL)
+			message_error("", ": Command not found");
+		else
+			message_error(cmd, ": Command not found");
 	}
-	if (statuetemp == 8)
-		finish_child(minishell, exec, 8);
-	return (statuetemp);
+	return (value_return);
 }

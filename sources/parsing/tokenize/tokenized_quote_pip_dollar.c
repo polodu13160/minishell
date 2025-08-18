@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized_quote_pip_dollar.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_pipe(char *str, int *i, int *token_index, t_token *token)
 	token[*token_index].value = ft_strdup("|");
 	if (!token[*token_index].value)
 		return (1);
-	token[*token_index].type = t_pipeE;
+	token[*token_index].type = T_PIPE;
 	(*token_index)++;
 	(*i)++;
 	return (0);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execve_builtins_childs_last.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:19:50 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:09:48 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "use_free.h"
 #include "unistd.h"
+#include "use_free.h"
 
 static int	ft_execve_finish_builtin(t_minishell *minishell, t_pipe *exec,
 		int *new_pipe, int i)
@@ -48,11 +48,12 @@ int	execve_builtin_next(t_minishell *minishell, t_pipe *exec, int i,
 		if (exec->fd_infile.value == NULL)
 			ft_close(&exec->fd_infile.fd);
 		close_pip(exec, n_pipe, 0);
-		if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
+		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
+		message_error_output(minishell, exec, return_exec,
+			minishell->pipex[i].cmd[0]);
 		finish_child(minishell, exec, return_exec);
 	}
-	else
-		close_pip(exec, n_pipe, 1);
+	close_pip(exec, n_pipe, 1);
 	return (0);
 }

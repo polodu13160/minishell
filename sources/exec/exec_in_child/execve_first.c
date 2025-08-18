@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:21:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/08 23:22:28 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:52:15 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int	execve_first(t_minishell *minishell, t_pipe *exec)
 			ft_close(&exec->fd_infile.fd);
 		ft_close(&exec->pipe[0]);
 		ft_close(&exec->pipe[1]);
-		if (exec->fd_outfile.type != t_pipeE && exec->fd_outfile.value != NULL)
+		if (exec->fd_outfile.type != T_PIPE && exec->fd_outfile.value != NULL)
 			ft_close(&exec->fd_outfile.fd);
+		message_error_output(minishell, exec, return_exec,
+			minishell->pipex[0].cmd[0]);
 		finish_child(minishell, exec, return_exec);
 	}
 	return (return_exec);
