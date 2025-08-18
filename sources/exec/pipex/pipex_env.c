@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 06:13:10 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/18 12:50:45 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:23:13 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int	exec_to_env(t_minishell *mshell, t_pipe *exec, int i, int arg_exec)
 {
 	if (exec->path_args == NULL)
 	{
-		if (ft_strchr(mshell->pipex[arg_exec].cmd[0], '/') != 0
-			&& access(mshell->pipex[arg_exec].cmd[0], F_OK) == 0)
+		if (access(mshell->pipex[arg_exec].cmd[0], F_OK) == 0)
 		{
 			mshell->pipex[arg_exec].cmd[0] = mshell->pipex[arg_exec].cmd[0];
 			if (access(mshell->pipex[arg_exec].cmd[0], X_OK) == -1)
