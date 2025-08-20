@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_to_pipex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 03:06:18 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 #include "libft.h"
 
-int	init_pipeex(t_minishell *minishell, int count_pipee)
+int	init_pipex(t_minishell *minishell, int count_pipee)
 {
 	int	i;
 
 	i = 0;
-	minishell->pipex = ft_calloc(minishell->count_pipee + 2, sizeof(t_pipeex));
+	minishell->pipex = ft_calloc(minishell->count_pipee + 2, sizeof(t_pipex));
 	if (minishell->pipex == NULL)
 	{
 		perror("Error Malloc");
@@ -42,7 +42,7 @@ int	prepare_to_pipex(t_minishell *minishell, t_token *tokens)
 
 	limit_pipee = 0;
 	minishell->count_pipee = count_pipee(tokens);
-	if (init_pipeex(minishell, minishell->count_pipee) == 1)
+	if (init_pipex(minishell, minishell->count_pipee) == 1)
 		return (1);
 	while (limit_pipee <= count_pipee(tokens))
 	{

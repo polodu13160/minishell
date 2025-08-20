@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:19:50 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:44:16 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:56:01 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	execve_builtin_next(t_minishell *minishell, t_pipe *exec, int i,
 		error_fork_or_pipe(exec, minishell, n_pipe, 0);
 	if (pid == 0)
 	{
-		close_other_here_doc(minishell, *exec,i);//jai mis le signal dans la function en haut
+		close_other_here_doc_and_rl_clear_history(minishell, *exec,i);//jai mis le signal dans la function en haut
 		if (exec->error == 0)
 			return_exec = ft_execve_finish_builtin(minishell, exec, n_pipe, i);
 		if (exec->fd_infile.value == NULL)

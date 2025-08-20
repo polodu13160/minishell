@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:21:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:49:06 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:56:01 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	execve_first(t_minishell *minishell, t_pipe *exec)
 		error_fork_or_pipe(exec, minishell, NULL, 0);
 	if (pid == 0)
 	{
-		close_other_here_doc(minishell, *exec, 0);
+		close_other_here_doc_and_rl_clear_history(minishell, *exec, 0);
 		setup_signals_child();
 		if (exec->error == 0)
 			return_exec = ft_execve_first_child(minishell, exec);
