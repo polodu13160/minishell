@@ -6,14 +6,15 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:38:41 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:48:37 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:56:01 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "unistd.h"
+#include "readline/readline.h"
 
-void	close_other_here_doc(t_minishell *minishell, t_pipe exec, int index)
+void	close_other_here_doc_and_rl_clear_history(t_minishell *minishell, t_pipe exec, int index)
 {
 	int	j;
 
@@ -33,6 +34,7 @@ void	close_other_here_doc(t_minishell *minishell, t_pipe exec, int index)
 			j++;
 		}
 	}
+	rl_clear_history();
 }
 
 void	close_2_fds(int *fd, int *fd2)
