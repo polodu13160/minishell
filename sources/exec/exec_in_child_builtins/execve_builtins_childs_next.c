@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execve_builtins_childs_last.c                      :+:      :+:    :+:   */
+/*   execve_builtins_childs_next.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:19:50 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/18 13:09:48 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:44:16 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static int	ft_execve_finish_builtin(t_minishell *minishell, t_pipe *exec,
 		int *new_pipe, int i)
 {
+	setup_signals_child();
 	ft_close(&exec->pipe[1]);
 	if (close_and_dup_last(exec, new_pipe) == 8)
 		return (8);
@@ -42,7 +43,7 @@ int	execve_builtin_next(t_minishell *minishell, t_pipe *exec, int i,
 		error_fork_or_pipe(exec, minishell, n_pipe, 0);
 	if (pid == 0)
 	{
-		setup_signals_child();
+		close_other_here_doc(minishell, *exec,i);//jai mis le signal dans la function en haut
 		if (exec->error == 0)
 			return_exec = ft_execve_finish_builtin(minishell, exec, n_pipe, i);
 		if (exec->fd_infile.value == NULL)

@@ -16,8 +16,8 @@ FILES =  builtins/cd \
        builtins/builtins_env \
        builtins/ft_exit \
        exec/exec_in_child/execve_first \
-       exec/exec_in_child/execve_last \
-       exec/exec_in_child_builtins/execve_builtins_childs_last \
+       exec/exec_in_child/execve_next \
+       exec/exec_in_child_builtins/execve_builtins_childs_next \
        exec/exec_in_child_builtins/execve_buitlins_childs_first \
        exec/exec_no_child_bultins/execve_builtins_no_childs \
        exec/pipex/pipex \

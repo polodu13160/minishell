@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execve_last.c                                      :+:      :+:    :+:   */
+/*   execve_next.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:22:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/18 13:09:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:41:58 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	execve_next(t_minishell *minishell, t_pipe *exec, int i, int return_exec)
 		error_fork_or_pipe(exec, minishell, new_pipe, 0);
 	if (pid == 0)
 	{
+		close_other_here_doc(minishell, *exec, i);
 		setup_signals_child();
 		if (exec->error == 0)
 			return_exec = run_execve_next(minishell, exec, new_pipe, i);
