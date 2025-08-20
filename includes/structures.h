@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 01:59:09 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_pipex
 	t_token		*infiles;
 	t_token		*outfiles;
 	char		**cmd;
-}				t_pipeex;
+}				t_pipex;
 
 typedef struct s_minishell
 {
@@ -68,7 +68,7 @@ typedef struct s_minishell
 	char		*line;
 	char		**env;
 	int			count_pipee;
-	t_pipeex	*pipex;
+	t_pipex	*pipex;
 	int			return_command;
 }				t_minishell;
 

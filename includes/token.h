@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/18 12:25:27 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		check(t_token *tokens, int recurs, t_minishell *minishell);
 int		check_here_doc(t_token *tokens, int i, t_minishell *minishell);
 int		prepare_to_pipex(t_minishell *minishell, t_token *tokens);
 int		write_here_doc(int i, t_token *tokens, int save_text);
-int		ft_pipeex(t_minishell *minishell);
+int		ft_pipex(t_minishell *minishell);
 
 /* ************************************************************************** */
 /*                          ERROR HANDLING                                    */
@@ -100,6 +100,6 @@ void	ft_close_here_doc(int i, t_minishell *minishell, t_pipe *exec,
 /* ************************************************************************** */
 
 int		count_pipee(t_token *tokens);
-int		init_pipeex(t_minishell *minishell, int count_pipee);
+int		init_pipex(t_minishell *minishell, int count_pipee);
 
 #endif

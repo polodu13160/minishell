@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/18 12:59:14 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_loop_pipe(t_minishell *minishell, t_pipe *exec, int i)
 	ft_close(&exec->pipe[1]);
 }
 
-int	ft_pipeex(t_minishell *minishell)
+int	ft_pipex(t_minishell *minishell)
 {
 	t_pipe	exec;
 	int		status;
