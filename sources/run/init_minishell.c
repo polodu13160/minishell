@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/31 17:40:17 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:44:19 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	declare_readline(t_minishell *minishell)
 	char	*itoa_join;
 
 	itoa = ft_itoa(minishell->return_command);
-	itoa_join = ft_strjoin3("\033[1;32m [", itoa, "] \033[0m");
+	itoa_join = ft_strjoin3(GREENBOLD "[", itoa, "]" RESET);
 	if (itoa != NULL)
 		free(itoa);
 	if (minishell->cwd == NULL)

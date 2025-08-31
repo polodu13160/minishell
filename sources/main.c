@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:30:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/20 03:53:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:47:06 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "readline/history.h"
 #include "readline/readline.h"
 #include "token.h"
-#include "libft.h"
 #include "use_free.h"
+#include <unistd.h>
 
 int	main(int ac, char **av, char **env)
 {
