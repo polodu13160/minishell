@@ -6,35 +6,38 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:38:41 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:56:01 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:58:30 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "unistd.h"
+#include "builtins.h"
 #include "readline/readline.h"
+#include "unistd.h"
 
-void	close_other_here_doc_and_rl_clear_history(t_minishell *minishell, t_pipe exec, int index)
+void	cleanup_here_doc_rl_clear_hist_and_reset_signal(t_minishell *mshell,
+		t_pipe exec, int index)
 {
 	int	j;
 
-	while (minishell->pipex[++index].infiles != NULL)
+	while (mshell->pipex[++index].infiles != NULL)
 	{
 		j = 0;
-		while (minishell->pipex[index].infiles[j].value)
+		while (mshell->pipex[index].infiles[j].value)
 		{
-			if (minishell->pipex[index].infiles[j].type == T_HEREDOC)
+			if (mshell->pipex[index].infiles[j].type == T_HEREDOC)
 			{
-				if (exec.fd_infile.fd != minishell->pipex[index].infiles[j].fd
-					&& exec.fd_outfile.fd != minishell->pipex[index].infiles[j].fd)
-					ft_close(&minishell->pipex[index].infiles[j].fd);
+				if (exec.fd_infile.fd != mshell->pipex[index].infiles[j].fd
+					&& exec.fd_outfile.fd != mshell->pipex[index].infiles[j].fd)
+					ft_close(&mshell->pipex[index].infiles[j].fd);
 				else
-					minishell->pipex[index].infiles[j].fd = -1;
+					mshell->pipex[index].infiles[j].fd = -1;
 			}
 			j++;
 		}
 	}
 	rl_clear_history();
+	setup_signals_child();
 }
 
 void	close_2_fds(int *fd, int *fd2)

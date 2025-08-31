@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:47:25 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int	wait_child(t_minishell *minishell, int status, int pid)
 		minishell->count_pipee--;
 	}
 	pidvalue = wait(&statuetemp);
-	if (WIFSIGNALED(statuetemp))
-		check_sig(statuetemp);
 	while (pidvalue > 0)
 	{
 		if (pidvalue == pid)
@@ -123,7 +121,7 @@ int	ft_pipex(t_minishell *minishell)
 	if (minishell->pids == NULL)
 		return (ft_putstr_fd("Error Malloc\n", 2));
 	if (set_path_env(&exec, minishell->env) == 1)
-		return (finish(&exec, minishell, status, "Error Malloc"));
+		return (finish(&exec, minishell, 10, "Error Malloc"));
 	if (pipe(exec.pipe) == -1)
 		return (finish(&exec, minishell, status, "Error pipe"));
 	ft_loop_pipe(minishell, &exec, -1);

@@ -6,11 +6,10 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 18:22:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:56:01 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:58:50 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "libft.h"
 #include "pipex.h"
 #include "use_free.h"
@@ -70,8 +69,7 @@ int	execve_next(t_minishell *minishell, t_pipe *exec, int i, int return_exec)
 		error_fork_or_pipe(exec, minishell, new_pipe, 0);
 	if (pid == 0)
 	{
-		close_other_here_doc_and_rl_clear_history(minishell, *exec, i);
-		setup_signals_child();
+		cleanup_here_doc_rl_clear_hist_and_reset_signal(minishell, *exec, i);
 		if (exec->error == 0)
 			return_exec = run_execve_next(minishell, exec, new_pipe, i);
 		if (exec->fd_infile.value == NULL)

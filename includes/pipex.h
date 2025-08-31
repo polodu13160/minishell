@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/20 03:56:01 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:55:06 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		dup_infile_and_outfile_builtin_no_child(t_pipe *exec,
 int		if_is_only_space_or_point(t_minishell *minishell, int i);
 int		message_error_output(t_minishell *minishell, t_pipe *exec,
 			int value_return, char *cmd);
-void	close_other_here_doc_and_rl_clear_history(t_minishell *minishell, t_pipe exec, int index);
+void	cleanup_here_doc_rl_clear_hist_and_reset_signal(t_minishell *minishell,
+			t_pipe exec, int index);
 
 #endif

@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "pipex.h"
 #include "token.h"
 #include <fcntl.h>
 #include <stdlib.h>
-#include "libft.h"
 
 int	check_command(t_token *tokens, int i, t_minishell *minishell)
 {
@@ -102,8 +102,8 @@ int	check_here_doc(t_token *tokens, int i, t_minishell *minishell)
 		name_here_doc = create_name_here_doc(0);
 		if (name_here_doc == NULL)
 			return (5);
-		save_text = open(name_here_doc, O_WRONLY | O_CREAT, 0644);
-		read_text = open(name_here_doc, O_RDONLY, 0644);
+		save_text = open(name_here_doc, O_WRONLY | O_CREAT, 0666);
+		read_text = open(name_here_doc, O_RDONLY, 0666);
 		free(tokens[i].value);
 		tokens[i].value = name_here_doc;
 		if (save_text == -1 || read_text == -1)

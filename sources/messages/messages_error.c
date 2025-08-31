@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/18 13:14:20 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:00:28 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ int	message_error(char *first_message, char *last_message)
 	last_message = ft_strjoin(last_message, "\n");
 	if (last_message == NULL)
 	{
-		perror("malloc error");
+		perror("Error Malloc");
 		return (1);
 	}
 	first_message = ft_strjoin(first_message, last_message);
 	if (first_message == NULL)
 	{
 		free(last_message);
-		perror("malloc error");
+		perror("Error Malloc");
 		return (1);
 	}
 	ft_putstr_fd(first_message, 2);

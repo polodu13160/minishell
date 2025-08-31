@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 23:08:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:46:29 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,29 @@
 
 void	declare_readline(t_minishell *minishell)
 {
+	char	*itoa;
+	char	*itoa_join;
+
+	itoa = ft_itoa(minishell->return_command);
+	itoa_join = ft_strjoin3("\033[1;32m [", itoa, "] \033[0m");
+	if (itoa != NULL)
+		free(itoa);
 	if (minishell->cwd == NULL)
 		minishell->cwd = getcwd(NULL, 0);
 	if (minishell->cwd)
-		minishell->cwd_join = ft_strjoin(minishell->cwd, "$> ");
+		minishell->cwd_join = ft_strjoin3(minishell->cwd, itoa_join, "$> ");
+	if (itoa_join != NULL)
+		free(itoa_join);
 	if (minishell->cwd_join == NULL)
 	{
 		free_tab(minishell->env);
-		free_value(minishell->cwd, "cwd error", 1, 1);
+		free_value(minishell->cwd, "Join Error", 1, 1);
+		minishell->return_command = 1;
+		free_exit(minishell->tokens, minishell, NULL, 0);
 	}
 	minishell->line = readline(minishell->cwd_join);
+	if (minishell->line == NULL)
+		minishell->return_command = 1;
 	if (minishell->line == NULL)
 		free_exit(minishell->tokens, minishell, NULL, 0);
 }
