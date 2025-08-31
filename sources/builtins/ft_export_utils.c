@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:51:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:50:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:42:11 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int	exist_return(char *str, int exists, t_minishell *minishell)
 {
 	char	*temp;
-	int		i;
 
 	if (ft_strchr(str, '=') == NULL)
 		return (1);
@@ -26,7 +25,6 @@ int	exist_return(char *str, int exists, t_minishell *minishell)
 		return (2);
 	free(minishell->env[exists]);
 	minishell->env[exists] = temp;
-	i = 0;
 	return (1);
 }
 

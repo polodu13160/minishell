@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:50:18 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:42:44 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_ascii_command(char *str)
 		return (0);
 	while (*str)
 	{
-		if (*str < 0 || *str > 127)
+		if (*str < 0 || *str > 126)
 			return (1);
 		str++;
 	}

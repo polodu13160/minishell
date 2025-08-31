@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_outfiles.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:52:59 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/31 16:06:00 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:42:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ int	join_tab_outfiles(t_token *tokens, int limit_pipee,
 
 t_token	*store_outfiles(t_token *tokens, int limit_pipee)
 {
-	int		count_pipee;
 	int		i_count_outfiles;
 	int		last_index_malloc_outfiles;
 	t_token	*malloc_outfiles;
 
-	count_pipee = 0;
 	i_count_outfiles = count_outfiles(tokens, limit_pipee);
 	malloc_outfiles = ft_calloc(i_count_outfiles + 1, sizeof(t_token));
 	if (malloc_outfiles == NULL)

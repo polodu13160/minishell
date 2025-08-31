@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:53:06 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:38:20 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:42:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	*get_env_value_loop(char *var_name, t_minishell *minishell,
 
 char	*get_env_value(char *var_name, t_minishell *minishell)
 {
-	int		i;
 	size_t	name_len;
 	char	*env_value;
 
@@ -83,7 +82,6 @@ char	*get_env_value(char *var_name, t_minishell *minishell)
 	name_len = ft_strlen(var_name);
 	if (name_len == 0)
 		return (ft_strdup("$"));
-	i = -1;
 	if (name_len == 1 && ft_strcmp("?", var_name) == 0)
 		return (ft_itoa(minishell->return_command));
 	return (get_env_value_loop(var_name, minishell, name_len, env_value));

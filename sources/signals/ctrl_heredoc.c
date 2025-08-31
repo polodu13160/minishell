@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:09:19 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/07 22:24:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/08/31 19:01:09 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-void	check_sig(int statuetemp)
+int	check_sig(int statuetemp)
 {
 	int	sig;
 
@@ -33,7 +33,9 @@ void	check_sig(int statuetemp)
 		sig = WTERMSIG(statuetemp);
 		if (sig == SIGQUIT)
 			write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+		return (1);
 	}
+	return (0);
 }
 
 void	handle_sigint_heredoc(int signal)

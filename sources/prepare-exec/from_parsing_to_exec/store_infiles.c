@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_infiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:31:36 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/31 16:05:08 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:42:38 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,7 @@ t_token	*store_infiles(t_token *tokens, int limit_pipee)
 	int		i_count_infiles;
 	int		last_index_malloc_infiles;
 	t_token	*malloc_infiles;
-	int		i;
 
-	i = 0;
 	i_count_infiles = count_infiles(tokens, limit_pipee);
 	malloc_infiles = ft_calloc(i_count_infiles + 1, sizeof(t_token));
 	if (malloc_infiles == NULL)
@@ -95,6 +93,5 @@ t_token	*store_infiles(t_token *tokens, int limit_pipee)
 	last_index_malloc_infiles = join_tab_infiles(tokens, limit_pipee,
 			malloc_infiles, 0);
 	malloc_infiles[last_index_malloc_infiles].value = NULL;
-	i = 0;
 	return (malloc_infiles);
 }

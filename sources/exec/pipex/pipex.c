@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/31 16:47:25 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 19:03:28 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	wait_child(t_minishell *minishell, int status, int pid)
 {
 	int		statuetemp;
 	pid_t	pidvalue;
+	static int coredumped = 0;
 
 	pid = minishell->pids[minishell->count_pipee];
 	minishell->count_pipee--;
@@ -45,6 +46,8 @@ int	wait_child(t_minishell *minishell, int status, int pid)
 	pidvalue = wait(&statuetemp);
 	while (pidvalue > 0)
 	{
+		if (coredumped == 0 && check_sig(statuetemp) == 1)
+			coredumped = 1;
 		if (pidvalue == pid)
 			status = statuetemp;
 		pidvalue = wait(&statuetemp);
