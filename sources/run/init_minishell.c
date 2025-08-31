@@ -6,12 +6,13 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:11:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/31 16:46:29 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:40:17 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "use_free.h"
+#include <errno.h>
 #include <libft.h>
 #include <readline/readline.h>
 #include <stdlib.h>
@@ -27,8 +28,7 @@ void	declare_readline(t_minishell *minishell)
 		free(itoa);
 	if (minishell->cwd == NULL)
 		minishell->cwd = getcwd(NULL, 0);
-	if (minishell->cwd)
-		minishell->cwd_join = ft_strjoin3(minishell->cwd, itoa_join, "$> ");
+	minishell->cwd_join = ft_strjoin3(minishell->cwd, itoa_join, "$> ");
 	if (itoa_join != NULL)
 		free(itoa_join);
 	if (minishell->cwd_join == NULL)
@@ -40,7 +40,8 @@ void	declare_readline(t_minishell *minishell)
 	}
 	minishell->line = readline(minishell->cwd_join);
 	if (minishell->line == NULL)
-		minishell->return_command = 1;
+		if (errno != 0)
+			minishell->return_command = 1;
 	if (minishell->line == NULL)
 		free_exit(minishell->tokens, minishell, NULL, 0);
 }
