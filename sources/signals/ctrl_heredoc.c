@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:09:19 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/31 19:01:09 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:25:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	check_sig(int statuetemp)
 	{
 		sig = WTERMSIG(statuetemp);
 		if (sig == SIGQUIT)
+		{
 			write(STDERR_FILENO, "Quit (core dumped)\n", 19);
-		return (1);
+			return (1);
+		}
 	}
 	return (0);
 }

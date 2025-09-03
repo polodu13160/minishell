@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:29:23 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/31 19:01:15 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:19:13 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void							setup_signals_child(void);
 void							handle_sigint_child(int signal);
 void							handle_sigint_heredoc(int signal);
 void							setup_signals_heredoc(void);
-int							check_sig(int statuetemp);
+int								check_sig(int statuetemp);
 int								check_interrupt(void);
 void							check_sig_main(t_minishell *minishell);
 

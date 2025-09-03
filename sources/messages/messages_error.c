@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 05:00:11 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/31 17:42:56 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:19:00 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	minishell_ctrl_c(t_minishell *minishell)
 
 int	print_error(t_minishell *minishell, t_token *tokens, int i, int error)
 {
-
 	minishell->return_command = 2;
 	if (error == 130)
 		return (minishell_ctrl_c(minishell));

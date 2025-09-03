@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/31 16:55:06 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:33:10 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		execve_builtin_no_child(t_minishell *minishell, t_pipe *exec,
 int		execve_builtin_first(t_minishell *minishell, t_pipe *exec);
 int		execve_builtin_next(t_minishell *minishell, t_pipe *exec, int i,
 			int return_exec);
-int		wait_child(t_minishell *minishell, int status, int pid);
+int		wait_child(t_minishell *minishell, int status, int pid, int coredumped);
 void	error_fork_or_pipe(t_pipe *exec, t_minishell *minishell, int *new_pipe,
 			int ifpipe);
 void	close_2_fds(int *fd, int *fd2);

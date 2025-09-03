@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/31 19:03:28 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:32:58 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	init_exec(t_pipe *exec, char **env)
 	exec->fd_outfile.fd = -1;
 }
 
-int	wait_child(t_minishell *minishell, int status, int pid)
+int	wait_child(t_minishell *minishell, int status, int pid, int coredumped)
 {
 	int		statuetemp;
 	pid_t	pidvalue;
-	static int coredumped = 0;
 
+	coredumped = 0;
 	pid = minishell->pids[minishell->count_pipee];
 	minishell->count_pipee--;
 	while (pid == -1 && minishell->count_pipee != -1)
@@ -128,7 +128,7 @@ int	ft_pipex(t_minishell *minishell)
 	if (pipe(exec.pipe) == -1)
 		return (finish(&exec, minishell, status, "Error pipe"));
 	ft_loop_pipe(minishell, &exec, -1);
-	wait_child(minishell, 0, 0);
+	wait_child(minishell, 0, 0, 0);
 	status = minishell->return_command;
 	finish(&exec, minishell, status, NULL);
 	return (0);

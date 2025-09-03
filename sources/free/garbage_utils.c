@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:02:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/31 17:42:50 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:18:56 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "readline/readline.h"
 #include "stdlib.h"
 #include "use_free.h"
-#include "libft.h"
 
 int	finish(t_pipe *exec, t_minishell *minishell, int status, char *message)
 {
@@ -27,7 +27,6 @@ int	finish(t_pipe *exec, t_minishell *minishell, int status, char *message)
 
 int	free_all(t_token *tokens, t_minishell *structure, int end)
 {
-
 	if (tokens)
 		free_token(tokens);
 	if (structure->line)
