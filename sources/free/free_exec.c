@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "readline/readline.h"
 #include "use_free.h"
 #include <stdlib.h>
-#include "readline/readline.h"
 
 void	free_exec(t_pipe *exec)
 {
@@ -34,35 +34,6 @@ void	free_exec(t_pipe *exec)
 			exec->path_args = NULL;
 		}
 	}
-}
-
-void	free_env(t_minishell *minishell)
-{
-	int	i;
-
-	i = 0;
-	if (minishell->env)
-	{
-		while (minishell->env[i])
-		{
-			free(minishell->env[i]);
-			i++;
-		}
-		free(minishell->env);
-		minishell->env = NULL;
-	}
-}
-
-int	garbage_token_collector(t_token *token, int i)
-{
-	while (i >= 0)
-	{
-		if (token[i].value)
-			free(token[i].value);
-		token[i].value = NULL;
-		i--;
-	}
-	return (1);
 }
 
 void	free_pipex(t_minishell *minishell, int end, int i)
@@ -106,4 +77,21 @@ void	finish_child(t_minishell *minishell, t_pipe *exec, int exit_return)
 	if (minishell->cwd_join)
 		free(minishell->cwd_join);
 	exit(exit_return);
+}
+
+int	free_and_close(char *value1, int *save_text, int return_error)
+{
+	if (value1 != NULL)
+		free(value1);
+	ft_close(save_text);
+	return (return_error);
+}
+
+void	free_value(void *value, char *text, int perrorornot, int exitornot)
+{
+	free(value);
+	if (perrorornot == 1)
+		perror(text);
+	if (exitornot == 1)
+		exit(1);
 }

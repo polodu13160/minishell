@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_with_free.c                                  :+:      :+:    :+:   */
+/*   free_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 04:56:12 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:43:14 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:40:41 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "stdlib.h"
 
-int	free_and_close(char *value1, int *save_text, int return_error)
+void	free_env(t_minishell *minishell)
 {
-	if (value1 != NULL)
-		free(value1);
-	ft_close(save_text);
-	return (return_error);
+	int	i;
+
+	i = 0;
+	if (minishell->env)
+	{
+		while (minishell->env[i])
+		{
+			free(minishell->env[i]);
+			i++;
+		}
+		free(minishell->env);
+		minishell->env = NULL;
+	}
 }
 
-void	free_value(void *value, char *text, int perrorornot, int exitornot)
+int	free_tokens_parsing(t_token *token, int i)
 {
-	free(value);
-	if (perrorornot == 1)
-		perror(text);
-	if (exitornot == 1)
-		exit(1);
+	while (i >= 0)
+	{
+		if (token[i].value)
+			free(token[i].value);
+		token[i].value = NULL;
+		i--;
+	}
+	return (1);
 }

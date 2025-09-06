@@ -58,9 +58,9 @@ FILES =  builtins/cd \
        prepare-exec/from_parsing_to_exec/prepare_to_pipex \
        run/init_minishell \
        run/run_minishell \
-       free/error_with_free \
-       free/garbage_collector \
-       free/garbage_utils \
+       free/free_parsing \
+       free/free_exec \
+       free/free_all \
        messages/messages_builtins \
        messages/messages_error \
        main \
