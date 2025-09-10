@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 21:07:56 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/09/03 15:32:58 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:51:35 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_exec(t_pipe *exec, char **env)
 
 int	wait_child(t_minishell *minishell, int status, int pid, int coredumped)
 {
-	int		statuetemp;
+	int		statustemp;
 	pid_t	pidvalue;
 
 	coredumped = 0;
@@ -43,14 +43,14 @@ int	wait_child(t_minishell *minishell, int status, int pid, int coredumped)
 		pid = minishell->pids[minishell->count_pipee];
 		minishell->count_pipee--;
 	}
-	pidvalue = wait(&statuetemp);
+	pidvalue = wait(&statustemp);
 	while (pidvalue > 0)
 	{
-		if (coredumped == 0 && check_sig(statuetemp) == 1)
+		if (coredumped == 0 && check_sig(statustemp) == 1)
 			coredumped = 1;
 		if (pidvalue == pid)
-			status = statuetemp;
-		pidvalue = wait(&statuetemp);
+			status = statustemp;
+		pidvalue = wait(&statustemp);
 	}
 	if (WIFSIGNALED(status))
 		minishell->return_command = 128 + WTERMSIG(status);

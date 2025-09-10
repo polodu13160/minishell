@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:13:20 by pde-petr          #+#    #+#             */
-/*   Updated: 2025/09/03 15:33:10 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:29:29 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int		set_path_env(t_pipe *exec, char **env);
 
 int		add_slash_to_env(t_pipe *exec);
 int		set_path_env(t_pipe *exec, char **env);
-void	command_return_for_minishell(int statuetemp, t_minishell *minishell,
-			pid_t pidvalue);
 int		perr_exec_error(char *value, t_pipe *exec, int no_ambigous);
 
 int		check_perm_infiles(t_minishell *minishell, int i, int j, t_pipe *exec);
