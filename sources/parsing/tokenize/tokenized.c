@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:53:35 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:18:04 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "use_free.h"
+#include "libft.h"
 #include "stdlib.h"
 #include "token.h"
-#include "libft.h"
+#include "use_free.h"
 
 static int	process_token(char *str, t_token *token, t_parse_data *data)
 {
@@ -53,7 +53,9 @@ static void	init_data(t_parse_data *data)
 int	check_args(char *str, t_token *token, int count)
 {
 	t_parse_data	data;
+	int				error;
 
+	error = 0;
 	init_data(&data);
 	while (str[data.i] && data.token_index < count)
 	{
@@ -63,8 +65,9 @@ int	check_args(char *str, t_token *token, int count)
 		if (!data.in_dquote && !data.in_squote && (str[data.i] == '|'
 				|| str[data.i] == '<' || str[data.i] == '>'))
 		{
-			if (is_special_token(str, &data.i, &data.token_index, token))
-				return (1);
+			error = is_special_token(str, &data.i, &data.token_index, token);
+			if (error)
+				return (error);
 		}
 		else if (process_token(str, token, &data))
 			return (1);
@@ -85,10 +88,9 @@ void	init_data_token(t_token *token, int count)
 	}
 }
 
-int	tokenize(char *str, t_minishell *minishell)
+int	tokenize(char *str, t_minishell *minishell, int count)
 {
 	t_token	*tokens;
-	int		count;
 
 	count = count_tokens(str);
 	if (count == 0)
@@ -103,13 +105,8 @@ int	tokenize(char *str, t_minishell *minishell)
 		return (1);
 	}
 	tokens[count].type = T_NULL;
-	if (check_args(str, tokens, count))
-	{
-		free_token(tokens);
-		minishell->tokens = NULL;
-		minishell->return_command = 8;
+	if (check_token_args(str, tokens, count, minishell))
 		return (1);
-	}
 	minishell->tokens = tokens;
 	return (0);
 }

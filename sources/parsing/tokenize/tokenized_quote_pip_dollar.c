@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized_quote_pip_dollar.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:51:02 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:18:39 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 #include "libft.h"
+#include "use_free.h"
 
 int	is_pipe(char *str, int *i, int *token_index, t_token *token)
 {
@@ -39,5 +40,25 @@ int	is_dollar(char *str, int *i, int *token_index, t_token *token)
 		return (1);
 	token[*token_index].type = T_ENV;
 	(*token_index)++;
+	return (0);
+}
+
+int	check_token_args(char *str, t_token *tokens, int count,
+		t_minishell *minishell)
+{
+	int	error;
+
+	error = 0;
+	error = check_args(str, tokens, count);
+	if (error)
+	{
+		free_token(tokens);
+		minishell->tokens = NULL;
+		if (error == 2)
+			minishell->return_command = 2;
+		else
+			minishell->return_command = 8;
+		return (1);
+	}
 	return (0);
 }

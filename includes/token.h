@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:32:05 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/20 03:50:53 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:19:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	init_minishell_env(t_minishell *minishell, char **env, int ac,
 /* ************************************************************************** */
 
 int		count_tokens(char *str);
-int		tokenize(char *str, t_minishell *minishell);
+int		tokenize(char *str, t_minishell *minishell, int count);
+int		check_token_args(char *str, t_token *tokens, int count,
+			t_minishell *minishell);
 int		count_quote(char *str);
 void	init_data_token(t_token *token, int count);
 int		check_args(char *str, t_token *token, int count);

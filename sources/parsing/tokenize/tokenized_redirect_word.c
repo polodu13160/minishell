@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenized_redirect_word.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:24:17 by antbonin          #+#    #+#             */
-/*   Updated: 2025/08/18 12:49:49 by pde-petr         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:18:19 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 
 static int	is_redirect_in(char *str, int *i, int *token_index, t_token *token)
 {
+	if (str[*i + 1] && str[*i + 1] == '<' && str[*i + 2] && str[*i + 2] == '<')
+	{
+		ft_printf_fd(2, "syntax error near unexpected token `<<'\n");
+		return (2);
+	}
 	if (str[*i + 1] == '<')
 	{
 		token[*token_index].value = ft_strdup("<<");

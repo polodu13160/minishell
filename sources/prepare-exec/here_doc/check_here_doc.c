@@ -22,10 +22,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 	{
 		if (i == 0 || tokens[i + 1].value == NULL || tokens[i
 				+ 1].type == T_PIPE)
-		{
-			minishell->return_command = 1;
 			return (print_error(minishell, tokens, i, 1));
-		}
 	}
 	if (tokens[i].type == T_REDIRECT_IN || tokens[i].type == T_REDIRECT_OUT
 		|| tokens[i].type == T_HEREDOC || tokens[i].type == T_APPEND)
@@ -33,10 +30,7 @@ int	check_command(t_token *tokens, int i, t_minishell *minishell)
 		if (tokens[i + 1].value == NULL || (tokens[i + 1].type != T_WORD
 				&& tokens[i + 1].type != T_FUNC && tokens[i
 					+ 1].type != T_AMBIGOUS))
-		{
-			minishell->return_command = 1;
 			return (print_error(minishell, tokens, i, 1));
-		}
 	}
 	return (0);
 }
